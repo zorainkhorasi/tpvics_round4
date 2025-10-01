@@ -48,12 +48,12 @@
                                     if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
                                         $img = '<div class="swiper-slide">
                                                         <img class="img-fluid"
-                                                             src="https://vcoe1.aku.edu/tpvics_shruc_r3/api/uploads/' . $data->f01 . '"
+                                                             src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' . $data->f01 . '"
                                                              alt="' . $data->f01 . '">
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <img class="img-fluid"
-                                                             src="https://vcoe1.aku.edu/tpvics_shruc_r3/api/uploads/' . $data->f02 . '"
+                                                             src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' . $data->f02 . '"
                                                              alt="' . $data->f02 . '">
                                                     </div>';
                                     } else {
@@ -708,7 +708,7 @@
             editable: true,
             selectYears: true,
             selectMonths: true,
-            max: [2023,11,31],
+            max: [2026,11,31],
             disable: [
                 [2020, 7, 1],
                 [2020, 8, 28]

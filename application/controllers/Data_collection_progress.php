@@ -83,6 +83,7 @@ class Data_collection_progress extends CI_controller
                     if ($k == $i) {
                         $data['completed'][$dist_name] = 0;
                         $data['r'][$dist_name] = 0;
+                        $data['ip'][$dist_name] = 0;
                     }
                 }
             } else {
@@ -90,27 +91,37 @@ class Data_collection_progress extends CI_controller
                     foreach ($dist_array as $key => $dist_name) {
                         $data['completed'][$dist_name] = 0;
                         $data['r'][$dist_name] = 0;
+                        $data['ip'][$dist_name] = 0;
                     }
                 }
             }
             $data['completed']['total'] = 0;
             $data['r']['total'] = 0;
+            $data['ip']['total'] = 0;
             foreach ($completedClusters_district as $row) {
                 $ke = $row->provinceId;
                 foreach ($dist_array as $key => $dist_name) {
                     if ($ke == $key) {
-                        if ($row->hh_collected >= 13) {
+                        if ($row->hh_collected >= 13 && $row->sampled==1) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
+                        }elseif($row->hh_collected < 13  &&  $row->hh_collected > 0 && $row->sampled==1) {
+                            $data['ip'][$dist_name]++;
+                            $data['ip']['total']++;
                         } else {
-                            $data['r'][$dist_name]++;
-                            $data['r']['total']++;
+                            if( $row->sampled==1 &&  $row->hh_collected == 0){
+                                $data['r'][$dist_name]++;
+                                $data['r']['total']++;
+                            }
+
                         }
                     }
                 }
             }
 
 
+
+      //     echo '<pre>';print_r($data);die;
 
             $this->load->view('include/header');
             $this->load->view('include/top_header');
@@ -213,31 +224,42 @@ class Data_collection_progress extends CI_controller
                 foreach ($dist_array as $k => $dist_name) {
                     $data['completed'][$dist_name] = 0;
                     $data['r'][$dist_name] = 0;
+                    $data['ip'][$dist_name] = 0;
                 }
             } else {
                 for ($i = 1; $i <= 9; $i++) {
                     foreach ($dist_array as $key => $dist_name) {
                         $data['completed'][$dist_name] = 0;
                         $data['r'][$dist_name] = 0;
+                        $data['ip'][$dist_name] = 0;
                     }
                 }
             }
             $data['completed']['total'] = 0;
             $data['r']['total'] = 0;
+            $data['ip']['total'] = 0;
+
             foreach ($completedClusters_district as $row) {
                 $ke = $row->provinceId;
                 foreach ($dist_array as $key => $dist_name) {
                     if ($ke == $key) {
-                        if ($row->hh_collected >= 13) {
+                        if ($row->hh_collected >= 13 && $row->sampled==1) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
+                        }elseif($row->hh_collected < 13  &&  $row->hh_collected > 0 && $row->sampled==1) {
+                            $data['ip'][$dist_name]++;
+                            $data['ip']['total']++;
                         } else {
-                            $data['r'][$dist_name]++;
-                            $data['r']['total']++;
+                            if( $row->sampled==1 &&  $row->hh_collected == 0){
+                                $data['r'][$dist_name]++;
+                                $data['r']['total']++;
+                            }
+
                         }
                     }
                 }
             }
+
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -286,7 +308,9 @@ class Data_collection_progress extends CI_controller
                 $cluster_type = substr($district_cluster_type, 3, 1);
             }
 
-            if ($cluster_type == 't' || $cluster_type == 'c' || $cluster_type == 'r' || $cluster_type == 'i') {
+         //   echo $cluster_type;die;
+
+            if ($cluster_type == 't' || $cluster_type == 'c' || $cluster_type == 'p' || $cluster_type == 'i') {
                 $data['get_linelisting_table'] = $MData_collection->get_data_collection_rand_table($district, $cluster_type, $sub_district);
             } else {
                 $data['get_linelisting_table'] = $MData_collection->get_data_collection_rand_table($district, 'r', $sub_district);

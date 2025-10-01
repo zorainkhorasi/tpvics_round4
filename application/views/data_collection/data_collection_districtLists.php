@@ -86,80 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-12">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-end">
-                                <h4 class="mb-0">Randomized Clusters</h4>
-                            </div>
-                            <div class="card-content">
-                                <div class="card-body py-0">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-12 d-flex flex-column flex-wrap text-center">
-                                            <?php
-                                            /* echo '<pre>';
-                                             print_r($randomization);
-                                             echo '</pre>';
-                                             exit();*/
-                                            if (!isset($randomization['total']) || $randomization['total'] == '') {
-                                                $randomization['total'] = 0;
-                                            }
-                                            $perc_r = ($randomization['total'] / $totalcluster['total']) * 100;
-                                            echo '<input type="hidden" id="r_percentage" value="' . $perc_r . '">'; ?>
-                                            <h1 class="font-large-2 text-bold-700 mt-2 mb-0">
-                                                <?php echo $randomization['total'] ?>
-                                            </h1>
-                                            <small>Clusters</small>
-                                        </div>
-                                        <div class="col-sm-12 col-12 d-flex justify-content-center">
-                                            <div id="remaining-chart" class="mt-75"></div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="card-body">
-                                    <?php if (isset($randomization) && $randomization != '') {
-                                        $s = 0;
-                                        foreach ($randomization as $k => $d) {
-                                            if ($k != 'total') {
-                                                if (!isset($d) || $d == '') {
-                                                    $d = 0;
-                                                    $t = 0;
-                                                }
-                                                $id = 0;
-                                                foreach ($totalcluster['list'] as $tk => $dis) {
-                                                    if ($tk == $k) {
-                                                        $t = $dis['clusters_by_district'];
-                                                        $id = $dis['id'];
-                                                    }
-                                                }
-                                                $perc = ($d / $t) * 100;
-                                                ?>
-                                                <a href="<?php echo base_url('index.php/Data_collection_progress/dc_dt/d' . substr($id, 0, 1) . '_r/s' . $id . '_r') ?>">
-                                                    <div class="d-flex justify-content-between mb-25">
-                                                        <div class="browser-info">
-                                                            <p class="mb-25"><?php echo $k; ?> </p>
-                                                        </div>
-                                                        <div class="stastics-info text-right">
-                                                            <span><?php echo $d; ?> <small>(<?php echo number_format($perc,0); ?>%)</small></span>
-
-                                                        </div>
-
-                                                    </div>
-                                                </a>
-                                                <div class="progress progress-bar-<?php echo $colors[$s] ?> mb-2">
-                                                    <div class="progress-bar" role="progressbar"
-                                                         aria-valuenow="<?php echo $perc; ?>"
-                                                         aria-valuemin="<?php echo $perc; ?>" aria-valuemax="100"
-                                                         style="width:<?php echo $perc; ?>%"></div>
-                                                </div>
-                                                <?php $s++;
-                                            }
-                                        }
-                                    } ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-3 col-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between pb-0">
@@ -230,7 +157,81 @@
                     <div class="col-lg-3 col-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-end">
-                                <h4 class="mb-0">InProgress Clusters</h4>
+                                <h4 class="mb-0">In Progress Clusters</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body py-0">
+                                    <div class="row">
+                                        <div class="col-sm-2 col-12 d-flex flex-column flex-wrap text-center">
+                                            <?php
+                                            /* echo '<pre>';
+                                             print_r($ip);
+                                             echo '</pre>';
+                                             exit();*/
+                                            if (!isset($ip['total']) || $ip['total'] == '') {
+                                                $ip['total'] = 0;
+                                            }
+                                            $perc_r = ($ip['total'] / $totalcluster['total']) * 100;
+                                            echo '<input type="hidden" id="r_percentage" value="' . $perc_r . '">'; ?>
+                                            <h1 class="font-large-2 text-bold-700 mt-2 mb-0">
+                                                <?php echo $ip['total'] ?>
+                                            </h1>
+                                            <small>Clusters</small>
+                                        </div>
+                                        <div class="col-sm-12 col-12 d-flex justify-content-center">
+                                            <div id="remaining-chart" class="mt-75"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <?php if (isset($ip) && $ip != '') {
+                                        $s = 0;
+                                        foreach ($ip as $k => $d) {
+                                            if ($k != 'total') {
+                                                if (!isset($d) || $d == '') {
+                                                    $d = 0;
+                                                    $t = 0;
+                                                }
+                                                $id = 0;
+                                                foreach ($totalcluster['list'] as $tk => $dis) {
+                                                    if ($tk == $k) {
+                                                        $t = $dis['clusters_by_district'];
+                                                        $id = $dis['id'];
+                                                    }
+                                                }
+                                                $perc = ($d / $t) * 100;
+                                                ?>
+                                                <a href="<?php echo base_url('index.php/Data_collection_progress/dc_dt/d' . substr($id, 0, 1) . '_p/s' . $id . '') ?>">
+                                                    <div class="d-flex justify-content-between mb-25">
+                                                        <div class="browser-info">
+                                                            <p class="mb-25"><?php echo $k; ?> </p>
+                                                        </div>
+                                                        <div class="stastics-info text-right">
+                                                            <span><?php echo $d; ?> <small>(<?php echo number_format($perc,0); ?>%)</small></span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </a>
+                                                <div class="progress progress-bar-<?php echo $colors[$s] ?> mb-2">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         aria-valuenow="<?php echo $perc; ?>"
+                                                         aria-valuemin="<?php echo $perc; ?>" aria-valuemax="100"
+                                                         style="width:<?php echo $perc; ?>%"></div>
+                                                </div>
+                                                <?php $s++;
+                                            }
+                                        }
+                                    } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-end">
+                                <h4 class="mb-0">Remaining Clusters</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body py-0">

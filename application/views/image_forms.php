@@ -647,10 +647,10 @@
                         if (response['data'] != '' && response['data'] != undefined && response['data'] != 0) {
                             $.each(response['data'], function (i, v) {
                                 items += '<div class="swiper-slide"> ' +
-                                    '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r3/api/uploads/' + v.f01 + '" alt="banner"> ' +
+                                    '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' + v.f01 + '" alt="banner"> ' +
                                     '</div>' +
                                     '<div class="swiper-slide"> ' +
-                                    '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r3/api/uploads/' + v.f02 + '" alt="banner"> ' +
+                                    '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' + v.f02 + '" alt="banner"> ' +
                                     '</div>';
 
                                 if (v.ec15 == 1) {

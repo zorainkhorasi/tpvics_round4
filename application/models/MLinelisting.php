@@ -232,7 +232,7 @@ sum(case when hh14 = '1'  then 1 else 0 end) as target_children,
 ( SELECT p.status FROM planning p WHERE p.cluster_no = c.cluster_no and  p.status!=0 group by p.status  ) AS planning 
                               from clusters c
                             left join listings l on c.cluster_no=l.hh01  AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
-                              where 1=1  $users
+                              where c.sampled=1 and  1=1  $users
                             
                              AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
                               $dist_where  $cluster_type_where $sysdate_where
