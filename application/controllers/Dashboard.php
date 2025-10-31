@@ -160,7 +160,7 @@ class Dashboard extends CI_controller
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
-            $this->load->view('linelisting', $data);
+            $this->load->view('linelisting_new', $data);
             $this->load->view('include/customizer');
             $this->load->view('include/footer');
             $track_msg = 'Success';

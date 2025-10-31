@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/pages/card-analytics.css">
 
 <!-- BEGIN: Content-->
-<div class="app-content content">
+<div style="    background-color: #fff9ec;" class="app-content content">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper">
