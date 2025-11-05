@@ -5,8 +5,154 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
+<link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE0x1lV0C1lV+8ABH3VyxhVZ1WTRi3GJf6tk3SVJQG8lrN8mA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+/>
 <style>
+
+    /* Variables for colors and properties (optional but good practice) */
+    :root {
+        --primary-color: #00796b; /* A deep teal/green color */
+        --secondary-color: #faebd7; /* Off-white/beige for the background */
+        --text-color: white;
+        --map-color: #ffaa00; /* Orange/Gold for the map */
+    }
+
+    .tpvics-header {
+        /* Main container styling */
+        width: 100%;
+        border-radius: 8px;
+
+        background-color: var(--color-card-main);
+
+        overflow: hidden; /* To contain the map section's shape */
+    }
+
+    .header-content {
+        display: flex;
+        align-items: stretch;
+        min-height: 150px; /* Adjust height of the header */
+    }
+
+    .text-section {
+        /* The main teal section */
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        padding: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 2; /* Ensure text is above the map area's triangular cut */
+        flex-grow: 1; /* Take up remaining space */
+    }
+
+    .icon-text {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .icon {
+        font-size: 30px;
+        margin-right: 10px;
+    }
+
+    .welcome-text {
+        font-size: 27px;
+        font-weight: 500;
+        color: #dcffed;
+        margin-bottom: 6px;
+        letter-spacing: 0.5px;
+    }
+
+    .main-title {
+        text-shadow: 2px 2px 12px rgb(30 30 30);
+        color: #ffffff;
+        font-size: 3.5em;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1;
+    }
+
+    /* Creating the diagonal cut effect on the right of the text section */
+    .text-section::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        /* Adjust size to control the arrow head shape */
+        border-top: 75px solid transparent;
+        border-bottom: 75px solid transparent;
+        border-left: 50px solid var(--primary-color);
+        /* To create the pointed tip, this needs to overlay the map section */
+        transform: translateX(100%);
+        z-index: 3;
+    }
+
+
+    .map-section {
+        /* The beige section for the map */
+        background-color:#fff8ed;
+        width: 300px; /* Fixed width for the map area */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+    }
+
+    /* Creating the outer arrow shape for the entire header */
+    .map-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* Create the beige part of the arrow head */
+        border-top: 75px solid transparent;
+        border-bottom: 75px solid transparent;
+        border-right: 50px solid var(--secondary-color); /* Matches background */
+        transform: translateX(-100%);
+        z-index: 1;
+    }
+
+
+    /* Map Styling - Using a simple SVG as a placeholder */
+    .pakistan-map {
+        width: 150px;
+        height: auto;
+        filter: drop-shadow(0 0px 0px rgba(0, 0, 0, 0.1))
+    }
+
+    .pakistan-map path {
+        fill: var(--map-color);
+    }
+
+    /* Optional: Adjust for smaller screens */
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            min-height: auto;
+        }
+
+        .text-section, .map-section {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .text-section::after, .map-section::before {
+            content: none; /* Remove complex shapes on mobile */
+        }
+
+        .main-title {
+            font-size: 2.5em;
+        }
+    }
+
     /* --- Global Variables --- */
     :root {
         --bg-dark-primary: #1a1a2e;
@@ -27,7 +173,7 @@
         --color-chart-4: #a29bfe;
 
         /* Right Card Primary Color */
-        --color-card-main: #0c6a5c;;
+        --color-card-main: #1f8d8d;;
         --color-card-header-bg: #dbf3eea6;
         --color-card-text-dark: #8b8b8b;
         --color-card-progress-track: #f0f0f0;
@@ -73,19 +219,18 @@
 
     .chart-block {
         padding: 15px;
-        background: #22524f;
+        background: #fff8ed;
         position: relative;
         text-align: center;
-
         border-radius: 15px;
     }
 
     .block-title {
-        font-size: 20px;
-        font-weight: bold;
-        color: #73a79c;
-        margin-bottom: 10px;
+        font-size: 17px;
+        font-weight: 600;
+        color: #96cdc2;
         text-transform: uppercase;
+        justify-self: left;
     }
     .ucs-block-title{
         font-size: 20px;
@@ -171,8 +316,7 @@
     ;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--color-card-header-bg);
-        padding: 9px 16px;
+        background: linear-gradient(to left, #a7d1d1, #ffffff);        padding: 9px 16px;
     }
 
     .location-name-new {
@@ -295,11 +439,185 @@
     .bi{
         padding-right: 9px;
     }
+    /* Header container */
+    .animated-header {
+        background: #00796b;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        animation: fadeInDown 1.2s
+        ease-in-out;
+        flex-wrap: wrap;
+    }
+
+    .header-text {
+        flex: 1;
+    }
+
+    .main-heading {
+        font-size: 27px;
+        font-weight: 500;
+        color: #dcffed;
+        margin-bottom: 6px;
+        letter-spacing: 0.5px;
+    }
+
+    .sub-heading {
+        text-shadow: 2px 2px 12px rgb(30 30 30);
+        font-weight: bold;
+        line-height: 33px;
+        font-size: 47px;
+        color: #ffffff;
+    }
+
+    /* Pakistan map styling */
+    .header-map {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pakistan-map {
+        width: 160px;
+        height: auto;
+        animation: float 4s ease-in-out infinite;
+        filter: drop-shadow(0 0px 0px rgba(0, 0, 0, 0.1))
+    }
+
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+    }
+
+    @media (max-width: 768px) {
+        .pakistan-map {
+            width: 120px;
+            margin-top: 10px;
+        }
+    }
+    /* Variables for easy theme changes (kept the same) */
+    :root {
+        --main-color: #279f8e; /* Teal/Green color for the gradient and accents */
+        --text-color: #333;
+        --count-color: #000;
+    }
+
+    .ps-header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 60px;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Combined shadow to the main container */
+        border-radius: 5px;
+        overflow: hidden; /* Important for containing the gradient and count box */
+    }
+
+    .ps-state-info-bar {
+        display: flex
+    ;
+        align-items: center;
+        /* height: 137%; */
+        flex-grow: 1;
+
+    }
+
+    .ps-map-icon-wrapper {
+        width: 86px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(to top right, #fff8ed, #ffffff);
+        display: flex
+    ;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        left: -18px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+    }
+
+    /* Style for your dummy image within the circle */
+    .ps-dummy-map-image {
+        margin-right: -11px;
+        width: 71px;
+        height: auto;
+        border-radius: 50%;
+        clip-path: circle(40% at 50% 50%);
+    }
+
+    .ps-state-name-wrapper {
+        padding-left: 5px; /* Space after the map icon */
+        color: #fff; /* White text for the state name */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        /* Push the content far left to reveal the gradient transition */
+        flex-grow: 1;
+        /* Padding on the right to separate the text from the count box */
+        padding-right: 10px;
+
+
+        display: flex;                /* 1. Use Flexbox */
+        justify-content: space-between; /* 2. Push children to the edges */
+        align-items: center;          /* 3. Vertically align items */
+        width: 100%;
+    }
+
+    .ps-state-name {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .ps-total-count {
+        height: 100%;
+
+        display: flex
+    ;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5em;
+        font-weight: bold;
+        color: var(--count-color);
+        flex-shrink: 0;
+    }
 </style>
 
 <div  style="" class="app-content content">
 
     <div class="container-fluid dashboard-container" style="background: #fff8ed;    margin-top: 93px; ">
+      <div class="row">
+          <div class="col-12">
+              <div class="animated-header d-flex align-items-center justify-content-between mt-4">
+                  <!-- ===== HEADER ===== -->
+                  <header class="tpvics-header">
+                      <div class="header-content">
+                          <div class="text-section">
+                              <div class="icon-text">
+                                  <span class="icon"><i class="fa-solid fa-list"></i></span> <span class="welcome-text">Welcome to TPVICS</span>
+                              </div>
+                              <h1 class="main-title">LINELISTING</h1>
+                          </div>
+                          <div class="map-section">
+                              <img src="<?php echo base_url('assets/images/mapPAK.png'); ?>" alt="Pakistan Map" class="pakistan-map">
+                          </div>
+                      </div>
+                  </header>
+
+
+
+              </div>
+          </div>
+
+      </div>
+
+
+<BR>
+
         <div class="row">
 <!--            <div class="col-lg-3 pe-4" style="    padding: 43px;background: #fff8ed; ">-->
 <!---->
@@ -324,22 +642,10 @@
 
             <div class="col-lg-12 ps-4">
 
-                <div class="d-flex justify-content-between align-items-center mb-4 px-4 mt-4">
-                    <h3 class="line-listing-title mb-0">LINE LISTING</h3>
-                    <div class="d-flex">
-                        <input
-                                type="text"
-                                id="searchInput"
-                                class="form-control me-2 btn-search"
-                                placeholder="Search District..."
-                                style="width: 250px;"
-                        >
-                        <button id="searchButton" class="btn-search">SEARCH</button>
-                    </div>
-                </div>
 
 
-                <div id="districtCardsSection" class="row row-cols-1 row-cols-md-5 g-4 scrollable-card-container">
+
+                <div id="districtCardsSection" class="row row-cols-1 row-cols-md-4 g-4 scrollable-card-container">
 
                     <!-- PESHAWAR -->
                     <div class="col">
@@ -353,9 +659,19 @@
                     <!-- ISLAMABAD -->
                     <div class="col">
                         <div class="dashboard-card" data-district="ISLAMABAD">
-                            <div class="card-header-new">
-                                <div class="location-name-new">ISLAMABAD</div>
-                                <div class="count-value-new">250</div>
+                            <div class="ps-header-container">
+                                <div  style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/balochistanmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">Balochistan</span>
+                                        <span class="ps-total-count">302</span>
+                                    </div>
+                                </div>
+
                             </div>
                             <div id="Chart2" class="chart-container"></div>
 
@@ -403,9 +719,19 @@
                     <!-- LAHORE -->
                     <div class="col">
                         <div class="dashboard-card" data-district="LAHORE">
-                            <div class="card-header-new">
-                                <div class="location-name-new">LAHORE</div>
-                                <div class="count-value-new">300</div>
+                            <div class="ps-header-container">
+                                <div  style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/sindhmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">Sindh</span>
+                                        <span class="ps-total-count">302</span>
+                                    </div>
+                                </div>
+
                             </div>
                             <div id="Chart3" class="chart-container"></div>
 
@@ -453,9 +779,19 @@
                     <!-- KARACHI -->
                     <div class="col">
                         <div class="dashboard-card" data-district="KARACHI">
-                            <div class="card-header-new">
-                                <div class="location-name-new">KARACHI</div>
-                                <div class="count-value-new">450</div>
+                            <div class="ps-header-container">
+                                <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/punjabmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">Punjab</span>
+                                        <span class="ps-total-count">302</span>
+                                    </div>
+                                </div>
+
                             </div>
                             <div id="Chart4" class="chart-container"></div>
 
@@ -499,14 +835,29 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col">
+                        <h4 class="block-title">Total Province</h4>
+                        <div id="totalpro"></div>
+                    </div>
                     <!-- RAWALPINDI -->
                     <div class="col">
                         <div class="dashboard-card" data-district="RAWALPINDI">
-                            <div class="card-header-new">
-                                <div class="location-name-new">RAWALPINDI</div>
-                                <div class="count-value-new">200</div>
+                            <div class="ps-header-container">
+                                <div  style="  background: linear-gradient(to right, #3f5378 0%, #9eb2d5 35%, #deeaff 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/KPKmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">Khyber Pakhtunkhwa</span>
+                                        <span class="ps-total-count">302</span>
+                                    </div>
+                                </div>
+
                             </div>
+
+
                             <div id="Chart5" class="chart-container"></div>
                             <div class="progress-details">
                                 <div class="detail-row completed">
@@ -552,9 +903,19 @@
                     <!-- FAISALABAD -->
                     <div class="col">
                         <div class="dashboard-card" data-district="FAISALABAD">
-                            <div class="card-header-new">
-                                <div class="location-name-new">FAISALABAD</div>
-                                <div class="count-value-new">180</div>
+                            <div class="ps-header-container">
+                                <div style="background: linear-gradient(to right, #183703 0%, #6f8a67 35%, #e0f3da 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/gilitmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">Gilgit-Baltistan</span>
+                                        <span class="ps-total-count">302</span>
+                                    </div>
+                                </div>
+
                             </div>
                             <div id="Chart6" class="chart-container"></div>
                             <div class="progress-details">
@@ -601,9 +962,19 @@
                     <!-- MULTAN -->
                     <div class="col">
                         <div class="dashboard-card" data-district="MULTAN">
-                            <div class="card-header-new">
-                                <div class="location-name-new">MULTAN</div>
-                                <div class="count-value-new">150</div>
+                            <div class="ps-header-container">
+                                <div style="    background: linear-gradient(to right, #f77c7c 0%, #e19090 35%, #f4dfdf 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/Kashimirmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">AJK</span>
+                                        <span class="ps-total-count">302</span>
+                                    </div>
+                                </div>
+
                             </div>
                             <div id="Chart7" class="chart-container"></div>
                             <div class="progress-details">
@@ -647,246 +1018,7 @@
                         </div>
                     </div>
 
-                    <!-- QUETTA -->
-                    <div class="col">
-                        <div class="dashboard-card" data-district="QUETTA">
-                            <div class="card-header-new">
-                                <div class="location-name-new">QUETTA</div>
-                                <div class="count-value-new">90</div>
-                            </div>
-                            <div id="Chart8" class="chart-container"></div>
-                            <div class="progress-details">
-                                <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 30%;"></div>
-                                        </div>
-                                        <span class="percentage">30%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 50%;"></div>
-                                        </div>
-                                        <span class="percentage">50%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 20%;"></div>
-                                        </div>
-                                        <span class="percentage">20%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- GILGIT -->
-                    <div class="col">
-                        <div class="dashboard-card" data-district="GILGIT">
-                            <div class="card-header-new">
-                                <div class="location-name-new">GILGIT</div>
-                                <div class="count-value-new">75</div>
-                            </div>
-                            <div id="Chart9" class="chart-container"></div>
-                            <div class="progress-details">
-                                <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 65%;"></div>
-                                        </div>
-                                        <span class="percentage">65%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 10%;"></div>
-                                        </div>
-                                        <span class="percentage">10%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 25%;"></div>
-                                        </div>
-                                        <span class="percentage">25%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="dashboard-card" data-district="SKARDU">
-                            <div class="card-header-new">
-                                <div class="location-name-new">SKARDU</div>
-                                <div class="count-value-new">60</div>
-                            </div>
-                            <div id="Chart10" class="chart-container"></div>
-                            <div class="progress-details">
-                                <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 85%;"></div>
-                                        </div>
-                                        <span class="percentage">85%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 5%;"></div>
-                                        </div>
-                                        <span class="percentage">5%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 10%;"></div>
-                                        </div>
-                                        <span class="percentage">10%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="dashboard-card" data-district="HYDERABAD">
-                            <div class="card-header-new">
-                                <div class="location-name-new">HYDERABAD</div>
-                                <div class="count-value-new">350</div>
-                            </div>
-                            <div id="Chart11" class="chart-container"></div>
-                            <div class="progress-details">
-                                <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 55%;"></div>
-                                        </div>
-                                        <span class="percentage">55%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 35%;"></div>
-                                        </div>
-                                        <span class="percentage">35%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 10%;"></div>
-                                        </div>
-                                        <span class="percentage">10%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="dashboard-card" data-district="SIALKOT">
-                            <div class="card-header-new">
-                                <div class="location-name-new">SIALKOT</div>
-                                <div class="count-value-new">190</div>
-                            </div>
-                            <div id="Chart12" class="chart-container"></div>
-                            <div class="progress-details">
-                                <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 90%;"></div>
-                                        </div>
-                                        <span class="percentage">90%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 5%;"></div>
-                                        </div>
-                                        <span class="percentage">5%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 5%;"></div>
-                                        </div>
-                                        <span class="percentage">5%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
                 <div id="ucsSection" class="d-none">
@@ -909,8 +1041,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <script>
+        TotalProvince();
         districtprogress();
         totalprogress();
         function districtprogress(){
@@ -1026,7 +1160,7 @@
                         },
                     }
                 },
-                colors: ['#e5dec2', '#f4e5a1', '#f8e186', '#e6c04b'],
+                colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
                 labels: ['Total', 'Complete', 'In Progress', 'Pending'],
                 responsive: [{
                     breakpoint: 480,
@@ -1091,18 +1225,6 @@
                     { name: "UCS Skardu Road", progress: 65, completed: 65, ongoing: 10, remaining: 25 },
                     { name: "UCS Hunza Valley", progress: 80, completed: 80, ongoing: 5, remaining: 15 }
                 ],
-                SKARDU: [
-                    { name: "UCS Skardu Main", progress: 85, completed: 85, ongoing: 5, remaining: 10 },
-                    { name: "UCS Khaplu", progress: 90, completed: 90, ongoing: 5, remaining: 5 }
-                ],
-                HYDERABAD: [
-                    { name: "UCS Qasimabad", progress: 55, completed: 55, ongoing: 35, remaining: 10 },
-                    { name: "UCS Latifabad", progress: 60, completed: 60, ongoing: 25, remaining: 15 }
-                ],
-                SIALKOT: [
-                    { name: "UCS Sialkot City", progress: 90, completed: 90, ongoing: 5, remaining: 5 },
-                    { name: "UCS Pasrur", progress: 70, completed: 70, ongoing: 15, remaining: 15 }
-                ]
             };
 
             // ✅ Click handler for district cards
@@ -1204,6 +1326,63 @@
         document.getElementById("searchInput").addEventListener("keypress", e => {
             if (e.key === "Enter") document.getElementById("searchButton").click();
         });
+
+
+        // Place this script block at the end of your HTML body or in a dedicated JS file
+function TotalProvince(){
+    var options = {
+        series: [{
+            name: 'Province',
+            data: [44, 55, 57, 56, 61, 58]
+        }],
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+            },
+        },
+        colors: ['#81a8a8'],
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
+        },
+        yaxis: {
+            title: {
+                text: '$ (thousands)'
+            }
+        },
+        fill: {
+            opacity: 1
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "$ " + val + " thousands"
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#totalpro"), options);
+    chart.render();
+
+}
+
+
+
 
     </script>
 

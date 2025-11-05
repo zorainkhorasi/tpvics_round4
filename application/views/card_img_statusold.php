@@ -1,75 +1,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/vendors/css/charts/apexcharts.css">
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/pages/card-analytics.css">
-<style>
-    .summary-card {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        padding: 20px;
-        position: relative;
-        transition: 0.3s ease;
-        overflow: hidden;
-        text-align: left;
-    }
 
-    .summary-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    .summary-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 22px;
-        margin-bottom: 12px;
-    }
-
-    .summary-card h4 {
-        font-size: 16px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .summary-details {
-        display: flex;
-        justify-content: space-between;
-        font-size: 13px;
-        color: #666;
-        margin-top: 10px;
-    }
-
-    .summary-details span b {
-        color: #111;
-        font-weight: 600;
-    }
-
-    .progress-bar {
-        background: #f1f1f1;
-        height: 7px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .progress {
-        height: 100%;
-        border-radius: 10px;
-        transition: width 1s ease-in-out;
-    }
-
-    /* Gradients for Each Card */
-    .summary-card.blue .summary-icon { background: linear-gradient(135deg, #6db9ff, #1e88e5); }
-    .summary-card.green .summary-icon { background: linear-gradient(135deg, #6ee7b7, #10b981); }
-    .summary-card.red .summary-icon { background: linear-gradient(135deg, #fda4af, #ef4444); }
-    .summary-card.orange .summary-icon { background: linear-gradient(135deg, #fcd34d, #f59e0b); }
-
-</style>
 
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -103,7 +35,7 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-5 col-12">
+                                        <div class="col-sm-6 col-12">
                                             <div class="text-bold-600 font-medium-2">
                                                 District
                                             </div>
@@ -119,7 +51,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5 col-12">
+                                        <div class="col-sm-6 col-12">
                                             <div class="text-bold-600 font-medium-2">
                                                 UC
                                             </div>
@@ -129,16 +61,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <div class=" ">
-                                                <button type="button" class="btn btn-primary" onclick="searchData()">Get
-                                                    Data
-                                                </button>
-                                            </div>
-                                        </div>
+
 
                                     </div>
-
+                                    <div class=" ">
+                                        <button type="button" class="btn btn-primary" onclick="searchData()">Get
+                                            Data
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,92 +109,82 @@
                 echo '<input type="hidden" id="edited_hidden" value="' . $edited . '">';
                 ?>
                 <section id="statistics-card">
-                    <div class="row justify-content-center">
-
-                        <!-- Total Vacation Cards -->
-                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-                            <div class="summary-card blue">
-                                <div class="summary-icon">
-                                    <i class="fa-solid fa-suitcase"></i>
-                                </div>
-                                <h4>Total Vacation Cards</h4>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width:90%; background:#1e88e5;"></div>
-                                </div>
-                                <div class="summary-details">
-                                    <span>All Cards</span>
-                                    <span><b><?php echo $total; ?></b></span>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-3 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0"><?php echo $total; ?></h2>
+                                        <p>Total</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-success p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-list text-success font-medium-5"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards Viewed -->
-                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-                            <div class="summary-card green">
-                                <div class="summary-icon">
-                                    <i class="fa-solid fa-eye"></i>
-                                </div>
-                                <h4>Cards Viewed</h4>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width:75%; background:#10b981;"></div>
-                                </div>
-                                <div class="summary-details">
-                                    <span>Viewed</span>
-                                    <span><b><?php echo $scored; ?></b></span>
+                        <div class="col-lg-3 col-sm-3 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0"><?php echo $scored; ?></h2>
+                                        <p>Number of Cards Reviewed</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-info p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-file-text text-info font-medium-5"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards with Error -->
-                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-                            <div class="summary-card red">
-                                <div class="summary-icon">
-                                    <i class="fa-solid fa-triangle-exclamation"></i>
-                                </div>
-                                <h4>Cards with Error</h4>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width:25%; background:#ef4444;"></div>
-                                </div>
-                                <div class="summary-details">
-                                    <span>Errors Found</span>
-                                    <span><b><?php echo $errored; ?></b></span>
+                        <div class="col-lg-3 col-sm-3 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0"><?php echo $errored; ?></h2>
+                                        <p>Number of Cards with errors</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-danger p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-file-text text-danger font-medium-5"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cards Edited -->
-                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-                            <div class="summary-card orange">
-                                <div class="summary-icon">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </div>
-                                <h4>Cards Edited</h4>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width:50%; background:#f59e0b;"></div>
-                                </div>
-                                <div class="summary-details">
-                                    <span>Edited</span>
-                                    <span><b><?php echo $edited; ?></b></span>
+                        <div class="col-lg-3 col-sm-3 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0"><?php echo $edited; ?></h2>
+                                        <p>Number of Cards edited</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-warning p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-file-text text-warning font-medium-5"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
-
                 <section id="analytics-card">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-<!--                            <div class="card">-->
-<!--                                <div class="card-header">-->
-<!--                                    <h4 class="card-title">Status</h4>-->
-<!--                                </div>-->
-<!--                                <div class="card-content">-->
-<!--                                    <div class="card-body">-->
-<!--                                        <div id="chart" class="mx-auto"></div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Status</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div id="chart" class="mx-auto"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -544,11 +464,5 @@
 
     }
 
-    // Animate summary progress bars
-    $('.progress').each(function() {
-        const width = $(this).css('width');
-        $(this).css('width', '0');
-        setTimeout(() => $(this).css('width', width), 300);
-    });
 
 </script>

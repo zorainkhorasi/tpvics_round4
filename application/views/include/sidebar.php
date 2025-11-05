@@ -1,5 +1,5 @@
 <!-- BEGIN: Main Menu-->
-<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+<div style="background: #18403c" class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto"><a class="navbar-brand" href="<?php echo base_url() ?>">
@@ -15,8 +15,8 @@
         </ul>
     </div>
     <div class="shadow-bottom"></div>
-    <div class="main-menu-content">
-        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+    <div style="background: #18403c" class="main-menu-content">
+        <ul style=" background: #18403c" class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <!--<li class="nav-item dashboard_nav ">
                 <a href="<?php /*echo base_url() */?>">
                     <i class="feather icon-home"></i>
@@ -49,7 +49,7 @@
 
                 </ul>
             </li>-->
-            <li class=" nav-item">
+            <li style="background: #22524f" class=" nav-item">
                 <a href="javascript:void(0)" onclick="logout()">
                     <i class="feather icon-power"></i>
                     <span class="menu-title" data-i18n="Logout">Logout</span>

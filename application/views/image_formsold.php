@@ -1,395 +1,188 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/vendors/css/extensions/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/plugins/extensions/swiper.css">
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <style>
-    /* --- New UI base styles (kept from new UI) --- */
-    body {
-        background-color: #fff8ec;
-        font-family: "Poppins", sans-serif;
-    }
-
-    .dropdown-row {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-        justify-content: flex-start;
-        align-items: center;
-
-    }
-    .dropdown-row .select2-container--default .select2-selection--single { height: 40px; }
-    .dropdown-row select,
-    .dropdown-row .select2-selection--single {
-        border: 1px solid #ffffff;
-        padding: 7px 10px;
-        font-size: 14px;
-        color: #333;
-        min-width: 180px;
-    }
-    .dropdown-row select, .dropdown-row .select2-selection--single {
-        border: 1px solid #ffffff;!important;
-        border-radius: 52px;!important;
-        padding: 7px 10px;
-        font-size: 15px;
-        background-color: #f7ffff;
-        color: #0e8b86;
-        min-width: 200px;
-    }
-    .content-row {
-        display: flex;
-        gap: 20px;
-    }
-
-    .left-card {
-        flex: 0 0 65%;
-        background: #fff;
-        border: 1px solid #e3e3e3;
-        border-radius: 8px;
-        padding: 15px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-        min-height: 580px;
-    }
-
-    .card-header-new {
-        background: #91c5bf;
-        border-radius: 3px;
-        padding: 10px 9px;
-        font-weight: 600;
-        color: #ffffff;
-        display: flex
-    ;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 16px;
-        letter-spacing: 0.3px;
-    }
-
-    .card-header-new i {
-        color: #ffffff;
-        font-size: 33px;
-    }
-
-    .info-grid {
-        display: grid
-    ;
-        grid-template-columns: 3fr 1fr;
-        column-gap: 15px;
-        margin-top: 12px;
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    .info-left p, .info-right p {
-        margin: 0 0 6px;
-    }
-
-    .info-section span {
-        font-weight: 600;
-        color: #000;
-    }
-
-    .vaccination-table {
-        border: 1px solid #ffffff;
-        border-radius: 6px;
-        margin-top: 12px;
-        font-size: 12px;
-        overflow: hidden;
-    }
-
-    .vaccination-table p {
-        color: gray;
-        font-weight: 200;
-        margin: 0;
-        border-bottom: 1px solid #d8f2f1;
-        padding: 8px 10px;
-        background: #fafafa;
-    }
-
-    .vaccination-table table {
+    .img-fluid {
         width: 100%;
-        border-collapse: collapse;
-        text-align: center;
     }
 
-    .vaccination-table th,
-    .vaccination-table td {
-        border: 1px solid #ddd;
-        padding: 6px;
-        font-size: 13px;
+    .my-table-bordered tr, th, td, .my-table-bordered thead th {
+        border: 1px solid black;
     }
 
-    .submit-btn {
-        background: #d8f2d8;
-        border: none;
-        color: #1a1a1a;
-        font-weight: 600;
-        border-radius: 5px;
-        padding: 7px 25px;
-        display: block;
-        margin: 15px auto 5px;
-        transition: 0.3s;
+    .child_name {
+        text-transform: capitalize;
     }
 
-    .submit-btn:hover {
-        background: #c7ebc7;
-    }
-
-    .right-space {
-        flex: 1;
-        background: #fff;
-        border: 1px solid #e7e7e7;
-        border-radius: 8px;
-        min-height: 580px;
-        box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.05);
-        padding: 12px;
-    }
-
-    .label{
-        color: #959089;
-        font-size: 12px;
-        font-weight: 300 !important;
-    }
-
-    /* small helper styles kept from old view */
-    .img-fluid { width: 100%; }
-    .my-table-bordered tr, th, td, .my-table-bordered thead th { border: 1px solid black; }
-    .child_name { text-transform: capitalize; }
-    .clickmsg { margin: 0; font-size: 9px; }
-
-    /* color states used by old logic */
-    .mygreen { background: #dff6ec !important; }
-    .myred { background: #ffe5e5 !important; }
-    .myorange { background: #fff2d6 !important; }
-
-    @media (max-width: 992px) {
-        .content-row { flex-direction: column; }
-        .left-card { flex: 100%; }
-    }
-
-    /* Swiper thumbs spacing */
-    .gallery-thumbs .swiper-slide img { cursor: pointer; max-height: 70px; object-fit: cover; }
-    .gallery-top .swiper-slide img { object-fit: contain; max-height:420px; width:100%; }
-    .left-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 100%;
-    }
-
-    .data_list {
-        flex-grow: 1; /* pushes submit button to the bottom */
-    }
-
-    .left-card .submit-btn {
-        padding: 10px 40px;
-        font-weight: 600;
-        border-radius: 6px;
-    }
-
-    .text-center.mt-4.mb-3 {
-        margin-top: 40px !important; /* ensure proper gap from tables */
-        margin-bottom: 30px !important;
-    }
-
-    @media (max-width: 992px) {
-        .text-center.mt-4.mb-3 {
-            margin-top: 25px !important;
-        }
-    }
-    .table {
-        --bs-table-color-type: initial;
-        --bs-table-bg-type: initial;
-        --bs-table-color-state: initial;
-        --bs-table-bg-state: initial;
-        --bs-table-color: var(--bs-emphasis-color);
-        --bs-table-bg: var(--bs-body-bg);
-        --bs-table-border-color: var(--bs-border-color);
-        --bs-table-accent-bg: transparent;
-        --bs-table-striped-color: var(--bs-emphasis-color);
-        --bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
-        --bs-table-active-color: var(--bs-emphasis-color);
-        --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
-        --bs-table-hover-color: var(--bs-emphasis-color);
-        --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
-        width: 136%;!important;
-        margin-bottom: 1rem;
-        vertical-align: top;
-        border-color: var(--bs-table-border-color);
-    }
-
-
-    .gallery-top .swiper-slide img {
-        object-fit: contain;
-         max-height: 100%;
-         width: auto;
-    }
-    .card{
-        --bs-card-border-color:white
-
+    .clickmsg {
+        margin: 0;
+        font-size: 9px;
     }
 </style>
-
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
-    <div style="background: #fff8ec" class="content-wrapper">
+    <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Vaccination Card & Images</h2>
+                        <h2 class="content-header-title float-left mb-0">Images Form</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a></li>
-                                <li class="breadcrumb-item active">Vaccination Card</li>
+                                <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active">Images</li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="content-body">
-            <!-- Top dropdown row (shared) -->
-            <div class="main-container">
-                <div class="dropdown-row">
-                    <!-- Keep the same selects and classes as your old view (select2 + selectors) -->
-                    <select class="select2 form-control province_select" onchange="changeProvince()">
-                        <option value="0" readonly disabled selected>District</option>
-                        <?php if (isset($province) && $province != '') {
-                            foreach ($province as $k => $p) {
-                                echo '<option value="' . $k . '">' . $p . '</option>';
-                            }
-                        } ?>
-                    </select>
-
-                    <select class="select2 form-control district_select" onchange="changeUCs()">
-                        <option value="0" readonly disabled selected>UC</option>
-                    </select>
-
-                    <select class="select2 form-control clusters_select" onchange="changeCluster()">
-                        <option value="0" readonly disabled selected>Cluster</option>
-                    </select>
-
-                    <select class="select2 form-control household_select" onchange="changeHH()">
-                        <option value="0" readonly disabled selected>Household</option>
-                    </select>
-
-                    <select class="select2 form-control childNo_select">
-                        <option value="0" readonly disabled selected>Child No</option>
-                    </select>
-
-                    <button type="button" class="btn btn-primary" onclick="searchData()">Search</button>
-                </div>
-
-                <!-- Main two-column content (left: vaccination card, right: images) -->
-                <div class="content-row">
-                    <!-- LEFT: Vaccination Card Detail (new UI design) -->
-                    <div class="left-card">
-                        <div class="card-header-new">
-                            <span>VACCINATION CARD DETAIL</span>
-                            <i class="fa-solid fa-baby"></i>
-                        </div>
-
-                        <!-- info + vaccination tables -->
-                        <div class="info-grid data_list" style="margin-top:12px;">
-                            <div class="info-left">
-                                <p style="font-weight: 700; color: #ed3dd3; font-size: 15px;">
-                                    <span class="label">NAME:</span> -
-                                </p>
-                                <p><span class="label">DATE OF BIRTH:</span> -</p>
-                                <p><span class="label">GENDER:</span> -</p>
+            <section class="basic-select2">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title"></h4>
                             </div>
-                            <div class="info-right">
-                                <p><span class="label">CLUSTER NO:</span> -</p>
-                                <p><span class="label">HOUSEHOLD:</span> -</p>
-                            </div>
-
-              
-
-                            <div class="vaccination-table" style="grid-column: 1 / -1;">
-                                <p>VACCINATION VISIT</p>
-                                <table>
-                                    <tr><td colspan="6" style="height:120px;"></td></tr>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- /.data_list -->
-
-                        <!-- ✅ Move Submit button BELOW -->
-                        <div style="    margin-left: auto; " class=" mt-4 mb-3">
-                            <button style=" background: #918e8e;
-    color: #ffffff;
-    border-radius: 49px; " class="btn submit-btn" id="staticSubmit" disabled>SUBMIT</button>
-                        </div>
-                    </div>
-                    <!-- /LEFT -->
-
-                    <!-- RIGHT: Images / Swiper gallery (keeps old behavior) -->
-                    <div class="right-space">
-                        <div class="card-header-new">
-                            <span>IMAGE</span>
-                            <i class="fa-solid fa-id-card"></i>
-                        </div>
-                        <section id="component-swiper-gallery" class="hide">
-                            <div class="card">
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <div class="card-body">
-                                                    <div class="swiper-gallery swiper-container gallery-top">
-                                                        <div class="swiper-wrapper gallery_images">
-                                                            <!-- Filled by JS: $('.gallery_images').html(items) -->
-                                                        </div>
-                                                        <!-- Add Arrows -->
-
-                                                    </div>
-
-
-
-                                                </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                District
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control province_select"
+                                                        onchange="changeProvince()">
+                                                    <option value="0" readonly disabled selected>District</option>
+                                                    <?php if (isset($province) && $province != '') {
+                                                        foreach ($province as $k => $p) {
+                                                            echo '<option value="' . $k . '">' . $p . '</option>';
+                                                        }
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                UC
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control district_select"
+                                                        onchange="changeUCs()">
+                                                    <option value="0" readonly disabled selected>UC</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                Cluster
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control clusters_select"
+                                                        onchange="changeCluster()">
+                                                    <option value="0" readonly disabled selected>Cluster</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                Household
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control household_select"
+                                                        onchange="changeHH()">
+                                                    <option value="0" readonly disabled selected>Household</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                Child Line No
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control childNo_select">
+                                                    <option value="0" readonly disabled selected>Child No</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                    <!-- Right column details originally were here, but we've moved the details to left. Keep for any extras -->
+
+                                    </div>
+                                    <div class=" ">
+                                        <button type="button" class="btn btn-primary" onclick="searchData()">Get
+                                            Data
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
                     </div>
-                    <!-- /RIGHT -->
                 </div>
-                <!-- /content-row -->
-            </div>
-            <!-- /main-container -->
+            </section>
+
+            <!-- gallery swiper start -->
+            <section id="component-swiper-gallery" class="hide">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Images</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="swiper-gallery swiper-container gallery-top">
+                                            <div class="swiper-wrapper gallery_images">
+                                            </div>
+                                            <!-- Add Arrows -->
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
+                                        </div>
+                                        <div class="swiper-container gallery-thumbs">
+                                            <div class="swiper-wrapper mt-25 gallery_images">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title data_head">Details:</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body ">
+                                        <div class=" data_list ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- gallery swiper ends -->
         </div>
     </div>
 </div>
 <!-- END: Content-->
-
 <input type="hidden" id="hidden_loginUser"
        value="<?php echo(isset($_SESSION['login']['UserName']) && $_SESSION['login']['UserName'] != '' ? $_SESSION['login']['UserName'] : 0) ?>">
 <input type="hidden" id="hidden_id" value="">
 
-<!-- scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 <script>
-    // initialize select2 for the top selects (if select2 library is available)
-    $(document).ready(function(){
-        try {
-            $('.select2').select2({ width: 'resolve' });
-        } catch(e){ /* ignore if select2 not available */ }
-    });
 
-    // --- Swiper gallery init (same as your old gallery function) ---
     function gallery() {
         var galleryThumbs = new Swiper('.gallery-thumbs', {
             spaceBetween: 10,
@@ -414,10 +207,6 @@
         });
     }
 
-    /* --- Keep your existing JS functions as-is.
-       The only change: .data_list and .gallery_images are now in new positions,
-       but their class names are unchanged so old functions work. --- */
-
     function changeProvince() {
         var data = {};
         data['province'] = $('.province_select').val();
@@ -432,7 +221,8 @@
                         $.each(response[0], function (i, v) {
                             items += '<option value="' + i + '" onclick="changeUCs()">' + v + '</option>';
                         })
-                    } catch (e) {}
+                    } catch (e) {
+                    }
                 }
                 $('.district_select').html('').html(items);
             });
@@ -455,7 +245,8 @@
                         $.each(response, function (i, v) {
                             items += '<option value="' + v.cluster_code + '" onclick="changeCluster()">' + v.cluster_code + '</option>';
                         })
-                    } catch (e) {}
+                    } catch (e) {
+                    }
                 }
                 $('.clusters_select').html('').html(items);
             });
@@ -478,7 +269,8 @@
                         $.each(response, function (i, v) {
                             items += '<option value="' + v.hhno + '" onclick="changeHH()">' + v.hhno + '</option>';
                         })
-                    } catch (e) {}
+                    } catch (e) {
+                    }
                 }
                 $('.household_select').html('').html(items);
             });
@@ -501,8 +293,10 @@
                     try {
                         $.each(response, function (i, v) {
                             items += '<option value="' + v.ec13 + '" selected>' + v.ec13 + '</option>';
+
                         })
-                    } catch (e) {}
+                    } catch (e) {
+                    }
                 }
                 $('.childNo_select').html('').html(items);
             });
@@ -529,6 +323,7 @@
     }
 
     function SubmitData() {
+
         var flag = 0;
         var data = {};
         data['image_status'] = $('#image_status').val();
@@ -541,12 +336,14 @@
             toastMsg('Image Status', 'Invalid Image Status', 'error');
             return false;
         }
+
         if (data['dobstatus'] == '' || data['dobstatus'] == undefined || data['dobstatus'] == '0') {
             $('#dobstatus').css('border', '1px solid red');
             flag = 1;
             toastMsg('DoB Status', 'Invalid Date of Birth Status', 'error');
             return false;
         }
+
         if (data['cluster_no'] == '' || data['cluster_no'] == undefined || data['cluster_no'] == '0') {
             $('.clusters_select').css('border', '1px solid red');
             flag = 1;
@@ -583,13 +380,14 @@
         data['hep_b'] = $('.hep_b').attr('data-id');
         data['ipv2'] = $('.ipv2').attr('data-id');
         data['tcv'] = $('.tcv').attr('data-id');
-
         if (flag == 0) {
             $('.submitBtn').addClass('hide');
             showloader();
             CallAjax('<?php echo base_url('index.php/Image_forms/submitData') ?>', data, 'POST', function (result) {
                 hideloader();
-                setTimeout(function () { $('.submitBtn').removeClass('hide'); }, 1000);
+                setTimeout(function () {
+                    $('.submitBtn').removeClass('hide');
+                }, 1000);
                 if (result == 1) {
                     toastMsg('Success', 'Successfully inserted', 'success');
                     $('#component-swiper-gallery').addClass('hide');
@@ -613,6 +411,7 @@
     }
 
     function editData() {
+
         var flag = 0;
         var data = {};
         data['image_status'] = $('#image_status').val();
@@ -625,12 +424,14 @@
             toastMsg('Image Status', 'Invalid Image Status', 'error');
             return false;
         }
+
         if (data['dobstatus'] == '' || data['dobstatus'] == undefined || data['dobstatus'] == '0') {
             $('#dobstatus').css('border', '1px solid red');
             flag = 1;
             toastMsg('DoB Status', 'Invalid Date Of Birth Status', 'error');
             return false;
         }
+
         if (data['cluster_no'] == '' || data['cluster_no'] == undefined || data['cluster_no'] == '0') {
             $('.clusters_select').css('border', '1px solid red');
             flag = 1;
@@ -668,7 +469,6 @@
         data['hep_b'] = $('.hep_b').attr('data-id');
         data['ipv2'] = $('.ipv2').attr('data-id');
         data['tcv'] = $('.tcv').attr('data-id');
-
         if (flag == 0) {
             showloader();
             $('.submitBtn').addClass('hide');
@@ -677,7 +477,9 @@
                 $('.submitBtn').removeClass('hide');
                 if (result == 1) {
                     toastMsg('Success', 'Successfully edited', 'success');
-                    setTimeout(function () { window.location.reload(); }, 1000);
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
                 } else if (result == 2) {
                     $('.clusters_select').css('border', '1px solid red');
                     toastMsg('Error', 'Invalid Cluster', 'error');
@@ -694,6 +496,7 @@
             toastMsg('Error', 'Something went wrong', 'error');
         }
     }
+
 
     function clickAll(obj) {
         var type = $(obj).attr('data-type');
@@ -800,15 +603,18 @@
                     var ipv_val = '0';
                     var measles1_val = '0';
                     var measles2_val = '0';
+
                     var ipv2_val = '0';
                     var tcv_val = '0';
                     var already_scored = '';
+
 
                     var response = JSON.parse(res);
                     try {
                         if (response['dataExist'] != '' && response['dataExist'] != undefined && response['dataExist'] != 0) {
                             toastMsg('Already Exist', data['cluster_no'] + ' already scored', 'info');
                             var lastIndex = response['dataExist'].slice(-1)[0];
+                            // var lastIndex = response['dataExist'][0];
                             image_status_val = lastIndex.image_status;
                             dobstatus_val = lastIndex.dobstatus;
                             bcg0_val = lastIndex.bcg0;
@@ -828,9 +634,10 @@
                             ipv_val = lastIndex.ipv0;
                             measles1_val = lastIndex.measles1;
                             measles2_val = lastIndex.measles2;
+
                             ipv2_val = lastIndex.ipv2;
                             tcv_val = lastIndex.tcv;
-                            already_scored = '<p class="alreadyscored text-mycolor2">Already scored by: ' + lastIndex.createdBy + '</p>';
+                            already_scored = '<h4 class="alreadyscored text-mycolor2">Already scored by: ' + lastIndex.createdBy + '</h4>';
                             if (hidden_loginUser == lastIndex.createdBy) {
                                 submitBtn = '<button class="btn btn-primary submitBtn" onclick="editData()">Edit</button>';
                                 $('#hidden_id').val(lastIndex.id_Image_feedback);
@@ -846,9 +653,16 @@
                                     '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' + v.f02 + '" alt="banner"> ' +
                                     '</div>';
 
-                                if (v.ec15 == 1) { gender = 'M'; } else if (v.ec15 == 2) { gender = 'F' } else { gender = ''; }
-                                var dob = v.im04dd + '/' + v.im04mm + '/' + v.im04yy;
+                                if (v.ec15 == 1) {
+                                    gender = 'M';
+                                } else if (v.ec15 == 2) {
+                                    gender = 'F'
+                                } else {
+                                    gender = '';
+                                }
+                                console.log(dobstatus_val);
 
+                                var dob = v.im04dd + '/' + v.im04mm + '/' + v.im04yy;
                                 data_items = '<div class="row">' +
                                     '<div class="col-lg-6 col-md-12">' +
                                     '<h6>Cluster: ' + v.cluster_code + '</h6>' +
@@ -863,6 +677,7 @@
                                     '<div class="col-lg-6 col-md-12">' +
                                     '<h6>Household: ' + v.hhno + '</h6>' +
                                     '<h6>Gender: ' + gender + '</h6>' +
+
                                     '</div>' +
                                     '</div>' +
                                     '<div class="row">' +
@@ -880,34 +695,6 @@
                                     '</div>' +
                                     '</div>' +
                                     '<div class="row">' +
-                                    '<div class="col-lg-4 col-md-4 p-1">' +
-                                    ' <fieldset>' +
-                                    '<label style="color: #198c19;">' +
-                                    '<input type="radio" value="1" class="checkAllBtn" name="checkAllBtn" data-type="m" onclick="clickAll(this)">' +
-                                    ' Check All - Matched ' +
-                                    '</label>' +
-                                    '</fieldset>' +
-                                    '</div>' +
-
-                                    '<div class="col-lg-4 col-md-4 p-1">' +
-                                    ' <fieldset>' +
-                                    '<label  style="color: #fd0000;">' +
-                                    '<input type="radio" value="2" class="checkAllBtn" name="checkAllBtn" data-type="nm" onclick="clickAll(this)">' +
-                                    ' Check All - Not Matched' +
-                                    '</label>' +
-                                    '</fieldset>' +
-                                    '</div>' +
-                                    '<div class="col-lg-4 col-md-4 p-1">' +
-                                    ' <fieldset>' +
-                                    '<label  style="color: #fda400;">' +
-                                    '<input type="radio" value="3" class="checkAllBtn" name="checkAllBtn" data-type="nr"  onclick="clickAll(this)">' +
-                                    ' Check All - Not Readable' +
-                                    '</label>' +
-                                    '</fieldset>' +
-                                    '</div>' +
-                                    '</div>' +
-
-                                    '<div class="row">' +
                                     '<div class="col-lg-12 col-md-12 p-1">' +
                                     '<label for="dobstatus">DoB Status</label>' +
                                     '<select id="dobstatus" class="dobstatus form-control ">' +
@@ -916,6 +703,35 @@
                                     '<option value="2" ' + (dobstatus_val == 2 ? 'selected' : '') + '>Invalid DoB</option>' +
                                     '</select>' +
                                     '</div>' +
+                                    '</div>' +
+                                    '<div class="row">' +
+                                    '<div class="col-lg-4 col-md-4 p-1">' +
+                                    ' <fieldset>' +
+                                    '<label>' +
+                                    '<input type="radio" value="1" class="checkAllBtn" name="checkAllBtn" data-type="m" onclick="clickAll(this)">' +
+                                    ' Check All - Matched ' +
+                                    '</label>' +
+                                    '</fieldset>' +
+                                    '</div>' +
+
+                                    '<div class="col-lg-4 col-md-4 p-1">' +
+                                    ' <fieldset>' +
+                                    '<label>' +
+                                    '<input type="radio" value="2" class="checkAllBtn" name="checkAllBtn" data-type="nm" onclick="clickAll(this)">' +
+                                    ' Check All - Not Matched' +
+                                    '</label>' +
+                                    '</fieldset>' +
+                                    '</div>' +
+
+                                    '<div class="col-lg-4 col-md-4 p-1">' +
+                                    ' <fieldset>' +
+                                    '<label>' +
+                                    '<input type="radio" value="3" class="checkAllBtn" name="checkAllBtn" data-type="nr"  onclick="clickAll(this)">' +
+                                    ' Check All - Not Readable' +
+                                    '</label>' +
+                                    '</fieldset>' +
+                                    '</div>' +
+
                                     '</div>' +
 
                                     '<table class="table my-table-bordered image_form_table" border="1">' +
@@ -956,6 +772,7 @@
                                     '<td>-</td>' +
                                     '<td>-</td>' +
                                     '<td>-</td>' +
+
                                     '</tr>' +
                                     '<tr>' +
                                     '<th scope="row">Penta</th>' +
@@ -990,6 +807,8 @@
                                     '<td>-</td>' +
                                     '<td>-</td>' +
                                     '<td data-id="' + ipv_val + '" class="ipv0 inpType ' + color(ipv_val) + '" onclick="setValue(this)" >' + v.ipv + '<p class="clickmsg"></p></td>' +
+
+
                                     '<td>-</td>' +
                                     '<td>-</td>' +
                                     '</tr>' +
@@ -1002,6 +821,8 @@
                                     '<td data-id="' + measles1_val + '" class="measles1 inpType ' + color(measles1_val) + '" onclick="setValue(this)" >' + v.measles1 + '<p class="clickmsg"></p></td>' +
                                     '<td data-id="' + measles2_val + '" class="measles2 inpType ' + color(measles2_val) + '" onclick="setValue(this)" >' + v.measles2 + '<p class="clickmsg"></p></td>' +
                                     '</tr>' +
+
+
                                     '<tr>' +
                                     '<th scope="row">IPV 2</th>' +
                                     '<td>-</td>' +
@@ -1009,17 +830,33 @@
                                     '<td>-</td>' +
                                     '<td>-</td>' + '<td data-id="' + ipv2_val + '" class="ipv2 inpType ' + color(ipv2_val) + '" onclick="setValue(this)" >' + v.ipv2 + '<p class="clickmsg"></p></td>' +
                                     '<td>-</td>' +
+
+
                                     '</tr>' +
                                     '<tr>' +
                                     '<th scope="row">TCV</th>' +
                                     '<td>-</td>' +
                                     '<td>-</td>' + '<td>-</td>' +
                                     '<td>-</td>' + '<td data-id="' + tcv_val + '" class="tcv inpType ' + color(tcv_val) + '" onclick="setValue(this)" >' + v.tcv + '<p class="clickmsg"></p></td>' +
+
                                     '<td>-</td>' +
                                     '</tr>' +
-                                    '</tbody>' +
-                                    '</table>' ;
 
+
+                                    '</tbody>' +
+                                    '</table>' +
+                                    submitBtn +
+
+                                    '<div class="row">' +
+                                    '<div class="col-lg-12 col-md-12">' +
+                                    '<div class="mynote">' +
+                                    '<h6>Note</h6>' +
+                                    '<p class="click1">Click Once - Matched</p>' +
+                                    '<p class="click2">Click Twice - Not Matched</p>' +
+                                    '<p class="click3">Click Thrice - Not Readable</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
                             });
                         } else {
                             items += '<div class="swiper-slide"> ' +
@@ -1028,7 +865,8 @@
                             data_items += '<p>No detail Found</p>';
                             toastMsg('Images', 'No detail Found', 'error');
                         }
-                    } catch (e) {}
+                    } catch (e) {
+                    }
                 } else {
                     items += '<div class="swiper-slide"> ' +
                         '<p>No Image found</p>' +
@@ -1036,28 +874,8 @@
                     data_items += '<p>No detail Found</p>';
                     toastMsg('Images', 'No detail Found', 'error');
                 }
-                // populate the gallery (right) and data list (left)
                 $('.gallery_images').html('').html(items);
                 $('.data_list').html('').html(data_items);
-                $('.info-left p span.label:contains("NAME:")').parent().html('<span class="label">NAME:</span> ' + v.ec14);
-                $('.info-left p span.label:contains("DATE OF BIRTH:")').parent().html('<span class="label">DATE OF BIRTH:</span> ' + dob);
-                $('.info-left p span.label:contains("GENDER:")').parent().html('<span class="label">GENDER:</span> ' + gender);
-                $('.info-right p span.label:contains("CLUSTER NO:")').parent().html('<span class="label">CLUSTER NO:</span> ' + v.cluster_code);
-                $('.info-right p span.label:contains("HOUSEHOLD:")').parent().html('<span class="label">HOUSEHOLD:</span> ' + v.hhno);
-
-                var buttonText = 'SUBMIT';
-                var buttonFunction = 'SubmitData()';
-
-// Check if dataExist was found and if current user is the original scorer
-                if (response['dataExist'] && hidden_loginUser == lastIndex.createdBy) {
-                    buttonText = 'EDIT';
-                    buttonFunction = 'editData()';
-                }
-
-                $('#staticSubmit').text(buttonText);
-                $('#staticSubmit').attr('onclick', buttonFunction);
-                $('#staticSubmit').prop('disabled', false);
-                // initialize gallery after HTML injection
                 setTimeout(function () {
                     gallery();
                 }, 500);
@@ -1067,5 +885,7 @@
             $('.household_select').css('border', '1px solid red');
             toastMsg('Page', 'Something went wrong', 'error');
         }
+
     }
+
 </script>
