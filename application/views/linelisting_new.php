@@ -85,11 +85,9 @@
         position: absolute;
         top: 0;
         right: 0;
-        /* Adjust size to control the arrow head shape */
-        border-top: 75px solid transparent;
-        border-bottom: 75px solid transparent;
+        border-top: 84px solid transparent;
+        border-bottom: 84px solid transparent;
         border-left: 50px solid var(--primary-color);
-        /* To create the pointed tip, this needs to overlay the map section */
         transform: translateX(100%);
         z-index: 3;
     }
@@ -656,9 +654,9 @@
                         </div>
                     </div>
 
-                    <!-- ISLAMABAD -->
+                    <!-- Balochistan -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="ISLAMABAD">
+                        <div class="dashboard-card" data-district="Balochistan">
                             <div class="ps-header-container">
                                 <div  style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -718,7 +716,7 @@
 
                     <!-- LAHORE -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="LAHORE">
+                        <div class="dashboard-card" data-district="Sindh">
                             <div class="ps-header-container">
                                 <div  style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -776,9 +774,9 @@
                         </div>
                     </div>
 
-                    <!-- KARACHI -->
+                    <!-- Punjab -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="KARACHI">
+                        <div class="dashboard-card" data-district="Punjab">
                             <div class="ps-header-container">
                                 <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -835,13 +833,14 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Chart -->
                     <div class="col">
                         <h4 class="block-title">Total Province</h4>
                         <div id="totalpro"></div>
                     </div>
-                    <!-- RAWALPINDI -->
+                    <!-- KPK -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="RAWALPINDI">
+                        <div class="dashboard-card" data-district="KPK">
                             <div class="ps-header-container">
                                 <div  style="  background: linear-gradient(to right, #3f5378 0%, #9eb2d5 35%, #deeaff 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -900,14 +899,14 @@
                         </div>
                     </div>
 
-                    <!-- FAISALABAD -->
+                    <!-- gilgit -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="FAISALABAD">
+                        <div class="dashboard-card" data-district="gilgit">
                             <div class="ps-header-container">
                                 <div style="background: linear-gradient(to right, #183703 0%, #6f8a67 35%, #e0f3da 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
 
-                                        <img src="<?php echo base_url('assets/images/gilitmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+                                        <img src="<?php echo base_url('assets/images/gilgitmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
@@ -959,9 +958,9 @@
                         </div>
                     </div>
 
-                    <!-- MULTAN -->
+                    <!-- AJK -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="MULTAN">
+                        <div class="dashboard-card" data-district="AJK">
                             <div class="ps-header-container">
                                 <div style="    background: linear-gradient(to right, #f77c7c 0%, #e19090 35%, #f4dfdf 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -1191,40 +1190,33 @@
                 PESHAWAR: [
                     { name: "UCS Hayatabad", progress: 50, completed: 50, ongoing: 40, remaining: 10 }
                 ],
-                ISLAMABAD: [
+                Balochistan: [
                     { name: "UCS G-9", progress: 60, completed: 60, ongoing: 25, remaining: 15 },
                     { name: "UCS F-10", progress: 70, completed: 70, ongoing: 20, remaining: 10 }
                 ],
-                LAHORE: [
+                Sindh: [
                     { name: "UCS Gulberg", progress: 85, completed: 85, ongoing: 10, remaining: 5 },
                     { name: "UCS Cantt", progress: 75, completed: 75, ongoing: 15, remaining: 10 }
                 ],
-                KARACHI: [
+                Punjab: [
                     { name: "UCS Saddar", progress: 70, completed: 70, ongoing: 20, remaining: 10 },
                     { name: "UCS Clifton", progress: 60, completed: 60, ongoing: 30, remaining: 10 },
                     { name: "UCS Korangi", progress: 80, completed: 80, ongoing: 15, remaining: 5 }
                 ],
-                RAWALPINDI: [
+                KPK: [
                     { name: "UCS Saddar Rwp", progress: 75, completed: 75, ongoing: 15, remaining: 10 },
                     { name: "UCS Murree Road", progress: 65, completed: 65, ongoing: 20, remaining: 15 }
                 ],
-                FAISALABAD: [
+                gilgit: [
                     { name: "UCS Jinnah Town", progress: 45, completed: 45, ongoing: 40, remaining: 15 },
                     { name: "UCS Madina Town", progress: 55, completed: 55, ongoing: 30, remaining: 15 },
                     { name: "UCS Samanabad", progress: 80, completed: 80, ongoing: 10, remaining: 10 }
                 ],
-                MULTAN: [
+                AJK: [
                     { name: "UCS Multan City", progress: 70, completed: 70, ongoing: 20, remaining: 10 },
                     { name: "UCS Old Town", progress: 60, completed: 60, ongoing: 30, remaining: 10 }
                 ],
-                QUETTA: [
-                    { name: "UCS Quetta Cantt", progress: 30, completed: 30, ongoing: 50, remaining: 20 },
-                    { name: "UCS Pishin", progress: 40, completed: 40, ongoing: 40, remaining: 20 }
-                ],
-                GILGIT: [
-                    { name: "UCS Skardu Road", progress: 65, completed: 65, ongoing: 10, remaining: 25 },
-                    { name: "UCS Hunza Valley", progress: 80, completed: 80, ongoing: 5, remaining: 15 }
-                ],
+
             };
 
             // ✅ Click handler for district cards
