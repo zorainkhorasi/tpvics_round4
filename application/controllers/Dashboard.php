@@ -67,7 +67,6 @@ class Dashboard extends CI_controller
 
             $getClustersProvince = $MLinelisting->getClustersProvince($district, $sub_district, $level);
 
-           
 
             $dist_array = array();
             if (isset($district) && $district != '') {
@@ -85,13 +84,13 @@ class Dashboard extends CI_controller
 
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
-         
+
             $totalcluster = 0;
             foreach ($totalClusters_district as $k => $r) {
                 $myTotalArray = array();
                 $myTotalArray['clusters_by_district'] = $r->clusters_by_district;
                 $totalcluster = $totalcluster + $r->clusters_by_district;
-                 
+
                 $myTotalArray['id'] = $r->my_id;
                 foreach ($dist_array as $key => $dist_name) {
                     if ($key == $r->my_id) {
@@ -135,10 +134,10 @@ class Dashboard extends CI_controller
             foreach ($completedClusters_district as $row) {
                 $ke = $row->provinceId;
                 foreach ($dist_array as $key => $dist_name) {
-                    if ($ke == $key  && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
+                    if ($ke == $key && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
                         $data['total']['total']++;
                         $data['total'][$dist_name]++;
-                        if ($row->collecting_tabs == $row->completed_tabs ) {
+                        if ($row->collecting_tabs == $row->completed_tabs) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
                         } else {
@@ -153,7 +152,6 @@ class Dashboard extends CI_controller
             $data['r']['total'] = 0;
 
 
-
             foreach ($totalClusters_district as $row2) {
                 $ke = $row2->my_id;
                 foreach ($dist_array as $key => $dist_name) {
@@ -163,14 +161,14 @@ class Dashboard extends CI_controller
                     }
                 }
             }
-                //  echo"<pre>";
-                //  var_dump($data);
-                // die();
+            //  echo"<pre>";
+            //  var_dump($data);
+            // die();
 
             //      echo"<pre>";
             //  print_r($data);
             //  exit;
-          //  echo '<pre>';print_r($data);exit;
+            //  echo '<pre>';print_r($data);exit;
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -200,6 +198,51 @@ class Dashboard extends CI_controller
     }
 
 
+    function linelisting_new_dashboard()
+    {
+        $data = array();
+        $MSettings = new MSettings();
+
+        $district = '';
+        $sub_district = '';
+        $level = 1;
+        $MLinelisting = new MLinelisting();
+        /*==============Total Clusters List==============*/
+        $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
+
+        $n = [];
+        foreach ($totalClusters_district as $v) {
+            $n[] = [
+                'my_id' => $v->my_id,
+                'my_name' => $v->my_name,
+                'total' => $v->clusters_by_district,
+                'completed' => 0,
+                'pending' => 0,
+                'remaining' => 0,
+            ];
+        }
+
+        /*==============Completed Clusters List==============*/
+        $completedClusters_district = $MLinelisting->completedClusters_district($district, $sub_district, $level);
+        foreach ($n as $key => $v) {
+
+            foreach ($completedClusters_district as $row) {
+                if ($row->provinceId == $v['my_id'] && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
+                    if ($row->collecting_tabs == $row->completed_tabs) {
+                        $n[$key]['completed']++;
+                    } else {
+                        $n[$key]['pending']++;
+                    }
+                }
+            }
+            $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] - $n[$key]['pending'];
+        }
+
+        echo "<pre>";
+        print_r($n);die;
+
+    }
+
 
     public function dashboard_index($districtId = null)
     {
@@ -221,9 +264,9 @@ class Dashboard extends CI_controller
             $level = 2;
 
             if (
-                isset($data['permission'][0]->CanViewAllDetail) && 
-                $data['permission'][0]->CanViewAllDetail != 1 && 
-                isset($_SESSION['login']['district']) && 
+                isset($data['permission'][0]->CanViewAllDetail) &&
+                $data['permission'][0]->CanViewAllDetail != 1 &&
+                isset($_SESSION['login']['district']) &&
                 $this->encrypt->decode($_SESSION['login']['district']) != 0
             ) {
                 $u_district = $this->encrypt->decode($_SESSION['login']['district']);
@@ -323,7 +366,7 @@ class Dashboard extends CI_controller
 
     function dashboard_dt()
     {
-       
+
         $data = array();
         $MSettings = new MSettings();
         $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'dashboard/linelisting_dashboard');
@@ -626,10 +669,9 @@ Planned Collection Date: ' . $data['cluster_data'][0]->collection_date .
             $pdf->Output('randmozied.pdf', 'I');
             ob_end_flush();
             ob_end_clean();
-            $track_msg='Success';
-        }
-        else {
-            $track_msg='Invalid Cluster';
+            $track_msg = 'Success';
+        } else {
+            $track_msg = 'Invalid Cluster';
             echo 'Invalid Cluster';
         }
         /*==========Log=============*/
@@ -660,10 +702,10 @@ Planned Collection Date: ' . $data['cluster_data'][0]->collection_date .
             $this->load->view('get_excel', $data);
             $this->load->view('include/customizer');
             $this->load->view('include/footer');
-            $track_msg='Success';
+            $track_msg = 'Success';
         } else {
             echo 'Invalid Cluster';
-            $track_msg='Invalid Cluster';
+            $track_msg = 'Invalid Cluster';
         }
         /*==========Log=============*/
         $Custom = new Custom();
@@ -910,6 +952,7 @@ Planned Collection Date: ' . $data['cluster_data'][0]->collection_date .
         $data = $Custom->getUcs_District($district, $uc, $arms);
         echo json_encode($data, true);
     }
+
     function getClustersByUCs()
     {
         $Custom = new Custom();
@@ -924,6 +967,7 @@ Planned Collection Date: ' . $data['cluster_data'][0]->collection_date .
         $data = $Custom->getClusters_UC($ucs, $randomized);
         echo json_encode($data, true);
     }
+
     function getClustersByDistrict()
     {
         $Custom = new Custom();
