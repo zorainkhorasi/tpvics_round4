@@ -64,7 +64,7 @@
                                     <div class="card-header pb-1">
                                         <div class="card-title">
                                             <h3 class=" text-center"><?php echo  PROJECT_NAME?></h3>
-                                            <h4 class=" text-center"><?php echo  PROJECT_FULLNAME?>
+                                            <!-- <h4 class=" text-center"><?php echo  PROJECT_FULLNAME?> -->
                                             </h4>
                                         </div>
                                     </div>

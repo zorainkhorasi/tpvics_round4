@@ -64,7 +64,7 @@
                                     if (isset($totalcluster['list']) && $totalcluster['list'] != '') {
                                         $s = 0;
                                         foreach ($totalcluster['list'] as $k => $t_list) { ?>
-                                            <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $t_list['id'] . '_' . $t_cluster_url) ?>">
+                                            <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/' . $t_list['id']) ?>">
                                                 <div class="d-flex justify-content-between mb-25">
                                                     <div class="browser-info">
                                                         <p class="mb-25"><?php echo ucfirst($t_list['district']); ?></p>
@@ -101,7 +101,7 @@
                                             <?php if (!isset($completed['total']) || $completed['total'] == '') {
                                                 $completed['total'] = 0;
                                             }
-                                            $perc_completed = ($completed['total'] / $totalcluster['total']) * 100;
+                                            $perc_completed =$totalcluster['total'] > 0 ?  ($completed['total'] / $totalcluster['total']) * 100:0;
                                             echo '<input type="hidden" id="comp_percentage" value="' . $perc_completed . '">'; ?>
                                             <h1 class="font-large-2 text-bold-700 mt-2 mb-0">
                                                 <?php echo(isset($completed['total']) && $completed['total'] != '' ? $completed['total'] : 0) ?>
@@ -129,9 +129,9 @@
                                                         $id = $dis['id'];
                                                     }
                                                 }
-                                                $perc = ($d / $t) * 100;
+                                                $perc = $t >0?($d / $t) * 100:0;
                                                 ?>
-                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $id . '_' . $c_cluster_url) ?>">
+                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/' . $id) ?>">
                                                     <div class="d-flex justify-content-between mb-25">
                                                         <div class="browser-info">
                                                             <p class="mb-25"><?php echo $k; ?></p>
@@ -168,7 +168,7 @@
                                             <?php if (!isset($ip['total']) || $ip['total'] == '') {
                                                 $ip['total'] = 0;
                                             }
-                                            $perc_ip = ($ip['total'] / $totalcluster['total']) * 100;
+                                            $perc_ip =$totalcluster['total']>0?($ip['total'] / $totalcluster['total']) * 100:0;
                                             echo '<input type="hidden" id="ip_percentage" value="' . $perc_ip . '">'; ?>
                                             <h1 class="font-large-2 text-bold-700 mt-2 mb-0">
                                                 <?php echo(isset($ip['total']) && $ip['total'] != '' ? $ip['total'] : 0) ?>
@@ -197,9 +197,9 @@
                                                         $id = $dis['id'];
                                                     }
                                                 }
-                                                $perc = ($d / $t) * 100;
+                                                $perc = $t>0?($d / $t) * 100:0;
                                                 ?>
-                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $id . '_' . $ip_cluster_url) ?>">
+                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/' . $id ) ?>">
                                                     <div class="d-flex justify-content-between mb-25">
                                                         <div class="browser-info">
                                                             <p class="mb-25"><?php echo $k; ?></p>
@@ -236,7 +236,7 @@
                                             <?php if (!isset($r['total']) || $r['total'] == '') {
                                                 $r['total'] = 0;
                                             }
-                                            $perc_r = ($r['total'] / $totalcluster['total']) * 100;
+                                            $perc_r = $totalcluster['total'] >0?($r['total'] / $totalcluster['total']) * 100:0;
                                             echo '<input type="hidden" id="r_percentage" value="' . $perc_r . '">'; ?>
                                             <h1 class="font-large-2 text-bold-700 mt-2 mb-0">
                                                 <?php echo(isset($r['total']) && $r['total'] != '' ? $r['total'] : 0) ?>
@@ -265,9 +265,9 @@
                                                         $id = $dis['id'];
                                                     }
                                                 }
-                                                $perc = ($d / $t) * 100;
+                                                $perc = $t>0?($d / $t) * 100:0;
                                                 ?>
-                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $id . '_' . $r_cluster_url) ?>">
+                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $id ) ?>">
                                                     <div class="d-flex justify-content-between mb-25">
                                                         <div class="browser-info">
                                                             <p class="mb-25"><?php echo $k; ?></p>

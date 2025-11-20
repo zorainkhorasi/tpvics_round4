@@ -453,6 +453,14 @@
             flag = 1;
             return false;
         }
+              const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+        if (!specialCharRegex.test(data['userPassword'])) {
+            
+            $('#userPassword').css('border', '1px solid red');
+            toastMsg('Password', 'Password must contain at least one special character', 'error');
+            flag = 1;
+            return false;
+        }
         if (data['userGroup'] == '' || data['userGroup'] == undefined || data['userGroup'] == 0 || data['userGroup'] == '0') {
             $('#userGroup').css('border', '1px solid red');
             flag = 1;
@@ -640,6 +648,14 @@
             $('#edit_userPassword').css('border', '1px solid red');
             flag = 1;
             toastMsg('Password', 'Invalid Password', 'error');
+            return false;
+        }
+        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+        if (!specialCharRegex.test(data['userPassword'])) {
+            
+            $('#edit_userPassword').css('border', '1px solid red');
+            toastMsg('Password', 'Password must contain at least one special character', 'error');
+            flag = 1;
             return false;
         }
         if (data['userPasswordConfirm'] == '' || data['userPasswordConfirm'] == undefined || data['userPasswordConfirm'] != data['userPassword']) {

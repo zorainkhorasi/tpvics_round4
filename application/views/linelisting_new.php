@@ -645,7 +645,7 @@
 
                 <div id="districtCardsSection" class="row row-cols-1 row-cols-md-4 g-4 scrollable-card-container">
 
-                    <!-- PESHAWAR -->
+                    <!-- Total Cluster -->
                     <div class="col">
                         <div class="chart-block cluster-chart-block">
                             <h4 class="block-title">Total Cluster</h4>
@@ -656,7 +656,7 @@
 
                     <!-- Balochistan -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="Balochistan">
+                        <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
                             <div class="ps-header-container">
                                 <div  style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -665,13 +665,18 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">Balochistan</span>
-                                        <span class="ps-total-count">302</span>
+                                        <span class="ps-state-name">
+                                            <?php                 
+                                       echo $dist_array[4];
+                                        ?>
+                                        </span>
+                                        <span class="ps-total-count"><?php echo $total["BALOCHISTAN"]; ?></span>
                                     </div>
                                 </div>
 
+
                             </div>
-                            <div id="Chart2" class="chart-container"></div>
+                            <div id="BALOCHISTAN" class="chart-container"></div> 
 
                             <div class="progress-details">
                                 <div class="detail-row completed">
@@ -683,7 +688,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 60%;"></div>
                                         </div>
-                                        <span class="percentage">60%</span>
+                                        <span class="percentage"><?php echo $completed["BALOCHISTAN"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row on-going">
@@ -695,7 +700,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 25%;"></div>
                                         </div>
-                                        <span class="percentage">25%</span>
+                                        <span class="percentage"><?php echo $ip["BALOCHISTAN"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -707,16 +712,16 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 15%;"></div>
                                         </div>
-                                        <span class="percentage">15%</span>
+                                        <span class="percentage"><?php echo $r["BALOCHISTAN"]; ?></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- LAHORE -->
+                    <!-- SINDH -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="Sindh">
+                        <div class="dashboard-card" data-district="SINDH" data-id="3">
                             <div class="ps-header-container">
                                 <div  style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -725,13 +730,15 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">Sindh</span>
-                                        <span class="ps-total-count">302</span>
+                                        <span class="ps-state-name">     <?php                 
+                                       echo $dist_array[3];
+                                        ?></span>
+                                        <span class="ps-total-count"><?php echo $total["SINDH"]; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="Chart3" class="chart-container"></div>
+                            <div id="SINDH" class="chart-container"></div>
 
                             <div class="progress-details">
                                 <div class="detail-row completed">
@@ -743,7 +750,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 95%;"></div>
                                         </div>
-                                        <span class="percentage">95%</span>
+                                        <span class="percentage"><?php echo $completed["SINDH"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row on-going">
@@ -755,7 +762,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 3%;"></div>
                                         </div>
-                                        <span class="percentage">3%</span>
+                                        <span class="percentage"><?php echo $ip["SINDH"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -767,16 +774,17 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 2%;"></div>
                                         </div>
-                                        <span class="percentage">2%</span>
+                                        <span class="percentage"><?php echo $r["SINDH"]; ?></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                        <!-- Chart -->
+                   
                     <!-- Punjab -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="Punjab">
+                        <div class="dashboard-card" data-district="PUNJAB" data-id="2">
                             <div class="ps-header-container">
                                 <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -785,13 +793,15 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">Punjab</span>
-                                        <span class="ps-total-count">302</span>
+                                        <span class="ps-state-name">     <?php                 
+                                       echo $dist_array[2];
+                                        ?></span>
+                                        <span class="ps-total-count"><?php echo $total["PUNJAB"]; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="Chart4" class="chart-container"></div>
+                            <div id="PUNJAB" class="chart-container"></div>
 
                             <div class="progress-details">
                                 <div class="detail-row completed">
@@ -803,7 +813,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 50%;"></div>
                                         </div>
-                                        <span class="percentage">50%</span>
+                                        <span class="percentage"><?php echo $completed["PUNJAB"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row on-going">
@@ -815,7 +825,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 40%;"></div>
                                         </div>
-                                        <span class="percentage">40%</span>
+                                        <span class="percentage"><?php echo $ip["PUNJAB"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -827,20 +837,19 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 10%;"></div>
                                         </div>
-                                        <span class="percentage">10%</span>
+                                        <span class="percentage"><?php echo $r["PUNJAB"]; ?></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Chart -->
-                    <div class="col">
+                     <div class="col">
                         <h4 class="block-title">Total Province</h4>
                         <div id="totalpro"></div>
                     </div>
                     <!-- KPK -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="KPK">
+                        <div class="dashboard-card" data-district="KHYBER PAKHTUNKHWA" data-id="1">
                             <div class="ps-header-container">
                                 <div  style="  background: linear-gradient(to right, #3f5378 0%, #9eb2d5 35%, #deeaff 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -849,15 +858,17 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">Khyber Pakhtunkhwa</span>
-                                        <span class="ps-total-count">302</span>
+                                        <span class="ps-state-name">     <?php                 
+                                       echo $dist_array[1];
+                                        ?></span>
+                                        <span class="ps-total-count"><?php echo $total["KHYBER PAKHTUNKHWA"]; ?></span>
                                     </div>
                                 </div>
 
                             </div>
 
 
-                            <div id="Chart5" class="chart-container"></div>
+                            <div id="chart2" class="chart-container"></div>
                             <div class="progress-details">
                                 <div class="detail-row completed">
                                     <div class="icon-label">
@@ -868,7 +879,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 75%;"></div>
                                         </div>
-                                        <span class="percentage">75%</span>
+                                        <span class="percentage"><?php echo $completed["KHYBER PAKHTUNKHWA"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row on-going">
@@ -880,7 +891,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 15%;"></div>
                                         </div>
-                                        <span class="percentage">15%</span>
+                                        <span class="percentage"><?php echo $ip["KHYBER PAKHTUNKHWA"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -892,16 +903,16 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 10%;"></div>
                                         </div>
-                                        <span class="percentage">10%</span>
+                                        <span class="percentage"><?php echo $r["KHYBER PAKHTUNKHWA"]; ?></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- gilgit -->
+                    <!-- Gilgit-Baltistan -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="gilgit">
+                        <div class="dashboard-card" data-district="Gilgit-Baltistan" data-id="7">
                             <div class="ps-header-container">
                                 <div style="background: linear-gradient(to right, #183703 0%, #6f8a67 35%, #e0f3da 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
@@ -910,13 +921,15 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">Gilgit-Baltistan</span>
-                                        <span class="ps-total-count">302</span>
+                                        <span class="ps-state-name">     <?php                 
+                                       echo $dist_array[7];
+                                        ?></span>
+                                        <span class="ps-total-count"><?php echo $total["Gilgit-Baltistan"]; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="Chart6" class="chart-container"></div>
+                            <div id="GILGIT-BALTISTAN" class="chart-container"></div>
                             <div class="progress-details">
                                 <div class="detail-row completed">
                                     <div class="icon-label">
@@ -927,7 +940,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 45%;"></div>
                                         </div>
-                                        <span class="percentage">45%</span>
+                                        <span class="percentage"><?php echo $completed["Gilgit-Baltistan"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row on-going">
@@ -939,7 +952,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 40%;"></div>
                                         </div>
-                                        <span class="percentage">40%</span>
+                                        <span class="percentage"><?php echo $ip["Gilgit-Baltistan"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -951,7 +964,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 15%;"></div>
                                         </div>
-                                        <span class="percentage">15%</span>
+                                        <span class="percentage"><?php echo $r["Gilgit-Baltistan"]; ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -960,8 +973,10 @@
 
                     <!-- AJK -->
                     <div class="col">
-                        <div class="dashboard-card" data-district="AJK">
+                        <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
                             <div class="ps-header-container">
+
+
                                 <div style="    background: linear-gradient(to right, #f77c7c 0%, #e19090 35%, #f4dfdf 70%, #ffffff 100%);" class="ps-state-info-bar">
                                     <div class="ps-map-icon-wrapper">
 
@@ -969,13 +984,15 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">AJK</span>
-                                        <span class="ps-total-count">302</span>
+                                        <span class="ps-state-name">     <?php                 
+                                       echo $dist_array[8];
+                                        ?></span>
+                                        <span class="ps-total-count"><?php echo $total["AZAD JAMMU & KASHMIR"]; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="Chart7" class="chart-container"></div>
+                            <div id="chart1" class="chart-container"></div>
                             <div class="progress-details">
                                 <div class="detail-row completed">
                                     <div class="icon-label">
@@ -986,7 +1003,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 70%;"></div>
                                         </div>
-                                        <span class="percentage">70%</span>
+                                        <span class="percentage"><?php echo $completed["AZAD JAMMU & KASHMIR"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row on-going">
@@ -998,7 +1015,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 20%;"></div>
                                         </div>
-                                        <span class="percentage">20%</span>
+                                        <span class="percentage"><?php echo $ip["AZAD JAMMU & KASHMIR"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -1010,7 +1027,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 10%;"></div>
                                         </div>
-                                        <span class="percentage">10%</span>
+                                        <span class="percentage"><?php echo $r["AZAD JAMMU & KASHMIR"]; ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -1018,15 +1035,20 @@
                     </div>
 
 
+                    <!-- <pre>
+                        <?php
+                            var_dump($total);
+                        ?>
+                    </pre> -->
 
                 </div>
                 <div id="ucsSection" class="d-none">
                     <div class="d-flex align-items-center mb-4">
                         <button style="color: #ffffff;border-radius: 30px;border-color: #ffffff;box-shadow: 0px 1px 4px 1px #b5b5b58a;background: #9bc3c0;" id="backButton" class="btn btn-sm btn-outline-dark">← Back</button>
                         <h4 id="ucsTitle" style="    padding: 8px 0px 0px 19px;
-    font-size: 30px;
-    color: #b2d3d0;
-    font-weight: bold;"></h4>
+                            font-size: 30px;
+                            color: #b2d3d0;
+                            font-weight: bold;"></h4>
 
 
                     </div>
@@ -1046,82 +1068,191 @@
         TotalProvince();
         districtprogress();
         totalprogress();
-        function districtprogress(){
-            var options = {
-                series: [67],
-                chart: {
-                    height: 200,
-                    type: 'radialBar',
-                    offsetY: -10
-                },
-                plotOptions: {
-                    radialBar: {
-                        startAngle: -135,
-                        endAngle: 135,
-                        dataLabels: {
-                            name: {
-                                // Adjusted: Moved closer to center
-                                offsetY: 20,
-                                fontSize: '11px',
-                                color: '#31aa80'
-                            },
-                            value: {
-                                // Adjusted: Moved close to the center for a centered look
-                                offsetY: -10,
-                                fontSize: '20px', // Larger font for better visibility
-                                color: '#000000',
-                                formatter: function (val) {
-                                    return val + "%";
+
+
+        // function districtprogress(){
+
+             
+        //         let completed = <?php echo json_encode($completed); ?>;
+             
+        //     var options = {
+        //         series: [67],
+        //         chart: {
+        //             height: 200,
+        //             type: 'radialBar',
+        //             offsetY: -10
+        //         },
+        //         plotOptions: {
+        //             radialBar: {
+        //                 startAngle: -135,
+        //                 endAngle: 135,
+        //                 dataLabels: {
+        //                     name: {
+        //                         // Adjusted: Moved closer to center
+        //                         offsetY: 20,
+        //                         fontSize: '11px',
+        //                         color: '#31aa80'
+        //                     },
+        //                     value: {
+        //                         // Adjusted: Moved close to the center for a centered look
+        //                         offsetY: -10,
+        //                         fontSize: '20px', // Larger font for better visibility
+        //                         color: '#000000',
+        //                         formatter: function (val) {
+        //                             return val + "%";
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         },
+        //         fill: {
+        //             type: 'gradient',
+        //             gradient: {
+        //                 shade: 'dark',
+        //                 shadeIntensity: 0.15,
+        //                 inverseColors: false,
+        //                 opacityFrom: 1,
+        //                 opacityTo: 1,
+        //                 stops: [0, 50, 65, 91],
+        //                 gradientToColors: ['#3ccca5']
+        //             }
+        //         },
+        //         stroke: { dashArray: 4 },
+        //         colors: ['#0d9595'],
+        //         labels: ['Progress']
+        //     };
+
+        //     // Create a separate chart variable and call render() for each chart.
+        //     var chart1 = new ApexCharts(document.querySelector("#Chart1"), options);
+        //     var chart2 = new ApexCharts(document.querySelector("#Chart2"), options);
+        //     var chart3 = new ApexCharts(document.querySelector("#Chart3"), options);
+        //     var chart4 = new ApexCharts(document.querySelector("#Chart4"), options);
+        //     var chart5 = new ApexCharts(document.querySelector("#Chart5"), options);
+        //     var chart6 = new ApexCharts(document.querySelector("#Chart6"), options);
+        //     var chart7 = new ApexCharts(document.querySelector("#Chart7"), options);
+        //     var chart8 = new ApexCharts(document.querySelector("#Chart8"), options);
+        //     var chart9 = new ApexCharts(document.querySelector("#Chart9"), options);
+        //     var chart10 = new ApexCharts(document.querySelector("#Chart10"), options);
+        //     var chart11 = new ApexCharts(document.querySelector("#Chart11"), options);
+        //     var chart12 = new ApexCharts(document.querySelector("#Chart12"), options);
+
+
+        //     chart1.render();
+        //     chart2.render();
+        //     chart3.render();
+        //     chart4.render();
+        //     chart5.render();
+        //     chart6.render();
+        //     chart7.render();
+        //     chart8.render();
+        //     chart9.render();
+        //     chart10.render();
+        //     chart11.render();
+        //     chart12.render();
+        // }
+
+        function districtprogress() {
+            // PHP array converted to JS object
+            let completed = <?php echo json_encode($completed); ?>;
+                let clusters_by_district = <?php echo json_encode($totalcluster['list']); ?>;
+               
+            //    console.log(clusters_by_district);
+               
+            // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
+            let chartIndex = 1;
+            for (let district in completed) {
+                value = 0;
+                for(let clustersTotal in clusters_by_district){
+
+                
+                if (district === "total"||district === "Training" || district === "ISLAMABAD") continue; // skip total if needed
+
+                let completedValue  = completed[district];
+                    // console.log(clusters_by_district[clustersTotal].clusters_by_district);
+                    // console.log(district);
+                    
+                    // return false;
+
+                    // if(clusters_by_district[clustersTotal].district == district){
+                        
+                    //     var totalClusters = clusters_by_district[clustersTotal].clusters_by_district;
+                    //     var value = totalClusters > 0 ? ((96 / totalClusters) * 100).toFixed(1) : 0;
+                    // }
+                   
+                
+                    
+                    
+                }
+                    // console.log(value);
+                    // return false;
+
+           
+                // Make dynamic options for each chart
+                let options = {
+                    series: [value],
+                    chart: {
+                        height: 200,
+                        type: 'radialBar',
+                        offsetY: -10
+                    },
+                    plotOptions: {
+                        radialBar: {
+                            startAngle: -135,
+                            endAngle: 135,
+                            dataLabels: {
+                                name: {
+                                    offsetY: 20,
+                                    fontSize: '11px',
+                                    color: '#31aa80'
+                                },
+                                value: {
+                                    offsetY: -10,
+                                    fontSize: '20px',
+                                    color: '#000000',
+                                    formatter: function (val) {
+                                        return val + "%";
+                                    }
                                 }
                             }
                         }
-                    }
-                },
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        shade: 'dark',
-                        shadeIntensity: 0.15,
-                        inverseColors: false,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [0, 50, 65, 91],
-                        gradientToColors: ['#3ccca5']
-                    }
-                },
-                stroke: { dashArray: 4 },
-                colors: ['#0d9595'],
-                labels: ['Progress']
-            };
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shade: 'dark',
+                            shadeIntensity: 0.15,
+                            inverseColors: false,
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                            stops: [0, 50, 65, 91],
+                            gradientToColors: ['#3ccca5']
+                        }
+                    },
+                    stroke: { dashArray: 4 },
+                    colors: ['#0d9595'],
+                    labels: [district] // show district name
+                };
 
-            // Create a separate chart variable and call render() for each chart.
-            var chart1 = new ApexCharts(document.querySelector("#Chart1"), options);
-            var chart2 = new ApexCharts(document.querySelector("#Chart2"), options);
-            var chart3 = new ApexCharts(document.querySelector("#Chart3"), options);
-            var chart4 = new ApexCharts(document.querySelector("#Chart4"), options);
-            var chart5 = new ApexCharts(document.querySelector("#Chart5"), options);
-            var chart6 = new ApexCharts(document.querySelector("#Chart6"), options);
-            var chart7 = new ApexCharts(document.querySelector("#Chart7"), options);
-            var chart8 = new ApexCharts(document.querySelector("#Chart8"), options);
-            var chart9 = new ApexCharts(document.querySelector("#Chart9"), options);
-            var chart10 = new ApexCharts(document.querySelector("#Chart10"), options);
-            var chart11 = new ApexCharts(document.querySelector("#Chart11"), options);
-            var chart12 = new ApexCharts(document.querySelector("#Chart12"), options);
+                // Select chart container dynamically
+              if (district === "KHYBER PAKHTUNKHWA") {
+                    chartId = "chart2";
+                } else if (district === "AZAD JAMMU & KASHMIR") {
+                    chartId = "chart1";
+                } else {
+                    chartId = district; // fallback to district name if no mapping
+                }
 
+                let chartContainer = document.querySelector("#" + chartId);
 
-            chart1.render();
-            chart2.render();
-            chart3.render();
-            chart4.render();
-            chart5.render();
-            chart6.render();
-            chart7.render();
-            chart8.render();
-            chart9.render();
-            chart10.render();
-            chart11.render();
-            chart12.render();
+                if (chartContainer) {
+                    let chart = new ApexCharts(chartContainer, options);
+                    chart.render();
+                }
+
+                chartIndex++;
+            }
         }
+
         function totalprogress(){
             var options = {
                 series: [76, 67, 61, 90],
@@ -1185,107 +1316,118 @@
             const ucsTitle = document.getElementById("ucsTitle");
             const ucsCards = document.getElementById("ucsCards");
 
+              
+                // let total = <?php echo json_encode($total); ?>;
+                // let completed = <?php echo json_encode($completed); ?>;
+                // let ip = <?php echo json_encode($ip); ?>;
+                // let remaining = <?php echo json_encode($r); ?>;
+                // console.log(total,completed,ip,remaining['Quetta']);
+                    
             // ✅ Example UCS data per district
-            const ucsData = {
-                PESHAWAR: [
-                    { name: "UCS Hayatabad", progress: 50, completed: 50, ongoing: 40, remaining: 10 }
-                ],
-                Balochistan: [
-                    { name: "UCS G-9", progress: 60, completed: 60, ongoing: 25, remaining: 15 },
-                    { name: "UCS F-10", progress: 70, completed: 70, ongoing: 20, remaining: 10 }
-                ],
-                Sindh: [
-                    { name: "UCS Gulberg", progress: 85, completed: 85, ongoing: 10, remaining: 5 },
-                    { name: "UCS Cantt", progress: 75, completed: 75, ongoing: 15, remaining: 10 }
-                ],
-                Punjab: [
-                    { name: "UCS Saddar", progress: 70, completed: 70, ongoing: 20, remaining: 10 },
-                    { name: "UCS Clifton", progress: 60, completed: 60, ongoing: 30, remaining: 10 },
-                    { name: "UCS Korangi", progress: 80, completed: 80, ongoing: 15, remaining: 5 }
-                ],
-                KPK: [
-                    { name: "UCS Saddar Rwp", progress: 75, completed: 75, ongoing: 15, remaining: 10 },
-                    { name: "UCS Murree Road", progress: 65, completed: 65, ongoing: 20, remaining: 15 }
-                ],
-                gilgit: [
-                    { name: "UCS Jinnah Town", progress: 45, completed: 45, ongoing: 40, remaining: 15 },
-                    { name: "UCS Madina Town", progress: 55, completed: 55, ongoing: 30, remaining: 15 },
-                    { name: "UCS Samanabad", progress: 80, completed: 80, ongoing: 10, remaining: 10 }
-                ],
-                AJK: [
-                    { name: "UCS Multan City", progress: 70, completed: 70, ongoing: 20, remaining: 10 },
-                    { name: "UCS Old Town", progress: 60, completed: 60, ongoing: 30, remaining: 10 }
-                ],
-
-            };
+          
 
             // ✅ Click handler for district cards
             districtCards.forEach(card => {
-                card.addEventListener("click", () => {
-                    const district = card.dataset.district;
-                    showUcsSection(district);
+               
+
+                   card.addEventListener("click", () => {
+
+                    const district = card.dataset.district;   // Already using
+                    const districtId = card.dataset.id;       // NEW → data-id read
+
+                    showUcsSection(districtId,district); // If you want to pass ID instead
                 });
             });
 
-            // ✅ Show UCS section
-            function showUcsSection(district) {
-                const data = ucsData[district] || [];
-                districtCardsSection.classList.add("d-none");
-                ucsSection.classList.remove("d-none");
-                ucsTitle.textContent = `${district} - UCS Details`;
-                ucsCards.innerHTML = ""; // Clear old UCS cards
+            
+            function showUcsSection(districtId, district) {
+            $.ajax({
+                url: "dashboard_index/" + districtId,
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    console.log("Response from Controller:", response);
 
-                // Create UCS cards dynamically
-                data.forEach((ucs, index) => {
-                    const ucsCard = document.createElement("div");
-                    ucsCard.className = "col";
-                    ucsCard.innerHTML = `
-    <div class="dashboard-card p-3 text-center" data-ucs="${ucs.name}">
-      <div class="card-header-new mb-2">
-        <div class="location-name-new">${ucs.name}</div>
-      </div>
-      <div id="chart-${district}-${index}" class="chart-container" style="height: 180px;"></div>
-      <div class="text-center mt-2">
-        <div class="status-row">
-          <span class="badge bg-success me-1">Completed: ${ucs.completed}%</span>
-          <span class="badge bg-warning text-dark me-1">Ongoing: ${ucs.ongoing}%</span>
-          <span class="badge bg-danger">Pending: ${ucs.remaining}%</span>
-        </div>
-      </div>
-    </div>
-  `;
-                    ucsCards.appendChild(ucsCard);
+                    // Prepare dynamic UCS data
+                    const data = [];
+                    for (let distName in response.total) {
+                        if (distName === "total") continue; // skip the overall total
+                        data.push({
+                            name: distName,
+                            progress: response.total[distName] || 0,
+                            completed: response.completed[distName] || 0,
+                            ongoing: response.ip[distName] || 0,
+                            remaining: response.r[distName] || 0
+                        });
+                    }
 
-                    // Create Apex radial chart for each UCS
-                    var options = {
-                        series: [ucs.completed],
-                        chart: {
-                            height: 180,
-                            type: 'radialBar',
-                            sparkline: { enabled: true }
-                        },
-                        plotOptions: {
-                            radialBar: {
-                                startAngle: -135,
-                                endAngle: 135,
-                                hollow: { size: '70%' },
-                                track: { background: '#f0f0f0' },
-                                dataLabels: {
-                                    name: { show: false },
-                                    value: {
-                                        fontSize: '22px',
-                                        show: true,
-                                        formatter: val => `${Math.round(val)}%`
+                    // Optional: sort by progress descending
+                    data.sort((a, b) => b.progress - a.progress);
+
+                    // Hide district cards, show UCS section
+                    districtCardsSection.classList.add("d-none");
+                    ucsSection.classList.remove("d-none");
+                    ucsTitle.textContent = `${district} - UCS Details`;
+                    ucsCards.innerHTML = ""; // Clear previous cards
+
+                    // Create UCS cards
+                    data.forEach((ucs, index) => {
+                        const ucsCard = document.createElement("div");
+                        ucsCard.className = "col";
+                        ucsCard.innerHTML = `
+                            <div class="dashboard-card p-3 text-center" data-ucs="${ucs.name}">
+                                <div class="card-header-new mb-2">
+                                    <div class="location-name-new">${ucs.name}</div>
+                                </div>
+                                <div id="chart-${district}-${index}" class="chart-container" style="height: 180px;"></div>
+                                <div class="text-center mt-2">
+                                    <div class="status-row">
+                                        <span class="badge bg-success me-1">Completed: ${ucs.completed}%</span>
+                                        <span class="badge bg-warning text-dark me-1">Ongoing: ${ucs.ongoing}%</span>
+                                        <span class="badge bg-danger">Pending: ${ucs.remaining}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        ucsCards.appendChild(ucsCard);
+
+                        // Create Apex radial chart
+                        var options = {
+                            series: [ucs.progress],
+                            chart: {
+                                height: 180,
+                                type: 'radialBar',
+                                sparkline: { enabled: true }
+                            },
+                            plotOptions: {
+                                radialBar: {
+                                    startAngle: -135,
+                                    endAngle: 135,
+                                    hollow: { size: '70%' },
+                                    track: { background: '#f0f0f0' },
+                                    dataLabels: {
+                                        name: { show: false },
+                                        value: {
+                                            fontSize: '22px',
+                                            show: true,
+                                            formatter: val => `${Math.round(val)}%`
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        colors: ['#7b5cff']
-                    };
-                    var chart = new ApexCharts(document.querySelector(`#chart-${district}-${index}`), options);
-                    chart.render();
-                });
-            }
+                            },
+                            colors: ['#7b5cff']
+                        };
+                        var chart = new ApexCharts(document.querySelector(`#chart-${district}-${index}`), options);
+                        chart.render();
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX Error:", error);
+                }
+            });
+        }
+
+
 
             // ✅ Back button functionality
             backButton.addEventListener("click", () => {

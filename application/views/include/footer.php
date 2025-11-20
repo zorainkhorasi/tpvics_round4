@@ -1,11 +1,11 @@
 <!-- BEGIN: Footer-->
 
 <footer class="footer footer-static footer-light">
-    <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; <?php echo date('Y') ?><a
+    <!-- <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; <?php echo date('Y') ?><a
                     class="text-bold-800 grey darken-2" href="http://www.aku.edu"
                     target="_blank"><?php echo PROJECT_NAME ?>,</a>All rights Reserved</span>
         <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
-    </p>
+    </p> -->
 </footer>
 <!-- END: Footer-->
 
@@ -77,6 +77,14 @@
             flag = 1;
             return false;
         }
+        // ✅ Check for at least one special character
+            const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+        if (!specialCharRegex.test(data['newpassword'])) {
+            $('#edit_newPassword').css('border', '1px solid red');
+            toastMsg('New Password', 'Password must contain at least one special character', 'error');
+            flag = 1;
+            return false;
+        }
         if (data['newpasswordconfirm'] == '' || data['newpasswordconfirm'] == undefined || data['newpassword'] != data['newpasswordconfirm']) {
             $('#edit_newPasswordConfirm').css('border', '1px solid red');
             toastMsg('Confirm Password', 'Invalid Confirm Password', 'error');
@@ -140,6 +148,13 @@
         if (data['newpassword'].length < 8) {
             $('#first_newPassword').css('border', '1px solid red');
             toastMsg('New Password', 'Password length must be greater than 8 digits', 'error');
+            flag = 1;
+            return false;
+        }
+            const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+         if (!specialCharRegex.test(data['newpassword'])) {
+            $('#edit_newPassword').css('border', '1px solid red');
+            toastMsg('New Password', 'Password must contain at least one special character', 'error');
             flag = 1;
             return false;
         }

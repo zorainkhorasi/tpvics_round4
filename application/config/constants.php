@@ -85,5 +85,5 @@ defined('EXIT__AUTO_MIN') OR define('EXIT__AUTO_MIN', 9); // lowest automaticall
 defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
-define('PROJECT_NAME', 'TPVICS SHRUC R4');
+define('PROJECT_NAME', 'TPVICS 3');
 define('PROJECT_FULLNAME', '(TPVICS SHRUC: Super High Risk Union Council - Round 4)');

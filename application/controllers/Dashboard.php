@@ -67,6 +67,8 @@ class Dashboard extends CI_controller
 
             $getClustersProvince = $MLinelisting->getClustersProvince($district, $sub_district, $level);
 
+           
+
             $dist_array = array();
             if (isset($district) && $district != '') {
                 foreach ($getClustersProvince as $k => $v) {
@@ -102,6 +104,9 @@ class Dashboard extends CI_controller
 
             $data['totalcluster']['total'] = $totalcluster;
             $data['totalcluster']['list'] = $clusters_by_district;
+
+
+            // echo '<pre>';print_r($totalClusters_district);exit;
 
             /*==============Completed Clusters List==============*/
             $completedClusters_district = $MLinelisting->completedClusters_district($district, $sub_district, $level);
@@ -147,6 +152,8 @@ class Dashboard extends CI_controller
             /*==============Remaining Clusters List==============*/
             $data['r']['total'] = 0;
 
+
+
             foreach ($totalClusters_district as $row2) {
                 $ke = $row2->my_id;
                 foreach ($dist_array as $key => $dist_name) {
@@ -156,11 +163,20 @@ class Dashboard extends CI_controller
                     }
                 }
             }
+                //  echo"<pre>";
+                //  var_dump($data);
+                // die();
 
+            //      echo"<pre>";
+            //  print_r($data);
+            //  exit;
+          //  echo '<pre>';print_r($data);exit;
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
             $this->load->view('linelisting_new', $data);
+            //  $this->load->view('linelisting_old', $data);
+
             $this->load->view('include/customizer');
             $this->load->view('include/footer');
             $track_msg = 'Success';
@@ -183,89 +199,85 @@ class Dashboard extends CI_controller
         /*==========Log=============*/
     }
 
-    function dashboard_index()
+
+
+    public function dashboard_index($districtId = null)
     {
+        // echo "</pre>";
+        // print_r($districtId);
+        // exit();
+
         $data = array();
         $MSettings = new MSettings();
-        $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'dashboard/linelisting_dashboard');
+        $data['permission'] = $MSettings->getUserRights(
+            $this->encrypt->decode($_SESSION['login']['idGroup']),
+            '',
+            'dashboard/linelisting_dashboard'
+        );
+
         if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1) {
-            $district = '';
+
             $sub_district = '';
             $level = 2;
 
-            if (isset($data['permission'][0]->CanViewAllDetail) && $data['permission'][0]->CanViewAllDetail != 1 && isset($_SESSION['login']['district']) && $this->encrypt->decode($_SESSION['login']['district']) != 0) {
+            if (
+                isset($data['permission'][0]->CanViewAllDetail) && 
+                $data['permission'][0]->CanViewAllDetail != 1 && 
+                isset($_SESSION['login']['district']) && 
+                $this->encrypt->decode($_SESSION['login']['district']) != 0
+            ) {
                 $u_district = $this->encrypt->decode($_SESSION['login']['district']);
                 $sub_district = $this->encrypt->decode($_SESSION['login']['district']);
             } else {
                 $u_district = '';
             }
 
-            $district_cluster_type = $this->uri->segment(3);
-            if (!empty($district_cluster_type)) {
-                if (!empty($u_district)) {
-                    $sub_district = $u_district;
-                }
-                $district = substr($district_cluster_type, 1, 3);
-            }
+            $district = $districtId; // Use the ID sent via AJAX
 
             $MLinelisting = new MLinelisting();
-
             $getClustersProvince = $MLinelisting->getClustersProvince($district, $sub_district, $level);
+
             $dist_array = array();
-            foreach ($getClustersProvince as $k => $v) {
-                $my_id = $v->my_id;
-                $dist_array[$my_id] = $v->my_name;
+            foreach ($getClustersProvince as $v) {
+                $dist_array[$v->my_id] = $v->my_name;
             }
             $data['dist_array'] = $dist_array;
 
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
-
             $totalcluster = 0;
-            foreach ($totalClusters_district as $k => $r) {
-                $dist = $r->my_id;
-                $distPro = $r->my_name;
-                $totalcluster = $totalcluster + $r->clusters_by_district;
-                if (isset($clusters_by_district[$distPro]) && $clusters_by_district[$distPro] != '') {
-                    $clusters_by_district[$distPro]['clusters_by_district'] += $r->clusters_by_district;
-                } else {
-                    $clusters_by_district[$distPro]['clusters_by_district'] = $r->clusters_by_district;
-                }
-                $clusters_by_district[$distPro]['id'] = $dist;
-            }
+            $clusters_by_district = [];
+            foreach ($totalClusters_district as $r) {
+                $myTotalArray = array();
+                $myTotalArray['clusters_by_district'] = $r->clusters_by_district;
+                $totalcluster += $r->clusters_by_district;
 
+                $myTotalArray['id'] = $r->my_id;
+                $myTotalArray['district'] = isset($dist_array[$r->my_id]) ? $dist_array[$r->my_id] : '';
+                $data['d' . $r->my_id . '_total'] = $r->clusters_by_district;
+
+                $clusters_by_district[] = $myTotalArray;
+            }
             $data['totalcluster']['total'] = $totalcluster;
             $data['totalcluster']['list'] = $clusters_by_district;
 
-            /*==============Completed Clusters List==============*/
+            /*==============Completed & In Progress Clusters==============*/
             $completedClusters_district = $MLinelisting->completedClusters_district($district, $sub_district, $level);
 
-            if (isset($district) && $district != '') {
-                foreach ($dist_array as $k => $dist_name) {
-                    $data['total'][$dist_name] = 0;
-                    $data['completed'][$dist_name] = 0;
-                    $data['ip'][$dist_name] = 0;
-                    $data['r'][$dist_name] = 0;
-                }
-            } else {
-                for ($i = 1; $i <= 9; $i++) {
-                    foreach ($dist_array as $key => $dist_name) {
-                        $data['total'][$dist_name] = 0;
-                        $data['completed'][$dist_name] = 0;
-                        $data['ip'][$dist_name] = 0;
-                        $data['r'][$dist_name] = 0;
-
-                    }
-                }
+            foreach ($dist_array as $dist_name) {
+                $data['total'][$dist_name] = 0;
+                $data['completed'][$dist_name] = 0;
+                $data['ip'][$dist_name] = 0;
+                $data['r'][$dist_name] = 0;
             }
-
             $data['total']['total'] = 0;
             $data['completed']['total'] = 0;
             $data['ip']['total'] = 0;
+
             foreach ($completedClusters_district as $row) {
                 $ke = $row->provinceId;
                 foreach ($dist_array as $key => $dist_name) {
-                    if ($ke == $key  && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
+                    if ($ke == $key && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
                         $data['total']['total']++;
                         $data['total'][$dist_name]++;
                         if ($row->collecting_tabs == $row->completed_tabs) {
@@ -281,7 +293,6 @@ class Dashboard extends CI_controller
 
             /*==============Remaining Clusters List==============*/
             $data['r']['total'] = 0;
-
             foreach ($totalClusters_district as $row2) {
                 $ke = $row2->my_id;
                 foreach ($dist_array as $key => $dist_name) {
@@ -291,36 +302,28 @@ class Dashboard extends CI_controller
                     }
                 }
             }
+            // echo "<pre>";
+            // var_dump($data);
+            // exit();
+            // Send JSON response for AJAX
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($data));
+            return; // important: stop execution here
 
-
-            $this->load->view('include/header');
-            $this->load->view('include/top_header');
-            $this->load->view('include/sidebar');
-            $this->load->view('linelisting_districtLists', $data);
-            $this->load->view('include/customizer');
-            $this->load->view('include/footer');
-            $track_msg = 'Success';
         } else {
-            $track_msg = 'errors/page-not-authorized';
-            $this->load->view('errors/page-not-authorized', $data);
+            // Not authorized
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['error' => 'Not authorized']));
+            return;
         }
-        /*==========Log=============*/
-        $Custom = new Custom();
-        $trackarray = array(
-            "activityName" => "LineListing District Dashboard",
-            "action" => "View LineListing District Dashboard -> Function: Dashboard/dashboard_index()",
-            "result" => $track_msg,
-            "PostData" => "",
-            "affectedKey" => "",
-            "idUser" => $this->encrypt->decode($_SESSION['login']['idUser']),
-            "username" => $this->encrypt->decode($_SESSION['login']['username']),
-        );
-        $Custom->trackLogs($trackarray, "all_logs");
-        /*==========Log=============*/
     }
+
 
     function dashboard_dt()
     {
+       
         $data = array();
         $MSettings = new MSettings();
         $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'dashboard/linelisting_dashboard');

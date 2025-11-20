@@ -12,9 +12,9 @@
                                 <h1 class="font-large-2 my-2 white">
                                     Welcome <?php echo(isset($_SESSION['login']['full_name']) && $_SESSION['login']['full_name'] != '' ? $this->encrypt->decode($_SESSION['login']['full_name']): '') ?></h1>
                                 <p class="p-2">
-                                    Dashboard - TPVICS SHRUC-R4
+                                    <!-- Dashboard - TPVICS SHRUC-R4 -->
 								</p>
-                                <p>(TPVICS SHRUC Round 4: Coverage Evaluation Survey, Pakistan, 2025)</p>
+                                <!-- <p>(TPVICS SHRUC Round 4: Coverage Evaluation Survey, Pakistan, 2025)</p> -->
 
 
                             </div>

@@ -22,33 +22,26 @@ class MLinelisting extends CI_Model
 
     /*============================ LineListing Province & District Start ============================*/
 
+
     function getClustersProvince($district, $sub_district = '', $pageLevel = '1')
     {
         $dist_where = 'where (c.colflag is null OR c.colflag = \'0\' OR c.colflag = 0) ' . $this->globalWhere;
-        if (isset($district) && $district != '') {
-            $dist_where .= " and dist_id = '$district' ";
+        if (isset($district) && $district != '' && $pageLevel=2) {
+            $dist_where .= " and prcode = '$district' ";
         }
-        if (isset($sub_district) && $sub_district != '') {
-            $exp = explode(',', $sub_district);
-            $dist_where_clause = ' and (';
-            foreach ($exp as $k => $d) {
-                if ($k == 0) {
-                    $or = '  ';
-                } else {
-                    $or = ' or ';
-                }
-                $dist_where_clause .= " $or uc_id = '" . trim($d) . "' ";
-            }
-            $dist_where_clause .= ')';
-            $dist_where .= $dist_where_clause;
-        }
+        
 
-        if ($pageLevel == 2) {
-            $selectQ = "uc_id as my_id,uc_name as my_name";
-            $groupQ = "uc_id,uc_name ";
+         if ($pageLevel == 2) {
+
+            $selectQ = " dist_id as my_id,district as my_name, COUNT (*) clusters_by_district ";
+            $groupQ = "  dist_id,district";
+            $orderQ = " dist_id asc ";
+
+           
         } else {
-            $selectQ = "dist_id as my_id,district as my_name";
-            $groupQ = "dist_id,district ";
+           $selectQ = "prcode as my_id,province as my_name, COUNT (*) clusters_by_district ";
+            $groupQ = "prcode,province";
+            $orderQ = " province asc ";
         }
 
         $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ ";
@@ -60,35 +53,24 @@ class MLinelisting extends CI_Model
     function totalClusters_district($district, $sub_district = '', $pageLevel = 1)
     {
         $dist_where = 'where (c.colflag is null OR c.colflag = \'0\' OR c.colflag = 0) ' . $this->globalWhere;
-        if (isset($district) && $district != '') {
-            $dist_where .= " and dist_id = '$district' ";
-        }
-        if (isset($sub_district) && $sub_district != '') {
-            $exp = explode(',', $sub_district);
-            $dist_where_clause = ' and (';
-            foreach ($exp as $k => $d) {
-                if ($k == 0) {
-                    $or = '  ';
-                } else {
-                    $or = ' or ';
-                }
-                $dist_where_clause .= " $or uc_id = '" . substr(trim($d), 0, 3) . "' ";
-            }
-            $dist_where_clause .= ')';
-            $dist_where .= $dist_where_clause;
-
+       
+        if (isset($district) && $district != '' && $pageLevel=2) {
+            $dist_where .= " and prcode = '$district' ";
         }
 
         if ($pageLevel == 2) {
-            $selectQ = "uc_id as my_id,uc_name as my_name, COUNT (*) clusters_by_district ";
-            $groupQ = " uc_id,uc_name";
-            $orderQ = " uc_id asc ";
-        } else {
+
             $selectQ = " dist_id as my_id,district as my_name, COUNT (*) clusters_by_district ";
             $groupQ = "  dist_id,district";
             $orderQ = " dist_id asc ";
+
+           
+        } else {
+           $selectQ = "prcode as my_id,province as my_name, COUNT (*) clusters_by_district ";
+            $groupQ = "prcode,province";
+            $orderQ = " province asc ";
         }
-        $sql_query = "SELECT $selectQ FROM clusters c $dist_where  AND sampled = 1 GROUP BY $groupQ order by $orderQ ";
+        $sql_query = "SELECT $selectQ FROM clusters c $dist_where   GROUP BY $groupQ order by $orderQ ";
 
        // echo $sql_query;die;
         $query = $this->db->query($sql_query);
@@ -104,24 +86,13 @@ class MLinelisting extends CI_Model
         if (isset($district) && $district != '') {
             $dist_where .= " and c.dist_id = '$district' ";
         }
-        if (isset($sub_district) && $sub_district != '') {
-            $exp = explode(',', $sub_district);
-            $dist_where_clause = ' and (';
-            foreach ($exp as $k => $d) {
-                if ($k == 0) {
-                    $or = '  ';
-                } else {
-                    $or = ' or ';
-                }
-                $dist_where_clause .= " $or c.uc_id = '" . substr(trim($d), 0, 3) . "' ";
-            }
-            $dist_where_clause .= ')';
-            $dist_where .= $dist_where_clause;
+       if (isset($district) && $district != '' && $pageLevel=2) {
+            $dist_where .= " and prcode = '$district' ";
         }
         if ($pageLevel == 2) {
-            $str = 'c.uc_id';
-        } else {
             $str = 'c.dist_id';
+        } else {
+            $str = 'c.prcode';
         }
 //       where l.username not in('dmu@aku','user0001','user0002','test1234') AND
         $sql_query = "select c.geoArea,c.cluster_no,c.district, l.hh01, $str AS provinceId,

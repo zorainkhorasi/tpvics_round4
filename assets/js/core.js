@@ -94,20 +94,36 @@ function validateEmail(mail) {
     return emailReg.test( mail );
 }
 
+// function validatePwd(password) {
+//     $("#" + password).keypress(function (e) {
+//         var keyCode = e.keyCode || e.which;
+//         //Regex for Valid Characters i.e. Alphabets and Numbers.
+//         var regex = /^[A-Za-z0-9]+$/;
+//         //Validate TextBox value against the Regex.
+//         var isValid = regex.test(String.fromCharCode(keyCode));
+//         if (!isValid) {
+//             toastMsg('Error', 'Only Alphabets and Numbers allowed.', 'error');
+//         }
+//         return isValid;
+//     });
+// }
 function validatePwd(password) {
     $("#" + password).keypress(function (e) {
         var keyCode = e.keyCode || e.which;
-        //Regex for Valid Characters i.e. Alphabets and Numbers.
-        var regex = /^[A-Za-z0-9]+$/;
-        //Validate TextBox value against the Regex.
-        var isValid = regex.test(String.fromCharCode(keyCode));
+        var char = String.fromCharCode(keyCode);
+
+        // Allow alphabets, numbers, and common special characters
+        var regex = /^[A-Za-z0-9!@#$%^&*()_\-+=\[{\]};:'",<.>/?\\|`~]$/;
+
+        var isValid = regex.test(char);
+
         if (!isValid) {
-            toastMsg('Error', 'Only Alphabets and Numbers allowed.', 'error');
+            toastMsg('Error', 'Only alphabets, numbers, and special characters allowed.', 'error');
         }
+
         return isValid;
     });
 }
-
 
 function validateNum(phoneNoDiv) {
     $('#' + phoneNoDiv).keydown(function (event) {
