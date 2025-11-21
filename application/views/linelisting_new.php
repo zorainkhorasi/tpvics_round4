@@ -670,7 +670,7 @@
                                        echo $dist_array[4];
                                         ?>
                                         </span>
-                                        <span class="ps-total-count"><?php echo $total["BALOCHISTAN"]; ?></span>
+                                        <span class="ps-total-count"><?php echo $per["BALOCHISTAN"]['total']; ?></span>
                                     </div>
                                 </div>
 
@@ -679,7 +679,7 @@
                             <div id="BALOCHISTAN" class="chart-container"></div> 
 
                             <div class="progress-details">
-                                <div class="detail-row completed">
+                                <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -690,7 +690,7 @@
                                         </div>
                                         <span class="percentage"><?php echo $completed["BALOCHISTAN"]; ?></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="detail-row on-going">
                                     <div class="icon-label">
                                         <i class="bi bi-arrow-repeat text-warning"></i>
@@ -733,7 +733,7 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[3];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $total["SINDH"]; ?></span>
+                                        <span class="ps-total-count"><?php  echo $per["SINDH"]['total']; ?></span>
                                     </div>
                                 </div>
 
@@ -741,7 +741,7 @@
                             <div id="SINDH" class="chart-container"></div>
 
                             <div class="progress-details">
-                                <div class="detail-row completed">
+                                <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -752,7 +752,7 @@
                                         </div>
                                         <span class="percentage"><?php echo $completed["SINDH"]; ?></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="detail-row on-going">
                                     <div class="icon-label">
                                         <i class="bi bi-arrow-repeat text-warning"></i>
@@ -796,7 +796,7 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[2];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $total["PUNJAB"]; ?></span>
+                                        <span class="ps-total-count"><?php echo $per["PUNJAB"]['total']; ?></span>
                                     </div>
                                 </div>
 
@@ -804,7 +804,7 @@
                             <div id="PUNJAB" class="chart-container"></div>
 
                             <div class="progress-details">
-                                <div class="detail-row completed">
+                                <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -815,7 +815,7 @@
                                         </div>
                                         <span class="percentage"><?php echo $completed["PUNJAB"]; ?></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="detail-row on-going">
                                     <div class="icon-label">
                                         <i class="bi bi-arrow-repeat text-warning"></i>
@@ -861,7 +861,7 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[1];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $total["KHYBER PAKHTUNKHWA"]; ?></span>
+                                        <span class="ps-total-count"><?php echo $per["KHYBER PAKHTUNKHWA"]['total']; ?></span>
                                     </div>
                                 </div>
 
@@ -870,7 +870,7 @@
 
                             <div id="chart2" class="chart-container"></div>
                             <div class="progress-details">
-                                <div class="detail-row completed">
+                                <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -881,7 +881,7 @@
                                         </div>
                                         <span class="percentage"><?php echo $completed["KHYBER PAKHTUNKHWA"]; ?></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="detail-row on-going">
                                     <div class="icon-label">
                                         <i class="bi bi-arrow-repeat text-warning"></i>
@@ -924,14 +924,14 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[7];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $total["Gilgit-Baltistan"]; ?></span>
+                                        <span class="ps-total-count"><?php echo $per["GILGIT-BALTISTAN"]['total']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
                             <div id="GILGIT-BALTISTAN" class="chart-container"></div>
                             <div class="progress-details">
-                                <div class="detail-row completed">
+                                <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -940,9 +940,9 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar green" style="width: 45%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $completed["Gilgit-Baltistan"]; ?></span>
+                                        <span class="percentage"><?php echo $completed["GILGIT-BALTISTAN"]; ?></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="detail-row on-going">
                                     <div class="icon-label">
                                         <i class="bi bi-arrow-repeat text-warning"></i>
@@ -952,7 +952,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: 40%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["Gilgit-Baltistan"]; ?></span>
+                                        <span class="percentage"><?php echo $ip["GILGIT-BALTISTAN"]; ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -964,7 +964,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: 15%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["Gilgit-Baltistan"]; ?></span>
+                                        <span class="percentage"><?php echo $r["GILGIT-BALTISTAN"]; ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -987,14 +987,14 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[8];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $total["AZAD JAMMU & KASHMIR"]; ?></span>
+                                        <span class="ps-total-count"><?php echo $per["AZAD JAMMU & KASHMIR"]['total']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
                             <div id="chart1" class="chart-container"></div>
                             <div class="progress-details">
-                                <div class="detail-row completed">
+                                <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -1005,7 +1005,7 @@
                                         </div>
                                         <span class="percentage"><?php echo $completed["AZAD JAMMU & KASHMIR"]; ?></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="detail-row on-going">
                                     <div class="icon-label">
                                         <i class="bi bi-arrow-repeat text-warning"></i>
@@ -1035,11 +1035,7 @@
                     </div>
 
 
-                    <!-- <pre>
-                        <?php
-                            var_dump($total);
-                        ?>
-                    </pre> -->
+                 
 
                 </div>
                 <div id="ucsSection" class="d-none">
@@ -1153,38 +1149,19 @@
 
         function districtprogress() {
             // PHP array converted to JS object
-            let completed = <?php echo json_encode($completed); ?>;
+            let per = <?php echo json_encode($per); ?>;
                 let clusters_by_district = <?php echo json_encode($totalcluster['list']); ?>;
                
-            //    console.log(clusters_by_district);
+    
                
             // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
             let chartIndex = 1;
-            for (let district in completed) {
-                value = 0;
-                for(let clustersTotal in clusters_by_district){
-
+            for (let district in per) {
+        
+           
                 
                 if (district === "total"||district === "Training" || district === "ISLAMABAD") continue; // skip total if needed
-
-                let completedValue  = completed[district];
-                    // console.log(clusters_by_district[clustersTotal].clusters_by_district);
-                    // console.log(district);
-                    
-                    // return false;
-
-                    // if(clusters_by_district[clustersTotal].district == district){
-                        
-                    //     var totalClusters = clusters_by_district[clustersTotal].clusters_by_district;
-                    //     var value = totalClusters > 0 ? ((96 / totalClusters) * 100).toFixed(1) : 0;
-                    // }
-                   
-                
-                    
-                    
-                }
-                    // console.log(value);
-                    // return false;
+                    var value = per[district].percentage;
 
            
                 // Make dynamic options for each chart
@@ -1254,8 +1231,12 @@
         }
 
         function totalprogress(){
+            var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+            
+            
+           
             var options = {
-                series: [76, 67, 61, 90],
+                series: [sum.total, sum.completed, sum.ip, sum.remaining],
                 chart: {
                     height: 250,
                     type: 'radialBar',
@@ -1317,11 +1298,7 @@
             const ucsCards = document.getElementById("ucsCards");
 
               
-                // let total = <?php echo json_encode($total); ?>;
-                // let completed = <?php echo json_encode($completed); ?>;
-                // let ip = <?php echo json_encode($ip); ?>;
-                // let remaining = <?php echo json_encode($r); ?>;
-                // console.log(total,completed,ip,remaining['Quetta']);
+       
                     
             // ✅ Example UCS data per district
           
@@ -1346,7 +1323,6 @@
                 type: "GET",
                 dataType: "json",
                 success: function (response) {
-                    console.log("Response from Controller:", response);
 
                     // Prepare dynamic UCS data
                     const data = [];
@@ -1360,7 +1336,9 @@
                             remaining: response.r[distName] || 0
                         });
                     }
-
+                    
+                    
+                    
                     // Optional: sort by progress descending
                     data.sort((a, b) => b.progress - a.progress);
 
@@ -1382,18 +1360,20 @@
                                 <div id="chart-${district}-${index}" class="chart-container" style="height: 180px;"></div>
                                 <div class="text-center mt-2">
                                     <div class="status-row">
-                                        <span class="badge bg-success me-1">Completed: ${ucs.completed}%</span>
-                                        <span class="badge bg-warning text-dark me-1">Ongoing: ${ucs.ongoing}%</span>
-                                        <span class="badge bg-danger">Pending: ${ucs.remaining}%</span>
+                                        
+                                        <span class="badge bg-warning text-dark me-1">Ongoing: ${ucs.ongoing}</span>
+                                        <span class="badge bg-danger">Pending: ${ucs.remaining}</span>
                                     </div>
                                 </div>
                             </div>
                         `;
                         ucsCards.appendChild(ucsCard);
-
+                        var value=response.per[ucs.name].percentage;
+                  
+                     
                         // Create Apex radial chart
                         var options = {
-                            series: [ucs.progress],
+                            series: [value],
                             chart: {
                                 height: 180,
                                 type: 'radialBar',
@@ -1463,57 +1443,61 @@
 
 
         // Place this script block at the end of your HTML body or in a dedicated JS file
-function TotalProvince(){
-    var options = {
-        series: [{
-            name: 'Province',
-            data: [44, 55, 57, 56, 61, 58]
-        }],
-        chart: {
-            type: 'bar',
-            height: 350
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '55%',
-                borderRadius: 5,
-                borderRadiusApplication: 'end'
-            },
-        },
-        colors: ['#81a8a8'],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-        },
-        xaxis: {
-            categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
-        },
-        yaxis: {
-            title: {
-                text: '$ (thousands)'
-            }
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            y: {
-                formatter: function (val) {
-                    return "$ " + val + " thousands"
+        function TotalProvince(){
+
+            var per = <?php echo json_encode($per, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+        
+
+            var options = {
+                series: [{
+                    name: 'Province',
+                    data: [per['AZAD JAMMU & KASHMIR'].completed, per['SINDH'].completed, per['BALOCHISTAN'].completed, per['KHYBER PAKHTUNKHWA'].completed, per['AZAD JAMMU & KASHMIR'].completed, per['GILGIT-BALTISTAN'].completed]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        borderRadius: 5,
+                        borderRadiusApplication: 'end'
+                    },
+                },
+                colors: ['#81a8a8'],
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
+                },
+                yaxis: {
+                    title: {
+                        text: '$ (thousands)'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return "$ " + val + " thousands"
+                        }
+                    }
                 }
-            }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#totalpro"), options);
+            chart.render();
+
         }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#totalpro"), options);
-    chart.render();
-
-}
 
 
 

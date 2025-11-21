@@ -161,14 +161,19 @@ class Dashboard extends CI_controller
                     }
                 }
             }
-            //  echo"<pre>";
-            //  var_dump($data);
-            // die();
+            
+            
 
-            //      echo"<pre>";
-            //  print_r($data);
-            //  exit;
-            //  echo '<pre>';print_r($data);exit;
+            $formated_data=$this->linelisting_new_dashboard();
+                         
+         
+            $data['per']=$formated_data;
+          
+            $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r'],$formated_data);
+          
+            $data['sum']=$sum;
+          
+            
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -197,7 +202,36 @@ class Dashboard extends CI_controller
         /*==========Log=============*/
     }
 
+    function calculateTotal($completed,$ip,$r,$total){
 
+         
+        $sum=[
+            'total'=>0,
+            'remaining'=>0,
+            'ip'=>0,
+            'completed'=>0
+        ];
+
+        foreach ($completed as $k => $d) {
+            $sum['completed'] += $d;
+        }
+        foreach ($ip as $k => $d) {
+            $sum['ip'] += $d;
+        }
+        foreach ($r as $k => $d) {
+            $sum['remaining'] += $d;
+        }
+        foreach ($total as $district => $data) {
+         $sum['total'] += isset($data['total']) ? $data['total'] : 0;
+        }
+      
+
+        return $sum;
+        
+
+
+
+    }
     function linelisting_new_dashboard()
     {
         $data = array();
@@ -238,8 +272,36 @@ class Dashboard extends CI_controller
             $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] - $n[$key]['pending'];
         }
 
-        echo "<pre>";
-        print_r($n);die;
+     
+        
+            $per = [];
+
+            foreach ($n as $item) {
+
+                $name = $item['my_name'];
+
+                if (!isset($per[$name])) {
+                    $per[$name] = [
+                        'total' => 0,
+                        'completed' => 0,
+                        'percentage' => 0
+                    ];
+                }
+
+                // Add values (merge duplicates)
+                $per[$name]['total'] += $item['total'];
+                $per[$name]['completed'] += $item['completed'];
+            }
+
+            // Calculate final percentages
+            foreach ($per as $name => $data) {
+                $per[$name]['percentage'] = $data['total'] > 0
+                    ? round(($data['completed'] / $data['total']) * 100)
+                    : 0;
+            }
+
+
+        return $per;
 
     }
 
@@ -304,6 +366,8 @@ class Dashboard extends CI_controller
             $data['totalcluster']['total'] = $totalcluster;
             $data['totalcluster']['list'] = $clusters_by_district;
 
+          
+
             /*==============Completed & In Progress Clusters==============*/
             $completedClusters_district = $MLinelisting->completedClusters_district($district, $sub_district, $level);
 
@@ -345,13 +409,41 @@ class Dashboard extends CI_controller
                     }
                 }
             }
-            // echo "<pre>";
-            // var_dump($data);
-            // exit();
+             $per = [];
+            // Step 1: Add total values
+            foreach ($data['totalcluster']['list'] as $dist) {
+                $per[$dist['district']] = [
+                    'total' => $dist['clusters_by_district'],
+                    'completed' => 0,        // default, will update later
+                    'percentage' => 0
+                ];
+            }
+
+            // Step 2: Add completed values
+            foreach ($data['completed'] as $distName => $completedValue) {
+                if (isset($per[$distName])) {
+                    $per[$distName]['completed'] = $completedValue;
+                }
+            }
+
+            // Step 3: Calculate percentage
+            foreach ($per as $district => $value) {
+                $total = $value['total'];
+                $completed = $value['completed'];
+
+                $per[$district]['percentage'] = ($total > 0)
+                    ? intval(($completed / $total) * 100)  // no decimal
+                    : 0;
+            }
+
+            $data['per']=$per;
+                    
+         
             // Send JSON response for AJAX
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($data));
+           
+                 ->set_output(json_encode( $data ));
             return; // important: stop execution here
 
         } else {
