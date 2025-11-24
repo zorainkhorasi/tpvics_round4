@@ -415,7 +415,7 @@ class Dashboard extends CI_controller
 
     function systematic_randomizer()
     {
-        $sample = 13;
+        $sample = 15;
         if (isset($_POST['cluster_no']) && $_POST['cluster_no'] != '') {
             $cluster = $_POST['cluster_no'];
             $MLinelisting = new MLinelisting();
