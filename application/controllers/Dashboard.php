@@ -227,9 +227,6 @@ class Dashboard extends CI_controller
       
 
         return $sum;
-        
-
-
 
     }
     function linelisting_new_dashboard()
@@ -409,11 +406,14 @@ class Dashboard extends CI_controller
                     }
                 }
             }
+
+          
              $per = [];
             // Step 1: Add total values
             foreach ($data['totalcluster']['list'] as $dist) {
                 $per[$dist['district']] = [
                     'total' => $dist['clusters_by_district'],
+                    'id' => $dist['id'],
                     'completed' => 0,        // default, will update later
                     'percentage' => 0
                 ];
@@ -442,7 +442,6 @@ class Dashboard extends CI_controller
             // Send JSON response for AJAX
             $this->output
                 ->set_content_type('application/json')
-           
                  ->set_output(json_encode( $data ));
             return; // important: stop execution here
 
@@ -468,27 +467,33 @@ class Dashboard extends CI_controller
             } else {
                 $district = '';
             }
+                 $sub_district = $this->input->get('district_id'); // <- here
+                 $cluster_type = $this->input->get('status'); 
 
+             
             $MLinelisting = new MLinelisting();
 
-            $district_cluster_type = $this->uri->segment(3);
-            $sub_district = '';
-            $cluster_type = '';
-            if (!empty($district_cluster_type)) {
-                $sub_district_cluster_type = $this->uri->segment(4);
-                if (!empty($sub_district_cluster_type)) {
-                    $sub_district = substr($sub_district_cluster_type, 1, 5);
-                }
-                $district = substr($district_cluster_type, 1, 3);
-                $cluster_type = substr($district_cluster_type, 5, 1);
-            }
-            $data['sub_district'] = $sub_district;
-
+            // $district_cluster_type = $this->uri->segment(3);
+            // $sub_district = '';
+            // $cluster_type = '';
+            // if (!empty($district_cluster_type)) {
+            //     $sub_district_cluster_type = $this->uri->segment(4);
+            //     if (!empty($sub_district_cluster_type)) {
+            //         $sub_district = substr($sub_district_cluster_type, 1, 5);
+            //     }
+            //     $district = substr($district_cluster_type, 1, 3);
+            //     $cluster_type = substr($district_cluster_type, 5, 1);
+            // }
+            // $data['sub_district'] = $sub_district;
+            //    echo "<pre>";
+            //      var_dump($data, $sub_district,$cluster_type);
+            //      exit();
             /*============== Linelisting Data table ==============*/
 
             $data['cluster_type'] = $cluster_type;
             if ($cluster_type == 'c' || $cluster_type == 'i' || $cluster_type == 'r') {
                 $get_linelisting_table = $MLinelisting->get_linelisting_table($district, $cluster_type, $sub_district);
+             
             } else {
                 $get_linelisting_table = $MLinelisting->get_linelisting_table($district, '', $sub_district);
             }
@@ -525,6 +530,7 @@ class Dashboard extends CI_controller
                 }
             }
             $data['get_linelisting_table'] = $res;
+           
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');

@@ -1317,95 +1317,290 @@
             });
 
             
-            function showUcsSection(districtId, district) {
-            $.ajax({
-                url: "dashboard_index/" + districtId,
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
+        //     function showUcsSection(districtId, district) {
+        //           $.ajax({
+        //         url: "dashboard_index/" + districtId,
+        //         type: "GET",
+        //         dataType: "json",
+        //         success: function (response) {
 
-                    // Prepare dynamic UCS data
-                    const data = [];
-                    for (let distName in response.total) {
-                        if (distName === "total") continue; // skip the overall total
-                        data.push({
-                            name: distName,
-                            progress: response.total[distName] || 0,
-                            completed: response.completed[distName] || 0,
-                            ongoing: response.ip[distName] || 0,
-                            remaining: response.r[distName] || 0
-                        });
-                    }
+        //             // Prepare dynamic UCS data
+        //             const data = [];
+        //             for (let distName in response.total) {
+        //                 if (distName === "total") continue; // skip the overall total
+        //                 data.push({
+        //                     name: distName,
+        //                     progress: response.total[distName] || 0,
+        //                     completed: response.completed[distName] || 0,
+        //                     ongoing: response.ip[distName] || 0,
+        //                     remaining: response.r[distName] || 0
+        //                 });
+        //             }
                     
                     
                     
-                    // Optional: sort by progress descending
-                    data.sort((a, b) => b.progress - a.progress);
+        //             // Optional: sort by progress descending
+        //             data.sort((a, b) => b.progress - a.progress);
 
-                    // Hide district cards, show UCS section
-                    districtCardsSection.classList.add("d-none");
-                    ucsSection.classList.remove("d-none");
-                    ucsTitle.textContent = `${district} - UCS Details`;
-                    ucsCards.innerHTML = ""; // Clear previous cards
+        //             // Hide district cards, show UCS section
+        //             districtCardsSection.classList.add("d-none");
+        //             ucsSection.classList.remove("d-none");
+        //             ucsTitle.textContent = `${district} - UCS Details`;
+        //             ucsCards.innerHTML = ""; // Clear previous cards
 
-                    // Create UCS cards
-                    data.forEach((ucs, index) => {
-                        const ucsCard = document.createElement("div");
-                        ucsCard.className = "col";
-                        ucsCard.innerHTML = `
-                            <div class="dashboard-card p-3 text-center" data-ucs="${ucs.name}">
-                                <div class="card-header-new mb-2">
-                                    <div class="location-name-new">${ucs.name}</div>
-                                </div>
-                                <div id="chart-${district}-${index}" class="chart-container" style="height: 180px;"></div>
-                                <div class="text-center mt-2">
-                                    <div class="status-row">
+        //             // Create UCS cards
+        //             data.forEach((ucs, index) => {
+        //                 const ucsCard = document.createElement("div");
+        //                 ucsCard.className = "col";
+        //                 ucsCard.innerHTML = `
+        //                     <div class="dashboard-card p-3 text-center" data-ucs="${ucs.name}">
+        //                         <div class="card-header-new mb-2">
+        //                             <div class="location-name-new">${ucs.name}</div>
+        //                         </div>
+        //                         <div id="chart-${district}-${index}" class="chart-container" style="height: 180px;"></div>
+        //                         <div class="text-center mt-2">
+        //                             <div class="status-row">
                                         
-                                        <span class="badge bg-warning text-dark me-1">Ongoing: ${ucs.ongoing}</span>
-                                        <span class="badge bg-danger">Pending: ${ucs.remaining}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        ucsCards.appendChild(ucsCard);
-                        var value=response.per[ucs.name].percentage;
+        //                                 <span class="badge bg-warning text-dark me-1">Ongoing: ${ucs.ongoing}</span>
+        //                                 <span class="badge bg-danger">Pending: ${ucs.remaining}</span>
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                 `;
+                        
+        //                 ucsCards.appendChild(ucsCard);
+        //                 var value=response.per[ucs.name].percentage;
                   
                      
-                        // Create Apex radial chart
-                        var options = {
-                            series: [value],
-                            chart: {
-                                height: 180,
-                                type: 'radialBar',
-                                sparkline: { enabled: true }
-                            },
-                            plotOptions: {
-                                radialBar: {
-                                    startAngle: -135,
-                                    endAngle: 135,
-                                    hollow: { size: '70%' },
-                                    track: { background: '#f0f0f0' },
-                                    dataLabels: {
-                                        name: { show: false },
-                                        value: {
-                                            fontSize: '22px',
-                                            show: true,
-                                            formatter: val => `${Math.round(val)}%`
+        //                 // Create Apex radial chart
+        //                 var options = {
+        //                     series: [value],
+        //                     chart: {
+        //                         height: 180,
+        //                         type: 'radialBar',
+        //                         sparkline: { enabled: true }
+        //                     },
+        //                     plotOptions: {
+        //                         radialBar: {
+        //                             startAngle: -135,
+        //                             endAngle: 135,
+        //                             hollow: { size: '70%' },
+        //                             track: { background: '#f0f0f0' },
+        //                             dataLabels: {
+        //                                 name: { show: false },
+        //                                 value: {
+        //                                     fontSize: '22px',
+        //                                     show: true,
+        //                                     formatter: val => `${Math.round(val)}%`
+        //                                 }
+        //                             }
+        //                         }
+        //                     },
+        //                     colors: ['#7b5cff']
+        //                 };
+        //                 var chart = new ApexCharts(document.querySelector(`#chart-${district}-${index}`), options);
+        //                 chart.render();
+
+
+        //         //            chartEl.addEventListener("click", () => {
+        //         //                 dashboard_dt(districtId, "c");
+        //         //             });
+                        
+        //         //              // Click on ongoing → ip
+        //         //     ucsCard.querySelector(".progress-ip").addEventListener("click", () => {
+        //         //                 dashboard_dt(districtId, "ip");
+        //         //      });
+
+        //         // // Click on remaining → r
+        //         //     ucsCard.querySelector(".progress-r").addEventListener("click", () => {
+        //         //     dashboard_dt(districtId, "r");
+        //         //   });
+        //         });
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 console.log("AJAX Error:", error);
+        //             }
+        //         });
+        // }
+
+            function showUcsSection(districtId, district) {
+               
+               
+            //    console.log(districtId);
+               
+                $.ajax({
+                    url: "dashboard_index/" + districtId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+
+                        // console.log(response.per.id);
+                        
+                        // Prepare dynamic UCS data
+                        const data = [];
+                        for (let distName in response.total) {
+                            if (distName === "total") continue;
+                            data.push({
+                                name: distName,
+                                progress: response.total[distName] || 0,
+                                completed: response.completed[distName] || 0,
+                                ongoing: response.ip[distName] || 0,
+                                remaining: response.r[distName] || 0
+                            });
+                        }
+
+                        // Sort descending by progress
+                        data.sort((a, b) => b.progress - a.progress);
+                        // console.log(data);
+                         
+                        // Hide district cards, show UCS section
+                        districtCardsSection.classList.add("d-none");
+                        ucsSection.classList.remove("d-none");
+                        ucsTitle.textContent = `${district} - UCS Details`;
+                        ucsCards.innerHTML = "";
+
+                        // Create UCS cards
+                        data.forEach((ucs, index) => {
+
+                               id=response.per[ucs.name].id;
+                            //    console.log(id);
+                               
+                            const ucsCard = document.createElement("div");
+                            ucsCard.className = "col";
+
+                            ucsCard.innerHTML = `
+                                <div class="dashboard-card p-3 text-center" data-id="${id}" data-ucs="${ucs.name}">
+                                    <div class="card-header-new mb-2">
+                                        <div class="location-name-new">${ucs.name}</div>
+                                    </div>
+
+                                    <!-- Chart section (Completed Click) -->
+                                    <div id="chart-${district}-${index}" 
+                                        class="chart-container progress-c"
+                                        style="height: 180px; cursor:pointer;">
+                                    </div>
+
+                                    <div class="text-center mt-2">
+                                        <div class="status-row">
+
+                                            <!-- Ongoing -->
+                                            <span class="badge bg-warning text-dark me-1 progress-ip" style="cursor:pointer;">
+                                                Ongoing: ${ucs.ongoing}
+                                            </span>
+
+                                            <!-- Pending -->
+                                            <span class="badge bg-danger progress-r" style="cursor:pointer;">
+                                                Pending: ${ucs.remaining}
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            ucsCards.appendChild(ucsCard);
+
+                            // Percent Value
+                            var value = response.per[ucs.name].percentage;
+
+                            // Apex radial chart
+                            var chartOptions = {
+                                series: [value],
+                                chart: {
+                                    height: 180,
+                                    type: 'radialBar',
+                                    sparkline: { enabled: true }
+                                },
+                                plotOptions: {
+                                    radialBar: {
+                                        startAngle: -135,
+                                        endAngle: 135,
+                                        hollow: { size: '70%' },
+                                        track: { background: '#f0f0f0' },
+                                        dataLabels: {
+                                            name: { show: false },
+                                            value: {
+                                                fontSize: '22px',
+                                                show: true,
+                                                formatter: val => `${Math.round(val)}%`
+                                            }
                                         }
                                     }
-                                }
-                            },
-                            colors: ['#7b5cff']
-                        };
-                        var chart = new ApexCharts(document.querySelector(`#chart-${district}-${index}`), options);
-                        chart.render();
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.log("AJAX Error:", error);
-                }
-            });
-        }
+                                },
+                                colors: ['#7b5cff']
+                            };
+
+                            const chartEl = document.querySelector(`#chart-${district}-${index}`);
+                            const chart = new ApexCharts(chartEl, chartOptions);
+                            chart.render();
+
+                            // ---------------------------
+                            // CLICK EVENTS
+                            // ---------------------------
+
+                            // Completed (chart click)
+                            if (chartEl) {
+                                chartEl.addEventListener("click", () => {
+                                    const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+                                    dashboard_dt(cardId, "c");
+                                });
+                            }
+
+                            // Ongoing Click
+                            const ipEl = ucsCard.querySelector(".progress-ip");
+                            if (ipEl) {
+                                ipEl.addEventListener("click", () => {
+                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+
+                                    dashboard_dt(cardId, "ip");
+                                });
+                            }
+
+                            // Pending Click
+                            const rEl = ucsCard.querySelector(".progress-r");
+                            if (rEl) {
+                                rEl.addEventListener("click", () => {
+                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+
+                                    dashboard_dt(cardId, "r");
+                                });
+                            }
+
+                        }); // end foreach
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("AJAX Error:", error);
+                    }
+                });
+            }
+
+            function dashboard_dt(districtId, status) {
+
+                // console.log("District ID:", districtId); 
+                // console.log("Status:", status); 
+
+                // $.ajax({
+                //     url: "dashboard_dt",
+                //     type: "GET",
+                //     data: {
+                //         district_id: districtId,
+                //         status: status
+                //     },
+                //     dataType: "json",
+                //     success: function (response) {
+                //         console.log("Dashboard DT Response:", response);
+
+                //         // You can display table, modal etc. here
+                //     },
+                //     error: function (xhr, status, error) {
+                //         console.error("Error in dashboard_dt:", error);
+                //     }
+                // });
+                    window.location.href = "dashboard_dt?district_id=" + districtId + "&status=" + status;
+
+
+            }
+
 
 
 

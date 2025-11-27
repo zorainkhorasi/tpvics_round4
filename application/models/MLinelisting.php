@@ -127,8 +127,8 @@ class MLinelisting extends CI_Model
         }
 
         $sql_query = "SELECT MAX (CAST(l.hh04 AS INT)) as structure,	l.hh01,	l.tabNo FROM	listings l  WHERE   $where
- AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
-GROUP BY 	l.tabNo,l.hh01,l.colflag  ORDER BY	l.tabNo ASC";
+        AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
+        GROUP BY 	l.tabNo,l.hh01,l.colflag  ORDER BY	l.tabNo ASC";
         $query = $this->db->query($sql_query);
         return $query->result();
 
@@ -160,11 +160,12 @@ GROUP BY 	l.tabNo,l.hh01,l.colflag  ORDER BY	l.tabNo ASC";
     function get_linelisting_table($district, $cluster_type = '', $sub_district = '', $sysdate = '')
     {
         $dist_where = $this->globalWhere;
-        if (isset($district) && $district != '' && $sub_district == '') {
-            $dist_where .= " and c.dist_id = '$district' ";
-        } elseif (isset($sub_district) && $sub_district != '') {
-            $dist_where .= " and c.uc_id = '$sub_district' ";
-        }
+        if (! $sub_district == '') {
+            $dist_where .= " and c.dist_id = '$sub_district' ";
+        } 
+        // elseif (isset($sub_district) && $sub_district != '') {
+        //     $dist_where .= " and c.uc_id = '$sub_district' ";
+        // }
         if ((isset($_SESSION['login']['idGroup']) && $this->encrypt->decode($_SESSION['login']['idGroup']) == 1) || $district=='901' ) {
             $users = '  ';
         } else {
@@ -193,17 +194,17 @@ GROUP BY 	l.tabNo,l.hh01,l.colflag  ORDER BY	l.tabNo ASC";
 
 
         $sql_query = "SELECT c.geoarea, c.cluster_no,c.exphh,	c.dist_id ,l.data_collected ,   
-sum(case when hh14 = '1'  then 1 else 0 end) as target_children,
-(select SUM(CAST(hh14a as int)) from listings where hh14='1' and (hh14a!='null' or hh14a is not null)  and hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) as no_of_children,
-(select count(distinct deviceid) from listings where hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
-(select count(*) completed_tabs from(select deviceid, max(cast(hh03 as int)) ms from listings where   hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)  and hh07 = 9 group by deviceid) AS completed_tabs) completed_tabs,
-(select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.hh01 = l.hh01 order by ll.sysdate asc) as startActivity,
-(select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.hh01 = l.hh01 order by ll.sysdate desc) as endActivity,
-(select  cc.randomized  from clusters cc where  cluster_no = l.hh01  group by cc.cluster_no,cc.randomized  ) as status,
-( SELECT p.status FROM planning p WHERE p.cluster_no = c.cluster_no and  p.status!=0 group by p.status  ) AS planning 
-                              from clusters c
+            sum(case when hh14 = '1'  then 1 else 0 end) as target_children,
+            (select SUM(CAST(hh14a as int)) from listings where hh14='1' and (hh14a!='null' or hh14a is not null)  and hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) as no_of_children,
+            (select count(distinct deviceid) from listings where hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
+            (select count(*) completed_tabs from(select deviceid, max(cast(hh03 as int)) ms from listings where   hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)  and hh07 = 9 group by deviceid) AS completed_tabs) completed_tabs,
+            (select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.hh01 = l.hh01 order by ll.sysdate asc) as startActivity,
+            (select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.hh01 = l.hh01 order by ll.sysdate desc) as endActivity,
+            (select  cc.randomized  from clusters cc where  cluster_no = l.hh01  group by cc.cluster_no,cc.randomized  ) as status,
+            ( SELECT p.status FROM planning p WHERE p.cluster_no = c.cluster_no and  p.status!=0 group by p.status  ) AS planning 
+                                        from clusters c
                             left join listings l on c.cluster_no=l.hh01  AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
-                              where c.sampled=1 and  1=1  $users
+                              where   1=1  $users
                             
                              AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
                               $dist_where  $cluster_type_where $sysdate_where
@@ -211,7 +212,7 @@ sum(case when hh14 = '1'  then 1 else 0 end) as target_children,
                             order by c.geoArea,c.cluster_no";
 
 
-       // echo $sql_query;die;
+    //    echo $sql_query;die;
 
         $query = $this->db->query($sql_query);
         return $query->result();

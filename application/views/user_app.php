@@ -138,15 +138,26 @@
                                 <i class="feather icon-eye-off pwdIcon"></i>
                             </div>
                         </fieldset>
+                          <div class="form-group">
+                            <label for="province">Province: </label>
+                            <select class="form-control select2" id="province" required>
+                                <option value="0">Select Province</option>
+                                <?php if (isset($province) && $province != '') {
+                                    foreach ($province as $d) {
+                                        echo '<option value="' . $d->prcode . '">' . $d->province . '</option>';
+                                    }
+                                } ?>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="district">District: </label>
                             <select class="form-control select2" id="district" required>
                                 <option value="0">Select District</option>
-                                <?php if (isset($districts) && $districts != '') {
+                                <!-- <?php if (isset($districts) && $districts != '') {
                                     foreach ($districts as $d) {
                                         echo '<option value="' . $d->dist_id . '">' . $d->district . '</option>';
                                     }
-                                } ?>
+                                } ?> -->
                             </select>
                         </div>
                         <div class="form-group">
@@ -186,6 +197,17 @@
                         <label for="edit_userName">User: </label>
                         <input type="text" class="form-control edit_userName" id="edit_userName" readonly disabled>
                     </div>
+                      <div class="form-group">
+                            <label for="province">Province: </label>
+                            <select class="form-control" id="edit_province" required>
+                                <option value="0">Select province</option>
+                                <?php if (isset($province) && $province != '') {
+                                    foreach ($province as $d) {
+                                        echo '<option value="' . $d->prcode . '">' . $d->province . '</option>';
+                                    }
+                                } ?>
+                            </select>
+                        </div>
 
                     <div class="form-group">
                         <label for="edit_district">District: </label>
@@ -357,6 +379,54 @@
                 }
             ]
         });
+
+        $('#province').on('change', function () {
+            let provinceId = $(this).val();
+            
+            if (provinceId != 0) {
+                $.ajax({
+                    url: "app_users/getDistrict/" + provinceId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Districts: ", response);
+
+                        // Example: Populate district dropdown
+                        let html = '<option value="0">Select District</option>';
+                        $.each(response, function (i, d) {
+                            html += '<option value="' + d.dist_id + '">' + d.district + '</option>';
+                        });
+
+                        $('#district').html(html);
+                    }
+                });
+            }
+        });
+
+          $('#edit_province').on('change', function () {
+            let provinceId = $(this).val();
+                // console.log(provinceId);
+                // return false;
+            if (provinceId != 0) {
+                $.ajax({
+                    url: "app_users/getDistrict/" + provinceId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Districts: ", response);
+
+                        // Example: Populate district dropdown
+                        let html = '<option value="0">Select District</option>';
+                        $.each(response, function (i, d) {
+                            html += '<option value="' + d.dist_id + '">' + d.district + '</option>';
+                        });
+
+                        $('#edit_district').html(html);
+                    }
+                });
+            }
+        });
+
     });
 
     function addData() {
@@ -368,6 +438,7 @@
         data['fullName'] = $('#fullName').val();
         data['userName'] = $('#userName').val();
         data['userPassword'] = $('#userPassword').val();
+        data['province'] = $('#province').val();
         data['district'] = $('#district').val();
         data['designation'] = $('#designation').val();
         if (data['fullName'] == '' || data['fullName'] == undefined) {
@@ -409,6 +480,12 @@
             $('#userPassword').css('border', '1px solid red');
             flag = 1;
             toastMsg('Password', 'Invalid Password', 'error');
+            return false;
+        }
+           if (data['province'] == '' || data['province'] == undefined || data['province'] == 0 || data['province'] == '0') {
+            $('#province').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('Province', 'Invalid Province', 'error');
             return false;
         }
         if (data['district'] == '' || data['district'] == undefined || data['district'] == 0 || data['district'] == '0') {
@@ -483,11 +560,13 @@
                 hideloader();
                 if (result != '' && JSON.parse(result).length > 0) {
                     var a = JSON.parse(result);
+                    
                     try {
                         $('#edit_idUser').val(data['id']);
                         $('#edit_userName').val(a[0]['username']);
                         $('#edit_fullName').val(a[0]['full_name']);
                         $('#edit_district').val(a[0]['dist_id']);
+                        $('#edit_province').val(a[0]['prcode']);
                         $('#edit_designation').val(a[0]['designation']);
                     } catch (e) {
                     }

@@ -31,8 +31,8 @@ class App_Users extends CI_controller
         if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1) {
             $track_msg = 'View success';
             $MUser = new MUser();
-            $data['districts'] = $Custom->getDistricts();
-           
+            $data['province'] = $Custom->getProvince();
+       
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -55,6 +55,17 @@ class App_Users extends CI_controller
         $Custom->trackLogs($trackarray, "all_logs");
         /*==========Log=============*/
 
+    }
+    function getDistrict($provinceId){
+            $this->db->distinct();
+             $this->db->select('dist_id, district');
+            $this->db->from('clusters');
+            $this->db->where('prcode', $provinceId);
+            $query = $this->db->get()->result();
+           
+             $this->output
+                ->set_content_type('application/json')
+                 ->set_output(json_encode( $query ));
     }
 
     function addData()
@@ -79,6 +90,7 @@ class App_Users extends CI_controller
                 $formArray['passwordenc'] = $userPasswordenc;
                 $formArray['designation'] = $_POST['designation'];
                 $formArray['dist_id'] = $_POST['district'];
+                $formArray['prcode'] = $_POST['province'];
                 $formArray['auth_level'] = 0;
                 $formArray['enabled'] = 1;
                 $formArray['isNewUser'] = 1;
@@ -86,7 +98,7 @@ class App_Users extends CI_controller
                 $formArray['pwdExpiry'] = date('Y-m-d', strtotime('+90 days'));
                 $formArray['createdBy'] = $this->encrypt->decode($_SESSION['login']['idUser']);
                 $formArray['createdDateTime'] = date('Y-m-d H:i:s');
-
+             
                 $InsertData = $Custom->Insert($formArray, 'id', 'AppUser', 'N');
                 if ($InsertData) {
                     $result = array('Success', 'Successfully Inserted', 'success');

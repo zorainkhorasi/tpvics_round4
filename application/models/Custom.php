@@ -21,6 +21,19 @@ class Custom extends CI_Model
             return 0;
         }
     }
+    public function getDistrictsByProvince($province_id)
+    {
+        $this->db->distinct();
+        $this->db->select('dist_id');
+        $this->db->from('Clusters');
+        $this->db->where('prcode', $province_id);
+        $this->db->where("(colflag IS NULL OR colflag = '0')");
+        $this->db->group_by('dist_id');
+
+        return $this->db->get()->result();
+      
+
+    }
 
     function Edit($Data, $key, $value, $table)
     {
@@ -239,6 +252,22 @@ class Custom extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+     function getProvince()
+    {
+      
+
+        if (!isset($_SESSION['login']['idGroup']) || $_SESSION['login']['idGroup'] != 1) {
+            $this->db->where("dist_id NOT LIKE '9%' ");
+        }
+        $this->db->distinct();
+        $this->db->select('province,prcode');
+        $this->db->from('Clusters');
+        $this->db->where(" (colflag is null OR colflag = '0') ");
+        $this->db->order_By('province', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 
     function getDistricts($ucs = '')
     {

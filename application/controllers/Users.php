@@ -28,6 +28,9 @@ class Users extends CI_controller
         $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', uri_string());
         /*==========Log=============*/
         $Custom = new Custom();
+        $data['province'] = $Custom->getProvince();
+
+
         $trackarray = array(
             "activityName" => "Users",
             "action" => "View Users -> Function: Users/index()",
@@ -51,21 +54,37 @@ class Users extends CI_controller
         $this->load->view('include/footer');
     }
 
+    function getDistrict($provinceId){
+            $this->db->distinct();
+             $this->db->select('dist_id, district');
+            $this->db->from('clusters');
+            $this->db->where('prcode', $provinceId);
+            $query = $this->db->get()->result();
+           
+             $this->output
+                ->set_content_type('application/json')
+                 ->set_output(json_encode( $query ));
+    }
+
     public function getEdit()
     {
         $MUser = new MUser();
         $data = array();
         $result = $MUser->getEditUser($this->input->post('id'));
+     
         foreach ($result as $k => $v) {
             $data[$k]['id'] = $v->id;
             $data[$k]['full_name'] = $v->full_name;
             $data[$k]['username'] = $v->username;
             $data[$k]['email'] = $v->email;
             $data[$k]['designation'] = $v->designation;
+            $data[$k]['district'] = $v->district;
+            $data[$k]['province'] = $v->prcode;
             $data[$k]['contact'] = $v->contact;
             $data[$k]['idGroup'] = $v->idGroup;
             $data[$k]['pwdExpiry'] = (isset($v->pwdExpiry) && $v->pwdExpiry != '' ? date('d-m-Y', strtotime($v->pwdExpiry)) : '');
         }
+     
         echo json_encode($data, true);
     }
 
@@ -100,10 +119,35 @@ class Users extends CI_controller
         if (isset($_POST['pwdExpiry']) && $_POST['pwdExpiry'] != '') {
             $formArray['pwdExpiry'] = date('Y-m-d', strtotime($_POST['pwdExpiry']));
         }
+         if (!isset($_POST['province']) || $_POST['province'] == '' || $_POST['province'] == '0') {
+            echo $result = 8;
+            $flag = 1;
+            exit();
+        }
+        if (in_array('all', $_POST['district'])) {
+            
+                $province_id = $_POST['province'];
+
+                $rows = $Custom->getDistrictsByProvince($province_id);
+
+                $district_ids = array_map(function($row){
+                    return $row->dist_id;
+                }, $rows);
+
+                $districts = implode(',', $district_ids);
+       
+        }else{
+            $districts = implode(',', $_POST['district']);
+        }
+
+        
         if ($flag == 0 && isset($_POST['idUser']) && $_POST['idUser'] != '') {
             $idUser = $_POST['idUser'];
+            $formArray['prcode'] = $_POST['province'];
+            $formArray['district'] = $districts;
             $formArray['updateBy'] = $this->encrypt->decode($_SESSION['login']['idUser']);
             $formArray['updatedDateTime'] = date('Y-m-d H:m:s');
+         
             $editData = $Custom->Edit($formArray, 'id', $idUser, 'users_dash');
             if ($editData) {
                 $result = 1;
@@ -195,6 +239,33 @@ class Users extends CI_controller
             $flag = 1;
             exit();
         }
+           if (!isset($_POST['district']) || $_POST['district'] == '' || $_POST['district'] == '0') {
+            echo $result = 8;
+            $flag = 1;
+            exit();
+        
+        }       
+        if (!isset($_POST['province']) || $_POST['province'] == '' || $_POST['province'] == '0') {
+            echo $result = 8;
+            $flag = 1;
+            exit();
+        }
+        if (in_array('all', $_POST['district'])) {
+            
+                $province_id = $_POST['province'];
+
+                $rows = $Custom->getDistrictsByProvince($province_id);
+
+                $district_ids = array_map(function($row){
+                    return $row->dist_id;
+                }, $rows);
+
+                $districts = implode(',', $district_ids);
+       
+        }else{
+            $districts = implode(',', $_POST['district']);
+        }
+        
 
         if (isset($_POST['userName']) && $_POST['userName'] != ''
             && isset($_POST['userEmail']) && $_POST['userEmail'] != ''
@@ -204,6 +275,7 @@ class Users extends CI_controller
             if (count($chkUsernameEmail) >= 1) {
                 $result = 10;
             } else {
+               
                 $formArray['full_name'] = ucfirst($_POST['fullName']);
                 $formArray['username'] = $_POST['userName'];
                 $formArray['email'] = $_POST['userEmail'];
@@ -211,6 +283,8 @@ class Users extends CI_controller
                 $userPasswordenc = hash('sha512', $_POST['userPassword']);
                 $formArray['passwordenc'] = $userPasswordenc;
                 $formArray['designation'] = (isset($_POST['designation']) && $_POST['designation'] != '' ? $_POST['designation'] : '');
+                $formArray['prcode'] = (isset($_POST['province']) && $_POST['province'] != '' ? $_POST['province'] : '');
+                $formArray['district'] = $districts;
                 $formArray['contact'] = (isset($_POST['contactNo']) && $_POST['contactNo'] != '' ? $_POST['contactNo'] : '');
                 $formArray['idGroup'] = $_POST['userGroup'];
                 $formArray['createdBy'] = $this->encrypt->decode($_SESSION['login']['idUser']);
@@ -219,6 +293,9 @@ class Users extends CI_controller
                 $formArray['attempt'] = 0;
                 $formArray['isNewUser'] = 1;
                 $formArray['pwdExpiry'] = date('Y-m-d', strtotime('+90 days'));
+                //  echo"<pre>";
+                // var_dump(  $formArray['district']);
+                // die();
                 $InsertData = $Custom->Insert($formArray, 'id', 'users_dash', 'N');
                 if ($InsertData) {
                     $result = 1;

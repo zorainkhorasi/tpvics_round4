@@ -13,7 +13,7 @@
                         <h2 class="content-header-title float-left mb-0">Line Listing Progress</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item">>Home</li>
                                 <li class="breadcrumb-item active">Line Listing</li>
                             </ol>
                         </div>
@@ -45,10 +45,10 @@
                                     <div class="card-body card-dashboard">
                                         <div class="table-responsive">
                                             <p>
-                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $p_id . '_t'); ?>">
+                                                <!-- <a href="<?php echo base_url('index.php/Dashboard/dashboard_index/d' . $p_id . '_t'); ?>"> -->
                                                     <?php echo ucwords(strtolower($province)); ?>
                                                 </a>
-                                                <a href="<?php echo base_url('index.php/Dashboard/dashboard_dt/d' . $p_id . '_t/s' . $d_id . '_t'); ?>">
+                                                <!-- <a href="<?php echo base_url('index.php/Dashboard/dashboard_dt/d' . $p_id . '_t/s' . $d_id . '_t'); ?>"> -->
                                                     <?php echo ' / ' . ucwords(strtolower($division)); ?>
                                                 </a>
                                             </p>

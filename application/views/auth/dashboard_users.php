@@ -152,6 +152,25 @@
                             <i class="feather icon-eye-off pwdIcon"></i>
                         </div>
                     </fieldset>
+                      <div class="form-group">
+                            <label for="province">Province: </label>
+                            <select class="form-control select2" id="province" required>
+                                <option value="0">Select Province</option>
+                                <?php if (isset($province) && $province != '') {
+                                    foreach ($province as $d) {
+                                        echo '<option value="' . $d->prcode . '">' . $d->province . '</option>';
+                                    }
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District: </label>
+                            <select class="form-control select2" id="district" multiple  required>
+                                <option value="0">Select District</option>
+                                <!-- <option value="all">All District</option> -->
+                            
+                            </select>
+                        </div>
 
 
                     <div class="form-group">
@@ -210,6 +229,28 @@
                         <input type="text" class="form-control edit_userEmail" disabled readonly
                                autocomplete="user_edit_userEmail" id="edit_userEmail" required>
                     </div>
+                     <div class="form-group">
+                            <label for="province">Province: </label>
+                            <select class="form-control select2" id="edit_province" required>
+                                <option value="0">Select Province</option>
+                                <?php if (isset($province) && $province != '') {
+                                    foreach ($province as $d) {
+                                        echo '<option value="' . $d->prcode . '">' . $d->province . '</option>';
+                                    }
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District: </label>
+                            <select class="form-control select2" id="edit_district" multiple required>
+                                <option value="0">Select District</option>
+                                <!-- <?php if (isset($districts) && $districts != '') {
+                                    foreach ($districts as $d) {
+                                        echo '<option value="' . $d->dist_id . '">' . $d->district . '</option>';
+                                    }
+                                } ?> -->
+                            </select>
+                        </div>
 
                     <div class="form-group">
                         <label for="edit_designation">Designation: </label>
@@ -346,6 +387,14 @@
         $('.addbtn').click(function () {
             $('#addModal').modal('show');
         });
+       $('#district').select2({
+            placeholder: "Select District",
+            width: '100%'
+        });
+          $('#edit_district').select2({
+            placeholder: "Select District",
+            width: '100%'
+        });
 
         $('.dataex-html5-selectors').DataTable({
             dom: 'Bfrtip',
@@ -395,6 +444,55 @@
                 }
             ]
         });
+
+         $('#province').on('change', function () {
+            let provinceId = $(this).val();
+              
+            if (provinceId != 0) {
+                $.ajax({
+                    url: "users/getDistrict/" + provinceId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Districts: ", response);
+
+                        // Example: Populate district dropdown
+                        let html = '<option value="all">All</option>';
+                        $.each(response, function (i, d) {
+                            html += '<option value="' + d.dist_id + '">' + d.district + '</option>';
+                        });
+
+                        $('#district').html(html);
+                    }
+                });
+            }
+        });
+          $('#edit_province').on('change', function () {
+            let provinceId = $(this).val();
+              
+            if (provinceId != 0) {
+                $.ajax({
+                    url: "users/getDistrict/" + provinceId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+
+                        // Example: Populate district dropdown
+                        let html = '<option value="all">All</option>';
+                        $.each(response, function (i, d) {
+                            html += '<option value="' + d.dist_id + '">' + d.district + '</option>';
+                        });
+
+                        $('#edit_district').html(html);
+
+                         if (window.preSelectedDistricts) {
+                        $('#edit_district').val(window.preSelectedDistricts).trigger('change');
+                        window.preSelectedDistricts = null; 
+                         }
+                    }
+                });
+            }
+        });
     });
 
     function mydate() {
@@ -421,6 +519,8 @@
         data['userEmail'] = $('#userEmail').val();
         data['userPassword'] = $('#userPassword').val();
         data['designation'] = $('#designation').val();
+        data['province'] = $('#province').val();
+        data['district'] = $('#district').val();
         data['contactNo'] = $('#contactNo').val();
         data['userGroup'] = $('#userGroup').val();
         if (data['fullName'] == '' || data['fullName'] == undefined) {
@@ -467,6 +567,21 @@
             toastMsg('Group', 'Invalid Group', 'error');
             return false;
         }
+          if (data['province'] == '' || data['province'] == undefined || data['province'] == 0 || data['province'] == '0') {
+            $('#province').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('Province', 'Invalid Province', 'error');
+            return false;
+            
+        }
+          if (data['district'] == '' || data['district'] == undefined || data['district'] == 0 || data['district'] == '0') {
+            $('#district').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('District', 'Invalid District', 'error');
+            return false;
+        }
+     
+
         if (flag == 0) {
             showloader();
             $('.mybtn').attr('disabled', 'disabled');
@@ -519,6 +634,9 @@
                 console.log(result);
                 if (result != '' && JSON.parse(result).length > 0) {
                     var a = JSON.parse(result);
+                    // console.log(a);
+                //    return false;
+                    
                     try {
                         $('#edit_idUser').val(data['id']);
                         $('#edit_fullName').val(a[0]['full_name']);
@@ -528,6 +646,16 @@
                         $('#edit_contactNo').val(a[0]['contact']);
                         $('#edit_userGroup').val(a[0]['idGroup']);
                         $('#edit_pwdExpiry').val(a[0]['pwdExpiry']);
+
+                        // ---- Province Preselect ----
+                        $('#edit_province').val(a[0]['province']).trigger('change');
+
+                        // ---- District Preselect ----
+                     let districtArray = a[0]['district'].split(',');
+                     console.log(districtArray);
+                     
+                        window.preSelectedDistricts = districtArray;  // store globally
+
 
                     } catch (e) {
                     }
@@ -548,6 +676,8 @@
         data['idUser'] = $('#edit_idUser').val();
         data['fullName'] = $('#edit_fullName').val();
         data['designation'] = $('#edit_designation').val();
+         data['district'] = $('#edit_district').val();
+          data['province'] = $('#edit_province').val();
         data['contactNo'] = $('#edit_contactNo').val();
         data['userGroup'] = $('#edit_userGroup').val();
         data['pwdExpiry'] = $('#edit_pwdExpiry').val();
@@ -567,6 +697,19 @@
             $('#edit_pwdExpiry').css('border', '1px solid red');
             flag = 1;
             toastMsg('Password Expiry', 'Invalid Password Expiry', 'error');
+            return false;
+        }
+            if (data['province'] == '' || data['province'] == undefined || data['province'] == 0 || data['province'] == '0') {
+            $('#province').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('Province', 'Invalid Province', 'error');
+            return false;
+            
+        }
+          if (data['district'] == '' || data['district'] == undefined || data['district'] == 0 || data['district'] == '0') {
+            $('#district').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('District', 'Invalid District', 'error');
             return false;
         }
 
