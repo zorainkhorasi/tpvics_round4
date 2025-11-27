@@ -22,7 +22,7 @@ class MData_collection extends CI_Model
     {
         $dist_where = 'where  (c.colflag is null OR c.colflag = \'0\')   ' . $this->globalWhere;
         if (isset($district) && $district != '') {
-            $dist_where .= " and dist_id = '$district' ";
+            $dist_where .= " and prcode = '$district' ";
         }
         if (isset($sub_district) && $sub_district != '') {
             $exp = explode(',', $sub_district);
@@ -33,20 +33,20 @@ class MData_collection extends CI_Model
                 } else {
                     $or = ' or ';
                 }
-                $dist_where_clause .= " $or uc_id = '" . substr(trim($d), 0, 3) . "' ";
+                $dist_where_clause .= " $or dist_id = '" . substr(trim($d), 0, 3) . "' ";
             }
             $dist_where_clause .= ')';
             $dist_where .= $dist_where_clause;
         }
 
         if ($pageLevel == 2) {
-            $selectQ = "  c.uc_id as my_id, uc_name as my_name,";
-            $groupQ = " uc_id,uc_name ";
-            $orderQ = " uc_id asc ";
-        } else {
-            $selectQ = " dist_id as my_id,district as my_name, ";
+            $selectQ = "  c.dist_id as my_id, district as my_name,";
             $groupQ = " dist_id,district ";
             $orderQ = " dist_id asc ";
+        } else {
+            $selectQ = " prcode as my_id,province as my_name, ";
+            $groupQ = " prcode,province ";
+            $orderQ = " prcode asc ";
         }
 
         $sql_query = "SELECT $selectQ
@@ -60,37 +60,28 @@ ORDER BY $orderQ";
 
     function completed_rand_Clusters_district($district, $sub_district = '', $pageLevel = 1)
     {
-
+    
         $dist_where = $this->globalWhere;
         if (isset($district) && $district != '') {
-            $dist_where .= " and SUBSTRING (dist_id, 1, 3) = '$district' ";
+            $dist_where .= " and c.prcode = '$district' ";
         }
-        if (isset($sub_district) && $sub_district != '') {
-            $exp = explode(',', $sub_district);
-            $dist_where_clause = ' and (';
-            foreach ($exp as $k => $d) {
-                if ($k == 0) {
-                    $or = '  ';
-                } else {
-                    $or = ' or ';
-                }
-                $dist_where_clause .= " $or SUBSTRING (dist_id, 1, 5) = '" . substr(trim($d), 0, 3) . "' ";
-            }
-            $dist_where_clause .= ')';
-            $dist_where .= $dist_where_clause;
-        }
+     
 
         if ($pageLevel == 2) {
-            $str = 'c.uc_id';
-        } else {
             $str = 'c.dist_id';
+        } else {
+            $str = 'c.prcode';
         }
         $sql_query = "select $str as provinceId, c.cluster_no, c.sampled,
 			(select count(*) from Randomised where dist_id = c.dist_id and hh02 = c.cluster_no  AND (Randomised.colflag is null OR Randomised.colflag = '0')) as hh_randomized,
 			( SELECT 	COUNT (distinct f.hhid)  FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
- WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no ) AS hh_collected
+            WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no ) AS hh_collected
 			from clusters c where (c.colflag is null OR c.colflag = '0')   $dist_where  order by c.dist_id";
-        $query = $this->db->query($sql_query);
+            // echo $sql_query;
+            // die;
+            $query = $this->db->query($sql_query);
+            // var_dump($query->result());
+            // die();
         return $query->result();
     }
 
@@ -108,7 +99,7 @@ ORDER BY $orderQ";
             $dist_where .= " and c.uc_id = '$sub_district' ";
         }
 
-        if (isset($cluster_type) && $cluster_type == 't') {
+        if (isset($cluster_type) && $cluster_type == 'r') {
             $cluster_type_where = " ";
         } elseif (isset($cluster_type) && $cluster_type == 'c') {
             $cluster_type_where = " AND ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)

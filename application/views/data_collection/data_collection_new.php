@@ -598,7 +598,7 @@
                               <div class="icon-text">
                                   <span class="icon"><i class="fa-solid fa-list"></i></span> <span class="welcome-text">Welcome to TPVICS</span>
                               </div>
-                              <h1 class="main-title">LINELISTING</h1>
+                              <h1 class="main-title">Data Collection</h1>
                           </div>
                           <div class="map-section">
                               <img src="<?php echo base_url('assets/images/mapPAK.png'); ?>" alt="Pakistan Map" class="pakistan-map">
@@ -646,13 +646,13 @@
                 <div id="districtCardsSection" class="row row-cols-1 row-cols-md-4 g-4 scrollable-card-container">
 
                     <!-- Total Cluster -->
-                    <div class="col">
+                    <diiv class="col">
                         <div class="chart-block cluster-chart-block">
                             <h4 class="block-title">Total Cluster</h4>
                             <div id="totalclusterchart"></div>
 
                         </div>
-                    </div>
+                    </diiv>
 
                     <!-- Balochistan -->
                     <div class="col">
@@ -670,13 +670,13 @@
                                        echo $dist_array[4];
                                         ?>
                                         </span>
-                                        <span class="ps-total-count"><?php echo $per["BALOCHISTAN"]['total']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
 
                             </div>
-                            <div id="BALOCHISTAN" class="chart-container"></div> 
+                            <div id="balochistan" class="chart-container"></div> 
 
                             <div class="progress-details">
                                 <!-- <div class="detail-row completed">
@@ -733,12 +733,12 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[3];
                                         ?></span>
-                                        <span class="ps-total-count"><?php  echo $per["SINDH"]['total']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][7]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="SINDH" class="chart-container"></div>
+                            <div id="sindh" class="chart-container"></div>
 
                             <div class="progress-details">
                                 <!-- <div class="detail-row completed">
@@ -796,12 +796,12 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[2];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $per["PUNJAB"]['total']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][6]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="PUNJAB" class="chart-container"></div>
+                            <div id="punjab" class="chart-container"></div>
 
                             <div class="progress-details">
                                 <!-- <div class="detail-row completed">
@@ -861,14 +861,14 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[1];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $per["KHYBER PAKHTUNKHWA"]['total']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][5]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
 
 
-                            <div id="chart2" class="chart-container"></div>
+                            <div id="khyber_pakhtunkhwa" class="chart-container"></div>
                             <div class="progress-details">
                                 <!-- <div class="detail-row completed">
                                     <div class="icon-label">
@@ -924,12 +924,12 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[7];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $per["GILGIT-BALTISTAN"]['total']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="GILGIT-BALTISTAN" class="chart-container"></div>
+                            <div id="gilgit_baltistan" class="chart-container"></div>
                             <div class="progress-details">
                                 <!-- <div class="detail-row completed">
                                     <div class="icon-label">
@@ -987,12 +987,12 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[8];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $per["AZAD JAMMU & KASHMIR"]['total']; ?></span>
+                                        <span class="ps-total-count"><?php echo  $totalcluster["list"][0]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div id="chart1" class="chart-container"></div>
+                            <div id="azad_jammu_and_kashmir" class="chart-container"></div>
                             <div class="progress-details">
                                 <!-- <div class="detail-row completed">
                                     <div class="icon-label">
@@ -1063,26 +1063,24 @@
     <script>
         TotalProvince();
         districtprogress();
-        totalprogress();             
-     
+        // totalprogress();
 
+        // Province Progress
         function districtprogress() {
             // PHP array converted to JS object
             let per = <?php echo json_encode($per); ?>;
-                let clusters_by_district = <?php echo json_encode($totalcluster['list']); ?>;
-               
-    
                
             // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
             let chartIndex = 1;
             for (let district in per) {
-        
-           
+                // console.log(district);
                 
-                if (district === "total"||district === "Training" || district === "ISLAMABAD") continue; // skip total if needed
-                    var value = per[district].percentage;
+                if (district === "total"||district === "training" || district === "islamabad") continue; // skip total if needed
+                    var value = per[district];
 
-           
+                    let name = district.replace(/_/g, ' ');
+                    name = name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+                
                 // Make dynamic options for each chart
                 let options = {
                     series: [value],
@@ -1126,19 +1124,11 @@
                     },
                     stroke: { dashArray: 4 },
                     colors: ['#0d9595'],
-                    labels: [district] // show district name
+                    // labels: ['Balochistan','Sindh','Punjab','Khyber Pakhtunkhwa','Gilgit-Baltistan','Azad Jammu & Kashmir'] // show district name
+                    labels:[name]
                 };
 
-                // Select chart container dynamically
-              if (district === "KHYBER PAKHTUNKHWA") {
-                    chartId = "chart2";
-                } else if (district === "AZAD JAMMU & KASHMIR") {
-                    chartId = "chart1";
-                } else {
-                    chartId = district; // fallback to district name if no mapping
-                }
-
-                let chartContainer = document.querySelector("#" + chartId);
+                let chartContainer = document.querySelector("#" + district);
 
                 if (chartContainer) {
                     let chart = new ApexCharts(chartContainer, options);
@@ -1149,66 +1139,65 @@
             }
         }
 
-        function totalprogress(){
-            var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+        // function totalprogress(){
+        //     var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
             
             
            
-            var options = {
-                series: [sum.total, sum.completed, sum.ip, sum.remaining],
-                chart: {
-                    height: 250,
-                    type: 'radialBar',
-                },
-                plotOptions: {
-                    radialBar: {
-                        offsetY: 0,
-                        startAngle: 0,
-                        endAngle: 270,
-                        hollow: {
-                            margin: 5,
-                            size: '30%',
-                            background: 'transparent',
-                            image: undefined,
-                        },
-                        dataLabels: {
-                            name: {
-                                show: false,
-                            },
-                            value: {
-                                show: false,
-                            }
-                        },
-                        barLabels: {
-                            enabled: true,
-                            useSeriesColors: true,
-                            offsetX: -8,
-                            fontSize: '16px',
-                            formatter: function(seriesName, opts) {
-                                return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
-                            },
-                        },
-                    }
-                },
-                colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
-                labels: ['Total', 'Complete', 'In Progress', 'Pending'],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        legend: {
-                            show: false
-                        }
-                    }
-                }]
-            };
+        //     var options = {
+        //         series: [sum.total, sum.completed, sum.ip, sum.remaining],
+        //         chart: {
+        //             height: 250,
+        //             type: 'radialBar',
+        //         },
+        //         plotOptions: {
+        //             radialBar: {
+        //                 offsetY: 0,
+        //                 startAngle: 0,
+        //                 endAngle: 270,
+        //                 hollow: {
+        //                     margin: 5,
+        //                     size: '30%',
+        //                     background: 'transparent',
+        //                     image: undefined,
+        //                 },
+        //                 dataLabels: {
+        //                     name: {
+        //                         show: false,
+        //                     },
+        //                     value: {
+        //                         show: false,
+        //                     }
+        //                 },
+        //                 barLabels: {
+        //                     enabled: true,
+        //                     useSeriesColors: true,
+        //                     offsetX: -8,
+        //                     fontSize: '16px',
+        //                     formatter: function(seriesName, opts) {
+        //                         return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+        //                     },
+        //                 },
+        //             }
+        //         },
+        //         colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
+        //         labels: ['Total', 'Complete', 'In Progress', 'Pending'],
+        //         responsive: [{
+        //             breakpoint: 480,
+        //             options: {
+        //                 legend: {
+        //                     show: false
+        //                 }
+        //             }
+        //         }]
+        //     };
 
-            var cluster = new ApexCharts(document.querySelector("#totalclusterchart"), options);
-            var Ucs = new ApexCharts(document.querySelector("#totalUcsChart"), options);
+        //     var cluster = new ApexCharts(document.querySelector("#totalclusterchart"), options);
+        //     var Ucs = new ApexCharts(document.querySelector("#totalUcsChart"), options);
 
-            Ucs.render();
-            cluster.render();
-        }
-
+        //     Ucs.render();
+        //     cluster.render();
+        // }
         document.addEventListener("DOMContentLoaded", () => {
             const districtCards = document.querySelectorAll(".dashboard-card");
             const districtCardsSection = document.getElementById("districtCardsSection");
@@ -1217,19 +1206,21 @@
             const ucsTitle = document.getElementById("ucsTitle");
             const ucsCards = document.getElementById("ucsCards");
 
-
+              
+       console.log('here');
        
-                        //    console.log('here');
-
+                    
             // ✅ Example UCS data per district
           
 
             // ✅ Click handler for district cards
             districtCards.forEach(card => {
                
+                // console.log(card);
+                
                    card.addEventListener("click", () => {
                     // console.log('here');
-                    
+                    // return false;
                     const district = card.dataset.district;   // Already using
                     const districtId = card.dataset.id;       // NEW → data-id read
 
@@ -1237,36 +1228,39 @@
                 });
             });
 
-    
+            
+
             function showUcsSection(districtId, district) {
                
                
             //    console.log(districtId);
                
                 $.ajax({
-                    url: "dashboard_index/" + districtId,
+                    url: "Data_collection_progress/dc_index/" + districtId,
                     type: "GET",
                     dataType: "json",
                     success: function (response) {
 
-                        // console.log(response.per.id);
-                        
+                        // console.log(response);
+                        // return false;
                         // Prepare dynamic UCS data
                         const data = [];
-                        for (let distName in response.total) {
-                            if (distName === "total") continue;
+                        for (let distName in response.per) {
+                            // console.log(response.per[distName].total);
+                            
+                            // if (distName === "total") continue;
                             data.push({
                                 name: distName,
-                                progress: response.total[distName] || 0,
-                                completed: response.completed[distName] || 0,
-                                ongoing: response.ip[distName] || 0,
-                                remaining: response.r[distName] || 0
+                                progress: response.per[distName].percentage || 0,
+                                completed: response.per[distName].completed || 0,
+                                ongoing: response.ip[distName]|| 0,
+                                remaining: response.per[distName].total|| 0
                             });
                         }
 
                         // Sort descending by progress
                         data.sort((a, b) => b.progress - a.progress);
-                        // console.log(data);
+                        console.log(data);
                          
                         // Hide district cards, show UCS section
                         districtCardsSection.classList.add("d-none");
@@ -1391,27 +1385,10 @@
 
             function dashboard_dt(districtId, status) {
 
-                // console.log("District ID:", districtId); 
-                // console.log("Status:", status); 
-
-                // $.ajax({
-                //     url: "dashboard_dt",
-                //     type: "GET",
-                //     data: {
-                //         district_id: districtId,
-                //         status: status
-                //     },
-                //     dataType: "json",
-                //     success: function (response) {
-                //         console.log("Dashboard DT Response:", response);
-
-                //         // You can display table, modal etc. here
-                //     },
-                //     error: function (xhr, status, error) {
-                //         console.error("Error in dashboard_dt:", error);
-                //     }
-                // });
-                    window.location.href = "dashboard_dt?district_id=" + districtId + "&status=" + status;
+            //   console.log(districtId,status);
+            //   return false;
+              
+                    window.location.href = "Data_collection_progress/dashboard_dt?district_id=" + districtId + "&status=" + status;
 
 
             }
@@ -1461,7 +1438,7 @@
             var options = {
                 series: [{
                     name: 'Province',
-                    data: [per['PUNJAB'].completed, per['SINDH'].completed, per['BALOCHISTAN'].completed, per['KHYBER PAKHTUNKHWA'].completed, per['AZAD JAMMU & KASHMIR'].completed, per['GILGIT-BALTISTAN'].completed]
+                    data: [per['punjab'], per['sindh'], per['balochistan'], per['khyber_pakhtunkhwa'], per['azad_jammu_and_kashmir'], per['gilgit_baltistan']]
                 }],
                 chart: {
                     type: 'bar',
