@@ -168,8 +168,8 @@ class Dashboard extends CI_controller
                          
          
             $data['per']=$formated_data;
-          
-            $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r'],$formated_data);
+      
+            $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
           
             $data['sum']=$sum;
           
@@ -202,12 +202,12 @@ class Dashboard extends CI_controller
         /*==========Log=============*/
     }
 
-    function calculateTotal($completed,$ip,$r,$total){
+    function calculateTotal($completed,$ip,$total){
 
          
         $sum=[
             'total'=>0,
-            'remaining'=>0,
+            // 'remaining'=>0,
             'ip'=>0,
             'completed'=>0
         ];
@@ -218,12 +218,16 @@ class Dashboard extends CI_controller
         foreach ($ip as $k => $d) {
             $sum['ip'] += $d;
         }
-        foreach ($r as $k => $d) {
-            $sum['remaining'] += $d;
+        foreach ($total as $k => $d) {
+
+          if($k=='total' || $k=='Training' || $k=='ISLAMABAD')continue;
+         
+            $sum['total'] += $d;
         }
-        foreach ($total as $district => $data) {
-         $sum['total'] += isset($data['total']) ? $data['total'] : 0;
-        }
+        // foreach ($total as $district => $data) {
+        //  $sum['total'] += isset($data['total']) ? $data['total'] : 0;
+        // $sum['total']=$total;
+        // }
       
 
         return $sum;
@@ -491,7 +495,7 @@ class Dashboard extends CI_controller
             /*============== Linelisting Data table ==============*/
 
             $data['cluster_type'] = $cluster_type;
-            if ($cluster_type == 'c' || $cluster_type == 'i' || $cluster_type == 'r') {
+            if ($cluster_type == 'c' || $cluster_type == 'ip' || $cluster_type == 'r') {
                 $get_linelisting_table = $MLinelisting->get_linelisting_table($district, $cluster_type, $sub_district);
              
             } else {

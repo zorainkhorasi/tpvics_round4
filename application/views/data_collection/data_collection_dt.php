@@ -12,6 +12,7 @@
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
                         <h2 class="content-header-title float-left mb-0">Data Collection Progress</h2>
+                
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a></li>
@@ -29,6 +30,19 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Data Collection Report</h4>
+                            <div id="ucsSection" >
+                         <div class="d-flex align-items-center mb-4">
+                        <button style="color: #ffffff;border-radius: 30px;border-color: #ffffff;box-shadow: 0px 1px 4px 1px #b5b5b58a;background: #9bc3c0;" 
+                        id="backButton" class="btn btn-sm btn-outline-dark">← Back</button>
+
+                        <h4 id="ucsTitle" style="    padding: 8px 0px 0px 19px;
+                            font-size: 30px;
+                            color: #b2d3d0;
+                            font-weight: bold;"></h4>
+
+
+                    </div>
+                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body card-dashboard">
@@ -87,13 +101,13 @@
                                                     ?>
                                                     <tr>
                                                         <td>
-                                                            <a href="<?php echo base_url('index.php/Data_collection_progress/dc_index/d' . $p_id . '_t'); ?>">
-                                                                <?php echo ucwords(strtolower($province)); ?>
+                                                            <!-- <a href="<?php echo base_url('index.php/Data_collection_progress/dc_index/d' . $p_id . '_t'); ?>"> -->
+                                                                <?php echo ucwords(strtolower($r->province)); ?>
                                                             </a>
                                                         </td>
                                                         <td>
-                                                            <a href="<?php echo base_url('index.php/Data_collection_progress/dc_index/d' . $p_id . '_t/s' . $d_id . '_t'); ?>">
-                                                                <?php echo ucwords(strtolower($division)); ?>
+                                                            <!-- <a href="<?php echo base_url('index.php/Data_collection_progress/dc_index/d' . $p_id . '_t/s' . $d_id . '_t'); ?>"> -->
+                                                                <?php echo ucwords(strtolower($r->district)); ?>
                                                             </a>
                                                         </td>
                                                         <td><?php echo $r->hh02; ?></td>
@@ -162,6 +176,8 @@
 
 <script>
     $(document).ready(function () {
+
+      
         $('.dataex-html5-selectors').DataTable({
             dom: 'Bfrtip',
             "displayLength": 25,
@@ -202,6 +218,10 @@
                 }
             ]
         });
+        $("#backButton").on("click", function () {
+            window.location.href = "<?php echo base_url('index.php/data_collection_progress'); ?>";
+        });
+        
     });
 
 </script>

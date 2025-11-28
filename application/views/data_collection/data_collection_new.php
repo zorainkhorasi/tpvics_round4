@@ -617,26 +617,7 @@
 <BR>
 
         <div class="row">
-<!--            <div class="col-lg-3 pe-4" style="    padding: 43px;background: #fff8ed; ">-->
-<!---->
-<!--                <div class="card-left p-4">-->
-<!---->
-<!---->
-<!--                    <div class="chart-block cluster-chart-block">-->
-<!--                        <h4 class="block-title">Total Cluster</h4>-->
-<!--                        <div id="totalclusterchart"></div>-->
-<!---->
-<!--                    </div>-->
-<!---->
-<!--                    <hr>-->
-<!---->
-<!--                    <div class="chart-block ucs-chart-block mt-4 pt-3">-->
-<!--                        <h4 class="ucs-block-title">Total UCS</h4>-->
-<!--                        <div id="totalUcsChart"></div>-->
-<!---->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+
 
             <div class="col-lg-12 ps-4">
 
@@ -1033,6 +1014,57 @@
                             </div>
                         </div>
                     </div>
+                      <!-- ISLAMABAD -->
+                    <div class="col">
+                        <div class="dashboard-card" data-district="ISLAMABAD" data-id="6">
+                            <div class="ps-header-container">
+
+
+                                <div style="    background: linear-gradient(to right, #f77c7c 0%, #e19090 35%, #f4dfdf 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                    <div class="ps-map-icon-wrapper">
+
+                                        <img src="<?php echo base_url('assets/images/Kashimirmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                    </div>
+                                    <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">     <?php                 
+                                       echo $dist_array[6];
+                                        ?></span>
+                                        <span class="ps-total-count"><?php echo  $totalcluster["list"][6]['clusters_by_district']; ?></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="islamabad" class="chart-container"></div>
+                            <div class="progress-details">
+                            
+                                <div class="detail-row on-going">
+                                    <div class="icon-label">
+                                        <i class="bi bi-arrow-repeat text-warning"></i>
+                                        <span class="label">In Progress</span>
+                                    </div>
+                                    <div class="bar-and-percentage">
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar orange" style="width: 20%;"></div>
+                                        </div>
+                                        <span class="percentage"><?php echo $ip["ISLAMABAD"]; ?></span>
+                                    </div>
+                                </div>
+                                <div class="detail-row remaining">
+                                    <div class="icon-label">
+                                        <i class="bi bi-pause-circle-fill text-danger"></i>
+                                        <span class="label">Pending</span>
+                                    </div>
+                                    <div class="bar-and-percentage">
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar red" style="width: 10%;"></div>
+                                        </div>
+                                        <span class="percentage"><?php echo $r["ISLAMABAD"]; ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                  
@@ -1063,7 +1095,7 @@
     <script>
         TotalProvince();
         districtprogress();
-        // totalprogress();
+        totalprogress();
 
         // Province Progress
         function districtprogress() {
@@ -1075,9 +1107,9 @@
             for (let district in per) {
                 // console.log(district);
                 
-                if (district === "total"||district === "training" || district === "islamabad") continue; // skip total if needed
+                if (district === "total"||district === "training" ) continue; // skip total if needed
                     var value = per[district];
-
+                    
                     let name = district.replace(/_/g, ' ');
                     name = name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
                 
@@ -1138,77 +1170,75 @@
                 chartIndex++;
             }
         }
-
-        // function totalprogress(){
-        //     var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+            //Total Sum
+        function totalprogress(){
+            var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
             
             
            
-        //     var options = {
-        //         series: [sum.total, sum.completed, sum.ip, sum.remaining],
-        //         chart: {
-        //             height: 250,
-        //             type: 'radialBar',
-        //         },
-        //         plotOptions: {
-        //             radialBar: {
-        //                 offsetY: 0,
-        //                 startAngle: 0,
-        //                 endAngle: 270,
-        //                 hollow: {
-        //                     margin: 5,
-        //                     size: '30%',
-        //                     background: 'transparent',
-        //                     image: undefined,
-        //                 },
-        //                 dataLabels: {
-        //                     name: {
-        //                         show: false,
-        //                     },
-        //                     value: {
-        //                         show: false,
-        //                     }
-        //                 },
-        //                 barLabels: {
-        //                     enabled: true,
-        //                     useSeriesColors: true,
-        //                     offsetX: -8,
-        //                     fontSize: '16px',
-        //                     formatter: function(seriesName, opts) {
-        //                         return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
-        //                     },
-        //                 },
-        //             }
-        //         },
-        //         colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
-        //         labels: ['Total', 'Complete', 'In Progress', 'Pending'],
-        //         responsive: [{
-        //             breakpoint: 480,
-        //             options: {
-        //                 legend: {
-        //                     show: false
-        //                 }
-        //             }
-        //         }]
-        //     };
+            var options = {
+                series: [sum.completed, sum.ip, sum.total],
+                chart: {
+                    height: 250,
+                    type: 'radialBar',
+                },
+                plotOptions: {
+                    radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 270,
+                        hollow: {
+                            margin: 5,
+                            size: '30%',
+                            background: 'transparent',
+                            image: undefined,
+                        },
+                        dataLabels: {
+                            name: {
+                                show: false,
+                            },
+                            value: {
+                                show: false,
+                            }
+                        },
+                        barLabels: {
+                            enabled: true,
+                            useSeriesColors: true,
+                            offsetX: -8,
+                            fontSize: '16px',
+                            formatter: function(seriesName, opts) {
+                                return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+                            },
+                        },
+                    }
+                },
+                colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
+                labels: [ 'Complete', 'In Progress', 'Pending'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            show: false
+                        }
+                    }
+                }]
+            };
 
-        //     var cluster = new ApexCharts(document.querySelector("#totalclusterchart"), options);
-        //     var Ucs = new ApexCharts(document.querySelector("#totalUcsChart"), options);
+            var cluster = new ApexCharts(document.querySelector("#totalclusterchart"), options);
+            var Ucs = new ApexCharts(document.querySelector("#totalUcsChart"), options);
 
-        //     Ucs.render();
-        //     cluster.render();
-        // }
+            Ucs.render();
+            cluster.render();
+        }
+
+        //Page 2 province ->district
         document.addEventListener("DOMContentLoaded", () => {
             const districtCards = document.querySelectorAll(".dashboard-card");
             const districtCardsSection = document.getElementById("districtCardsSection");
             const ucsSection = document.getElementById("ucsSection");
             const backButton = document.getElementById("backButton");
             const ucsTitle = document.getElementById("ucsTitle");
-            const ucsCards = document.getElementById("ucsCards");
-
-              
-       console.log('here');
-       
+            const ucsCards = document.getElementById("ucsCards");       
                     
             // ✅ Example UCS data per district
           
@@ -1229,11 +1259,10 @@
             });
 
             
-
+            // Page 2  Province-> District with on click on status
             function showUcsSection(districtId, district) {
                
                
-            //    console.log(districtId);
                
                 $.ajax({
                     url: "Data_collection_progress/dc_index/" + districtId,
@@ -1241,14 +1270,11 @@
                     dataType: "json",
                     success: function (response) {
 
-                        // console.log(response);
-                        // return false;
+                       
                         // Prepare dynamic UCS data
                         const data = [];
                         for (let distName in response.per) {
-                            // console.log(response.per[distName].total);
-                            
-                            // if (distName === "total") continue;
+                           
                             data.push({
                                 name: distName,
                                 progress: response.per[distName].percentage || 0,
@@ -1260,7 +1286,6 @@
 
                         // Sort descending by progress
                         data.sort((a, b) => b.progress - a.progress);
-                        console.log(data);
                          
                         // Hide district cards, show UCS section
                         districtCardsSection.classList.add("d-none");
@@ -1388,7 +1413,7 @@
             //   console.log(districtId,status);
             //   return false;
               
-                    window.location.href = "Data_collection_progress/dashboard_dt?district_id=" + districtId + "&status=" + status;
+                    window.location.href = "Data_collection_progress/dc_dt?district_id=" + districtId + "&status=" + status;
 
 
             }
@@ -1402,6 +1427,7 @@
                 districtCardsSection.classList.remove("d-none");
             });
         });
+
         // ✅ SEARCH FUNCTIONALITY
         document.getElementById("searchButton").addEventListener("click", () => {
             const query = document.getElementById("searchInput").value.trim().toLowerCase();

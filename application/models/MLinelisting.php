@@ -163,9 +163,7 @@ class MLinelisting extends CI_Model
         if (! $sub_district == '') {
             $dist_where .= " and c.dist_id = '$sub_district' ";
         } 
-        // elseif (isset($sub_district) && $sub_district != '') {
-        //     $dist_where .= " and c.uc_id = '$sub_district' ";
-        // }
+     
         if ((isset($_SESSION['login']['idGroup']) && $this->encrypt->decode($_SESSION['login']['idGroup']) == 1) || $district=='901' ) {
             $users = '  ';
         } else {
@@ -176,7 +174,7 @@ class MLinelisting extends CI_Model
             $users = ' and (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\'))';
             $cluster_type_where = " and (select count(distinct deviceid) from listings where hh01 = l.hh01 and  (colflag is null OR colflag = '0' OR colflag = 0))
              = (select count(*) completed_tabs from(select deviceid, max(cast(hh03 as int)) ms from listings where   hh01 = l.hh01 and hh07= '9' AND (colflag is null OR colflag = '0' OR colflag = 0)  group by deviceid) AS completed_tabs) ";
-        } elseif (isset($cluster_type) && $cluster_type == 'i') {
+        } elseif (isset($cluster_type) && $cluster_type == 'ip') {
             $cluster_type_where = " and (select count(distinct deviceid) from listings where hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) != 
 					(select count(*) completed_tabs from(select deviceid, max(cast(hh03 as int)) ms from listings 
 					where (colflag is null OR colflag = '0' OR colflag = 0)  and hh01 = l.hh01 and hh07 = 9 group by deviceid) AS completed_tabs)";

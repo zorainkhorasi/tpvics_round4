@@ -171,7 +171,11 @@ class Data_collection_progress extends CI_controller
                 }
           
             $data['per']=$normalizedPercentage;
-
+        
+              $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
+          
+            $data['sum']=$sum;
+                        
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -196,6 +200,33 @@ class Data_collection_progress extends CI_controller
         );
         $Custom->trackLogs($trackarray, "all_logs");
         /*==========Log=============*/
+    }
+     function calculateTotal($completed,$ip,$r){
+
+    
+        $sum=[
+            'total'=>0,
+            // 'remaining'=>0,
+            'ip'=>0,
+            'completed'=>0
+        ];
+
+        foreach ($completed as $k => $d) {
+            $sum['completed'] += $d;
+        }
+        foreach ($ip as $k => $d) {
+            $sum['ip'] += $d;
+        }
+          foreach ($r as $k => $d) {
+            $sum['total'] += $d;
+        }
+        // foreach ($total as $district => $data) {
+        //  $sum['total'] = isset($total) ? $total : 0;
+        // }
+      
+
+        return $sum;
+
     }
 
     function dc_index($district = null)
@@ -404,14 +435,14 @@ class Data_collection_progress extends CI_controller
             //     $cluster_type = substr($district_cluster_type, 3, 1);
             // }
 
-         //   echo $cluster_type;die;
+        //    echo $cluster_type;die;
 
-            if ($cluster_type == 'r' || $cluster_type == 'c' || $cluster_type == 'p' || $cluster_type == 'i') {
+            if ($cluster_type == 't' || $cluster_type == 'c' || $cluster_type == 'ip' || $cluster_type == 'r') {
                 $data['get_linelisting_table'] = $MData_collection->get_data_collection_rand_table($district, $cluster_type, $sub_district='');
             } else {
                 $data['get_linelisting_table'] = $MData_collection->get_data_collection_rand_table($district, 'r', $sub_district='');
             }
-
+               
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -420,15 +451,9 @@ class Data_collection_progress extends CI_controller
             $this->load->view('include/footer');
             $track_msg = 'Success';
                  // Send JSON response for AJAX
-            // $this->output
-            //     ->set_content_type('application/json')
-            //      ->set_output(json_encode( $data ));
-            // return; // i
+            
         } else {
-            //  $this->output
-            //     ->set_content_type('application/json')
-            //     ->set_output(json_encode(['error' => 'Not authorized']));
-            // return;
+         
             $track_msg = 'errors/page-not-authorized';
             $this->load->view('errors/page-not-authorized', $data);
         }
