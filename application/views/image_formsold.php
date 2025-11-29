@@ -56,8 +56,8 @@
                                                 District
                                             </div>
                                             <div class="form-group">
-                                                <select class="select2 form-control province_select"
-                                                        onchange="changeProvince()">
+                                                <select class="select2 form-control district_select"
+                                                        onchange="changeUCs()">
                                                     <option value="0" readonly disabled selected>District</option>
                                                     <?php if (isset($province) && $province != '') {
                                                         foreach ($province as $k => $p) {
@@ -67,7 +67,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-12">
+                                       <!-- <div class="col-sm-6 col-12">
                                             <div class="text-bold-600 font-medium-2">
                                                 UC
                                             </div>
@@ -77,7 +77,7 @@
                                                     <option value="0" readonly disabled selected>UC</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-4 col-12">
@@ -207,29 +207,7 @@
         });
     }
 
-    function changeProvince() {
-        var data = {};
-        data['province'] = $('.province_select').val();
-        if (data['province'] != '' && data['province'] != undefined && data['province'] != '0' && data['province'] != '$1') {
-            showloader();
-            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getDistrictByProvince'  ?>', data, 'POST', function (res) {
-                hideloader();
-                var items = '<option value="0"   readonly disabled selected>District</option>';
-                if (res != '' && JSON.parse(res).length > 0) {
-                    var response = JSON.parse(res);
-                    try {
-                        $.each(response[0], function (i, v) {
-                            items += '<option value="' + i + '" onclick="changeUCs()">' + v + '</option>';
-                        })
-                    } catch (e) {
-                    }
-                }
-                $('.district_select').html('').html(items);
-            });
-        } else {
-            $('.district_select').html('');
-        }
-    }
+
 
     function changeUCs() {
         var data = {};
@@ -646,11 +624,18 @@
 
                         if (response['data'] != '' && response['data'] != undefined && response['data'] != 0) {
                             $.each(response['data'], function (i, v) {
-                                items += '<div class="swiper-slide"> ' +
+                               /* items += '<div class="swiper-slide"> ' +
                                     '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' + v.f01 + '" alt="banner"> ' +
                                     '</div>' +
                                     '<div class="swiper-slide"> ' +
                                     '<img class="img-fluid" src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' + v.f02 + '" alt="banner"> ' +
+                                    '</div>';*/
+
+                                items += '<div class="swiper-slide"> ' +
+                                    '<img class="img-fluid" src="http://localhost/tpvics_round4/assets/images/banner/banner-22.jpg" alt="banner"> ' +
+                                    '</div>' +
+                                    '<div class="swiper-slide"> ' +
+                                    '<img class="img-fluid" src="http://localhost/tpvics_round4/assets/images/banner/banner-22.jpg" alt="banner"> ' +
                                     '</div>';
 
                                 if (v.ec15 == 1) {

@@ -9,11 +9,11 @@ class Mcard_image_status extends CI_Model
     function getDataImg($province, $district)
     {
         $where = '';
-        if (isset($province) && $province != '' && $province != 0 && $district == 0) {
+        /*if (isset($province) && $province != '' && $province != 0 && $district == 0) {
             $where .= " And clusters.dist_id like  '" . $province . "%' ";
-        }
+        }*/
         if (isset($district) && $district != '' && $district != 0) {
-            $where .= " And clusters.uc_id like  '" . $district . "%' ";
+            $where .= " And clusters.dist_id like  '" . $district . "%' ";
         }
 
 
@@ -41,7 +41,7 @@ GROUP BY
             $where .= " And clusters.dist_id like  '" . $province . "%' ";
         }
         if (isset($district) && $district != '' && $district != 0) {
-            $where .= " And clusters.uc_id like  '" . $district . "%' ";
+            $where .= " And clusters.dist_id like  '" . $district . "%' ";
         }
         $sql = "SELECT
 	i.cluster_no,

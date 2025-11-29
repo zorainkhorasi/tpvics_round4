@@ -25,17 +25,18 @@ class Card_image_status extends CI_controller
             $p = array();
             foreach ($province as $k => $v) {
                 $key = $v->dist_id;
-                $exp = explode('|', $v->geoarea);
-                $p[$key] = $exp[1];
+                $p[$key] = $v->district;
             }
             $data['province'] = $p;
 
+            //print_r($data['province']);die;
+
             $district = 0;
-            if (isset($_GET['p']) && $_GET['p'] != '') {
-                $province = $_GET['p'];
+            if (isset($_GET['d']) && $_GET['d'] != '') {
+                //$province = $_GET['d'];
                 $district = (isset($_GET['d']) && $_GET['d'] != '' && $_GET['d'] != '0' ? $_GET['d'] : '');
                 $M = new Mcard_image_status();
-                $totalClusters = $M->getDataImg($province, $district);
+                $totalClusters = $M->getDataImg('', $district);
 
                 $total = 0;
                 $scored = 0;
@@ -51,19 +52,19 @@ class Card_image_status extends CI_controller
                 }
                 $data['total'] = $total;
 
-                $getDataScoredImg = $M->getDataScoredImg($province, $district);
+                $getDataScoredImg = $M->getDataScoredImg('', $district);
                 foreach ($getDataScoredImg as $kk => $vv) {
                     $cluster[$vv->cluster_no]['scoredClusters']++;
                     $scored++;
                 }
 
-                $getDataErroredImg = $M->getDataErroredImg($province, $district);
+                $getDataErroredImg = $M->getDataErroredImg('', $district);
                 foreach ($getDataErroredImg as $ek => $ev) {
                     $cluster[$ev->cluster_no]['errorClusters']++;
                     $errored++;
                 }
 
-                $getDataEditedImg = $M->getDataEditedImg($province, $district);
+                $getDataEditedImg = $M->getDataEditedImg('', $district);
                 foreach ($getDataEditedImg as $edk => $edv) {
                     $cluster[$edv->cluster_no]['editedClusters']++;
                     $edited++;

@@ -24,14 +24,13 @@ class Image_forms extends CI_controller
             $p = array();
             foreach ($province as $k => $v) {
                 $key = $v->dist_id;
-                $exp = explode('|', $v->geoarea);
-                $p[$key] = $exp[1];
+                $p[$key] = $v->district;
             }
             $data['province'] = $p;
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
-            $this->load->view('image_forms', $data);
+            $this->load->view('image_formsold', $data);
             $this->load->view('include/customizer');
             $this->load->view('include/footer');
             $track_msg = 'Success';
@@ -158,6 +157,11 @@ class Image_forms extends CI_controller
             $insertArr['tcv'] = (isset($_POST['tcv']) ? $_POST['tcv'] : '');
             $insertArr['createdBy'] = $this->encrypt->decode($_SESSION['login']['username']);
             $insertArr['createdDateTime'] = date('Y-m-d H:i:s');
+
+
+           // echo '<pre>';print_r($insertArr);die;
+
+
             $InsertData = $Custom->Insert($insertArr, 'id_Image_feedback', 'image_feedback', 'N');
             if ($InsertData) {
                 echo 1;

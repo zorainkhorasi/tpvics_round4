@@ -25,8 +25,7 @@ class Card_edit extends CI_controller
             $p = array();
             foreach ($province as $k => $v) {
                 $key = $v->dist_id;
-                $exp = explode('|', $v->geoarea);
-                $p[$key] = $exp[1];
+                $p[$key] = $v->district;
             }
             $data['province'] = $p;
             $this->load->view('include/header');
@@ -117,6 +116,9 @@ class Card_edit extends CI_controller
             $data['hhno'] = $hhno;
             $data['ec'] = $ec;
 
+
+         //   echo '<pre>';print_r($data['getData']);die;
+
             /*$Mimage_forms = new Mimage_forms();
             $data['getImageData'] = $Mimage_forms->getDataImages($cluster, $hhno, 1);*/
 
@@ -146,6 +148,157 @@ class Card_edit extends CI_controller
         $Custom->trackLogs($trackarray, "all_logs");
         /*==========Log=============*/
     }
+
+    function edit_form_new()
+    {
+        $data = array();
+        $MSettings = new MSettings();
+        $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'Card_edit');
+        if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1) {
+            $M = new MCard_edit();
+
+            if (isset($_GET['c']) && $_GET['c'] != '') {
+                $cluster = $_GET['c'];
+            } else {
+                $cluster = '0';
+            }
+            if (isset($_GET['h']) && $_GET['h'] != '') {
+                $hhno = $_GET['h'];
+            } else {
+                $hhno = '0';
+            }
+
+            if (isset($_GET['ec']) && $_GET['ec'] != '') {
+                $ec = $_GET['ec'];
+            } else {
+                $ec = '1';
+            }
+
+            $vac_details = $M->vac_details($cluster, $hhno, $ec);
+            $vac_details_edit = $M->vac_details_edit($cluster, $hhno, $ec);
+
+            $data['vac_details'] = $vac_details;
+            $data['vac_details_edit'] = $vac_details_edit;
+
+            //echo '<pre>';print_r($data['getData']);die;
+            $data['cluster'] = $cluster;
+            $data['hhno'] = $hhno;
+            $data['ec'] = $ec;
+
+            $this->load->view('include/header');
+            $this->load->view('include/top_header');
+            $this->load->view('include/sidebar');
+            $this->load->view('card_edit_form_new', $data);
+            $this->load->view('include/customizer');
+            $this->load->view('include/footer');
+            $track_msg = 'Success';
+        } else {
+            echo 'Invalid Cluster';
+            $track_msg = 'Invalid Cluster';
+        }
+        /*==========Log=============*/
+        $Custom = new Custom();
+        $trackarray = array(
+            "activityName" => "Card_edit Form",
+            "action" => "View Card_edit edit_form -> Function: Card_edit/edit_form()",
+            "result" => $track_msg,
+            "PostData" => "",
+            "affectedKey" => "",
+            "idUser" => $this->encrypt->decode($_SESSION['login']['idUser']),
+            "username" => $this->encrypt->decode($_SESSION['login']['username']),
+        );
+        $Custom->trackLogs($trackarray, "all_logs");
+        /*==========Log=============*/
+    }
+
+    public function fetch_vaccine_data_ajax() {
+        $cluster_code = $this->input->post('cluster_code');
+        $hhno = $this->input->post('hhno');
+
+        $this->db->where('cluster_code', $cluster_code);
+        $this->db->where('hhno', $hhno);
+        $vac_details = $this->db->get('vac_details')->row();
+
+        $this->db->where('cluster_code', $cluster_code);
+        $this->db->where('hhno', $hhno);
+        $this->db->order_by('id','DESC');
+        $vac_details_edit = $this->db->get('vac_details_edit')->row();
+
+        if($vac_details) {
+            $vaccines = [
+                "bcg","opv0","opv1","opv2","opv3",
+                "penta1","penta2","penta3",
+                "pcv","pcv2","pcv3",
+                "rv1","rv2",
+                "ipv","ipv2",
+                "measles1","measles2",
+                "hep_b","tcv"
+            ];
+
+            $old = $new = [];
+            foreach($vaccines as $v) {
+                $old[$v] = $vac_details->$v ?? '';
+                $new[$v] = $vac_details_edit->$v ?? $old[$v];
+            }
+
+            echo json_encode([
+                'status' => 'success',
+                'old' => $old,
+                'vaccines' => $new
+            ]);
+        } else {
+            echo json_encode(['status'=>'error']);
+        }
+    }
+
+
+    public function save_vaccines_ajax() {
+        $response = ['status' => 'error', 'message' => 'Something went wrong'];
+
+        if($this->input->is_ajax_request()){
+            $post = $this->input->post();
+
+            $dataToSave = [];
+            $vaccines = [
+                "bcg","opv0","opv1","opv2","opv3",
+                "penta1","penta2","penta3",
+                "pcv","pcv2","pcv3",
+                "rv1","rv2",
+                "ipv","ipv2",
+                "measles1","measles2",
+                "hep_b","tcv"
+            ];
+
+            foreach($vaccines as $v){
+                $dataToSave[$v] = $post[$v] ?? null; // value from dropdown or 98
+            }
+
+
+
+            // Additional info
+            $dataToSave['cluster_code'] = $post['cluster_code'];
+            $dataToSave['hhno'] = $post['hhno'];
+            $dataToSave['ec13'] = $post['ec13'];
+            $dataToSave['image_status'] = $post['image_status'];
+            $dataToSave['dob'] = $post['dob'];
+            $dataToSave['dobstatus'] = $post['dobstatus'];
+            $dataToSave['vac_status'] = $post['vac_status'];
+
+            $Custom = new Custom();
+            $saved = $Custom->Insert($dataToSave, 'id', 'vac_details_edit', 'N');
+
+            if($saved){
+                $response['status'] = 'success';
+            } else {
+                $response['message'] = 'DB insert failed';
+            }
+        }
+
+        echo json_encode($response);
+    }
+
+
+
 
 
     function addForm()

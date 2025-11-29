@@ -56,8 +56,8 @@
                                                 District
                                             </div>
                                             <div class="form-group">
-                                                <select class="select2 form-control province_select"
-                                                        onchange="changeProvince()">
+                                                <select class="select2 form-control district_select"
+                                                        onchange="changeDists()">
                                                     <option value="0" readonly disabled selected>District</option>
                                                     <?php if (isset($province) && $province != '') {
                                                         foreach ($province as $k => $p) {
@@ -67,7 +67,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-12">
+                                       <!-- <div class="col-sm-6 col-12">
                                             <div class="text-bold-600 font-medium-2">
                                                 UC
                                             </div>
@@ -77,7 +77,7 @@
                                                     <option value="0" readonly disabled selected>UC</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-4 col-12">

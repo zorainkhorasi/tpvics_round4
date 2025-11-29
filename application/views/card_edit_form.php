@@ -678,7 +678,7 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-12 ">
                                             <button type="button" class="btn btn-primary" onclick="addata()">
-                                                Insert Data
+                                                Insert Datas
                                             </button>
                                         </div>
                                     </div>

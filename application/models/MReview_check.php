@@ -83,10 +83,10 @@ class MReview_check extends CI_Model
 
     function getProvince_District($pro)
     {
-        if (isset($pro) && $pro != '') {
+       /* if (isset($pro) && $pro != '') {
             $this->db->where("clusters.dist_id like '" . $pro . "%' ");
-        }
-        $this->db->select("image_feedback.cluster_no,clusters.geoarea,clusters.dist_id,clusters.uc_id");
+        }*/
+        $this->db->select("image_feedback.cluster_no,clusters.dist_id,clusters.district");
         $this->db->from('image_feedback');
         $this->db->join('clusters', 'image_feedback.cluster_no = clusters.cluster_no', 'LEFT');
 
@@ -95,8 +95,7 @@ class MReview_check extends CI_Model
         $this->db->where(" (clusters.colflag is null OR clusters.colflag = '0') ");
         $this->db->group_by('image_feedback.cluster_no');
         $this->db->group_by('clusters.dist_id');
-        $this->db->group_by('clusters.uc_id');
-        $this->db->group_by('clusters.geoarea');
+        $this->db->group_by('clusters.district');
         $query = $this->db->get();
         return $query->result();
     }
@@ -108,7 +107,7 @@ class MReview_check extends CI_Model
         $this->db->join('clusters', 'image_feedback.cluster_no = clusters.cluster_no', 'LEFT');
         $this->db->where(" (clusters.colflag is null OR clusters.colflag = '0') ");
         $this->db->where('image_feedback.cluster_no  !=', '');
-        $this->db->where("clusters.uc_id = '" . $dist . "' ");
+        $this->db->where("clusters.dist_id = '" . $dist . "' ");
         $this->db->group_by('image_feedback.cluster_no');
         $query = $this->db->get();
         return $query->result();

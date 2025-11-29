@@ -71,6 +71,7 @@
 
 </style>
 
+
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-overlay"></div>
@@ -108,18 +109,18 @@
                                                 District
                                             </div>
                                             <div class="form-group">
-                                                <select class="select2 form-control province_select"
-                                                        onchange="changeProvince()">
+                                                <select class="select2 form-control district_select"
+                                                >
                                                     <option value="0" readonly disabled selected>District</option>
                                                     <?php if (isset($province) && $province != '') {
                                                         foreach ($province as $k => $p) {
-                                                            echo '<option value="' . $k . '" ' . (isset($slug_province) && $slug_province == $k ? "selected" : "") . '>' . $p . '</option>';
+                                                            echo '<option value="' . $k . '">' . $p . '</option>';
                                                         }
                                                     } ?>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5 col-12">
+                                       <!-- <div class="col-sm-5 col-12">
                                             <div class="text-bold-600 font-medium-2">
                                                 UC
                                             </div>
@@ -128,7 +129,7 @@
                                                     <option value="0" readonly disabled selected>UC</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-sm-2 col-12">
                                             <div class=" ">
                                                 <button type="button" class="btn btn-primary" onclick="searchData()">Get
@@ -503,43 +504,21 @@
 
     });
 
-    function changeProvince() {
-        var data = {};
-        data['province'] = $('.province_select').val();
 
-        if (data['province'] != '' && data['province'] != undefined && data['province'] != '0' && data['province'] != '$1') {
-            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getDistrictByProvince'  ?>', data, 'POST', function (res) {
-                var dist_hidden = $('#dist_hidden').val();
-                var items = '<option value="0"   readonly disabled ' + (dist_hidden == 0 ? 'selected' : '') + '>District</option>';
-                if (res != '' && JSON.parse(res).length > 0) {
-                    var response = JSON.parse(res);
-                    try {
-                        $.each(response[0], function (i, v) {
-                            items += '<option value="' + i + '" ' + (dist_hidden == i ? 'selected' : '') + '>' + v + '</option>';
-                        })
-                    } catch (e) {
-                    }
-                }
-                $('.district_select').html('').html(items);
-            });
-        } else {
-            $('.district_select').html('');
-        }
-    }
 
 
     function searchData() {
-        var province = $('.province_select').val();
+       // var province = $('.province_select').val();
         var district = $('.district_select ').val();
-        if (district == '' || district == undefined || district == '0') {
+        /*if (district == '' || district == undefined || district == '0') {
             district = 0;
-        }
-        if (province == '' || province == undefined || province == '0') {
-            $('.province_select').css('border', '1px solid red');
-            toastMsg('Province', 'Invalid Province', 'error');
+        }*/
+        if (district == '' || district == undefined || district == '0') {
+            $('.district_select').css('border', '1px solid red');
+            toastMsg('district_select', 'Invalid Province', 'error');
             return false;
         } else {
-            window.location.href = '<?php echo base_url() ?>index.php/card_image_status?p=' + province + '&d=' + district;
+            window.location.href = '<?php echo base_url() ?>index.php/card_image_status?d=' + district;
         }
 
     }

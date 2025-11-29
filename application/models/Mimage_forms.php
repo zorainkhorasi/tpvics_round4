@@ -25,12 +25,13 @@ class Mimage_forms extends CI_Model
         return $query->result();
     }
 
-    function getProvince_District($pro)
+
+    function getProvince_District_($pro)
     {
         if (isset($pro) && $pro != '') {
             $this->db->where("clusters.dist_id like '" . $pro . "%' ");
         }
-        $this->db->select("vac_details.cluster_code,clusters.geoarea,clusters.dist_id,clusters.uc_id");
+        $this->db->select("vac_details.cluster_code,clusters.geoarea,clusters.dist_id");
         $this->db->from('vac_details');
         $this->db->join('clusters', 'vac_details.cluster_code = clusters.cluster_no', 'INNER');
         $this->db->where(" (clusters.colflag is null OR clusters.colflag = '0') ");
@@ -39,8 +40,28 @@ class Mimage_forms extends CI_Model
         $this->db->where(' (vac_details.im02=0 or vac_details.im02=1) ');
         $this->db->where('clusters.geoarea not like \'test%\' ');
         $this->db->group_by('vac_details.cluster_code');
-        $this->db->group_by('clusters.dist_id'); $this->db->group_by('clusters.uc_id');
+        $this->db->group_by('clusters.dist_id');
         $this->db->group_by('clusters.geoarea');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getProvince_District($pro)
+    {
+       /* if (isset($pro) && $pro != '') {
+            $this->db->where("clusters.dist_id like '" . $pro . "%' ");
+        }*/
+        $this->db->select("clusters.dist_id,clusters.district");
+        $this->db->from('vac_details');
+        $this->db->join('clusters', 'vac_details.cluster_code = clusters.cluster_no', 'INNER');
+        $this->db->where(" (clusters.colflag is null OR clusters.colflag = '0') ");
+        $this->db->where('vac_details.cluster_code !=', '');
+        $this->db->where('vac_details.im01', '1');
+        $this->db->where(' (vac_details.im02=0 or vac_details.im02=1) ');
+        $this->db->where('clusters.geoarea not like \'test%\' ');
+        $this->db->group_by('vac_details.cluster_code');
+        $this->db->group_by('clusters.dist_id');
+        $this->db->group_by('clusters.district');
         $query = $this->db->get();
         return $query->result();
     }
@@ -54,7 +75,7 @@ class Mimage_forms extends CI_Model
         $this->db->where('vac_details.cluster_code  !=', '');
         $this->db->where('vac_details.im01', '1');
         $this->db->where(' (vac_details.im02=0 or vac_details.im02=1) ');
-        $this->db->where("clusters.uc_id = '" . $dist . "' ");
+        $this->db->where("clusters.dist_id = '" . $dist . "' ");
         $this->db->group_by('vac_details.cluster_code');
         $query = $this->db->get();
         return $query->result();

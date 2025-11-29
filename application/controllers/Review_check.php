@@ -24,8 +24,7 @@ class Review_check extends CI_controller
             $p = array();
             foreach ($province as $k => $v) {
                 $key = $v->dist_id;
-                $exp = explode('|', $v->geoarea);
-                $p[$key] = $exp[1];
+                $p[$key] = $v->district;
             }
             $data['province'] = $p;
             $this->load->view('include/header');
