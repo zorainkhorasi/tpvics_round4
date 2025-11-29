@@ -36,309 +36,502 @@
             </div>
         </div>
         <?php $data = $vac_details; ?>
-        <div class="content-body">
-            <section class="basic-select2">
-                <div class="row">
-                    <div class="col-xl-6 col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <?php
-                                    $img = '';
-                                    if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
-                                        $img = '<div class="swiper-slide">
-                                                        <img class="img-fluid"
-                                                             src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' . $data->f01 . '"
-                                                             alt="' . $data->f01 . '">
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <img class="img-fluid"
-                                                             src="https://vcoe1.aku.edu/tpvics_shruc_r4/api/uploads/' . $data->f02 . '"
-                                                             alt="' . $data->f02 . '">
-                                                    </div>';
-                                    } else {
-                                        $img = '<div class="swiper-slide"><p>No Image found</p></div>';
-                                    } ?>
-                                    <div class="swiper-gallery swiper-container gallery-top">
-                                        <div class="swiper-wrapper gallery_images">
-                                            <?php echo $img; ?>
-                                        </div>
-                                        <div class="swiper-button-next"></div>
-                                        <div class="swiper-button-prev"></div>
-                                    </div>
-                                    <div class="swiper-container gallery-thumbs">
-                                        <div class="swiper-wrapper mt-25 gallery_images">
-                                            <?php echo $img; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <style>
+            :root {
+                --primary-color: #3498db;
+                --secondary-color: #2c3e50;
+                --success-color: #2ecc71;
+                --warning-color: #f39c12;
+                --danger-color: #e74c3c;
+                --light-bg: #f8f9fa;
+                --border-color: #dee2e6;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f5f7fa;
+                color: #333;
+            }
+
+            .card {
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: none;
+                margin-bottom: 20px;
+            }
+
+            .card-header {
+                background-color: var(--secondary-color);
+                color: white;
+                border-radius: 10px 10px 0 0 !important;
+                padding: 15px 20px;
+                font-weight: 600;
+            }
+
+            .card-body {
+                padding: 25px;
+            }
+
+            .form-label {
+                font-weight: 600;
+                color: var(--secondary-color);
+                margin-bottom: 8px;
+            }
+
+            .form-control, .form-select {
+                border-radius: 6px;
+                padding: 10px 15px;
+                border: 1px solid var(--border-color);
+            }
+
+            .form-control:focus, .form-select:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+            }
+
+            .btn-primary {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+                border-radius: 6px;
+                padding: 10px 25px;
+                font-weight: 600;
+            }
+
+            .btn-primary:hover {
+                background-color: #2980b9;
+                border-color: #2980b9;
+            }
+
+            .table {
+                border-collapse: separate;
+                border-spacing: 0;
+                width: 100%;
+            }
+
+            .table th {
+                background-color: var(--secondary-color);
+                color: white;
+                font-weight: 600;
+                padding: 12px 15px;
+            }
+
+            .table td {
+                padding: 12px 15px;
+                vertical-align: middle;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+
+            .table tbody tr:hover {
+                background-color: rgba(52, 152, 219, 0.05);
+            }
+
+            .vaccine-option label {
+                margin-right: 15px;
+                font-weight: normal;
+            }
+
+            .vaccine-value {
+                font-weight: 600;
+            }
+
+            .vaccine-value.updated {
+                color: var(--success-color);
+            }
+
+            .vaccine-option-radio {
+                margin-right: 5px;
+            }
+
+            .image-gallery {
+                border-radius: 10px;
+                overflow: hidden;
+                margin-bottom: 20px;
+            }
+
+            .image-gallery img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+            .status-badge {
+                display: inline-block;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 600;
+            }
+
+            .status-ok {
+                background-color: rgba(46, 204, 113, 0.2);
+                color: var(--success-color);
+            }
+
+            .status-error {
+                background-color: rgba(231, 76, 60, 0.2);
+                color: var(--danger-color);
+            }
+
+            .status-warning {
+                background-color: rgba(243, 156, 18, 0.2);
+                color: var(--warning-color);
+            }
+
+            .check-all-options {
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: var(--secondary-color);
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .field-group {
+                margin-bottom: 20px;
+            }
+
+            .action-buttons {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 25px;
+            }
+
+            .info-card {
+                background-color: white;
+                border-left: 4px solid var(--primary-color);
+                padding: 15px;
+                border-radius: 6px;
+                margin-bottom: 20px;
+            }
+
+            @media (max-width: 768px) {
+                .card-body {
+                    padding: 15px;
+                }
+
+                .action-buttons {
+                    flex-direction: column;
+                }
+
+                .action-buttons .btn {
+                    width: 100%;
+                }
+            }
+        </style>
+        </head>
+        <body>
+        <div class="container-fluid py-4">
+            <div class="row">
+                <!-- Image Gallery Section -->
+                <div class="col-xl-6 col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-images me-2"></i>Child Images
                         </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title"></h4>
-                            </div>
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="cluster_code" class="label-control ">Cluster</label>
-                                                <input type="text" class="form-control" required id="cluster_code"
-                                                       name="cluster_code" readonly disabled
-                                                       value="<?php echo(isset($data->cluster_code) && $data->cluster_code != '' ? $data->cluster_code : '') ?>">
-
-
-                                                <input type="hidden" class="form-control" required id="ec"
-                                                       name="ec" readonly disabled
-                                                       value="<?php echo(isset($ec) && $ec != '' ? $ec : '1') ?>">
+                        <div class="card-body">
+                            <div class="image-gallery">
+                                <?php
+                                $img = '';
+                                if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
+                                    $img = '<div class="swiper-slide">
+                                                <img class="img-fluid"
+                                                     src="http://localhost/tpvics_round4/assets/images/banner/banner-22.jpg"
+                                                     alt="' . $data->f01 . '">
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="hhno" class="label-control ">hhno</label>
-                                                <input type="text" class="form-control" required id="hhno"
-                                                       name="hhno" readonly disabled
-                                                       value="<?php echo(isset($data->hhno) && $data->hhno != '' ? $data->hhno : '') ?>">
-                                            </div>
-                                        </div>
+                                            <div class="swiper-slide">
+                                                <img class="img-fluid"
+                                                     src="http://localhost/tpvics_round4/assets/images/banner/banner-22.jpg"
+                                                     alt="' . $data->f02 . '">
+                                            </div>';
+                                } else {
+                                    $img = '<div class="swiper-slide text-center p-5"><i class="fas fa-image fa-3x text-muted mb-3"></i><p class="text-muted">No Image Available</p></div>';
+                                } ?>
+
+                                <div class="swiper-gallery swiper-container gallery-top mb-3">
+                                    <div class="swiper-wrapper gallery_images">
+                                        <?php echo $img; ?>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="ec14" class="label-control ">Child Name</label>
-                                                <input type="text" class="form-control" required id="ec14"
-                                                       name="ec14" readonly disabled
-                                                       value="<?php echo(isset($data->ec14) && $data->ec14 != '' ? $data->ec14 : '') ?>">
-                                            </div>
-                                        </div>
-                                        <?php
-                                        if ($data->ec15 == 1) {
-                                            $gender = 'Male';
-                                        } else if ($data->ec15 == 2) {
-                                            $gender = 'Female';
-                                        } else {
-                                            $gender = '';
-                                        }
-                                        ?>
-                                        <div class="col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="ec15" class="label-control ">Gender</label>
-                                                <input type="text" class="form-control" required id="ec15"
-                                                       name="ec15" readonly disabled
-                                                       value="<?php echo $gender; ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="ec13" class="label-control ">Child No</label>
-                                                <input type="text" class="form-control" required id="ec13"
-                                                       name="ec13" readonly disabled
-                                                       value="<?php echo(isset($data->ec13) && $data->ec13 != '' ? $data->ec13 : '') ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="dob" class="label-control ">DoB</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       required id="dob" name="dob"
-                                                    <?php echo(isset($data->dob_val) && $data->dob_val == 2 ? '' : 'readonly disabled'); ?>
-                                                       value="<?php echo $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy; ?>"
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 p-1">
-                                            <label for="image_status">Image Status</label>
-                                            <select id="image_status" class="image_status form-control">
-                                                <?php
-                                                $imageOptions = [
-                                                    '0' => 'Image Status',
-                                                    'OK' => 'OK',
-                                                    'Blur' => 'Blur',
-                                                    'Focus Issue' => 'Focus Issue',
-                                                    'Light Issue' => 'Light Issue',
-                                                    'Child Name not Matched' => 'Child Name not Matched',
-                                                    'No Image' => 'No Image'
-                                                ];
-                                                $savedValue = isset($vac_details_edit->image_status) ? $vac_details_edit->image_status : '0';
-                                                foreach($imageOptions as $val => $label):
-                                                    ?>
-                                                    <option value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <?php $selectedStatus = isset($vac_details_edit->dobstatus) ? $vac_details_edit->dobstatus : 0; ?>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 p-1">
-                                            <label for="dobstatus">DoB Status</label>
-                                            <select id="dobstatus" class="dobstatus form-control ">
-                                                <option value="0" readonly>DoB Status</option>
-                                                <option value="1"  <?= $selectedStatus == 1 ? 'selected' : '' ?>>OK </option>
-                                                <option value="2"  <?= $selectedStatus == 2 ? 'selected' : '' ?>>Invalid DoB</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                    </div>
-                                    <?php $selectedStatus = isset($vac_details_edit->vac_status) ? $vac_details_edit->vac_status : 0; ?>
-
-                                        <div class="col-lg-4 col-md-4 p-1">
-                                            <fieldset>
-                                                <label>
-                                                    <input type="radio" value="1" class="checkAllBtn" name="checkAllBtn"
-                                                           data-type="m" onclick="clickAll()"
-                                                        <?= $selectedStatus == 1 ? 'checked' : '' ?>>
-                                                    Check All - Matched
-                                                </label>
-                                            </fieldset>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-4 p-1">
-                                            <fieldset>
-                                                <label>
-                                                    <input type="radio" value="2" class="checkAllBtn" name="checkAllBtn"
-                                                           data-type="nm" onclick="clickAll()"
-                                                        <?= $selectedStatus == 2 ? 'checked' : '' ?>>
-                                                    Check All - Not Matched
-                                                </label>
-                                            </fieldset>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-4 p-1">
-                                            <fieldset>
-                                                <label>
-                                                    <input type="radio" value="3" class="checkAllBtn" name="checkAllBtn"
-                                                           data-type="nr" onclick="clickAll()"
-                                                        <?= $selectedStatus == 3 ? 'checked' : '' ?>>
-                                                    Check All - Not Readable
-                                                </label>
-                                            </fieldset>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-12">
-
-                                                <table class="table table-bordered align-middle bg-white shadow-sm">
-                                                    <thead class="table-secondary text-center">
-                                                    <tr>
-                                                        <th>Vaccine</th>
-                                                        <th>Old Value</th>
-                                                        <th>New Value</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php
-                                                    $vaccines = [
-                                                        "bcg", "opv0", "opv1", "opv2", "opv3",
-                                                        "penta1", "penta2", "penta3",
-                                                        "pcv", "pcv2", "pcv3",
-                                                        "rv1", "rv2",
-                                                        "ipv", "ipv2",
-                                                        "measles1", "measles2",
-                                                        "hep_b",
-                                                        "tcv"
-                                                    ];
-
-                                                    foreach ($vaccines as $v):
-                                                        $oldValue = $vac_details->$v ?? '-';
-                                                        $newValue = $vac_details_edit->$v ?? $oldValue;
-                                                        ?>
-                                                        <tr>
-                                                            <td class="text-center"><b><?= strtoupper($v) ?></b></td>
-                                                            <td class="text-center text-muted"><?= $oldValue ?></td>
-                                                            <td class="text-start position-relative">
-
-                                                                <?php if ($oldValue != $newValue): ?>
-                                                                    <span class="fw-bold text-success"><?= $newValue ?></span>
-                                                                <?php endif; ?>
-
-                                                                <?php
-                                                                // Determine which radio should be checked and which field to show
-                                                                $checkedChange = $checkedError = $checkedDate = '';
-                                                                $showDropdown = $showDate = 'style="display:none;"';
-                                                                if ($newValue === '98') {
-                                                                    $checkedError = 'checked';
-                                                                } elseif (preg_match('/^\d{2}$/', $newValue)) {
-                                                                    $checkedChange = 'checked';
-                                                                    $showDropdown = 'style="display:block;"';
-                                                                } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $newValue)) {
-                                                                    $checkedDate = 'checked';
-                                                                    $showDate = 'style="display:block;"';
-                                                                }
-                                                                ?>
-
-                                                                <div>
-                                                                    <label>
-                                                                        <input type="radio" name="<?= $v ?>_option" <?=$checkedChange?>  class="vaccine-option-radio" value="change" onclick="toggleVaccineField('<?= $v ?>', 'code')">
-                                                                        Change Code
-                                                                    </label>
-
-                                                                    <label class="ms-2">
-                                                                        <input type="radio" name="<?= $v ?>_option" <?=$checkedDate?> class="vaccine-option-radio" value="date" onclick="toggleVaccineField('<?= $v ?>', 'date')">
-                                                                        Change Date
-                                                                    </label>
-                                                                    <label class="ms-2">
-                                                                        <input type="radio" name="<?= $v ?>_option" <?=$checkedError?> class="vaccine-option-radio" value="error" onclick="toggleVaccineField('<?= $v ?>', 'error')">
-                                                                        Vaccinator Error
-                                                                    </label>
-                                                                </div>
-
-                                                                <!-- Dropdown for Change Code -->
-                                                                <div class="mt-2" id="dropdown-wrapper-<?= $v ?>" style="display:none;">
-                                                                    <select class="form-control form-control-sm" id="<?= $v ?>_dropdown" onchange="setVaccineValue('<?= $v ?>')">
-                                                                        <option value="" disabled selected>Select Code</option>
-                                                                        <option value="44">44</option>
-                                                                        <option value="66">66</option>
-                                                                        <option value="88">88</option>
-                                                                        <option value="97">97</option>
-                                                                    </select>
-                                                                </div>
-
-                                                                <!-- Date input for Change Date -->
-                                                                <div class="mt-2" id="date-wrapper-<?= $v ?>" style="display:none;">
-                                                                    <input type="date" class="form-control form-control-sm" id="<?= $v ?>_date" onchange="setVaccineValue('<?= $v ?>')">
-                                                                </div>
-
-                                                                <!-- Hidden input that always stores the actual value -->
-                                                                <input type="hidden" id="<?= $v ?>_value" name="<?= $v ?>" value="<?= $newValue ?>">
-                                                            </td>
-                                                        </tr>
-
-
-
-                                                    <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-sm-12 col-12 ">
-                                            <button type="button" class="btn btn-primary" onclick="saveVaccinesData()">
-                                                Insert Datas
-                                            </button>
-                                        </div>
+                                <div class="swiper-container gallery-thumbs">
+                                    <div class="swiper-wrapper gallery_images">
+                                        <?php echo $img; ?>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="image_status" class="form-label">Image Status</label>
+                                <select id="image_status" class="image_status form-select">
+                                    <?php
+                                    $imageOptions = [
+                                        '0' => 'Select Image Status',
+                                        'OK' => 'OK',
+                                        'Blur' => 'Blur',
+                                        'Focus Issue' => 'Focus Issue',
+                                        'Light Issue' => 'Light Issue',
+                                        'Child Name not Matched' => 'Child Name not Matched',
+                                        'No Image' => 'No Image'
+                                    ];
+                                    $savedValue = isset($vac_details_edit->image_status) ? $vac_details_edit->image_status : '0';
+                                    foreach($imageOptions as $val => $label):
+                                        ?>
+                                        <option value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Child Information Section -->
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-child me-2"></i>Child Information
+                        </div>
+                        <div class="card-body">
+                            <div class="info-card">
+                                <div class="row">
+                                    <div class="col-sm-6 col-12 mb-3">
+                                        <label for="cluster_code" class="form-label">Cluster</label>
+                                        <input type="text" class="form-control" required id="cluster_code"
+                                               name="cluster_code" readonly disabled
+                                               value="<?php echo(isset($data->cluster_code) && $data->cluster_code != '' ? $data->cluster_code : '') ?>">
+                                    </div>
+                                    <div class="col-sm-6 col-12 mb-3">
+                                        <label for="hhno" class="form-label">Household Number</label>
+                                        <input type="text" class="form-control" required id="hhno"
+                                               name="hhno" readonly disabled
+                                               value="<?php echo(isset($data->hhno) && $data->hhno != '' ? $data->hhno : '') ?>">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-12 mb-3">
+                                        <label for="ec14" class="form-label">Child Name</label>
+                                        <input type="text" class="form-control" required id="ec14"
+                                               name="ec14" readonly disabled
+                                               value="<?php echo(isset($data->ec14) && $data->ec14 != '' ? $data->ec14 : '') ?>">
+                                    </div>
+                                    <?php
+                                    if ($data->ec15 == 1) {
+                                        $gender = 'Male';
+                                    } else if ($data->ec15 == 2) {
+                                        $gender = 'Female';
+                                    } else {
+                                        $gender = '';
+                                    }
+                                    ?>
+                                    <div class="col-sm-6 col-12 mb-3">
+                                        <label for="ec15" class="form-label">Gender</label>
+                                        <input type="text" class="form-control" required id="ec15"
+                                               name="ec15" readonly disabled
+                                               value="<?php echo $gender; ?>">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-12 mb-3">
+                                        <label for="ec13" class="form-label">Child Number</label>
+                                        <input type="text" class="form-control" required id="ec13"
+                                               name="ec13" readonly disabled
+                                               value="<?php echo(isset($data->ec13) && $data->ec13 != '' ? $data->ec13 : '') ?>">
+                                    </div>
+                                    <div class="col-sm-6 col-12 mb-3">
+                                        <label for="dob" class="form-label">Date of Birth</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               required id="dob" name="dob"
+                                            <?php echo(isset($data->dob_val) && $data->dob_val == 2 ? '' : 'readonly disabled'); ?>
+                                               value="<?php echo $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy; ?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="dobstatus" class="form-label">Date of Birth Status</label>
+                                <select id="dobstatus" class="dobstatus form-select">
+                                    <option value="0">Select DoB Status</option>
+                                    <option value="1" <?= $vac_details_edit->dobstatus == 1 ? 'selected' : '' ?>>OK</option>
+                                    <option value="2" <?= $vac_details_edit->dobstatus == 2 ? 'selected' : '' ?>>Invalid DoB</option>
+                                </select>
+                            </div>
+
+                            <div class="field-group">
+                                <div class="section-title">Bulk Actions</div>
+                                <div class="check-all-options">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkAllBtn" type="radio" value="1" name="checkAllBtn"
+                                                       data-type="m" onclick="clickAll()"
+                                                    <?= $vac_details_edit->vac_status == 1 ? 'checked' : '' ?>>
+                                                <label class="form-check-label">
+                                                    Check All - Matched
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkAllBtn" type="radio" value="2" name="checkAllBtn"
+                                                       data-type="nm" onclick="clickAll()"
+                                                    <?= $vac_details_edit->vac_status == 2 ? 'checked' : '' ?>>
+                                                <label class="form-check-label">
+                                                    Check All - Not Matched
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkAllBtn" type="radio" value="3" name="checkAllBtn"
+                                                       data-type="nr" onclick="clickAll()"
+                                                    <?= $vac_details_edit->vac_status == 3 ? 'checked' : '' ?>>
+                                                <label class="form-check-label">
+                                                    Check All - Not Readable
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <div class="section-title">Vaccination Records</div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered align-middle bg-white">
+                                        <thead class="table-secondary">
+                                        <tr>
+                                            <th class="text-center">Vaccine</th>
+                                            <th class="text-center">Original Value</th>
+                                            <th class="text-center">Updated Value</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        $vaccines = [
+                                            "bcg", "opv0", "opv1", "opv2", "opv3",
+                                            "penta1", "penta2", "penta3",
+                                            "pcv", "pcv2", "pcv3",
+                                            "rv1", "rv2",
+                                            "ipv", "ipv2",
+                                            "measles1", "measles2",
+                                            "hep_b",
+                                            "tcv"
+                                        ];
+
+                                        foreach ($vaccines as $v):
+                                            $oldValue = $vac_details->$v ?? '-';
+                                            $newValue = $vac_details_edit->$v;
+                                            $isUpdated = $oldValue != $newValue;
+
+                                            $msg=$newValue;
+                                            $class_='';
+                                            if($newValue=='98'){
+                                                $msg ='Vaccinator Error';
+                                                $class_='text-danger';
+                                            }
+                                            ?>
+                                            <tr>
+                                                <td class="text-center"><strong><?= strtoupper($v) ?></strong></td>
+                                                <td class="text-center text-muted"><?= $oldValue ?></td>
+                                                <td class="text-center">
+                                                <span class="vaccine-value <?= $isUpdated ? 'updated' : '' ?> <?=$class_?>" id="<?= $v ?>_display">
+                                                    <?=$msg?>
+                                                </span>
+                                                </td>
+                                                <td class="vaccine-option">
+                                                    <?php
+                                                    // Determine which radio should be checked and which field to show
+                                                    $checkedChange = $checkedError = $checkedDate = '';
+                                                    $showDropdown = $showDate = 'style="display:none;"';
+                                                    if ($newValue === '98') {
+                                                        $checkedError = 'checked';
+                                                    } elseif (preg_match('/^\d{2}$/', $newValue)) {
+                                                        $checkedChange = 'checked';
+                                                        $showDropdown = 'style="display:block;"';
+                                                    } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $newValue)) {
+                                                        $checkedDate = 'checked';
+                                                        $showDate = 'style="display:block;"';
+                                                    }
+                                                    ?>
+
+                                                    <div class="mb-2">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input vaccine-option-radio" type="radio"
+                                                                   name="<?= $v ?>_option" <?=$checkedChange?> value="change"
+                                                                   onclick="toggleVaccineField('<?= $v ?>', 'code')">
+                                                            <label class="form-check-label small">Change Code</label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input vaccine-option-radio" type="radio"
+                                                                   name="<?= $v ?>_option" <?=$checkedDate?> value="date"
+                                                                   onclick="toggleVaccineField('<?= $v ?>', 'date')">
+                                                            <label class="form-check-label small">Change Date</label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input vaccine-option-radio" type="radio"
+                                                                   name="<?= $v ?>_option" <?=$checkedError?> value="error"
+                                                                   onclick="toggleVaccineField('<?= $v ?>', 'error')">
+                                                            <label class="form-check-label small">Vaccinator Error</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Dropdown for Change Code -->
+                                                    <div class="mt-2" id="dropdown-wrapper-<?= $v ?>" style="display:none;">
+                                                        <select class="form-select form-select-sm" id="<?= $v ?>_dropdown" onchange="setVaccineValue('<?= $v ?>')">
+                                                            <option value="" disabled selected>Select Code</option>
+                                                            <option value="44">44</option>
+                                                            <option value="66">66</option>
+                                                            <option value="88">88</option>
+                                                            <option value="97">97</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Date input for Change Date -->
+                                                    <div class="mt-2" id="date-wrapper-<?= $v ?>" style="display:none;">
+                                                        <input type="date" class="form-control form-control-sm" id="<?= $v ?>_date" onchange="setVaccineValue('<?= $v ?>')">
+                                                    </div>
+
+                                                    <!-- Hidden input that always stores the actual value -->
+                                                    <input type="hidden" id="<?= $v ?>_value" name="<?= $v ?>" value="<?= $newValue ?>">
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons">
+                               <!-- <button type="button" class="btn btn-secondary">
+                                    <i class="fas fa-times me-2"></i>Cancel
+                                </button>-->
+                                <button type="button" class="btn btn-primary" onclick="saveVaccinesData()">
+                                    <i class="fas fa-save me-2"></i>Save Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             </section>
         </div>
     </div>
