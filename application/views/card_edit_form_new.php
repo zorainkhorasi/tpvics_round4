@@ -243,16 +243,16 @@
                             <div class="image-gallery">
                                 <?php
                                 $img = '';
-                                if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
+                                if (1==1) {
                                     $img = '<div class="swiper-slide">
                                                 <img class="img-fluid"
                                                      src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
-                                                     alt="' . $data->f01 . '">
+                                                     alt="vac.png">
                                             </div>
                                             <div class="swiper-slide">
                                                 <img class="img-fluid"
                                                      src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
-                                                     alt="' . $data->f02 . '">
+                                                     alt="vac.png">
                                             </div>';
                                 } else {
                                     $img = '<div class="swiper-slide text-center p-5"><i class="fas fa-image fa-3x text-muted mb-3"></i><p class="text-muted">No Image Available</p></div>';
@@ -542,6 +542,8 @@
 
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
 <script>
+
+
 
     $(document).ready(function () {
         gallery();

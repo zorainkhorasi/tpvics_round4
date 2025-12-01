@@ -36,6 +36,7 @@
             </div>
         </div>
         <div class="content-body">
+
             <section class="basic-select2">
                 <div class="row">
                     <div class="col-12">
@@ -52,7 +53,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <select class="select2 form-control district_select"
-                                                        >
+                                                        onchange="changeUCs()">
                                                     <option value="0" readonly disabled selected>District</option>
                                                     <?php if (isset($province) && $province != '') {
                                                         foreach ($province as $k => $p) {
@@ -62,39 +63,58 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!--<div class="col-sm-6 col-12">
-                                            <div class="text-bold-600 font-medium-2">
-                                                UC
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="select2 form-control district_select">
-                                                    <option value="0" readonly disabled selected>UC</option>
-                                                </select>
-                                            </div>
-                                        </div>-->
+                                        <!-- <div class="col-sm-6 col-12">
+                                             <div class="text-bold-600 font-medium-2">
+                                                 UC
+                                             </div>
+                                             <div class="form-group">
+                                                 <select class="select2 form-control district_select"
+                                                         onchange="changeUCs()">
+                                                     <option value="0" readonly disabled selected>UC</option>
+                                                 </select>
+                                             </div>
+                                         </div>-->
                                     </div>
                                     <div class="row">
-                                        <!--<div class="col-sm-2 col-12">
-                                            <div class="form-group">
-                                                <label for="checklist" class="label-control ">Invalid Date</label>
-                                                <input type="checkbox" name="checklist" value="1" id="checklist_1">
+                                        <div class="col-sm-4 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                Cluster
                                             </div>
-                                        </div>-->
-                                        <div class="col-sm-2 col-12">
                                             <div class="form-group">
-                                                <label for="checklist" class="label-control ">Reviewed</label>
-                                                <input type="checkbox" name="checklist" value="2" id="checklist_2"
-                                                       checked>
+                                                <select class="select2 form-control clusters_select"
+                                                        onchange="changeCluster()">
+                                                    <option value="0" readonly disabled selected>Cluster</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                Household
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control household_select"
+                                                        onchange="changeHH()">
+                                                    <option value="0" readonly disabled selected>Household</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <div class="text-bold-600 font-medium-2">
+                                                Child Line No
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="select2 form-control childNo_select">
+                                                    <option value="0" readonly disabled selected>Child No</option>
+                                                </select>
                                             </div>
                                         </div>
 
+
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-12 ">
-                                            <button type="button" class="btn btn-primary" onclick="searchData()">Get
-                                                Data
-                                            </button>
-                                        </div>
+                                    <div class=" ">
+                                        <button type="button" class="btn btn-primary" onclick="searchData()">Get
+                                            Data
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -102,6 +122,7 @@
                     </div>
                 </div>
             </section>
+
 
             <!-- gallery swiper start -->
             <section id="component-swiper-gallery" class="hide">
@@ -136,83 +157,91 @@
 
 
 <script>
-    function changeProvince() {
+    function changeUCs() {
         var data = {};
-        data['province'] = $('.province_select').val();
-        if (data['province'] != '' && data['province'] != undefined && data['province'] != '0' && data['province'] != '$1') {
-            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getDistrictByProvince'  ?>', data, 'POST', function (res) {
-                var items = '<option value="0"   readonly disabled selected>District</option>';
+        data['district'] = $('.district_select').val();
+        if (data['district'] != '' && data['district'] != undefined && data['district'] != '0' && data['district'] != '$1') {
+            showloader();
+            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getClustersByDist'  ?>', data, 'POST', function (res) {
+                hideloader();
+                var items = '<option value="0"   readonly disabled selected>Cluster</option>';
                 if (res != '' && JSON.parse(res).length > 0) {
                     var response = JSON.parse(res);
                     try {
-                        $.each(response[0], function (i, v) {
-                            items += '<option value="' + i + '" onclick="changeDist()">' + v + '</option>';
+                        $.each(response, function (i, v) {
+                            items += '<option value="' + v.cluster_code + '" onclick="changeCluster()">' + v.cluster_code + '</option>';
                         })
                     } catch (e) {
                     }
                 }
-                $('.district_select').html('').html(items);
+                $('.clusters_select').html('').html(items);
             });
         } else {
-            $('.district_select').html('');
+            $('.clusters_select').html('');
+        }
+    }
+
+    function changeCluster() {
+        var data = {};
+        data['cluster'] = $('.clusters_select').val();
+        if (data['cluster'] != '' && data['cluster'] != undefined && data['cluster'] != '0' && data['cluster'] != '$1') {
+            showloader();
+            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getHhnoByCluster'  ?>', data, 'POST', function (res) {
+                hideloader();
+                var items = '<option value="0"   readonly disabled selected>Household</option>';
+                if (res != '' && JSON.parse(res).length > 0) {
+                    var response = JSON.parse(res);
+                    try {
+                        $.each(response, function (i, v) {
+                            items += '<option value="' + v.hhno + '" onclick="changeHH()">' + v.hhno + '</option>';
+                        })
+                    } catch (e) {
+                    }
+                }
+                $('.household_select').html('').html(items);
+            });
+        } else {
+            $('.household_select').html('');
+        }
+    }
+
+    function changeHH() {
+        var data = {};
+        data['cluster'] = $('.clusters_select').val();
+        data['hh'] = $('.household_select').val();
+        if (data['hh'] != '' && data['hh'] != undefined && data['hh'] != '0' && data['hh'] != '$1') {
+            showloader();
+            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getChildNoByHH'  ?>', data, 'POST', function (res) {
+                hideloader();
+                var items = '<option value="0"   readonly disabled >Child No</option>';
+                if (res != '' && JSON.parse(res).length > 0) {
+                    var response = JSON.parse(res);
+                    try {
+                        $.each(response, function (i, v) {
+                            items += '<option value="' + v.ec13 + '" selected>' + v.ec13 + '</option>';
+
+                        })
+                    } catch (e) {
+                    }
+                }
+                $('.childNo_select').html('').html(items);
+            });
+        } else {
+            $('.childNo_select').html('');
         }
     }
 
     function searchData() {
-        $('#component-swiper-gallery').addClass('hide');
-        var flag = 0;
-        var data = {};
-        data['province'] = $('.province_select').val();
-        data['district'] = $('.district_select').val();
-        if (data['district'] == '' || data['district'] == undefined || data['district'] == '0') {
-            $('.clusters_select').css('border', '1px solid red');
-            flag = 1;
-            toastMsg('district', 'Invalid District', 'error');
-            return false;
-        }
-        var list_checklist = [];
-        $("input[name=checklist]:checked").each(function () {
-            list_checklist.push($(this).val());
-        });
-        data['checklist'] = list_checklist;
-        if (data['checklist'].length < 1 || data['checklist'] == '' || data['checklist'] == undefined || data['checklist'] == '0') {
-            flag = 1;
-            toastMsg('Checklist', 'Invalid Checklist', 'error');
-            return false;
-        }
+        var hh = $('.household_select').val();
+        var child = $('.childNo_select').val();
+        var clusters_select = $('.clusters_select').val();
+        //var i = $('.some_id_select').val(); // make sure this exists
 
-        if (flag == 0) {
-            CallAjax('<?php echo base_url('index.php/Card_edit/getData') ?>', data, 'POST', function (res) {
-                var items = '';
-                if (res != '' && res != undefined) {
-                    var response = JSON.parse(res);
-                    try {
-                        $.each(response, function (i, v) {
-                            items += '<li class="list-group-item">' + i + '<ul>';
-                            $.each(v, function (ii, vv) {
-                                var editedBy = '';
-                                if (vv.editedBy != '' && vv.editedBy != undefined) {
-                                    editedBy = '<span class="danger"> Already edited by: ' + vv.editedBy + ' </span>';
-                                }
-                                var url = 'Card_edit/edit_form_new?c=' + i + '&h=' + vv.hhno + '&ec=' + vv.ec13;
-                                items += '<li class=""><a  target="_blank" href="' + url + '"> ' + vv.hhno + ' - ' + vv.ec13 + '</a> ' + editedBy + '</li>';
-                            });
-                            items += "</ul></li>";
+        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?c=" + clusters_select + "&h=" + hh + "&ec=" + child;
 
-                        })
-                    } catch (e) {
-                    }
-                } else {
-                    items += '<p>No detail Found</p>';
-                    toastMsg('Images', 'No detail Found', 'error');
-                }
-                $('.listdata').html('').html(items);
-                $('#component-swiper-gallery').removeClass('hide');
-            });
-        } else {
-            toastMsg('Page', 'Something went wrong', 'error');
-        }
-
+        window.open(url, '_blank'); // open in new tab
     }
+
+
 
 </script>
