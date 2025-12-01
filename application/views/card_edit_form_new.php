@@ -23,7 +23,7 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Card Edit Form</h2>
+                        <h2 class="content-header-title float-left mb-0">Card  Form</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a>
@@ -246,12 +246,12 @@
                                 if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
                                     $img = '<div class="swiper-slide">
                                                 <img class="img-fluid"
-                                                     src="http://localhost/tpvics_round4/assets/images/banner/banner-22.jpg"
+                                                     src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
                                                      alt="' . $data->f01 . '">
                                             </div>
                                             <div class="swiper-slide">
                                                 <img class="img-fluid"
-                                                     src="http://localhost/tpvics_round4/assets/images/banner/banner-22.jpg"
+                                                     src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
                                                      alt="' . $data->f02 . '">
                                             </div>';
                                 } else {

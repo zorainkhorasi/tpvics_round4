@@ -167,7 +167,7 @@
         if (data['district'] == '' || data['district'] == undefined || data['district'] == '0') {
             $('.clusters_select').css('border', '1px solid red');
             flag = 1;
-            toastMsg('district', 'Invalid Province', 'error');
+            toastMsg('district', 'Invalid District', 'error');
             return false;
         }
         var list_checklist = [];
@@ -194,7 +194,7 @@
                                 if (vv.editedBy != '' && vv.editedBy != undefined) {
                                     editedBy = '<span class="danger"> Already edited by: ' + vv.editedBy + ' </span>';
                                 }
-                                var url = 'Card_edit/edit_form?c=' + i + '&h=' + vv.hhno + '&ec=' + vv.ec13;
+                                var url = 'Card_edit/edit_form_new?c=' + i + '&h=' + vv.hhno + '&ec=' + vv.ec13;
                                 items += '<li class=""><a  target="_blank" href="' + url + '"> ' + vv.hhno + ' - ' + vv.ec13 + '</a> ' + editedBy + '</li>';
                             });
                             items += "</ul></li>";
