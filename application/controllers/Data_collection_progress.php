@@ -122,6 +122,8 @@ class Data_collection_progress extends CI_controller
 
                  $totalList = $data['totalcluster']['list'];
                 $completedList = $data['completed'];
+                  $remainingList = $data['r'];
+                    $inprogressList = $data['ip'];
 
                 // STEP 1: Sum totals by province
                $totalsByProvince = [];
@@ -143,13 +145,25 @@ class Data_collection_progress extends CI_controller
                 |--------------------------------------------------------------------------
                 */
                 $percentageByProvince = [];
+                $remainingPercentageByProvince = [];
+                $inprogressPercentageByProvince = [];
+            
 
                 foreach ($totalsByProvince as $province => $total) {
                     $completed = $completedList[$province] ?? 0;
                     $percentage = ($total > 0) ? ($completed / $total) * 100 : 0;
                     $percentageByProvince[$province] = round($percentage, 2);
-                }
 
+                    $remaining = $remainingList[$province] ?? 0;
+                    $remainingPercentage = ($total > 0) ? ($remaining / $total) * 100 : 0;
+                    $remainingPercentageByProvince[$province] = round($remainingPercentage, 2);
+
+                    $inprogress = $inprogressList[$province] ?? 0;
+                    $inprogressPercentage = ($total > 0) ? ($inprogress / $total) * 100 : 0;
+                    $inprogressPercentageByProvince[$province] = round($inprogressPercentage, 2);
+
+                }
+             
                 /*
                 |--------------------------------------------------------------------------
                 | STEP 3: NORMALIZE KEYS FOR SAFE USE IN VIEW
@@ -171,10 +185,16 @@ class Data_collection_progress extends CI_controller
                 }
           
             $data['per']=$normalizedPercentage;
+            $data['remaining_per']=$remainingPercentageByProvince;
+            $data['inprogress_per']=$inprogressPercentageByProvince;
         
               $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
           
             $data['sum']=$sum;
+
+            // echo "<pre>";
+            // var_dump($data);
+            // echo "</pre>";
                         
             $this->load->view('include/header');
             $this->load->view('include/top_header');

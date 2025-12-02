@@ -173,7 +173,9 @@ class Dashboard extends CI_controller
           
             $data['sum']=$sum;
           
-            
+            // echo "<pre>";
+            // var_dump($data);
+            // echo "</pre>";
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -274,7 +276,9 @@ class Dashboard extends CI_controller
         }
 
      
-        
+            // echo "<pre>";
+            // var_dump($n);
+
             $per = [];
 
             foreach ($n as $item) {
@@ -285,7 +289,9 @@ class Dashboard extends CI_controller
                     $per[$name] = [
                         'total' => 0,
                         'completed' => 0,
-                        'percentage' => 0
+                        'percentage' => 0,
+                        'remaining' => 0,
+                        'pending' => 0
                     ];
                 }
 
@@ -299,8 +305,16 @@ class Dashboard extends CI_controller
                 $per[$name]['percentage'] = $data['total'] > 0
                     ? round(($data['completed'] / $data['total']) * 100)
                     : 0;
+                      $per[$name]['remaining'] = $data['total'] > 0
+                    ? round(($data['remaining'] / $data['total']) * 100)
+                    : 0;
+                      $per[$name]['pending'] = $data['total'] > 0
+                    ? round(($data['pending'] / $data['total']) * 100)
+                    : 0;
             }
-
+            //  echo "<pre>";
+            // var_dump($per);
+            // exit();
 
         return $per;
 
