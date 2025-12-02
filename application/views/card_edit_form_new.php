@@ -229,8 +229,97 @@
                 }
             }
         </style>
-        </head>
-        <body>
+
+        <section class="basic-select2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title"></h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6 col-12">
+                                        <div class="text-bold-600 font-medium-2">
+                                            District
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="select2 form-control district_select"
+                                                    onchange="changeUCs()">
+                                                <option value="0" readonly disabled selected>District</option>
+                                                <?php if (isset($province) && $province != '') {
+                                                    foreach ($province as $k => $p) {
+                                                        echo '<option value="' . $k . '">' . $p . '</option>';
+                                                    }
+                                                } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-6 col-12">
+                                         <div class="text-bold-600 font-medium-2">
+                                             UC
+                                         </div>
+                                         <div class="form-group">
+                                             <select class="select2 form-control district_select"
+                                                     onchange="changeUCs()">
+                                                 <option value="0" readonly disabled selected>UC</option>
+                                             </select>
+                                         </div>
+                                     </div>-->
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 col-12">
+                                        <div class="text-bold-600 font-medium-2">
+                                            Cluster
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="select2 form-control clusters_select"
+                                                    onchange="changeCluster()">
+                                                <option value="0" readonly disabled selected>Cluster</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-12">
+                                        <div class="text-bold-600 font-medium-2">
+                                            Household
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="select2 form-control household_select"
+                                                    onchange="changeHH()">
+                                                <option value="0" readonly disabled selected>Household</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-12">
+                                        <div class="text-bold-600 font-medium-2">
+                                            Child Line No
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="select2 form-control childNo_select">
+                                                <option value="0" readonly disabled selected>Child No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class=" ">
+                                    <button type="button" class="btn btn-primary" onclick="searchData()">Get
+                                        Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <?php
+        if(isset( $_GET['c'])){
+
+        ?>
         <div class="container-fluid py-4">
             <div class="row">
                 <!-- Image Gallery Section -->
@@ -243,16 +332,16 @@
                             <div class="image-gallery">
                                 <?php
                                 $img = '';
-                                if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
+                                if (1==1) {
                                     $img = '<div class="swiper-slide">
                                                 <img class="img-fluid"
                                                      src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
-                                                     alt="' . $data->f01 . '">
+                                                     alt="vac.png">
                                             </div>
                                             <div class="swiper-slide">
                                                 <img class="img-fluid"
                                                      src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
-                                                     alt="' . $data->f02 . '">
+                                                     alt="vac.png">
                                             </div>';
                                 } else {
                                     $img = '<div class="swiper-slide text-center p-5"><i class="fas fa-image fa-3x text-muted mb-3"></i><p class="text-muted">No Image Available</p></div>';
@@ -534,6 +623,7 @@
         </div>
             </section>
         </div>
+    <?php } ?>
     </div>
 </div>
 <!-- END: Content-->
@@ -542,6 +632,92 @@
 
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
 <script>
+
+    function changeUCs() {
+        var data = {};
+        data['district'] = $('.district_select').val();
+        if (data['district'] != '' && data['district'] != undefined && data['district'] != '0' && data['district'] != '$1') {
+            showloader();
+            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getClustersByDist'  ?>', data, 'POST', function (res) {
+                hideloader();
+                var items = '<option value="0"   readonly disabled selected>Cluster</option>';
+                if (res != '' && JSON.parse(res).length > 0) {
+                    var response = JSON.parse(res);
+                    try {
+                        $.each(response, function (i, v) {
+                            items += '<option value="' + v.cluster_code + '" onclick="changeCluster()">' + v.cluster_code + '</option>';
+                        })
+                    } catch (e) {
+                    }
+                }
+                $('.clusters_select').html('').html(items);
+            });
+        } else {
+            $('.clusters_select').html('');
+        }
+    }
+
+    function changeCluster() {
+        var data = {};
+        data['cluster'] = $('.clusters_select').val();
+        if (data['cluster'] != '' && data['cluster'] != undefined && data['cluster'] != '0' && data['cluster'] != '$1') {
+            showloader();
+            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getHhnoByCluster'  ?>', data, 'POST', function (res) {
+                hideloader();
+                var items = '<option value="0"   readonly disabled selected>Household</option>';
+                if (res != '' && JSON.parse(res).length > 0) {
+                    var response = JSON.parse(res);
+                    try {
+                        $.each(response, function (i, v) {
+                            items += '<option value="' + v.hhno + '" onclick="changeHH()">' + v.hhno + '</option>';
+                        })
+                    } catch (e) {
+                    }
+                }
+                $('.household_select').html('').html(items);
+            });
+        } else {
+            $('.household_select').html('');
+        }
+    }
+
+    function changeHH() {
+        var data = {};
+        data['cluster'] = $('.clusters_select').val();
+        data['hh'] = $('.household_select').val();
+        if (data['hh'] != '' && data['hh'] != undefined && data['hh'] != '0' && data['hh'] != '$1') {
+            showloader();
+            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getChildNoByHH'  ?>', data, 'POST', function (res) {
+                hideloader();
+                var items = '<option value="0"   readonly disabled >Child No</option>';
+                if (res != '' && JSON.parse(res).length > 0) {
+                    var response = JSON.parse(res);
+                    try {
+                        $.each(response, function (i, v) {
+                            items += '<option value="' + v.ec13 + '" selected>' + v.ec13 + '</option>';
+
+                        })
+                    } catch (e) {
+                    }
+                }
+                $('.childNo_select').html('').html(items);
+            });
+        } else {
+            $('.childNo_select').html('');
+        }
+    }
+
+    function searchData() {
+        var hh = $('.household_select').val();
+        var child = $('.childNo_select').val();
+        var clusters_select = $('.clusters_select').val();
+        //var i = $('.some_id_select').val(); // make sure this exists
+
+        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?c=" + clusters_select + "&h=" + hh + "&ec=" + child;
+
+        window.open(url); // open in new tab
+    }
+
 
     $(document).ready(function () {
         gallery();

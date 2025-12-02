@@ -154,7 +154,16 @@ class Card_edit extends CI_controller
         $data = array();
         $MSettings = new MSettings();
         $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'Card_edit');
-        if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1) {
+        if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1 || 1==1) {
+
+            $Mimage_forms = new Mimage_forms();
+            $province = $Mimage_forms->getProvince_District('');
+            $p = array();
+            foreach ($province as $k => $v) {
+                $key = $v->dist_id;
+                $p[$key] = $v->district;
+            }
+            $data['province'] = $p;
             $M = new MCard_edit();
 
             if (isset($_GET['c']) && $_GET['c'] != '') {
