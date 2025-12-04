@@ -1,29 +1,748 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/vendors/css/extensions/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/plugins/extensions/swiper.css">
+<head>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqc6KT5zG3/Jd9jf3BlWqBKejZbyi4T695lqS/PRRzFChAW9vS/FwXl49EExB6T1kE3K17/5A=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
 
+</head>
 <style>
     .img-fluid {
         width: 100%;
     }
-
     .my-table-bordered tr, th, td, .my-table-bordered thead th {
-        border: 1px solid black;
+        border: 1px solid #dfdfdf;
     }
 
     .child_name {
         text-transform: capitalize;
     }
+
+    /* --- BEGIN NEW UI & MODAL STYLES --- */
+    :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --success-color: #2ecc71;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --light-bg: #f8f9fa;
+        --border-color: #dee2e6;
+
+        /* NEW IMMUNIZATION SCHEDULE VARIABLES */
+        --immu-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        --immu-border-dark: #afa6a6;
+        --immu-border-light: #ccc;
+        --immu-bg-card: #f9f9f9;
+        --immu-bg-input: #fff;
+
+        /* Palette */
+        --tone-brown: #5c3523;
+        --tone-red: #c9252c;
+        --tone-magenta: #bc3689;
+        --tone-cyan: #4cbbf5;
+        --tone-orange: #fd9b43;
+        --tone-green: #00b05b;
+        --tone-royal: #3a75f1;
+        --tone-navy: #004d9e;
+        --tone-purple: #ae00d4;
+
+        /* Modal Colors (Based on your image) */
+        --modal-text-header: #789087;
+        --modal-btn-gray: #d9d9d9;
+        --modal-btn-active-bg: #dcfef6;
+        --modal-btn-save-bg: #e0f7f3;
+        --modal-btn-save-text: #2f7d6d;
+        --modal-btn-cancel-bg: #1f6050;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background-color: var(--secondary-color);
+        color: white;
+        border-radius: 10px 10px 0 0 !important;
+        padding: 15px 20px;
+        font-weight: 600;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--secondary-color);
+
+    }
+
+    .form-control, .form-select {
+        border-radius: 6px;
+        padding: 10px 15px;
+        border: 1px solid var(--border-color);
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        border-radius: 6px;
+        padding: 10px 25px;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+    }
+
+    .table th {
+        background-color: var(--secondary-color);
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+    }
+
+    .table td {
+        padding: 12px 15px;
+        vertical-align: middle;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    .vaccine-option label {
+        margin-right: 15px;
+        font-weight: normal;
+    }
+
+    .vaccine-value {
+        font-weight: 600;
+    }
+
+    .vaccine-value.updated {
+        color: var(--success-color);
+    }
+
+    .vaccine-option-radio {
+        margin-right: 5px;
+    }
+
+    .image-gallery {
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .image-gallery img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .status-ok {
+        background-color: rgba(46, 204, 113, 0.2);
+        color: var(--success-color);
+    }
+
+    .status-error {
+        background-color: rgba(231, 76, 60, 0.2);
+        color: var(--danger-color);
+    }
+
+    .status-warning {
+        background-color: rgba(243, 156, 18, 0.2);
+        color: var(--warning-color);
+    }
+
+    .check-all-options {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #176c64;
+        margin-bottom: 15px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .section-title-main {
+        font-size: 18px;
+        font-weight: 600;
+        color: #176c64;
+        margin-bottom: 15px;
+        padding-bottom: 4px;
+
+    }
+    .field-group {
+        margin-bottom: 20px;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .info-card {
+        background-color: #bcfbf41a;
+        border-left: 4px solid #4fa39a;
+        padding: 15px;
+        border-radius: 14px;
+        margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 15px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .action-buttons .btn {
+            width: 100%;
+        }
+    }
+    /* Main large image slider */
+    .swiper-gallery.gallery-top {
+        /*height: 220px;        !* adjust as needed *!*/
+    }
+
+    /* Images inside main slider */
+    .swiper-gallery.gallery-top img {
+        height: 100%;
+        object-fit: contain;  /* keeps image ratio without cropping */
+    }
+
+    /* Thumbnail slider */
+    .gallery-thumbs {
+        height: 80px;         /* adjust as needed */
+        margin-top: 10px;
+    }
+
+    .gallery-thumbs img {
+        height: 100%;
+        object-fit: cover;
+    }
+    .child-card {
+        width: 100%;
+        background: #f4fffbad;
+        margin: 25px 0;
+        border-radius: 20px;
+        position: relative;
+        padding: 4px 25px;
+    }
+
+    .child-header {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    .child-icon {
+        width: 40px;
+        height: 40px;
+        background: #2d7c6e;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .child-icon img {
+        width: 33px;
+        filter: brightness(0) invert(1);
+    }
+
+    .child-title {
+        margin-left: 15px;
+        color: #a4b5b2;
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .child-number {
+        position: absolute;
+        right: 10px;
+        color: #7c8a86;
+        font-size: 16px;
+    }
+
+    .child-number span {
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .child-line {
+        border: none;
+        border-top: 1px solid #bcd2cc;
+        margin-bottom: 25px;
+    }
+
+    .child-card label {
+        font-weight: 500;
+        color: #2f3b38;
+    }
+
+    .child-card .form-control,
+    .child-card .form-select {
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid #a9c1bb;
+        border-radius: 0;
+    }
+
+    .child-card .form-select {
+        background: #faf5f7;
+        padding: 5px 8px;
+        border-radius: 13px !important;
+        border: 1px solid #eee1e1;
+    }
+
+    /* NEW: IMMUNIZATION SCHEDULE TABLE STYLES */
+    .immu-schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        font-family: var(--immu-font);
+    }
+
+    /*.immu-row { border-bottom: 2px solid var(--immu-border-dark); }*/
+    .immu-row:last-child { border-bottom: none; }
+    .immu-cell { padding: 15px; vertical-align: middle; }
+
+    .immu-period-col {
+        color: #18403c;
+        background: #f1ffff;
+        width: 90px;;
+        text-align: center;
+        font-weight: 500;
+        font-size: 13px;
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
+
+    .immu-doses-col {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+
+        align-items: center;
+    }
+
+    .immu-ticket {
+        position: relative;
+        display: flex;
+        background-color: var(--immu-bg-card);
+        border-radius: 10px;
+        overflow: hidden;
+        width: 190px;
+        height: 95px;
+        border: 2px solid transparent;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        transition: box-shadow 0.3s, border 0.3s ease-in-out, background-color 0.3s;
+    }
+
+    .immu-ticket:hover {
+        box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .immu-stripe {
+        width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-weight: 900;
+        font-size: 11px;
+        letter-spacing: 1px;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        text-transform: uppercase;
+        user-select: none;
+    }
+
+    /*.fill-brown { background-color: var(--tone-brown); }*/
+    /*.fill-red { background-color: var(--tone-red); }*/
+    /*.fill-magenta { background-color: var(--tone-magenta); }*/
+    /*.fill-cyan { background-color: var(--tone-cyan); }*/
+    /*.fill-orange { background-color: var(--tone-orange); }*/
+    /*.fill-green { background-color: var(--tone-green); }*/
+    /*.fill-royal { background-color: var(--tone-royal); }*/
+    /*.fill-navy { background-color: var(--tone-navy); }*/
+    /*.fill-purple { background-color: var(--tone-purple); }*/
+    /*.tiny-text { font-size: 10px; letter-spacing: 0.5px; }*/
+
+    I understand completely. You want to make sure the colorful stripes are gone and that the green/red status mechanism is implemented exactly as requested, even if it means changing the status word from "complete" to "updated."
+
+    Since you provided the CSS, I will now implement the final, exact CSS changes:
+
+    Remove (or comment out) all specific colorful fill- classes.
+
+                            Add/Modify rules to target .immu-ticket[data-status="updated"] for Green and .immu-ticket[data-status="error"] for Red.
+
+                                Here is the entire relevant block of CSS with the required changes.
+
+                                ✅ Updated CSS (The Final Fix)
+    I have made changes starting around line 240, specifically commenting out the colorful fill classes and defining the new data-status rules.
+
+                                                  CSS
+
+                                                      /* ... (CSS continues up to here) ... */
+
+                                                  .immu-stripe {
+                                                      width: 20px;
+                                                      display: flex;
+                                                      justify-content: center;
+                                                      align-items: center;
+                                                      color: #fff;
+                                                      font-weight: 900;
+                                                      font-size: 11px;
+                                                      letter-spacing: 1px;
+                                                      writing-mode: vertical-lr;
+                                                      text-orientation: upright;
+                                                      text-transform: uppercase;
+                                                      user-select: none;
+                                                  }
+
+    /* --- COMMENTED OUT: Removed the specific colorful fill classes as requested ---
+    .fill-brown { background-color: var(--tone-brown); }
+    .fill-red { background-color: var(--tone-red); }
+    .fill-magenta { background-color: var(--tone-magenta); }
+    .fill-cyan { background-color: var(--tone-cyan); }
+    .fill-orange { background-color: var(--tone-orange); }
+    .fill-green { background-color: var(--tone-green); }
+    .fill-royal { background-color: var(--tone-royal); }
+    .fill-navy { background-color: var(--tone-navy); }
+    .fill-purple { background-color: var(--tone-purple); }
+    .tiny-text { font-size: 10px; letter-spacing: 0.5px; }
+    */
+
+    /* The above colorful fill classes are now removed from use. */
+    .immu-data-area {
+        flex: 1;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* ... (CSS continues) ... */
+
+    .immu-sub-label {
+        display: block;
+        text-align: center;
+        font-size: 9px;
+        color: #444;
+        font-weight: 600;
+    }
+
+    /* Completion Status BORDER STYLES */
+    /* *** NOTE: data-status="complete" is being used for a different (orange) style,
+    *** I am modifying it below to follow the green/red requirement for updated/error */
+
+    /* ORIGINAL ORANGE/COMPLETE STATUS (MODIFIED TO GREEN/UPDATED) */
+    .immu-ticket[data-status="complete"], /* Keeping "complete" for backward compatibility if you still use it */
+    .immu-ticket[data-status="updated"] { /* NEW status for successful change */
+        border: 2px solid var(--tone-green); /* Changed from #ff9700 (orange) to GREEN */
+        background-color: #f3fff9;          /* Light green background */
+        box-shadow: 0 0 10px rgba(0, 176, 91, 0.3);
+    }
+
+    /* NEW STRIPE COLOR FOR UPDATED/COMPLETE: GREEN */
+    .immu-ticket[data-status="complete"] .immu-stripe,
+    .immu-ticket[data-status="updated"] .immu-stripe {
+        background-color: var(--tone-green);
+    }
+
+    /* ERROR STATUS (RETAINED RED BORDER, ADDING RED STRIPE) */
+    .immu-ticket[data-status="error"] {
+        border: 2px solid var(--tone-red);
+        background-color: #fce7e7;
+        box-shadow: 0 0 10px rgba(201, 37, 44, 0.5);
+    }
+
+    /* NEW STRIPE COLOR FOR ERROR: RED */
+    .immu-ticket[data-status="error"] .immu-stripe {
+        background-color: var(--tone-red);
+    }
+
+    /* Setting a default stripe color for non-status tickets (optional, based on your original multi-color use) */
+    .immu-ticket .immu-stripe {
+        background-color: #578580; /* Default gray for tickets without a status */
+    }
+
+    /* MODAL POPUP STYLES */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(2px);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-card {
+        background-color: #fff;
+        width: 600px;
+        max-width: 90%;
+        border-radius: 30px;
+        border: 2px solid #8caaa1;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        position: relative;
+        font-family: var(--immu-font);
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        justify-content: flex-start;!important;
+        border-bottom: 2px solid #dcdcdc;
+    }
+
+    .modal-icon {
+        font-size: 32px;
+        margin-right: 15px;
+        background-color: var(--modal-btn-cancel-bg);
+        color: #fff;
+        width: 40px; height: 40px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-title {
+        font-size: 42px;
+        font-weight: bold;
+        color: var(--modal-text-header);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .modal-tabs {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        gap: 15px;
+    }
+
+    .modal-tab-btn {
+        flex: 1;
+        border: none;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        background-color: var(--modal-btn-gray);
+        color: #333;
+        transition: 0.3s;
+        border-radius: 5px;
+    }
+
+    .modal-tab-btn.active {
+        background-color: var(--modal-btn-active-bg);
+        color: #000;
+    }
+
+    .modal-inputs-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        gap: 18px;
+    }
+
+    .modal-input {
+
+        flex: 1;
+        height: 46px;
+        border: 2px solid #ccc;
+        background-color: #fafafa;
+        font-size: 11px;
+        padding: 0 10px;
+        text-align: center;
+        transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
+        border-radius: 5px;
+    }
+    input[type="date"] {
+        display: block;
+        padding-top: 2px;
+    }
+    .immu-input-box {
+
+        width: 100%;
+
+        height: 18px;
+
+        border: 1px solid var(--immu-border-light);
+
+        background-color: var(--immu-bg-input);
+
+        margin-bottom: 2px;
+
+        box-sizing: border-box;
+
+        font-size: 11px;
+
+        padding-left: 4px;
+
+        font-weight: 600; /* Added font weight for data visibility */
+
+    }
+    .modal-input:focus {
+        outline: none;
+        border-color: var(--modal-text-header);
+    }
+
+    .modal-input.disabled-field {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+        background-color: #e0e0e0;
+        border-color: #a0a0a0;
+    }
+
+    .modal-input.tick-field {
+        width: 8px;
+        font-size: 14px;
+    line-height: 32px;
+        background-color: #ffe5e5;
+        color: #bf0d0d;
+        font-weight: bold;
+        border: 1px solid red;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btn-action {
+        padding: 10px 40px;
+        border-radius: 20px;
+        border: none;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-save {
+        background-color: var(--modal-btn-save-bg);
+        color: var(--modal-btn-save-text);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .btn-cancel {
+        background-color: var(--modal-btn-cancel-bg);
+        color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .btn-action:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+    /* --- END NEW UI & MODAL STYLES --- */
+    .vaccination-header {
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .vaccination-options .form-check {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .info-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .info-box {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .info-label {
+        font-weight: 600;
+        margin-right: 5px;
+    }
+
+    .info-blank {
+        display: inline-block;
+        border-bottom: 1px solid #000;
+        width: 160px;
+        height: 21px;
+        padding: 0px 34px;
+    }
 </style>
 <!-- BEGIN: Content-->
 <div class="app-content content">
-    <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
-    <div class="content-wrapper">
+     <div class="content-overlay"></div>
+     <div class="header-navbar-shadow"></div>
+     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Card  Form</h2>
+                        <h2 class="content-header-title float-left mb-0">Card Form</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a>
@@ -36,211 +755,16 @@
             </div>
         </div>
         <?php $data = $vac_details; ?>
-        <style>
-            :root {
-                --primary-color: #3498db;
-                --secondary-color: #2c3e50;
-                --success-color: #2ecc71;
-                --warning-color: #f39c12;
-                --danger-color: #e74c3c;
-                --light-bg: #f8f9fa;
-                --border-color: #dee2e6;
-            }
-
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #f5f7fa;
-                color: #333;
-            }
-
-            .card {
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                border: none;
-                margin-bottom: 20px;
-            }
-
-            .card-header {
-                background-color: var(--secondary-color);
-                color: white;
-                border-radius: 10px 10px 0 0 !important;
-                padding: 15px 20px;
-                font-weight: 600;
-            }
-
-            .card-body {
-                padding: 25px;
-            }
-
-            .form-label {
-                font-weight: 600;
-                color: var(--secondary-color);
-                margin-bottom: 8px;
-            }
-
-            .form-control, .form-select {
-                border-radius: 6px;
-                padding: 10px 15px;
-                border: 1px solid var(--border-color);
-            }
-
-            .form-control:focus, .form-select:focus {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-            }
-
-            .btn-primary {
-                background-color: var(--primary-color);
-                border-color: var(--primary-color);
-                border-radius: 6px;
-                padding: 10px 25px;
-                font-weight: 600;
-            }
-
-            .btn-primary:hover {
-                background-color: #2980b9;
-                border-color: #2980b9;
-            }
-
-            .table {
-                border-collapse: separate;
-                border-spacing: 0;
-                width: 100%;
-            }
-
-            .table th {
-                background-color: var(--secondary-color);
-                color: white;
-                font-weight: 600;
-                padding: 12px 15px;
-            }
-
-            .table td {
-                padding: 12px 15px;
-                vertical-align: middle;
-            }
-
-            .table tbody tr:nth-child(even) {
-                background-color: #f8f9fa;
-            }
-
-            .table tbody tr:hover {
-                background-color: rgba(52, 152, 219, 0.05);
-            }
-
-            .vaccine-option label {
-                margin-right: 15px;
-                font-weight: normal;
-            }
-
-            .vaccine-value {
-                font-weight: 600;
-            }
-
-            .vaccine-value.updated {
-                color: var(--success-color);
-            }
-
-            .vaccine-option-radio {
-                margin-right: 5px;
-            }
-
-            .image-gallery {
-                border-radius: 10px;
-                overflow: hidden;
-                margin-bottom: 20px;
-            }
-
-            .image-gallery img {
-                width: 100%;
-                height: auto;
-                object-fit: cover;
-            }
-
-            .status-badge {
-                display: inline-block;
-                padding: 5px 12px;
-                border-radius: 20px;
-                font-size: 0.85rem;
-                font-weight: 600;
-            }
-
-            .status-ok {
-                background-color: rgba(46, 204, 113, 0.2);
-                color: var(--success-color);
-            }
-
-            .status-error {
-                background-color: rgba(231, 76, 60, 0.2);
-                color: var(--danger-color);
-            }
-
-            .status-warning {
-                background-color: rgba(243, 156, 18, 0.2);
-                color: var(--warning-color);
-            }
-
-            .check-all-options {
-                background-color: #f8f9fa;
-                border-radius: 8px;
-                padding: 15px;
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-                color: var(--secondary-color);
-                margin-bottom: 15px;
-                padding-bottom: 8px;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .field-group {
-                margin-bottom: 20px;
-            }
-
-            .action-buttons {
-                display: flex;
-                justify-content: flex-end;
-                gap: 10px;
-                margin-top: 25px;
-            }
-
-            .info-card {
-                background-color: white;
-                border-left: 4px solid var(--primary-color);
-                padding: 15px;
-                border-radius: 6px;
-                margin-bottom: 20px;
-            }
-
-            @media (max-width: 768px) {
-                .card-body {
-                    padding: 15px;
-                }
-
-                .action-buttons {
-                    flex-direction: column;
-                }
-
-                .action-buttons .btn {
-                    width: 100%;
-                }
-            }
-        </style>
 
         <section class="basic-select2">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title"></h4>
-                        </div>
+
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-6 col-12">
+                                    <div class="col-sm-3 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             District
                                         </div>
@@ -256,20 +780,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-sm-6 col-12">
-                                         <div class="text-bold-600 font-medium-2">
-                                             UC
-                                         </div>
-                                         <div class="form-group">
-                                             <select class="select2 form-control district_select"
-                                                     onchange="changeUCs()">
-                                                 <option value="0" readonly disabled selected>UC</option>
-                                             </select>
-                                         </div>
-                                     </div>-->
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-12">
+                                    <div class="col-sm-3 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             Cluster
                                         </div>
@@ -280,7 +791,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-12">
+                                    <div class="col-sm-3 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             Household
                                         </div>
@@ -291,7 +802,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-12">
+                                    <div class="col-sm-2 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             Child Line No
                                         </div>
@@ -301,14 +812,13 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class=" col-sm-1 col-12 py-2">
+                                        <button type="button" class="btn btn-primary" onclick="searchData()">SEARCH
+                                        </button>
+                                    </div>
+                                </div>
 
 
-                                </div>
-                                <div class=" ">
-                                    <button type="button" class="btn btn-primary" onclick="searchData()">Get
-                                        Data
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -320,319 +830,285 @@
         if(isset( $_GET['c'])){
 
         ?>
-        <div class="container-fluid py-4">
+        <div class="container-fluid ">
             <div class="row">
-                <!-- Image Gallery Section -->
-                <div class="col-xl-6 col-lg-12 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-images me-2"></i>Child Images
-                        </div>
-                        <div class="card-body">
-                            <div class="image-gallery">
-                                <?php
-                                $img = '';
-                                if (1==1) {
-                                    $img = '<div class="swiper-slide">
-                                                <img class="img-fluid"
-                                                     src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
-                                                     alt="vac.png">
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="img-fluid"
-                                                     src="http://localhost/tpvics_round4/assets/images/banner/vac.png"
-                                                     alt="vac.png">
-                                            </div>';
-                                } else {
-                                    $img = '<div class="swiper-slide text-center p-5"><i class="fas fa-image fa-3x text-muted mb-3"></i><p class="text-muted">No Image Available</p></div>';
-                                } ?>
+                <div class="col-xl-8 col-lg-12">
+                    <div style=" padding: 0px 20px;" class="card">
+                        <div class="card-header"></div>
+                        <div class="child-card">
 
-                                <div class="swiper-gallery swiper-container gallery-top mb-3">
-                                    <div class="swiper-wrapper gallery_images">
-                                        <?php echo $img; ?>
-                                    </div>
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div>
+                            <div class="child-header d-flex align-items-center ">
+                                <div class="child-icon">
+                                    <i style="font-size: 30px;color: white;" class="fa fa-child"></i>
                                 </div>
 
-                                <div class="swiper-container gallery-thumbs">
-                                    <div class="swiper-wrapper gallery_images">
-                                        <?php echo $img; ?>
-                                    </div>
+                                <div class="child-title h5 mb-0">CHILD DETAILS</div>
+
+                                <div class="child-number">
+                                    Child No: <span><?= $data->ec13 ?? 1 ?></span>
                                 </div>
                             </div>
 
-                            <div class="field-group">
-                                <label for="image_status" class="form-label">Image Status</label>
-                                <select id="image_status" class="image_status form-select">
+                            <hr class="child-line">
+
+
+                            <div class="info-line">
+                                <div class="info-box">
+                                    <span class="info-label">Cluster:</span>
+                                    <span class="info-blank"><?= $data->cluster_code ?? '' ?></span>
+                                </div>
+
+                                <div class="info-box">
+                                    <span class="info-label">Household Number:</span>
+                                    <span class="info-blank"><?= $data->hhno ?? '' ?></span>
+                                </div>
+
+                                <div class="info-box">
+                                    <span class="info-label">Child Name:</span>
+                                    <span class="info-blank"><?= $data->ec14 ?? '' ?></span>
+                                </div>
+                            </div>
+
+                            <div class="info-line">
+                                <div class="info-box">
+                                    <span class="info-label">Gender:</span>
+                                    <span class="info-blank"><?= $gender ?></span>
+                                </div>
+
+                                <div class="info-box">
+                                    <span class="info-label">Child Number:</span>
+                                    <span class="info-blank"><?= $data->ec13 ?? '' ?></span>
+                                </div>
+
+                                <div class="info-box">
+                                    <span class="info-label">Date of Birth:</span>
+                                    <span class="info-blank"><?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?></span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <?php
+                        // --- 1. Define the Schedule Structure and Color Mapping for the New UI ---
+                        $vaccine_schedule = [
+                            "AT BIRTH" => ["bcg", "hep_b", "opv0"],
+                            "10 WEEKS" => ["opv1", "rv1", "pcv", "penta1"],
+                            "14 WEEKS" => ["opv2", "rv2", "pcv2", "penta2", "ipv"],
+                            "9 MONTHS" => ["mr1", "tcv"],
+                            "15 MONTHS" => ["mr2"],
+                            "LATER DOSES" => ["opv3", "penta3", "pcv3", "ipv2"], // Grouping remaining vaccines
+                        ];
+
+                        $stripe_map = [
+                            'bcg' => 'fill-brown', 'hep_b' => 'fill-red', 'opv0' => 'fill-magenta',
+                            'opv1' => 'fill-magenta', 'rv1' => 'fill-cyan', 'pcv' => 'fill-orange', 'penta1' => 'fill-green',
+                            'opv2' => 'fill-magenta', 'rv2' => 'fill-cyan', 'pcv2' => 'fill-orange', 'penta2' => 'fill-green', 'ipv' => 'fill-royal',
+                            'mr1' => 'fill-purple', 'tcv' => 'fill-navy tiny-text',
+                            'mr2' => 'fill-purple', 'opv3' => 'fill-magenta', 'penta3' => 'fill-green', 'pcv3' => 'fill-orange', 'ipv2' => 'fill-royal',
+                        ];
+                        // Assuming $vac_details and $vac_details_edit are defined
+                        ?>
+
+                        <div class="field-group ">
+
+                            <div class="vaccination-header">
+                                <div class="section-title-main">Vaccination Records</div>
+
+                                <!-- Right side options -->
+                                <div class="vaccination-options">
                                     <?php
-                                    $imageOptions = [
-                                        '0' => 'Select Image Status',
-                                        'OK' => 'OK',
-                                        'Blur' => 'Blur',
-                                        'Focus Issue' => 'Focus Issue',
-                                        'Light Issue' => 'Light Issue',
-                                        'Child Name not Matched' => 'Child Name not Matched',
-                                        'No Image' => 'No Image'
+                                    $bulkOptions = [
+
+                                        2 => "Not Matched",
+                                        3 => "Not Readable"
                                     ];
-                                    $savedValue = isset($vac_details_edit->image_status) ? $vac_details_edit->image_status : '0';
-                                    foreach($imageOptions as $val => $label):
-                                        ?>
-                                        <option value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option>
+                                    foreach ($bulkOptions as $val => $label): ?>
+                                        <div class="form-check">
+                                            <input class="form-check-input checkAllBtn" type="radio"
+                                                   name="checkAllBtn"
+                                                   value="<?= $val ?>"
+                                                <?= $vac_details_edit->vac_status == $val ? 'checked' : '' ?>>
+                                            <label class="form-check-label"><?= $label ?></label>
+                                        </div>
                                     <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Child Information Section -->
-                <div class="col-xl-6 col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-child me-2"></i>Child Information
-                        </div>
-                        <div class="card-body">
-                            <div class="info-card">
-                                <div class="row">
-                                    <div class="col-sm-6 col-12 mb-3">
-                                        <label for="cluster_code" class="form-label">Cluster</label>
-                                        <input type="text" class="form-control" required id="cluster_code"
-                                               name="cluster_code" readonly disabled
-                                               value="<?php echo(isset($data->cluster_code) && $data->cluster_code != '' ? $data->cluster_code : '') ?>">
-                                    </div>
-                                    <div class="col-sm-6 col-12 mb-3">
-                                        <label for="hhno" class="form-label">Household Number</label>
-                                        <input type="text" class="form-control" required id="hhno"
-                                               name="hhno" readonly disabled
-                                               value="<?php echo(isset($data->hhno) && $data->hhno != '' ? $data->hhno : '') ?>">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6 col-12 mb-3">
-                                        <label for="ec14" class="form-label">Child Name</label>
-                                        <input type="text" class="form-control" required id="ec14"
-                                               name="ec14" readonly disabled
-                                               value="<?php echo(isset($data->ec14) && $data->ec14 != '' ? $data->ec14 : '') ?>">
-                                    </div>
-                                    <?php
-                                    if ($data->ec15 == 1) {
-                                        $gender = 'Male';
-                                    } else if ($data->ec15 == 2) {
-                                        $gender = 'Female';
-                                    } else {
-                                        $gender = '';
-                                    }
-                                    ?>
-                                    <div class="col-sm-6 col-12 mb-3">
-                                        <label for="ec15" class="form-label">Gender</label>
-                                        <input type="text" class="form-control" required id="ec15"
-                                               name="ec15" readonly disabled
-                                               value="<?php echo $gender; ?>">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6 col-12 mb-3">
-                                        <label for="ec13" class="form-label">Child Number</label>
-                                        <input type="text" class="form-control" required id="ec13"
-                                               name="ec13" readonly disabled
-                                               value="<?php echo(isset($data->ec13) && $data->ec13 != '' ? $data->ec13 : '') ?>">
-                                    </div>
-                                    <div class="col-sm-6 col-12 mb-3">
-                                        <label for="dob" class="form-label">Date of Birth</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               required id="dob" name="dob"
-                                            <?php echo(isset($data->dob_val) && $data->dob_val == 2 ? '' : 'readonly disabled'); ?>
-                                               value="<?php echo $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy; ?>">
-                                    </div>
                                 </div>
                             </div>
 
-                            <div class="field-group">
-                                <label for="dobstatus" class="form-label">Date of Birth Status</label>
-                                <select id="dobstatus" class="dobstatus form-select">
-                                    <option value="0">Select DoB Status</option>
-                                    <option value="1" <?= $vac_details_edit->dobstatus == 1 ? 'selected' : '' ?>>OK</option>
-                                    <option value="2" <?= $vac_details_edit->dobstatus == 2 ? 'selected' : '' ?>>Invalid DoB</option>
-                                </select>
-                            </div>
+                            <div class="table-responsive">
+                                <table class="immu-schedule-table">
+                                    <?php foreach ($vaccine_schedule as $period => $vaccines): ?>
+                                        <tr class="immu-row">
+                                            <td class="immu-cell immu-period-col"><?= $period ?></td>
+                                            <td class="immu-cell immu-doses-col">
+                                                <?php
+                                                foreach ($vaccines as $v):
+                                                    // --- Data Retrieval Logic ---
+                                                    $oldValue = $vac_details->$v ?? '-';
+                                                    $newValue = $vac_details_edit->$v ?? '-';
+                                                    $newValue = ($newValue === '') ? '-' : $newValue; // Treat empty string as default '-'
 
-                            <div class="field-group">
-                                <div class="section-title">Bulk Actions</div>
-                                <div class="check-all-options">
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkAllBtn" type="radio" value="1" name="checkAllBtn"
-                                                       data-type="m" onclick="clickAll()"
-                                                    <?= $vac_details_edit->vac_status == 1 ? 'checked' : '' ?>>
-                                                <label class="form-check-label">
-                                                    Check All - Matched
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkAllBtn" type="radio" value="2" name="checkAllBtn"
-                                                       data-type="nm" onclick="clickAll()"
-                                                    <?= $vac_details_edit->vac_status == 2 ? 'checked' : '' ?>>
-                                                <label class="form-check-label">
-                                                    Check All - Not Matched
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkAllBtn" type="radio" value="3" name="checkAllBtn"
-                                                       data-type="nr" onclick="clickAll()"
-                                                    <?= $vac_details_edit->vac_status == 3 ? 'checked' : '' ?>>
-                                                <label class="form-check-label">
-                                                    Check All - Not Readable
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                                    // --- Display Logic for Card and Modal ---
+                                                    $updated_display = 'Click to set';
+                                                    $status = ''; // 'complete', 'error', or ''
+                                                    $display_color = 'initial';
+                                                    $font_weight = 'normal';
 
-                            <div class="field-group">
-                                <div class="section-title">Vaccination Records</div>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered align-middle bg-white">
-                                        <thead class="table-secondary">
-                                        <tr>
-                                            <th class="text-center">Vaccine</th>
-                                            <th class="text-center">Original Value</th>
-                                            <th class="text-center">Updated Value</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                        $vaccines = [
-                                            "bcg", "opv0", "opv1", "opv2", "opv3",
-                                            "penta1", "penta2", "penta3",
-                                            "pcv", "pcv2", "pcv3",
-                                            "rv1", "rv2",
-                                            "ipv", "ipv2",
-                                            "measles1", "measles2",
-                                            "hep_b",
-                                            "tcv"
-                                        ];
-
-                                        foreach ($vaccines as $v):
-                                            $oldValue = $vac_details->$v ?? '-';
-                                            $newValue = $vac_details_edit->$v;
-                                            $isUpdated = $oldValue != $newValue;
-
-                                            $msg=$newValue;
-                                            $class_='';
-                                            if($newValue=='98'){
-                                                $msg ='Vaccinator Error';
-                                                $class_='text-danger';
-                                            }
-                                            ?>
-                                            <tr>
-                                                <td class="text-center"><strong><?= strtoupper($v) ?></strong></td>
-                                                <td class="text-center text-muted"><?= $oldValue ?></td>
-                                                <td class="text-center">
-                                                <span class="vaccine-value <?= $isUpdated ? 'updated' : '' ?> <?=$class_?>" id="<?= $v ?>_display">
-                                                    <?=$msg?>
-                                                </span>
-                                                </td>
-                                                <td class="vaccine-option">
-                                                    <?php
-                                                    // Determine which radio should be checked and which field to show
-                                                    $checkedChange = $checkedError = $checkedDate = '';
-                                                    $showDropdown = $showDate = 'style="display:none;"';
                                                     if ($newValue === '98') {
-                                                        $checkedError = 'checked';
-                                                    } elseif (preg_match('/^\d{2}$/', $newValue)) {
-                                                        $checkedChange = 'checked';
-                                                        $showDropdown = 'style="display:block;"';
+                                                        $updated_display = 'VACCINATOR ERROR';
+                                                        $status = 'error';
+                                                        $display_color = 'var(--tone-red)';
+                                                        $font_weight = 'bold';
                                                     } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $newValue)) {
-                                                        $checkedDate = 'checked';
-                                                        $showDate = 'style="display:block;"';
+                                                        // Format: YYYY-MM-DD
+                                                        $updated_display = $newValue;
+                                                        $status = ($oldValue != $newValue && $newValue != '-') ? 'complete' : '';
+                                                        $display_color = '#000';
+                                                        $font_weight = 'bold';
+                                                    } elseif (preg_match('/^\d{2}$/', $newValue) && $newValue != '-') {
+                                                        // Format: Code (e.g., 44, 97)
+                                                        $updated_display = 'CODE: ' . $newValue;
+                                                        $status = ($oldValue != $newValue) ? 'complete' : '';
+                                                        $display_color = 'var(--tone-royal)';
+                                                        $font_weight = 'bold';
                                                     }
                                                     ?>
-
-                                                    <div class="mb-2">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input vaccine-option-radio" type="radio"
-                                                                   name="<?= $v ?>_option" <?=$checkedChange?> value="change"
-                                                                   onclick="toggleVaccineField('<?= $v ?>', 'code')">
-                                                            <label class="form-check-label small">Change Code</label>
-                                                        </div>
-
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input vaccine-option-radio" type="radio"
-                                                                   name="<?= $v ?>_option" <?=$checkedDate?> value="date"
-                                                                   onclick="toggleVaccineField('<?= $v ?>', 'date')">
-                                                            <label class="form-check-label small">Change Date</label>
-                                                        </div>
-
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input vaccine-option-radio" type="radio"
-                                                                   name="<?= $v ?>_option" <?=$checkedError?> value="error"
-                                                                   onclick="toggleVaccineField('<?= $v ?>', 'error')">
-                                                            <label class="form-check-label small">Vaccinator Error</label>
+                                                    <div class="immu-ticket" data-vaccine="<?= $v ?>" data-status="<?= $status ?>">
+                                                        <div class="immu-stripe <?= $stripe_map[$v] ?? 'fill-gray' ?>"><?= strtoupper($v) ?></div>
+                                                        <div class="immu-data-area">
+                                                            <div class="immu-field-group">
+                                                                <div class="immu-input-box"><?= $oldValue ?></div>
+                                                                <span class="immu-sub-label">Original Value:</span>
+                                                            </div>
+                                                            <div class="immu-field-group">
+                                                                <input type="text"
+                                                                       class="immu-input-box clickable-box"
+                                                                       id="<?= $v ?>_display"
+                                                                       value="<?= $updated_display ?>"
+                                                                       style="color: <?= $display_color ?>; font-weight: <?= $font_weight ?>;"
+                                                                       readonly
+                                                                       placeholder="Click to set"
+                                                                >
+                                                                <span class="immu-sub-label">Updated Value:</span>
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    <!-- Dropdown for Change Code -->
-                                                    <div class="mt-2" id="dropdown-wrapper-<?= $v ?>" style="display:none;">
-                                                        <select class="form-select form-select-sm" id="<?= $v ?>_dropdown" onchange="setVaccineValue('<?= $v ?>')">
-                                                            <option value="" disabled selected>Select Code</option>
-                                                            <option value="44">44</option>
-                                                            <option value="66">66</option>
-                                                            <option value="88">88</option>
-                                                            <option value="97">97</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <!-- Date input for Change Date -->
-                                                    <div class="mt-2" id="date-wrapper-<?= $v ?>" style="display:none;">
-                                                        <input type="date" class="form-control form-control-sm" id="<?= $v ?>_date" onchange="setVaccineValue('<?= $v ?>')">
-                                                    </div>
-
-                                                    <!-- Hidden input that always stores the actual value -->
                                                     <input type="hidden" id="<?= $v ?>_value" name="<?= $v ?>" value="<?= $newValue ?>">
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                <?php endforeach; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
                             </div>
-
-                            <div class="action-buttons">
-                               <!-- <button type="button" class="btn btn-secondary">
-                                    <i class="fas fa-times me-2"></i>Cancel
-                                </button>-->
-                                <button type="button" class="btn btn-primary" onclick="saveVaccinesData()">
-                                    <i class="fas fa-save me-2"></i>Save Data
-                                </button>
-                            </div>
+                        </div>
+                        <div class="action-buttons mt-3 text-end py-2">
+                            <button type="button" class="btn btn-primary" onclick="saveVaccinesData()">
+                                <i class="fas fa-save me-2"></i>Save Data
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-            </section>
-        </div>
+
+                <div class="col-xl-4 col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="child-card">
+
+                                <div class="child-header d-flex align-items-center ">
+                                    <div class="child-icon">
+                                        <i style="font-size: 30px; color: white;"
+                                           class="fa-solid fa-id-card"></i>
+                                    </div>
+
+                                    <div class="child-title h5 mb-0">VACCINATION CARD IMAGE</div>
+
+
+                                </div>
+                                <div class="field-group">
+                                    <label for="image_status" class="form-label">Image Status</label>
+                                    <select style="font-size: 11px;"  id="image_status" class="image_status form-select">
+                                        <?php $imageOptions = [ '0' => 'Select Image Status', 'OK' => 'OK', 'Blur' => 'Blur', 'Focus Issue' => 'Focus Issue', 'Light Issue' => 'Light Issue', 'Child Name not Matched' => 'Child Name not Matched', 'No Image' => 'No Image' ]; $savedValue = isset($vac_details_edit->image_status) ? $vac_details_edit->image_status : '0'; foreach($imageOptions as $val => $label): ?>
+                                            <option value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option> <?php endforeach; ?> </select>
+                                </div>
+                                <br>
+<br>
+                                <div class="section-title">Image</div>
+                                <div class="card-body">
+                                    <div class="image-gallery">
+                                        <?php $img = ''; if (1==1) { $img = '<div class="swiper-slide"> 
+                                <img class="img-fluid" src="http://localhost/tpvics_round4/assets/images/banner/vac.png" alt="vac.png"> </div>
+                                 <div class="swiper-slide">
+                                  <img class="img-fluid" src="http://localhost/tpvics_round4/assets/images/banner/vac.png" alt="vac.png"> </div>'; } else { $img = '<div class="swiper-slide text-center p-5">
+                                       <i class="fas fa-image fa-3x text-muted mb-3"></i>
+                                       <p class="text-muted">No Image Available</p></div>'; } ?>
+                                        <div class="swiper-gallery swiper-container gallery-top mb-3">
+                                            <div class="swiper-wrapper gallery_images"> <?php echo $img; ?> </div>
+                                            <div class="swiper-button-next"></div> <div class="swiper-button-prev"></div>
+                                        </div> <div class="swiper-container gallery-thumbs">
+                                            <div class="swiper-wrapper gallery_images"> <?php echo $img; ?> </div>
+                                        </div> </div>
+                                    <div class="field-group">
+                                        <div class="section-title">Image Feedback</div>
+                                        <label for="comments" class="form-label">Comments / Notes</label>
+                                        <textarea id="comments" name="comments" class="form-control" rows="3" placeholder="Add any relevant notes or comments here..."><?= isset($vac_details_edit->comments) ? htmlspecialchars($vac_details_edit->comments) : '' ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+        </section>
+    </div>
     <?php } ?>
+</div>
+</div>
+     <div id="actionModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+            </div>
+            <div class="modal-title">ACTION</div>
+        </div>
+
+        <div class="modal-tabs">
+            <button class="modal-tab-btn" id="tabCode" onclick="selectTab('code')">CHANGE CODE</button>
+            <button class="modal-tab-btn active" id="tabDate" onclick="selectTab('date')">CHANGE DATE</button>
+            <button class="modal-tab-btn" id="tabError" onclick="selectTab('error')">VACCINATOR ERROR</button>
+        </div>
+
+        <div class="modal-inputs-row">
+            <select class="modal-input" id="inputCode">
+                <option value="" disabled selected>Select Code</option>
+                <option value="1">1</option>
+                <option value="44">2</option>
+                <option value="91">3</option>
+                <option value="971">4</option>
+            </select>
+            <input type="date" class="modal-input" id="inputDate">
+            <input type="text" class="modal-input disabled-field tick-field" id="inputError" readonly value="Error">
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-action btn-save" onclick="saveData()">SAVE</button>
+            <button class="btn-action btn-cancel" onclick="closeModal()">CANCEL</button>
+        </div>
     </div>
 </div>
-<!-- END: Content-->
-<input type="hidden" id="hidden_loginUser"
+     <input type="hidden" id="hidden_loginUser"
        value="<?php echo(isset($_SESSION['login']['UserName']) && $_SESSION['login']['UserName'] != '' ? $_SESSION['login']['UserName'] : 0) ?>">
 
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
 <script>
-
+    // ===========================================
+    // EXISTING SEARCH/CLUSTER LOGIC (RETAINED)
+    // ===========================================
     function changeUCs() {
         var data = {};
         data['district'] = $('.district_select').val();
@@ -711,7 +1187,6 @@
         var hh = $('.household_select').val();
         var child = $('.childNo_select').val();
         var clusters_select = $('.clusters_select').val();
-        //var i = $('.some_id_select').val(); // make sure this exists
 
         var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?c=" + clusters_select + "&h=" + hh + "&ec=" + child;
 
@@ -721,118 +1196,222 @@
 
     $(document).ready(function () {
         gallery();
-        //pickaDate();
+        initModalTriggers(); // Initialize new modal click handlers
+        clickAll();
     });
 
     $('#dobstatus').change(function() {
+        const dobField = $('[name="im04dd"]').closest('.row').find('[type="text"]').last();
+
         if ($(this).val() == '2') { // Invalid DoB
-            $('#dob').prop('readonly', false).prop('disabled', false);
-          //  pickDate(); // initialize date picker if required
+            dobField.prop('disabled', false);
         } else {
-            $('#dob').prop('readonly', true).prop('disabled', true);
+            dobField.prop('disabled', true);
         }
     });
 
-    function toggleEditBox(v) {
-        $("#edit-box-" + v).toggleClass("d-none");
-    }
+    // Attach clickAll handler to the new radio buttons
+    $(document).on('change', 'input[name="checkAllBtn"]', clickAll);
 
-    // Change Code Handler
-    $(document).on("change", ".changeCode", function () {
-        let id = $(this).data("id");
-        let wrapper = $("#input-wrapper-" + id);
-
-        if (this.checked) {
-            wrapper.html(`
-            <select class="form-control form-control-sm" name="${id}">
-                <option value="" disabled selected>Select Code</option>
-                <option value="44">44</option>
-                <option value="66">66</option>
-                <option value="88">88</option>
-                <option value="97">97</option>
-            </select>
-        `);
-        } else {
-            wrapper.html(`
-            <input type="text" class="form-control form-control-sm" name="${id}" id="${id}">
-        `);
-        }
-    });
-
-    // Vaccinator Error (98)
-    $(document).on("change", ".vaccinatorError", function () {
-        let id = $(this).data("id");
-        let wrapper = $("#input-wrapper-" + id);
-
-        if (this.checked) {
-            wrapper.html(`
-            <input type="text" class="form-control form-control-sm" name="${id}_98" value="98">
-        `);
-            $("#" + id + "_change").prop("checked", false);
-        } else {
-            wrapper.html(`
-            <input type="text" class="form-control form-control-sm" name="${id}">
-        `);
-        }
-    });
-
-    clickAll();
     function clickAll() {
-        let type = $('input[name="checkAllBtn"]:checked').data("type");
+        let type = $('input[name="checkAllBtn"]:checked').val();
+        const clickableBoxes = $('.clickable-box');
 
-        // Target only the three radios
-        let vaccineRadios = $(".vaccine-option-radio"); // make sure all 3 radios have this class
+        if (type == 1 || type == 3) { // Matched or Not Readable: disable interaction
+            clickableBoxes.addClass('disabled-field').prop('disabled', true);
+            clickableBoxes.closest('.immu-ticket').css("opacity", "0.5");
+        } else if (type == 2) { // Not Matched: enable interaction
+            clickableBoxes.removeClass('disabled-field').prop('disabled', false);
+            clickableBoxes.closest('.immu-ticket').css("opacity", "1");
+        }
+    }
 
-        if (type === "m") { // Matched
-            vaccineRadios.prop("disabled", true);
-            vaccineRadios.closest('div').css("opacity", "0.5");
-            $(".edit-box").addClass("d-none");
-        } else if (type === "nm") { // Not Matched
-            vaccineRadios.prop("disabled", false);
-            vaccineRadios.closest('div').css("opacity", "1");
-        } else if (type === "nr") { // Not Readable
-            vaccineRadios.prop("disabled", true);
-            vaccineRadios.closest('div').css("opacity", "0.5");
-            $(".edit-box").addClass("d-none");
+    // ===========================================
+    // NEW MODAL LOGIC
+    // ===========================================
+    const modal = document.getElementById('actionModal');
+    const inputCode = document.getElementById('inputCode');
+    const inputDate = document.getElementById('inputDate');
+    const inputError = document.getElementById('inputError');
+
+    let activeTab = 'date';
+    let activeInputBox = null;
+    let activeTicket = null;
+    let activeHiddenInput = null;
+
+    function initModalTriggers() {
+        const triggers = document.querySelectorAll('.clickable-box');
+        triggers.forEach(box => {
+            box.addEventListener('click', function() {
+                // If bulk action disabled it, do nothing
+                if (this.classList.contains('disabled-field')) return;
+
+                // 1. Remember which elements are active
+                activeInputBox = this;
+                activeTicket = this.closest('.immu-ticket');
+
+                // Identify the vaccine name (e.g., 'bcg')
+                const vaccineName = activeTicket.getAttribute('data-vaccine');
+                // Find the hidden input based on the expected ID
+                activeHiddenInput = document.getElementById(vaccineName + '_value');
+
+                if (!activeHiddenInput) {
+                    console.error('Hidden input not found for vaccine:', vaccineName);
+                    return;
+                }
+
+                // 2. Load current value and set the initial modal state
+                const currentValue = activeHiddenInput.value;
+
+                // Determine initial tab and input values based on the HIDDEN value
+                if (currentValue === '98') {
+                    selectTab('error');
+                } else if (currentValue && !isNaN(currentValue) && currentValue.length > 0 && currentValue !== '-') { // Code (e.g., 44, 97, 88)
+                    selectTab('code');
+                    inputCode.value = currentValue;
+                } else if (currentValue && currentValue.includes('-')) { // Assume date format (YYYY-MM-DD)
+                    selectTab('date');
+                    inputDate.value = currentValue;
+                } else {
+                    // Default state or cleared state
+                    selectTab('date');
+                    inputCode.value = '';
+                    inputDate.value = '';
+                }
+
+                // 3. Show the modal
+                modal.style.display = 'flex';
+            });
+        });
+    }
+
+    function selectTab(tabName) {
+        activeTab = tabName;
+        const tabs = document.querySelectorAll('.modal-tab-btn');
+        tabs.forEach(t => t.classList.remove('active'));
+
+        // Reset all inputs to default disabled/hidden state
+        inputCode.classList.add('disabled-field');
+        inputCode.disabled = true;
+        inputDate.classList.add('disabled-field');
+        inputDate.disabled = true;
+        inputError.classList.add('disabled-field');
+        inputError.disabled = true;
+
+        // Clear inputs unless we are activating them (This prevents carryover if the user doesn't interact)
+        if (tabName !== 'code') inputCode.value = '';
+        if (tabName !== 'date') inputDate.value = '';
+
+
+        // Apply logic based on the selected tab
+        switch (tabName) {
+            case 'code':
+                document.getElementById('tabCode').classList.add('active');
+                inputCode.classList.remove('disabled-field');
+                inputCode.disabled = false;
+                break;
+
+            case 'date':
+                document.getElementById('tabDate').classList.add('active');
+                inputDate.classList.remove('disabled-field');
+                inputDate.disabled = false;
+                break;
+
+            case 'error':
+                document.getElementById('tabError').classList.add('active');
+                inputError.classList.remove('disabled-field');
+                inputError.disabled = true;
+                break;
+        }
+    }
+
+    function saveData() {
+        if (!activeInputBox || !activeTicket || !activeHiddenInput) {
+            closeModal();
+            return;
+        }
+
+        let finalValue = '-';
+        let displayValue = 'Click to set';
+        let newStatus = '';
+        let displayColor = 'initial';
+        let font_weight = 'normal';
+
+        // Determine what to save based on the active tab
+        switch (activeTab) {
+            case 'date':
+                if (inputDate.value) {
+                    finalValue = inputDate.value;
+                    displayValue = finalValue;
+                    newStatus = 'complete';
+                    displayColor = "#000";
+                    font_weight = 'bold';
+                } else {
+                    finalValue = '-';
+                }
+                break;
+
+            case 'code':
+                if (inputCode.value) {
+                    finalValue = inputCode.value;
+                    displayValue = 'CODE: ' + finalValue;
+                    newStatus = 'complete';
+                    displayColor = "var(--tone-royal)";
+                    font_weight = 'bold';
+                } else {
+                    finalValue = '-';
+                }
+                break;
+
+            case 'error':
+                finalValue = '98';
+                displayValue = 'VACCINATOR ERROR';
+                newStatus = 'error';
+                displayColor = "var(--tone-red)";
+                font_weight = 'bold';
+                break;
+        }
+
+        // 1. Update the HIDDEN input value (Crucial for AJAX submission)
+        activeHiddenInput.value = finalValue;
+
+        // 2. Update the VISIBLE input box
+        activeInputBox.value = displayValue;
+        activeInputBox.style.fontWeight = font_weight;
+        activeInputBox.style.color = displayColor;
+
+        // 3. Update the visual ticket status
+        activeTicket.setAttribute('data-status', newStatus);
+
+        closeModal();
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        activeInputBox = null;
+        activeTicket = null;
+        activeHiddenInput = null;
+        inputCode.value = '';
+        inputDate.value = '';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
         }
     }
 
 
-
-    // Show/hide dropdown or date input and set hidden value
-    function toggleVaccineField(vaccine, type) {
-        if(type === 'code') {
-            $('#dropdown-wrapper-' + vaccine).show();
-            $('#date-wrapper-' + vaccine).hide();
-            $('#'+vaccine+'_value').val(''); // reset value
-        } else if(type === 'date') {
-            $('#dropdown-wrapper-' + vaccine).hide();
-            $('#date-wrapper-' + vaccine).show();
-            $('#'+vaccine+'_value').val($('#'+vaccine+'_date').val()); // set date as value
-        } else if(type === 'error') {
-            $('#dropdown-wrapper-' + vaccine).hide();
-            $('#date-wrapper-' + vaccine).hide();
-            $('#'+vaccine+'_value').val('98'); // vaccinator error
-        }
-    }
-
-    // Update hidden input when dropdown or date changes
-    function setVaccineValue(vaccine) {
-        let selectedOption = $('input[name="'+vaccine+'_option"]:checked').val();
-        if(selectedOption === 'change') {
-            $('#'+vaccine+'_value').val($('#'+vaccine+'_dropdown').val());
-        } else if(selectedOption === 'date') {
-            $('#'+vaccine+'_value').val($('#'+vaccine+'_date').val());
-        }
-    }
-
-    // Save all vaccines
+    // ===========================================
+    // UPDATED SAVE ALL VACCINES (RETAINED/MODIFIED)
+    // ===========================================
     function saveVaccinesData() {
         let formData = {};
-        let vaccines = ["bcg","opv0","opv1","opv2","opv3","penta1","penta2","penta3","pcv","pcv2","pcv3","rv1","rv2","ipv","ipv2","measles1","measles2","hep_b","tcv"];
+        let vaccines = ["bcg","opv0","opv1","opv2","opv3","penta1","penta2","penta3","pcv","pcv2","pcv3","rv1","rv2","ipv","ipv2","mr1","mr2","hep_b","tcv"];
 
         vaccines.forEach(v => {
-            formData[v] = $('#'+v+'_value').val(); // always use hidden input
+            // Use the value from the hidden input field
+            formData[v] = $('#'+v+'_value').val();
         });
 
         // Additional info
@@ -840,9 +1419,14 @@
         formData['hhno'] = "<?= $data->hhno ?? '' ?>";
         formData['ec13'] = "<?= $data->ec13 ?? '' ?>";
         formData['image_status'] = $('#image_status').val();
-        formData['dob'] = $('#dob').val();
+        formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
         formData['dobstatus'] = $('#dobstatus').val();
         formData['vac_status'] = $('input[name="checkAllBtn"]:checked').val();
+        formData['comments'] = $('#comments').val(); // <--- ADD THIS LINE
+
+
+
+        formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
 
         $.ajax({
             url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',
@@ -864,7 +1448,9 @@
     }
 
 
-
+    // ===========================================
+    // REMAINING UTILITY FUNCTIONS (RETAINED)
+    // ===========================================
 
     function gallery() {
         var galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -888,78 +1474,6 @@
                 swiper: galleryThumbs
             }
         });
-        setTimeout(function () {
-            pickDate();
-        }, 500);
     }
 
-
-    function addata() {
-        var data = {};
-        data['cluster_code'] = $('#cluster_code').val();
-        data['hhno'] = $('#hhno').val();
-        data['ec'] = $('#ec').val();
-        data['dob'] = $('#dob').val();
-
-        data['bcg'] = $('#bcg').val();
-        data['bcg_check'] = ($('#bcg_checklist_other').is(":checked") ? 98 : 0);
-        data['opv0'] = $('#opv0').val();
-        data['opv0_check'] = ($('#opv0_checklist_other').is(":checked") ? 98 : 0);
-        data['opv1'] = $('#opv1').val();
-        data['opv1_check'] = ($('#opv1_checklist_other').is(":checked") ? 98 : 0);
-        data['opv2'] = $('#opv2').val();
-        data['opv2_check'] = ($('#opv2_checklist_other').is(":checked") ? 98 : 0);
-        data['opv3'] = $('#opv3').val();
-        data['opv3_check'] = ($('#opv3_checklist_other').is(":checked") ? 98 : 0);
-        data['penta1'] = $('#penta1').val();
-        data['penta1_check'] = ($('#penta1_checklist_other').is(":checked") ? 98 : 0);
-        data['penta2'] = $('#penta2').val();
-        data['penta2_check'] = ($('#penta2_checklist_other').is(":checked") ? 98 : 0);
-        data['penta3'] = $('#penta3').val();
-        data['penta3_check'] = ($('#penta3_checklist_other').is(":checked") ? 98 : 0);
-        data['pcv'] = $('#pcv').val();
-        data['pcv_check'] = ($('#pcv_checklist_other').is(":checked") ? 98 : 0);
-        data['pcv2'] = $('#pcv2').val();
-        data['pcv2_check'] = ($('#pcv2_checklist_other').is(":checked") ? 98 : 0);
-        data['pcv3'] = $('#pcv3').val();
-        data['pcv3_check'] = ($('#pcv3_checklist_other').is(":checked") ? 98 : 0);
-        data['rv1'] = $('#rv1').val();
-        data['rv1_check'] = ($('#rv1_checklist_other').is(":checked") ? 98 : 0);
-        data['rv2'] = $('#rv2').val();
-        data['rv2_check'] = ($('#rv2_checklist_other').is(":checked") ? 98 : 0);
-        data['ipv'] = $('#ipv').val();
-        data['ipv_check'] = ($('#ipv_checklist_other').is(":checked") ? 98 : 0);
-        data['measles1'] = $('#measles1').val();
-        data['measles1_check'] = ($('#measles1_checklist_other').is(":checked") ? 98 : 0);
-        data['measles2'] = $('#measles2').val();
-        data['measles2_check'] = ($('#measles2_checklist_other').is(":checked") ? 98 : 0);
-        data['hep_b'] = $('#hep_b').val();
-        data['hep_b_check'] = ($('#hep_b_checklist_other').is(":checked") ? 98 : 0);
-        data['ipv2'] = $('#ipv2').val();
-        data['ipv2_check'] = ($('#ipv2_checklist_other').is(":checked") ? 98 : 0);
-        data['tcv'] = $('#tcv').val();
-        data['tcv_check'] = ($('#tcv_checklist_other').is(":checked") ? 98 : 0);
-        var vd = validateData(data);
-        if (vd) {
-
-            showloader();
-            $('.mybtn').attr('disabled', 'disabled');
-            CallAjax('<?php echo base_url('index.php/Card_edit/addForm'); ?>', data, 'POST', function (result) {
-                hideloader();
-                if (result == 1) {
-                    toastMsg('Success', 'Successfully inserted', 'success');
-                } else if (result == 2) {
-                    toastMsg('Error', 'Invalid Cluster', 'error');
-                } else if (result == 3) {
-                    toastMsg('Error', 'Invalid Household', 'error');
-                } else if (result == 6) {
-                    toastMsg('Error', 'Invalid Cluster & Household information', 'error');
-                } else {
-                    toastMsg('Error', 'Something went wrong', 'error');
-                }
-            });
-        } else {
-            toastMsg('Page', 'Something went wrong', 'error');
-        }
-    }
 </script>
