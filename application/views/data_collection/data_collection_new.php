@@ -679,9 +679,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 25%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["BALOCHISTAN"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["BALOCHISTAN"]; ?></span>
+                                        <span class="percentage"><?php echo $inprogress_per["BALOCHISTAN"]; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -691,9 +691,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 15%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["BALOCHISTAN"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["BALOCHISTAN"]; ?></span>
+                                        <span class="percentage"><?php echo  $remaining_per["BALOCHISTAN"]; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -741,9 +741,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 3%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["SINDH"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["SINDH"]; ?></span>
+                                        <span class="percentage"><?php echo $inprogress_per["SINDH"]; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -753,9 +753,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 2%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["SINDH"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["SINDH"]; ?></span>
+                                        <span class="percentage"><?php echo $remaining_per["SINDH"]; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -804,9 +804,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 40%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["PUNJAB"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["PUNJAB"]; ?></span>
+                                        <span class="percentage"><?php echo  $inprogress_per["PUNJAB"]; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -816,9 +816,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 10%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["PUNJAB"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["PUNJAB"]; ?></span>
+                                        <span class="percentage"><?php echo  $remaining_per["PUNJAB"]; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -870,9 +870,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 15%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["KHYBER PAKHTUNKHWA"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["KHYBER PAKHTUNKHWA"]; ?></span>
+                                        <span class="percentage"><?php echo $inprogress_per["KHYBER PAKHTUNKHWA"]; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -882,9 +882,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 10%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["KHYBER PAKHTUNKHWA"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["KHYBER PAKHTUNKHWA"]; ?></span>
+                                        <span class="percentage"><?php echo $remaining_per["KHYBER PAKHTUNKHWA"] ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -931,9 +931,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 40%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["GILGIT-BALTISTAN"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["GILGIT-BALTISTAN"]; ?></span>
+                                        <span class="percentage"><?php echo $inprogress_per["GILGIT-BALTISTAN"]; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -943,9 +943,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 15%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["GILGIT-BALTISTAN"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["GILGIT-BALTISTAN"]; ?></span>
+                                        <span class="percentage"><?php echo  $remaining_per["GILGIT-BALTISTAN"]; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -994,9 +994,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 20%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["AZAD JAMMU & KASHMIR"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["AZAD JAMMU & KASHMIR"]; ?></span>
+                                        <span class="percentage"><?php echo $inprogress_per["AZAD JAMMU & KASHMIR"] ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -1006,9 +1006,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 10%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["AZAD JAMMU & KASHMIR"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["AZAD JAMMU & KASHMIR"]; ?></span>
+                                        <span class="percentage"><?php echo $remaining_per["AZAD JAMMU & KASHMIR"] ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1045,9 +1045,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: 20%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["ISLAMABAD"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $ip["ISLAMABAD"]; ?></span>
+                                        <span class="percentage"><?php echo $inprogress_per["ISLAMABAD"] ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -1057,9 +1057,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: 10%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $remaining_per["ISLAMABAD"] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $r["ISLAMABAD"]; ?></span>
+                                        <span class="percentage"><?php echo $remaining_per["ISLAMABAD"] ?>%</span>
                                     </div>
                                 </div>
                             </div>
