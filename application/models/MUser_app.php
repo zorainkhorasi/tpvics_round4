@@ -9,6 +9,7 @@ class MUser_app extends CI_Model
         $this->db->select('*');
         $this->db->from('AppUser');
         $this->db->where('enabled', 1);
+        $this->db->where(" (colflag is null OR colflag = '0') ");
         $this->db->order_By('id', 'DESC');
         $query = $this->db->get();
         return $query->result();
@@ -29,6 +30,7 @@ class MUser_app extends CI_Model
         $this->db->from('AppUser');
         $this->db->where('username', $username);
         $this->db->where('enabled', 1);
+        $this->db->where(" (colflag is null OR colflag = '0') ");
         $query = $this->db->get();
         return $query->result();
     }
@@ -41,6 +43,7 @@ class MUser_app extends CI_Model
         $this->db->select('*');
         $this->db->from('AppUser');
         $this->db->where('enabled', 1);
+        $this->db->where("(colflag is null OR colflag = '0') ");
         $this->db->order_By('username', 'DESC');
         $query = $this->db->get();
         return $query->result();
