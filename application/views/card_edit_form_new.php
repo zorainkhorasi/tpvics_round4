@@ -221,7 +221,7 @@
         display: flex;
         justify-content: flex-end;
         gap: 10px;
-        margin-top: 25px;
+
     }
 
     .info-card {
@@ -387,7 +387,7 @@
     }
 
     .immu-ticket:hover {
-        box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 14px rgb(170 205 201)
     }
 
     .immu-stripe {
@@ -397,7 +397,7 @@
         align-items: center;
         color: #fff;
         font-weight: 900;
-        font-size: 11px;
+        font-size: 8px;
         letter-spacing: 1px;
         writing-mode: vertical-lr;
         text-orientation: upright;
@@ -416,20 +416,9 @@
     /*.fill-purple { background-color: var(--tone-purple); }*/
     /*.tiny-text { font-size: 10px; letter-spacing: 0.5px; }*/
 
-    I understand completely. You want to make sure the colorful stripes are gone and that the green/red status mechanism is implemented exactly as requested, even if it means changing the status word from "complete" to "updated."
 
-    Since you provided the CSS, I will now implement the final, exact CSS changes:
 
-    Remove (or comment out) all specific colorful fill- classes.
 
-                            Add/Modify rules to target .immu-ticket[data-status="updated"] for Green and .immu-ticket[data-status="error"] for Red.
-
-                                Here is the entire relevant block of CSS with the required changes.
-
-                                ✅ Updated CSS (The Final Fix)
-    I have made changes starting around line 240, specifically commenting out the colorful fill classes and defining the new data-status rules.
-
-                                                  CSS
 
                                                       /* ... (CSS continues up to here) ... */
 
@@ -440,26 +429,13 @@
                                                       align-items: center;
                                                       color: #fff;
                                                       font-weight: 900;
-                                                      font-size: 11px;
+                                                      font-size: 9px;
                                                       letter-spacing: 1px;
                                                       writing-mode: vertical-lr;
                                                       text-orientation: upright;
                                                       text-transform: uppercase;
                                                       user-select: none;
                                                   }
-
-    /* --- COMMENTED OUT: Removed the specific colorful fill classes as requested ---
-    .fill-brown { background-color: var(--tone-brown); }
-    .fill-red { background-color: var(--tone-red); }
-    .fill-magenta { background-color: var(--tone-magenta); }
-    .fill-cyan { background-color: var(--tone-cyan); }
-    .fill-orange { background-color: var(--tone-orange); }
-    .fill-green { background-color: var(--tone-green); }
-    .fill-royal { background-color: var(--tone-royal); }
-    .fill-navy { background-color: var(--tone-navy); }
-    .fill-purple { background-color: var(--tone-purple); }
-    .tiny-text { font-size: 10px; letter-spacing: 0.5px; }
-    */
 
     /* The above colorful fill classes are now removed from use. */
     .immu-data-area {
@@ -485,18 +461,16 @@
     *** I am modifying it below to follow the green/red requirement for updated/error */
 
     /* ORIGINAL ORANGE/COMPLETE STATUS (MODIFIED TO GREEN/UPDATED) */
-    .immu-ticket[data-status="complete"], /* Keeping "complete" for backward compatibility if you still use it */
-    .immu-ticket[data-status="updated"] { /* NEW status for successful change */
-        border: 2px solid var(--tone-green); /* Changed from #ff9700 (orange) to GREEN */
-        background-color: #f3fff9;          /* Light green background */
-        box-shadow: 0 0 10px rgba(0, 176, 91, 0.3);
+    .immu-ticket[data-status="complete"], .immu-ticket[data-status="updated"] {
+        border: 2px solid #ff9600;
+        background-color: #f3fff9;
+        box-shadow: 0 0 10px rgb(255 226 185);
     }
 
-    /* NEW STRIPE COLOR FOR UPDATED/COMPLETE: GREEN */
-    .immu-ticket[data-status="complete"] .immu-stripe,
-    .immu-ticket[data-status="updated"] .immu-stripe {
-        background-color: var(--tone-green);
+    .immu-ticket[data-status="complete"] .immu-stripe, .immu-ticket[data-status="updated"] .immu-stripe {
+        background-color: #ff9600;
     }
+
 
     /* ERROR STATUS (RETAINED RED BORDER, ADDING RED STRIPE) */
     .immu-ticket[data-status="error"] {
@@ -1002,7 +976,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="action-buttons mt-3 text-end py-2">
+                        <div class="action-buttons  text-end py-2">
                             <button type="button" class="btn btn-primary" onclick="saveVaccinesData()">
                                 <i class="fas fa-save me-2"></i>Save Data
                             </button>
@@ -1030,6 +1004,11 @@
                                     <select style="font-size: 11px;"  id="image_status" class="image_status form-select">
                                         <?php $imageOptions = [ '0' => 'Select Image Status', 'OK' => 'OK', 'Blur' => 'Blur', 'Focus Issue' => 'Focus Issue', 'Light Issue' => 'Light Issue', 'Child Name not Matched' => 'Child Name not Matched', 'No Image' => 'No Image' ]; $savedValue = isset($vac_details_edit->image_status) ? $vac_details_edit->image_status : '0'; foreach($imageOptions as $val => $label): ?>
                                             <option value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option> <?php endforeach; ?> </select>
+                                    <div class="field-group">
+                                        <div class="section-title">Image Feedback</div>
+                                        <label for="comments" class="form-label">Comments / Notes</label>
+                                        <textarea id="comments" name="comments" class="form-control" rows="3" placeholder="Add any relevant notes or comments here..."><?= isset($vac_details_edit->comments) ? htmlspecialchars($vac_details_edit->comments) : '' ?></textarea>
+                                    </div>
                                 </div>
                                 <br>
 <br>
@@ -1048,11 +1027,7 @@
                                         </div> <div class="swiper-container gallery-thumbs">
                                             <div class="swiper-wrapper gallery_images"> <?php echo $img; ?> </div>
                                         </div> </div>
-                                    <div class="field-group">
-                                        <div class="section-title">Image Feedback</div>
-                                        <label for="comments" class="form-label">Comments / Notes</label>
-                                        <textarea id="comments" name="comments" class="form-control" rows="3" placeholder="Add any relevant notes or comments here..."><?= isset($vac_details_edit->comments) ? htmlspecialchars($vac_details_edit->comments) : '' ?></textarea>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
