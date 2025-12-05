@@ -836,7 +836,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-12">
+                                    <div class="col-sm-2 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             Cluster
                                         </div>
@@ -868,8 +868,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class=" col-sm-1 col-12 py-2">
+                                    <div class="col-sm-2 col-12 py-2">
                                         <button type="button" class="btn btn-primary" onclick="searchData()">SEARCH
+                                        </button>
+
+                                        <button type="button" class="btn btn-danger ml-2" onclick="resetPage()">RESET
                                         </button>
                                     </div>
                                 </div>
@@ -939,7 +942,26 @@
 
                                 <div class="info-box">
                                     <span class="info-label">Date of Birth:</span>
-                                    <span class="info-blank"><?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?></span>
+
+                                    <span id="dob_display" class="info-blank">
+        <?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>
+    </span>
+
+                                    <?php
+                                    $is_invalid = ($vac_details_edit->dobstatus == 2);
+                                    ?>
+                                    <span id="dob_editable_container"
+                                          class="info-blank"
+                                          style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
+        <input type="text"
+               name="new_dob"
+               id="new_dob_input"
+               class="form-control"
+               style="font-size: 11px; width: 100px; display: inline-block;"
+               placeholder="DD-MM-YYYY"
+               value="<?= $is_invalid ? htmlspecialchars($data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy) : '' ?>"
+        >
+    </span>
                                 </div>
 
                                 <div class="info-box">
@@ -1169,10 +1191,10 @@
         <div class="modal-inputs-row">
             <select class="modal-input" id="inputCode">
                 <option value="" disabled selected>Select Code</option>
-                <option value="1">1</option>
-                <option value="44">2</option>
-                <option value="91">3</option>
-                <option value="971">4</option>
+                <option value="44">44– Date not clear</option>
+                <option value="88">88 – Tick mark only</option>
+                <option value="66">66 – Given (mother’s recall)</option>
+                <option value="97">97 – Not given (mother’s recall)</option>
             </select>
             <input type="date" class="modal-input" id="inputDate">
             <input type="text" class="modal-input disabled-field tick-field" id="inputError" readonly value="Error">
@@ -1285,7 +1307,34 @@
 
         var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?dis=" + d + "& c=" + clusters_select + "&h=" + hh + "&ec=" + child;
 
-        window.open(url); // open in new tab
+        // Opens the URL in a new tab
+        window.open(url);
+    }
+
+    function resetPage() {
+
+
+
+        // 3. Manually ensure the dependent dropdowns are reset to their default placeholder text.
+        // This is crucial for visual and functional clarity.
+        $('.district_select').html('<option value="0" readonly disabled selected>District</option>');
+        // Reset Clusters dropdown to its default state
+        $('.clusters_select').html('<option value="0" readonly disabled selected>Cluster</option>');
+
+        // Reset Household dropdown to its default state
+        $('.household_select').html('<option value="0" readonly disabled selected>Household</option>');
+
+        // Reset Child No dropdown to its default state
+        $('.childNo_select').html('<option value="0" readonly disabled >Child No</option>');
+
+        // 4. Optional: If you have other filters or input fields (like text areas) that need clearing:
+        // Example: If you have a comments box with ID 'comments'
+        $('#comments').val('');
+
+        // 5. Hard Reset the Entire Page: If you want to clear ALL visual elements,
+        // including any loaded results or images, the quickest way is a full page reload.
+        // Uncomment the line below if a soft reset of the filters is not enough.
+        // window.location.reload();
     }
 
 
