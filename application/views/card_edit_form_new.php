@@ -1177,6 +1177,7 @@
 
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
 <script>
+
     // ===========================================
     // EXISTING SEARCH/CLUSTER LOGIC (RETAINED)
     // ===========================================
