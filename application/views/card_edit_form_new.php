@@ -785,7 +785,6 @@
 </style>
 <!-- BEGIN: Content-->
 
-<link rel="stylesheet" type="text/css" href="http://localhost/dashboards_public_asset/laravel/photoviewer/photoviewer.css">
 <div class="app-content content">
      <div class="content-overlay"></div>
      <div class="header-navbar-shadow"></div>
@@ -1077,32 +1076,6 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-12 mb-4">
-
-                    <BR>
-                    <BR>
-                    <BR>
-                    <BR>
-                    <BR>
-                    <div class="image-set">
-                        <a data-gallery="photoviewer" data-title="MAJID tEST"
-                           data-group="a"
-                           href="http://localhost/tpvics_round4/assets/images/banner/vac.png">
-                            <img src="http://localhost/tpvics_round4/assets/images/banner/banner-11.jpg">
-                        </a>
-                        <a data-gallery="photoviewer" data-title="MAJID tEST"
-                           data-group="a"
-                           href="http://localhost/tpvics_round4/assets/images/banner/banner-11.jpg">
-                           <!-- <img src="http://localhost/tpvics_round4/assets/images/banner/banner-11.jpg">-->
-                        </a>
-                    </div>
-
-
-                    <BR>
-                    <BR>
-                    <BR>
-                    <BR>
-                    <BR>
-                    <BR>
                     <div class="card">
                         <div class="card-header">
                             <div class="child-card">
@@ -1172,6 +1145,7 @@
             <button id="zoomInBtn" class="control-btn">+</button>
             <button id="zoomOutBtn" class="control-btn">-</button>
             <button id="flipBtn" class="control-btn">Flip</button>
+            <button id="rotateBtn" class="control-btn">Rotate</button>
         </div>
     </div>
      <div id="actionModal" class="modal-overlay">
@@ -1214,29 +1188,9 @@
        value="<?php echo(isset($_SESSION['login']['UserName']) && $_SESSION['login']['UserName'] != '' ? $_SESSION['login']['UserName'] : 0) ?>">
 
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
-    <script src="http://localhost/dashboards_public_asset/laravel/photoviewer/photoviewer.js"></script>
+
 <script>
-    $('[data-gallery=photoviewer]').click(function (e) {
 
-        e.preventDefault();
-
-        var items = [],
-            options = {
-                zoom:false,
-                modalSize:'large',
-                index: $(this).index(),
-            };
-
-        $('[data-gallery=photoviewer]').each(function () {
-            items.push({
-                src: $(this).attr('href'),
-                title: $(this).attr('data-title')
-            });
-        });
-
-        new PhotoViewer(items, options);
-
-    });
 
     // ===========================================
     // EXISTING SEARCH/CLUSTER LOGIC (RETAINED)
@@ -1621,65 +1575,76 @@
         const zoomInBtn = document.getElementById('zoomInBtn');
         const zoomOutBtn = document.getElementById('zoomOutBtn');
         const flipBtn = document.getElementById('flipBtn');
+        const rotateBtn = document.getElementById('rotateBtn'); // NEW BTN
 
-// State variables for the image
+        // State variables
         let currentScale = 1;
-// CHANGE: Use currentRotation instead of isFlipped
-        let currentRotation = 0;
+        let isFlipped = false;      // FIXED (You used it without defining)
+        let currentRotation = 0;    // NEW (for rotation)
         const scaleStep = 0.2;
-// NEW: Define a step for rotation (e.g., 90 degrees)
-        const rotationStep = 90;
+        const rotationStep = 90;    // rotate 90-degree per click
 
-        // 1. Open the Modal when an image is clicked
+        // Open modal on image click
         document.querySelectorAll('.image-gallery .img-fluid').forEach(image => {
             image.addEventListener('click', function() {
                 const imgSrc = this.getAttribute('src');
                 fullScreenImage.setAttribute('src', imgSrc);
                 modal.style.display = 'block';
 
-                // Reset state when opening a new image
+                // Reset transformations
                 currentScale = 1;
                 isFlipped = false;
-                fullScreenImage.style.transform = `scale(${currentScale}) rotateY(0deg)`;
+                currentRotation = 0;
+
+                fullScreenImage.style.transform = `scale(1) rotateY(0deg) rotate(0deg)`;
             });
         });
 
-        // 2. Close the Modal
+        // Close modal
         closeBtn.addEventListener('click', function() {
             modal.style.display = 'none';
         });
 
-        // Close when clicking outside the image area
+        // Close modal when clicking outside image
         modal.addEventListener('click', function(event) {
             if (event.target === modal) {
                 modal.style.display = 'none';
             }
         });
 
-        // 3. Zoom In
+        // Zoom In
         zoomInBtn.addEventListener('click', function() {
             currentScale += scaleStep;
             updateTransform();
         });
 
-        // 4. Zoom Out
+        // Zoom Out
         zoomOutBtn.addEventListener('click', function() {
-            if (currentScale > scaleStep) { // Prevent zooming out completely
+            if (currentScale > scaleStep) {
                 currentScale -= scaleStep;
                 updateTransform();
             }
         });
 
-        // 5. Flip (Horizontal)
+        // Flip Image Horizontally
         flipBtn.addEventListener('click', function() {
             isFlipped = !isFlipped;
             updateTransform();
         });
 
-        // Helper function to apply both zoom and flip
+        // ★ NEW – Rotate Image ★
+        rotateBtn.addEventListener('click', function() {
+            currentRotation += rotationStep;
+            updateTransform();
+        });
+
+        // Apply zoom + flip + rotate
         function updateTransform() {
-            const flipRotation = isFlipped ? 180 : 0; // Flip 180 degrees on Y-axis
-            fullScreenImage.style.transform = `scale(${currentScale}) rotateY(${flipRotation}deg)`;
+            const flipRotation = isFlipped ? 180 : 0;
+
+            fullScreenImage.style.transform =
+                `scale(${currentScale}) rotateY(${flipRotation}deg) rotate(${currentRotation}deg)`;
         }
     });
+
 </script>
