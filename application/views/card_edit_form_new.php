@@ -784,6 +784,8 @@
     }
 </style>
 <!-- BEGIN: Content-->
+
+<link rel="stylesheet" type="text/css" href="http://localhost/dashboards_public_asset/laravel/photoviewer/photoviewer.css">
 <div class="app-content content">
      <div class="content-overlay"></div>
      <div class="header-navbar-shadow"></div>
@@ -824,7 +826,12 @@
                                                 <option value="0" readonly disabled selected>District</option>
                                                 <?php if (isset($province) && $province != '') {
                                                     foreach ($province as $k => $p) {
-                                                        echo '<option value="' . $k . '">' . $p . '</option>';
+                                                        if($dis==$k){
+                                                            echo '<option value="' . $k . '" selected>' . $p . '</option>';
+                                                        }else{
+                                                            echo '<option value="' . $k . '">' . $p . '</option>';
+                                                        }
+
                                                     }
                                                 } ?>
                                             </select>
@@ -1070,6 +1077,32 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-12 mb-4">
+
+                    <BR>
+                    <BR>
+                    <BR>
+                    <BR>
+                    <BR>
+                    <div class="image-set">
+                        <a data-gallery="photoviewer" data-title="MAJID tEST"
+                           data-group="a"
+                           href="http://localhost/tpvics_round4/assets/images/banner/vac.png">
+                            <img src="http://localhost/tpvics_round4/assets/images/banner/banner-11.jpg">
+                        </a>
+                        <a data-gallery="photoviewer" data-title="MAJID tEST"
+                           data-group="a"
+                           href="http://localhost/tpvics_round4/assets/images/banner/banner-11.jpg">
+                           <!-- <img src="http://localhost/tpvics_round4/assets/images/banner/banner-11.jpg">-->
+                        </a>
+                    </div>
+
+
+                    <BR>
+                    <BR>
+                    <BR>
+                    <BR>
+                    <BR>
+                    <BR>
                     <div class="card">
                         <div class="card-header">
                             <div class="child-card">
@@ -1092,11 +1125,16 @@
                                     <div class="field-group">
                                         <div class="section-title">Image Feedback</div>
                                         <label for="comments" class="form-label">Comments / Notes</label>
-                                        <textarea id="comments" name="comments" class="form-control" rows="3" placeholder="Add any relevant notes or comments here..."><?= isset($vac_details_edit->comments) ? htmlspecialchars($vac_details_edit->comments) : '' ?></textarea>
+                                        <textarea id="comments" name="comments" class="form-control" rows="3" placeholder="Add any relevant notes or comments here..."><?= isset($vac_details_edit->image_comments) ? htmlspecialchars($vac_details_edit->image_comments) : '' ?></textarea>
                                     </div>
                                 </div>
                                 <br>
+
 <br>
+
+
+
+
                                 <div class="section-title">Image</div>
                                 <div class="card-body">
                                     <div class="image-gallery">
@@ -1176,11 +1214,34 @@
        value="<?php echo(isset($_SESSION['login']['UserName']) && $_SESSION['login']['UserName'] != '' ? $_SESSION['login']['UserName'] : 0) ?>">
 
 <script src="<?php echo base_url() ?>assets/vendors/js/extensions/swiper.min.js"></script>
+    <script src="http://localhost/dashboards_public_asset/laravel/photoviewer/photoviewer.js"></script>
 <script>
+    $('[data-gallery=photoviewer]').click(function (e) {
+
+        e.preventDefault();
+
+        var items = [],
+            options = {
+                zoom:false,
+                modalSize:'large',
+                index: $(this).index(),
+            };
+
+        $('[data-gallery=photoviewer]').each(function () {
+            items.push({
+                src: $(this).attr('href'),
+                title: $(this).attr('data-title')
+            });
+        });
+
+        new PhotoViewer(items, options);
+
+    });
 
     // ===========================================
     // EXISTING SEARCH/CLUSTER LOGIC (RETAINED)
     // ===========================================
+    changeUCs();
     function changeUCs() {
         var data = {};
         data['district'] = $('.district_select').val();
@@ -1189,16 +1250,23 @@
             CallAjax('<?php echo base_url() . 'index.php/Image_forms/getClustersByDist'  ?>', data, 'POST', function (res) {
                 hideloader();
                 var items = '<option value="0"   readonly disabled selected>Cluster</option>';
-                if (res != '' && JSON.parse(res).length > 0) {
+                var selectedCluster = "<?php echo $cluster; ?>";
+
+                if (res !== '' && JSON.parse(res).length > 0) {
                     var response = JSON.parse(res);
-                    try {
-                        $.each(response, function (i, v) {
+
+                    $.each(response, function (i, v) {
+
+                        if (selectedCluster == v.cluster_code) {
+                            items += '<option value="' + v.cluster_code + '" selected onclick="changeCluster()">' + v.cluster_code + '</option>';
+                        } else {
                             items += '<option value="' + v.cluster_code + '" onclick="changeCluster()">' + v.cluster_code + '</option>';
-                        })
-                    } catch (e) {
-                    }
+                        }
+
+                    });
                 }
                 $('.clusters_select').html('').html(items);
+                changeCluster();
             });
         } else {
             $('.clusters_select').html('');
@@ -1228,7 +1296,7 @@
             $('.household_select').html('');
         }
     }
-
+    changeHH()
     function changeHH() {
         var data = {};
         data['cluster'] = $('.clusters_select').val();
@@ -1256,11 +1324,12 @@
     }
 
     function searchData() {
+        var d = $('.district_select').val();
         var hh = $('.household_select').val();
         var child = $('.childNo_select').val();
         var clusters_select = $('.clusters_select').val();
 
-        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?c=" + clusters_select + "&h=" + hh + "&ec=" + child;
+        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?dis=" + d + "& c=" + clusters_select + "&h=" + hh + "&ec=" + child;
 
         window.open(url); // open in new tab
     }
@@ -1494,10 +1563,7 @@
         formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
         formData['dobstatus'] = $('#dobstatus').val();
         formData['vac_status'] = $('input[name="checkAllBtn"]:checked').val();
-        formData['comments'] = $('#comments').val(); // <--- ADD THIS LINE
-
-
-
+        formData['image_comments'] = $('#comments').val(); // <--- ADD THIS LINE
         formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
 
         $.ajax({

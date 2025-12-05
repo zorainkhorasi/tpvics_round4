@@ -171,6 +171,11 @@ class Card_edit extends CI_controller
             } else {
                 $cluster = '0';
             }
+            if (isset($_GET['dis']) && $_GET['dis'] != '') {
+                $dis = $_GET['dis'];
+            } else {
+                $dis = '0';
+            }
             if (isset($_GET['h']) && $_GET['h'] != '') {
                 $hhno = $_GET['h'];
             } else {
@@ -193,6 +198,7 @@ class Card_edit extends CI_controller
             $data['cluster'] = $cluster;
             $data['hhno'] = $hhno;
             $data['ec'] = $ec;
+            $data['dis'] = $dis;
 
             $this->load->view('include/header');
             $this->load->view('include/top_header');
@@ -292,6 +298,7 @@ class Card_edit extends CI_controller
             $dataToSave['dob'] = $post['dob'];
             $dataToSave['dobstatus'] = $post['dobstatus'];
             $dataToSave['vac_status'] = $post['vac_status'];
+            $dataToSave['image_comments'] = $post['image_comments'];
 
             $Custom = new Custom();
             $saved = $Custom->Insert($dataToSave, 'id', 'vac_details_edit', 'N');
