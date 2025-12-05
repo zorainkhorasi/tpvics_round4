@@ -462,26 +462,28 @@
 
     /* ORIGINAL ORANGE/COMPLETE STATUS (MODIFIED TO GREEN/UPDATED) */
     .immu-ticket[data-status="complete"], .immu-ticket[data-status="updated"] {
-        border: 2px solid #ff9600;
-        background-color: #f3fff9;
-        box-shadow: 0 0 10px rgb(255 226 185);
-    }
-
-    .immu-ticket[data-status="complete"] .immu-stripe, .immu-ticket[data-status="updated"] .immu-stripe {
-        background-color: #ff9600;
-    }
-
-
-    /* ERROR STATUS (RETAINED RED BORDER, ADDING RED STRIPE) */
-    .immu-ticket[data-status="error"] {
         border: 2px solid var(--tone-red);
         background-color: #fce7e7;
         box-shadow: 0 0 10px rgba(201, 37, 44, 0.5);
     }
 
+    .immu-ticket[data-status="complete"] .immu-stripe, .immu-ticket[data-status="updated"] .immu-stripe {
+
+        background-color: var(--tone-red);
+    }
+
+
+    /* ERROR STATUS (RETAINED RED BORDER, ADDING RED STRIPE) */
+    .immu-ticket[data-status="error"] {
+        border: 2px solid #ff9600;
+        background-color: #fff7ec;
+        box-shadow: 0 0 10px rgb(255 226 185);
+
+    }
+
     /* NEW STRIPE COLOR FOR ERROR: RED */
     .immu-ticket[data-status="error"] .immu-stripe {
-        background-color: var(--tone-red);
+        background-color: #ff9600;
     }
 
     /* Setting a default stripe color for non-status tickets (optional, based on your original multi-color use) */
@@ -684,7 +686,7 @@
     .info-line {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap:3px;
         font-size: 14px;
         margin-bottom: 10px;
     }
@@ -706,6 +708,80 @@
         height: 21px;
         padding: 0px 34px;
     }
+/*    image viewr*/
+    /* Modal Styling */
+    .modal-viewer {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 9999; /* Sit on top of everything */
+        padding-top: 50px; /* Location of the box (top) */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity (dark background) */
+    }
+
+    /* Modal Content (Image) */
+    .modal-content-wrapper {
+        margin: auto;
+        display: block;
+        width: 80%; /* Adjust as needed */
+        max-width: 700px; /* Adjust as needed */
+        height: auto;
+        max-height: 90vh;
+        text-align: center;
+    }
+
+    .modal-image {
+        width: 100%;
+        height: auto;
+        max-height: calc(100vh - 100px); /* Account for padding/controls */
+        object-fit: contain;
+        transition: transform 0.3s ease-in-out; /* Smooth transform transitions */
+        transform: scale(1) rotateY(0deg); /* Initial state for zoom/flip */
+        cursor: grab;
+    }
+
+    /* Close Button */
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Controls */
+    .modal-controls {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+    }
+
+    .control-btn {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
 </style>
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -716,7 +792,7 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Card Form</h2>
+                        <h2 class="content-header-title float-left mb-0">Card Review</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a>
@@ -844,13 +920,14 @@
                             </div>
 
                             <div class="info-line">
+
                                 <div class="info-box">
                                     <span class="info-label">Gender:</span>
                                     <span class="info-blank"><?= $gender ?></span>
                                 </div>
 
                                 <div class="info-box">
-                                    <span class="info-label">Child Number:</span>
+                                    <span class="info-label">Age:</span>
                                     <span class="info-blank"><?= $data->ec13 ?? '' ?></span>
                                 </div>
 
@@ -858,9 +935,17 @@
                                     <span class="info-label">Date of Birth:</span>
                                     <span class="info-blank"><?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?></span>
                                 </div>
+
+                                <div class="info-box">
+                                    <label class="info-label">Date of Birth Status</label>
+                                    <select style="font-size: 11px" id="dobstatus" class="form-select">
+                                        <option value="0">Select DoB Status</option>
+                                        <option value="1" <?= $vac_details_edit->dobstatus == 1 ? 'selected' : '' ?>>OK</option>
+                                        <option value="2" <?= $vac_details_edit->dobstatus == 2 ? 'selected' : '' ?>>Invalid DoB</option>
+                                    </select>
+                                </div>
+
                             </div>
-
-
 
                         </div>
 
@@ -892,21 +977,21 @@
 
                                 <!-- Right side options -->
                                 <div class="vaccination-options">
-                                    <?php
-                                    $bulkOptions = [
-
-                                        2 => "Not Matched",
-                                        3 => "Not Readable"
-                                    ];
-                                    foreach ($bulkOptions as $val => $label): ?>
-                                        <div class="form-check">
-                                            <input class="form-check-input checkAllBtn" type="radio"
-                                                   name="checkAllBtn"
-                                                   value="<?= $val ?>"
-                                                <?= $vac_details_edit->vac_status == $val ? 'checked' : '' ?>>
-                                            <label class="form-check-label"><?= $label ?></label>
-                                        </div>
-                                    <?php endforeach; ?>
+<!--                                    --><?php
+//                                    $bulkOptions = [
+//
+//                                        2 => "Not Matched",
+//                                        3 => "Not Readable"
+//                                    ];
+//                                    foreach ($bulkOptions as $val => $label): ?>
+<!--                                        <div class="form-check">-->
+<!--                                            <input class="form-check-input checkAllBtn" type="radio"-->
+<!--                                                   name="checkAllBtn"-->
+<!--                                                   value="--><?php //= $val ?><!--"-->
+<!--                                                --><?php //= $vac_details_edit->vac_status == $val ? 'checked' : '' ?><!-->
+<!--                                            <label class="form-check-label">--><?php //= $label ?><!--</label>-->
+<!--                                        </div>-->
+<!--                                    --><?php //endforeach; ?>
                                 </div>
                             </div>
 
@@ -1040,6 +1125,17 @@
     <?php } ?>
 </div>
 </div>
+    <div id="imageViewerModal" class="modal-viewer">
+        <span class="close-btn">&times;</span>
+        <div class="modal-content-wrapper">
+            <img class="modal-image" id="fullScreenImage" src="" alt="Full Screen Image">
+        </div>
+        <div class="modal-controls">
+            <button id="zoomInBtn" class="control-btn">+</button>
+            <button id="zoomOutBtn" class="control-btn">-</button>
+            <button id="flipBtn" class="control-btn">Flip</button>
+        </div>
+    </div>
      <div id="actionModal" class="modal-overlay">
     <div class="modal-card">
         <div class="modal-header">
@@ -1450,5 +1546,73 @@
             }
         });
     }
+// image viewr:
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('imageViewerModal');
+        const fullScreenImage = document.getElementById('fullScreenImage');
+        const closeBtn = document.querySelector('.close-btn');
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+        const flipBtn = document.getElementById('flipBtn');
 
+// State variables for the image
+        let currentScale = 1;
+// CHANGE: Use currentRotation instead of isFlipped
+        let currentRotation = 0;
+        const scaleStep = 0.2;
+// NEW: Define a step for rotation (e.g., 90 degrees)
+        const rotationStep = 90;
+
+        // 1. Open the Modal when an image is clicked
+        document.querySelectorAll('.image-gallery .img-fluid').forEach(image => {
+            image.addEventListener('click', function() {
+                const imgSrc = this.getAttribute('src');
+                fullScreenImage.setAttribute('src', imgSrc);
+                modal.style.display = 'block';
+
+                // Reset state when opening a new image
+                currentScale = 1;
+                isFlipped = false;
+                fullScreenImage.style.transform = `scale(${currentScale}) rotateY(0deg)`;
+            });
+        });
+
+        // 2. Close the Modal
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close when clicking outside the image area
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 3. Zoom In
+        zoomInBtn.addEventListener('click', function() {
+            currentScale += scaleStep;
+            updateTransform();
+        });
+
+        // 4. Zoom Out
+        zoomOutBtn.addEventListener('click', function() {
+            if (currentScale > scaleStep) { // Prevent zooming out completely
+                currentScale -= scaleStep;
+                updateTransform();
+            }
+        });
+
+        // 5. Flip (Horizontal)
+        flipBtn.addEventListener('click', function() {
+            isFlipped = !isFlipped;
+            updateTransform();
+        });
+
+        // Helper function to apply both zoom and flip
+        function updateTransform() {
+            const flipRotation = isFlipped ? 180 : 0; // Flip 180 degrees on Y-axis
+            fullScreenImage.style.transform = `scale(${currentScale}) rotateY(${flipRotation}deg)`;
+        }
+    });
 </script>
