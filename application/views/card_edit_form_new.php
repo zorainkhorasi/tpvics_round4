@@ -1307,34 +1307,13 @@
 
         var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?dis=" + d + "& c=" + clusters_select + "&h=" + hh + "&ec=" + child;
 
-        // Opens the URL in a new tab
-        window.open(url);
+        window.location.href = url;
     }
 
     function resetPage() {
+        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>";
 
-
-
-        // 3. Manually ensure the dependent dropdowns are reset to their default placeholder text.
-        // This is crucial for visual and functional clarity.
-        $('.district_select').html('<option value="0" readonly disabled selected>District</option>');
-        // Reset Clusters dropdown to its default state
-        $('.clusters_select').html('<option value="0" readonly disabled selected>Cluster</option>');
-
-        // Reset Household dropdown to its default state
-        $('.household_select').html('<option value="0" readonly disabled selected>Household</option>');
-
-        // Reset Child No dropdown to its default state
-        $('.childNo_select').html('<option value="0" readonly disabled >Child No</option>');
-
-        // 4. Optional: If you have other filters or input fields (like text areas) that need clearing:
-        // Example: If you have a comments box with ID 'comments'
-        $('#comments').val('');
-
-        // 5. Hard Reset the Entire Page: If you want to clear ALL visual elements,
-        // including any loaded results or images, the quickest way is a full page reload.
-        // Uncomment the line below if a soft reset of the filters is not enough.
-        // window.location.reload();
+        window.location.href = url;
     }
 
 
