@@ -936,8 +936,8 @@
                                 </div>
 
                                 <div class="info-box">
-                                    <span class="info-label">Age:</span>
-                                    <span class="info-blank"><?= $data->ec13 ?? '' ?></span>
+                                    <span class="info-label">Age In Months:</span>
+                                    <span class="info-blank"><?= $data->trueageinmonths ?? '' ?></span>
                                 </div>
 
                                 <div class="info-box">
