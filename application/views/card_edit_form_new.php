@@ -943,25 +943,16 @@
                                 <div class="info-box">
                                     <span class="info-label">Date of Birth:</span>
 
-                                    <span id="dob_display" class="info-blank">
-        <?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>
-    </span>
+                                    <span id="dob_display" class="info-blank"><?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?></span>
 
                                     <?php
                                     $is_invalid = ($vac_details_edit->dobstatus == 2);
                                     ?>
-                                    <span id="dob_editable_container"
-                                          class="info-blank"
-                                          style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
-        <input type="text"
-               name="new_dob"
-               id="new_dob_input"
-               class="form-control"
-               style="font-size: 11px; width: 100px; display: inline-block;"
-               placeholder="DD-MM-YYYY"
-               value="<?= $is_invalid ? htmlspecialchars($data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy) : '' ?>"
-        >
-    </span>
+                                    <span id="dob_editable_container" class="info-blank" style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
+<input type="text" name="new_dob" id="new_dob_input" class="form-control"
+       disabled
+       style="font-size: 11px; width: 100px;margin: -4px -29px; display: inline-block;    border-bottom: none;!important "
+       placeholder="DD-MM-YYYY">
                                 </div>
 
                                 <div class="info-box">
@@ -1091,7 +1082,7 @@
                         </div>
                         <div class="action-buttons  text-end py-2">
                             <button type="button" class="btn btn-primary" onclick="saveVaccinesData()">
-                                <i class="fas fa-save me-2"></i>Save Data
+                               Save Data
                             </button>
                         </div>
                     </div>
@@ -1323,13 +1314,15 @@
         clickAll();
     });
 
-    $('#dobstatus').change(function() {
-        const dobField = $('[name="im04dd"]').closest('.row').find('[type="text"]').last();
-
+    $('#dobstatus').change(function () {
         if ($(this).val() == '2') { // Invalid DoB
-            dobField.prop('disabled', false);
+            $('#dob_editable_container').show();
+            $('#dob_display').hide();
+            $('#new_dob_input').prop('disabled', false);
         } else {
-            dobField.prop('disabled', true);
+            $('#dob_editable_container').hide();
+            $('#dob_display').show();
+            $('#new_dob_input').prop('disabled', true);
         }
     });
 
