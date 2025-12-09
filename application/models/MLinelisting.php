@@ -61,7 +61,7 @@ class MLinelisting extends CI_Model
         $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ ";
 
 
-        echo $sql_query;die;
+        //echo $sql_query;die;
         $query = $this->db->query($sql_query);
         return $query->result();
     }
