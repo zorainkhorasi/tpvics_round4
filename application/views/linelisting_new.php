@@ -758,7 +758,7 @@
                     <?php }
                     ?>
 
-                    <!-- SINDH -->
+                    <!-- PUNJAB -->
                     <?php
                     if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==2) { ?>
                         <div class="col">
@@ -1325,7 +1325,7 @@
                         data.forEach((ucs, index) => {
 
                                id=response.per[ucs.name].id;
-                            //    console.log(id);
+                               // console.log(id);
                                
                             const ucsCard = document.createElement("div");
                             ucsCard.className = "col";
@@ -1337,7 +1337,7 @@
                                     </div>
 
                                     <!-- Chart section (Completed Click) -->
-                                    <div id="chart-${district}-${index}" 
+                                    <div id="chart-${id}-${index}" 
                                         class="chart-container progress-c"
                                         style="height: 180px; cursor:pointer;">
                                     </div>
@@ -1392,7 +1392,7 @@
                                 colors: ['#7b5cff']
                             };
 
-                            const chartEl = document.querySelector(`#chart-${district}-${index}`);
+                            const chartEl = document.querySelector(`#chart-${id}-${index}`);
                             const chart = new ApexCharts(chartEl, chartOptions);
                             chart.render();
 
@@ -1491,7 +1491,7 @@
             var options = {
                 series: [{
                     name: 'Province',
-                    data: completedValues
+                    data: completedValues 
                 }],
                 chart: {
                     type: 'bar',

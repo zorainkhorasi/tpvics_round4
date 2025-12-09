@@ -636,6 +636,7 @@
                     </diiv>
 
                     <!-- Balochistan -->
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==4) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
                             <div class="ps-header-container">
@@ -679,9 +680,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["BALOCHISTAN"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["BALOCHISTAN"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $inprogress_per["BALOCHISTAN"]; ?>%</span>
+                                        <span class="percentage"><?php echo $per["BALOCHISTAN"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -691,16 +692,19 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["BALOCHISTAN"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["BALOCHISTAN"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $remaining_per["BALOCHISTAN"]; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["BALOCHISTAN"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                       <?php } ?>
 
                     <!-- SINDH -->
+                     <?php
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==3) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="SINDH" data-id="3">
                             <div class="ps-header-container">
@@ -741,9 +745,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["SINDH"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["SINDH"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $inprogress_per["SINDH"]; ?>%</span>
+                                        <span class="percentage"><?php echo $per["SINDH"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -753,18 +757,23 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["SINDH"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["SINDH"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $remaining_per["SINDH"]; ?>%</span>
+                                        <span class="percentage"><?php echo $per["SINDH"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                      <?php }
+                    ?>
                         <!-- Chart -->
                    
                     <!-- Punjab -->
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==2) { ?>
+
                     <div class="col">
+
                         <div class="dashboard-card" data-district="PUNJAB" data-id="2">
                             <div class="ps-header-container">
                                 <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
@@ -804,9 +813,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["PUNJAB"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["PUNJAB"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $inprogress_per["PUNJAB"]; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["PUNJAB"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -816,19 +825,22 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["PUNJAB"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["PUNJAB"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $remaining_per["PUNJAB"]; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["PUNJAB"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
+
                      <div class="col">
                         <h4 class="block-title">Total Province</h4>
                         <div id="totalpro"></div>
                     </div>
                     <!-- KPK -->
+                    <?php  if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==1) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="KHYBER PAKHTUNKHWA" data-id="1">
                             <div class="ps-header-container">
@@ -870,9 +882,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["KHYBER PAKHTUNKHWA"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["KHYBER PAKHTUNKHWA"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $inprogress_per["KHYBER PAKHTUNKHWA"]; ?>%</span>
+                                        <span class="percentage"><?php echo $per["KHYBER PAKHTUNKHWA"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -882,16 +894,19 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["KHYBER PAKHTUNKHWA"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["KHYBER PAKHTUNKHWA"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $remaining_per["KHYBER PAKHTUNKHWA"] ?>%</span>
+                                        <span class="percentage"><?php echo $per["KHYBER PAKHTUNKHWA"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
 
                     <!-- Gilgit-Baltistan -->
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==7) { ?>
+
                     <div class="col">
                         <div class="dashboard-card" data-district="Gilgit-Baltistan" data-id="7">
                             <div class="ps-header-container">
@@ -931,9 +946,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["GILGIT-BALTISTAN"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["GILGIT-BALTISTAN"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $inprogress_per["GILGIT-BALTISTAN"]; ?>%</span>
+                                        <span class="percentage"><?php echo $per["GILGIT-BALTISTAN"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -943,16 +958,19 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["GILGIT-BALTISTAN"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["GILGIT-BALTISTAN"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $remaining_per["GILGIT-BALTISTAN"]; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["GILGIT-BALTISTAN"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
 
                     <!-- AJK -->
+                    <?php     if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==8) { ?>
+
                     <div class="col">
                         <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
                             <div class="ps-header-container">
@@ -994,9 +1012,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["AZAD JAMMU & KASHMIR"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?=$per["azad_jammu_and_kashmir"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $inprogress_per["AZAD JAMMU & KASHMIR"] ?>%</span>
+                                        <span class="percentage"><?php echo $per["azad_jammu_and_kashmir"]['inprogress'] ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -1006,15 +1024,19 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["AZAD JAMMU & KASHMIR"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["azad_jammu_and_kashmir"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $remaining_per["AZAD JAMMU & KASHMIR"] ?>%</span>
+                                        <span class="percentage"><?php echo  $per["azad_jammu_and_kashmir"]['remaining'] ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
+
                       <!-- ISLAMABAD -->
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==6) { ?>
+
                     <div class="col">
                         <div class="dashboard-card" data-district="ISLAMABAD" data-id="6">
                             <div class="ps-header-container">
@@ -1045,9 +1067,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $inprogress_per["ISLAMABAD"] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["ISLAMABAD"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $inprogress_per["ISLAMABAD"] ?>%</span>
+                                        <span class="percentage"><?php echo $per["ISLAMABAD"]['inprogress'] ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -1057,15 +1079,16 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $remaining_per["ISLAMABAD"] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["ISLAMABAD"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $remaining_per["ISLAMABAD"] ?>%</span>
+                                        <span class="percentage"><?php echo $per["ISLAMABAD"]['remaining'] ?>%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <?php }
+                    ?>
 
                  
 
@@ -1101,21 +1124,29 @@
         function districtprogress() {
             // PHP array converted to JS object
             let per = <?php echo json_encode($per); ?>;
+            // let district = <?php echo json_encode($dist_array); ?>;
+               console.log(per);
+
                
             // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
             let chartIndex = 1;
+            // console.log(district);
+            
             for (let district in per) {
                 // console.log(district);
                 
                 if (district === "total"||district === "training" ) continue; // skip total if needed
                     var value = per[district];
-                    
+                                // console.log(value);
+
                     let name = district.replace(/_/g, ' ');
                     name = name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+                result=value.completed;
+                // console.log(result.completed);
                 
                 // Make dynamic options for each chart
                 let options = {
-                    series: [value],
+                    series: [result],
                     chart: {
                         height: 200,
                         type: 'radialBar',
@@ -1309,7 +1340,7 @@
                                     </div>
 
                                     <!-- Chart section (Completed Click) -->
-                                    <div id="chart-${district}-${index}" 
+                                    <div id="chart-${id}-${index}" 
                                         class="chart-container progress-c"
                                         style="height: 180px; cursor:pointer;">
                                     </div>
@@ -1364,7 +1395,7 @@
                                 colors: ['#7b5cff']
                             };
 
-                            const chartEl = document.querySelector(`#chart-${district}-${index}`);
+                            const chartEl = document.querySelector(`#chart-${id}-${index}`);
                             const chart = new ApexCharts(chartEl, chartOptions);
                             chart.render();
 
@@ -1459,12 +1490,27 @@
         function TotalProvince(){
 
             var per = <?php echo json_encode($per, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
-        
+            // console.log(per);
+            
+            
+            // let provinces = Object.keys(per);
+            // let completedValues = provinces.map(p => per[p].completed);
+            let provinces = Object.keys(per).map(name => {
+                return name
+                    .replace(/_/g, " ")
+                    .split(" ")
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                    .join(" ");
+            });
+
+            let completedValues = Object.keys(per).map(p => per[p].completed);
+                //    console.log(completedValues);
 
             var options = {
                 series: [{
                     name: 'Province',
-                    data: [per['punjab'], per['sindh'], per['balochistan'], per['khyber_pakhtunkhwa'], per['azad_jammu_and_kashmir'], per['gilgit_baltistan']]
+                    // data: [per['punjab'], per['sindh'], per['balochistan'], per['khyber_pakhtunkhwa'], per['azad_jammu_and_kashmir'], per['gilgit_baltistan']]
+                    data: completedValues
                 }],
                 chart: {
                     type: 'bar',
@@ -1488,13 +1534,14 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
+                    // categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
+                    categories: provinces
                 },
-                yaxis: {
-                    title: {
-                        text: '$ (thousands)'
-                    }
-                },
+                // yaxis: {
+                //     title: {
+                //         text: '$ (thousands)'
+                //     }
+                // },
                 fill: {
                     opacity: 1
                 },

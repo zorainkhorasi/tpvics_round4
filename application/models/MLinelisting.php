@@ -37,7 +37,7 @@ class MLinelisting extends CI_Model
             $groupQ = "  dist_id,district";
             $orderQ = " dist_id asc ";
 
-             if ($_SESSION['login']['idGroup'] != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+             if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
 
                  $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
                  $districts_sql = "'" . implode("','", $districts) . "'";
@@ -61,7 +61,7 @@ class MLinelisting extends CI_Model
         $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ ";
 
 
-        //echo $sql_query;die;
+       /// echo $sql_query;die;
         $query = $this->db->query($sql_query);
         return $query->result();
     }
