@@ -37,15 +37,31 @@ class MLinelisting extends CI_Model
             $groupQ = "  dist_id,district";
             $orderQ = " dist_id asc ";
 
+             if ($_SESSION['login']['idGroup'] != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+
+                 $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+                 $districts_sql = "'" . implode("','", $districts) . "'";
+                 $dist_where .= "and c.dist_id IN ($districts_sql)";
+             }
+
            
         } else {
            $selectQ = "prcode as my_id,province as my_name, COUNT (*) clusters_by_district ";
             $groupQ = "prcode,province";
             $orderQ = " province asc ";
+
+             if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
+
+                 $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+                 $dist_where .= "and c.prcode =$prcode";
+             }
         }
+
 
         $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ ";
 
+
+        echo $sql_query;die;
         $query = $this->db->query($sql_query);
         return $query->result();
     }
@@ -63,13 +79,26 @@ class MLinelisting extends CI_Model
             $selectQ = " dist_id as my_id,district as my_name, COUNT (*) clusters_by_district ";
             $groupQ = "  dist_id,district";
             $orderQ = " dist_id asc ";
+            if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
 
-           
+                $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+                $districts_sql = "'" . implode("','", $districts) . "'";
+                $dist_where .= "and c.dist_id IN ($districts_sql)";
+            }
         } else {
            $selectQ = "prcode as my_id,province as my_name, COUNT (*) clusters_by_district ";
             $groupQ = "prcode,province";
             $orderQ = " province asc ";
+
+            if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
+                $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+                $dist_where .= "and c.prcode =$prcode";
+            }
         }
+
+
+
+
         $sql_query = "SELECT $selectQ FROM clusters c $dist_where   GROUP BY $groupQ order by $orderQ ";
 
        // echo $sql_query;die;
@@ -93,6 +122,12 @@ class MLinelisting extends CI_Model
             $str = 'c.dist_id';
         } else {
             $str = 'c.prcode';
+        }
+        if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+
+            $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+            $districts_sql = "'" . implode("','", $districts) . "'";
+            $dist_where .= "and c.dist_id IN ($districts_sql)";
         }
 //       where l.username not in('dmu@aku','user0001','user0002','test1234') AND
         $sql_query = "select c.geoArea,c.cluster_no,c.district, l.hh01, $str AS provinceId,

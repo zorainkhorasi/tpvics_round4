@@ -172,10 +172,13 @@ class Dashboard extends CI_controller
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
           
             $data['sum']=$sum;
+
+
+          //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
           
-            // echo "<pre>";
-            // var_dump($data);
-            // echo "</pre>";
+            /* echo "<pre>";
+             print_r($data);
+             echo "</pre>";*/
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -362,6 +365,9 @@ class Dashboard extends CI_controller
                 $dist_array[$v->my_id] = $v->my_name;
             }
             $data['dist_array'] = $dist_array;
+
+
+
 
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);

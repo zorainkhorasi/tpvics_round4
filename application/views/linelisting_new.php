@@ -634,33 +634,34 @@
 
                         </div>
                     </div>
-
                     <!-- Balochistan -->
-                    <div class="col">
-                        <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
-                            <div class="ps-header-container">
-                                <div  style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
+                    <?php
+                     if($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==4) { ?>
+                         <div class="col">
+                             <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
+                                 <div class="ps-header-container">
+                                     <div  style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                         <div class="ps-map-icon-wrapper">
 
-                                        <img src="<?php echo base_url('assets/images/balochistanmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+                                             <img src="<?php echo base_url('assets/images/balochistanmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
 
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
+                                         </div>
+                                         <div class="ps-state-name-wrapper">
                                         <span class="ps-state-name">
-                                            <?php                 
-                                       echo $dist_array[4];
-                                        ?>
+                                            <?php
+                                            echo $dist_array[4];
+                                            ?>
                                         </span>
-                                        <span class="ps-total-count"><?php echo $per["BALOCHISTAN"]['total']; ?></span>
-                                    </div>
-                                </div>
+                                             <span class="ps-total-count"><?php echo $per["BALOCHISTAN"]['total']; ?></span>
+                                         </div>
+                                     </div>
 
 
-                            </div>
-                            <div id="BALOCHISTAN" class="chart-container"></div> 
+                                 </div>
+                                 <div id="BALOCHISTAN" class="chart-container"></div>
 
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
+                                 <div class="progress-details">
+                                     <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -672,110 +673,116 @@
                                         <span class="percentage"><?php echo $completed["BALOCHISTAN"]; ?></span>
                                     </div>
                                 </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                              
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                             <div class="progress-bar orange" style="width: <?= $per["BALOCHISTAN"]['pending'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["BALOCHISTAN"]['pending']; ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["BALOCHISTAN"]['remaining'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["BALOCHISTAN"]['remaining']; ?>%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <div class="detail-row on-going">
+                                         <div class="icon-label">
+                                             <i class="bi bi-arrow-repeat text-warning"></i>
+                                             <span class="label">In Progress</span>
+                                         </div>
+
+                                         <div class="bar-and-percentage">
+                                             <div class="progress-bar-container">
+                                                 <div class="progress-bar orange" style="width: <?= $per["BALOCHISTAN"]['pending'] ?>%;"></div>
+                                             </div>
+                                             <span class="percentage"><?php echo $per["BALOCHISTAN"]['pending']; ?>%</span>
+                                         </div>
+                                     </div>
+                                     <div class="detail-row remaining">
+                                         <div class="icon-label">
+                                             <i class="bi bi-pause-circle-fill text-danger"></i>
+                                             <span class="label">Pending</span>
+                                         </div>
+                                         <div class="bar-and-percentage">
+                                             <div class="progress-bar-container">
+                                                 <div class="progress-bar red" style="width: <?= $per["BALOCHISTAN"]['remaining'] ?>%;"></div>
+                                             </div>
+                                             <span class="percentage"><?php echo $per["BALOCHISTAN"]['remaining']; ?>%</span>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                    <?php } ?>
 
                     <!-- SINDH -->
-                    <div class="col">
-                        <div class="dashboard-card" data-district="SINDH" data-id="3">
-                            <div class="ps-header-container">
-                                <div  style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
+                    <?php
+                        if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==3) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="SINDH" data-id="3">
+                                <div class="ps-header-container">
+                                    <div  style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
 
-                                        <img src="<?php echo base_url('assets/images/sindhmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+                                            <img src="<?php echo base_url('assets/images/sindhmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
 
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[3];
-                                        ?></span>
-                                        <span class="ps-total-count"><?php  echo $per["SINDH"]['total']; ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="SINDH" class="chart-container"></div>
-
-                            <div class="progress-details">
-                             
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?php  echo $per["SINDH"]['pending']; ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $per["SINDH"]['pending']; ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?php  echo $per["SINDH"]['remaining']; ?>%;"></div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">     <?php
+                                            echo $dist_array[3];
+                                            ?></span>
+                                            <span class="ps-total-count"><?php  echo $per["SINDH"]['total']; ?></span>
                                         </div>
-                                        <span class="percentage"><?php echo $per["SINDH"]['remaining']; ?>%</span>
+                                    </div>
+
+                                </div>
+                                <div id="SINDH" class="chart-container"></div>
+
+                                <div class="progress-details">
+
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange" style="width: <?php  echo $per["SINDH"]['pending']; ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["SINDH"]['pending']; ?>%</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red" style="width: <?php  echo $per["SINDH"]['remaining']; ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["SINDH"]['remaining']; ?>%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                        <!-- Chart -->
-                   
-                    <!-- Punjab -->
-                    <div class="col">
-                        <div class="dashboard-card" data-district="PUNJAB" data-id="2">
-                            <div class="ps-header-container">
-                                <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
+                    <?php }
+                    ?>
 
-                                        <img src="<?php echo base_url('assets/images/punjabmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+                    <!-- SINDH -->
+                    <?php
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==2) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="PUNJAB" data-id="2">
+                                <div class="ps-header-container">
+                                    <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
 
+                                            <img src="<?php echo base_url('assets/images/punjabmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">     <?php
+                                            echo $dist_array[2];
+                                            ?></span>
+                                            <span class="ps-total-count"><?php echo $per["PUNJAB"]['total']; ?></span>
+                                        </div>
                                     </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[2];
-                                        ?></span>
-                                        <span class="ps-total-count"><?php echo $per["PUNJAB"]['total']; ?></span>
-                                    </div>
+
                                 </div>
+                                <div id="PUNJAB" class="chart-container"></div>
 
-                            </div>
-                            <div id="PUNJAB" class="chart-container"></div>
-
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
+                                <div class="progress-details">
+                                    <!-- <div class="detail-row completed">
                                     <div class="icon-label">
                                         <i class="bi bi-check-circle-fill text-success"></i>
                                         <span class="label">Completed</span>
@@ -787,39 +794,45 @@
                                         <span class="percentage"><?php echo $completed["PUNJAB"]; ?></span>
                                     </div>
                                 </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?php echo $per["PUNJAB"]['pending']; ?>%;"></div>
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
                                         </div>
-                                        <span class="percentage"><?php echo $per["PUNJAB"]['pending']; ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?php echo $per["PUNJAB"]['remaining']; ?>%;"></div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange" style="width: <?php echo $per["PUNJAB"]['pending']; ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["PUNJAB"]['pending']; ?>%</span>
                                         </div>
-                                        <span class="percentage"><?php echo $per["PUNJAB"]['remaining']; ?>%</span>
+                                    </div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red" style="width: <?php echo $per["PUNJAB"]['remaining']; ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["PUNJAB"]['remaining']; ?>%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <?php }
+                    ?>
+
+                    <!-- Punjab -->
                      <div class="col">
                         <h4 class="block-title">Total Province</h4>
                         <div id="totalpro"></div>
                     </div>
                     <!-- KPK -->
-                    <div class="col">
+                    <?php
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==1) { ?>
+                        <div class="col">
                         <div class="dashboard-card" data-district="KHYBER PAKHTUNKHWA" data-id="1">
                             <div class="ps-header-container">
                                 <div  style="  background: linear-gradient(to right, #3f5378 0%, #9eb2d5 35%, #deeaff 70%, #ffffff 100%);" class="ps-state-info-bar">
@@ -880,9 +893,13 @@
                             </div>
                         </div>
                     </div>
+                    <?php }
+                    ?>
 
                     <!-- Gilgit-Baltistan -->
-                    <div class="col">
+                    <?php
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==7) { ?>
+                        <div class="col">
                         <div class="dashboard-card" data-district="Gilgit-Baltistan" data-id="7">
                             <div class="ps-header-container">
                                 <div style="background: linear-gradient(to right, #183703 0%, #6f8a67 35%, #e0f3da 70%, #ffffff 100%);" class="ps-state-info-bar">
@@ -941,8 +958,12 @@
                             </div>
                         </div>
                     </div>
+                    <?php }
+                    ?>
 
                     <!-- AJK -->
+                    <?php
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==8) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
                             <div class="ps-header-container">
@@ -1004,8 +1025,12 @@
                             </div>
                         </div>
                     </div>
+                    <?php }
+                    ?>
                        <!-- ISLAMABAD -->
-                    <div class="col">
+                    <?php
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==6) { ?>
+                        <div class="col">
                         <div class="dashboard-card" data-district="ISLAMABAD" data-id="6">
                             <div class="ps-header-container">
 
@@ -1055,6 +1080,8 @@
                             </div>
                         </div>
                     </div>
+                    <?php }
+                    ?>
 
 
                  
@@ -1085,8 +1112,8 @@
     <script>
         TotalProvince();
         districtprogress();
-        totalprogress();             
-     
+        totalprogress();
+        hideloader();
         //Province Progress boxes
         function districtprogress() {
             // PHP array converted to JS object
@@ -1457,12 +1484,14 @@
         function TotalProvince(){
 
             var per = <?php echo json_encode($per, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
-        
+
+            let provinces = Object.keys(per);
+            let completedValues = provinces.map(p => per[p].completed);
 
             var options = {
                 series: [{
                     name: 'Province',
-                    data: [per['PUNJAB'].completed, per['SINDH'].completed, per['BALOCHISTAN'].completed, per['KHYBER PAKHTUNKHWA'].completed, per['AZAD JAMMU & KASHMIR'].completed, per['GILGIT-BALTISTAN'].completed]
+                    data: completedValues
                 }],
                 chart: {
                     type: 'bar',
@@ -1474,7 +1503,7 @@
                         columnWidth: '55%',
                         borderRadius: 5,
                         borderRadiusApplication: 'end'
-                    },
+                    }
                 },
                 colors: ['#81a8a8'],
                 dataLabels: {
@@ -1486,12 +1515,7 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
-                },
-                yaxis: {
-                    title: {
-                        text: '$ (thousands)'
-                    }
+                    categories: provinces   // ← Dynamic province names
                 },
                 fill: {
                     opacity: 1
@@ -1499,11 +1523,12 @@
                 tooltip: {
                     y: {
                         formatter: function (val) {
-                            return "$ " + val + " thousands"
+                            return "$ " + val + " thousands";
                         }
                     }
                 }
             };
+            ;
 
             var chart = new ApexCharts(document.querySelector("#totalpro"), options);
             chart.render();

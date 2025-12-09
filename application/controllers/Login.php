@@ -98,6 +98,7 @@ class Login extends CI_Controller
                                 'idGroup' => $this->encrypt->encode($login[0]->idGroup),
                                 'full_name' => $this->encrypt->encode($login[0]->full_name),
                                 'isNewUser' => $this->encrypt->encode($login[0]->isNewUser),
+                                'prcode' => $this->encrypt->encode($login[0]->prcode),
                                 'district' => $this->encrypt->encode($login[0]->district),
                                 'pwdExpiry' => $this->encrypt->encode($login[0]->pwdExpiry),
                                 'logged_in' => TRUE
