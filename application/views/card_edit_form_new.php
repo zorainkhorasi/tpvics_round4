@@ -1588,7 +1588,7 @@
             }
         });
     }
-// image viewr:
+        // image viewr:
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('imageViewerModal');
         const fullScreenImage = document.getElementById('fullScreenImage');

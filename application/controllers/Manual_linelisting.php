@@ -26,8 +26,9 @@ class Manual_linelisting extends CI_controller
         }
 
         $MCustom = new Custom();
-        $dist_list = $MCustom->getDistricts($district);
-        $data['dist'] = $dist_list;
+        //$dist_list = $MCustom->getDistricts($district);
+        $pan_list = $MCustom->getDistirctData();
+        $data['pa_list'] = $pan_list;
 
         $uc = '';
         $cluster = '';
@@ -39,7 +40,8 @@ class Manual_linelisting extends CI_controller
             $cluster = $_GET['c'];
         }
 
-        $data['slug_district'] = $district;
+        $data['slug_p'] = $pan_list;
+        $data['slug_distirct'] = $pan_list;
         $data['slug_uc'] = $uc;
         $data['slug_cluster'] = $cluster;
 
@@ -49,6 +51,14 @@ class Manual_linelisting extends CI_controller
         $this->load->view('manual_linelisting', $data);
         $this->load->view('include/customizer');
         $this->load->view('include/footer');
+    }
+
+    function getClustersData()
+    {
+        $MCustom = new Custom();
+        $pan_list = $MCustom->getClustersNumber($_POST['district_select']);
+
+        echo json_encode($pan_list);die;
     }
 
     function insertData()
@@ -108,48 +118,73 @@ class Manual_linelisting extends CI_controller
             $M = new Custom();
             $data = $M->getClustersData($cluster);
 
-            if (isset($data) && $data != '') {
-                $Custom = new Custom();
-                $formArray = array();
-                $formArray['col_dt'] = date('Y-m-d H:i:s');
-                $formArray['clustercode'] = $cluster;
-                $formArray['enumcode'] = $data[0]->dist_id;
-                $formArray['enumstr'] = $data[0]->geoarea;
-                $formArray['formdate'] = date('d-m-y', strtotime($_POST['linelisting_date']));
-                $formArray['gpstime'] = date('H:i:s');
-                $formArray['hh02'] = $cluster;
-                $formArray['projectname'] = 'TPVICS2020-LINELISTING';
-                $formArray['tot_str'] = $_POST['total_structure_identified'];
-                $formArray['tot_hh'] = $_POST['total_household_identified'];
-                $formArray['hh07n'] = $_POST['total_residential_structures'];
-                $formArray['data_collected'] = 'Manual';
-                $formArray['username'] = $_SESSION['login']['UserName'];
-                $formArray['sysdate'] = date('Y-m-d H:i:s');
+            if (!empty($data)) {
 
+                $Custom = new Custom();
+                $mainArray = [];
+                $hhids = [];   // store A-0001-001 type IDs
 
                 foreach ($_POST['option'] as $opt) {
-                    $formArray['hh03'] = $opt['structure_number'];
-                    $formArray['hh08a1'] = '1';
-                    $formArray['hh07'] = $opt['household_no'];
-                    $formArray['hh08'] = $opt['household_name'];
-                    $formArray['hh13'] = $opt['childAge'];
-                    $formArray['hh12'] = '1';
-                    $formArray['tabNo'] = 'A';
-                    $uid = $cluster . '_' . $formArray['tabNo'] . '_' . $formArray['hh07'] . '_' . $formArray['hh03'];
-                    $formArray['UID'] = $uid;
 
-                    $InsertData = $Custom->Insert($formArray, 'col_id', 'listings', 'N');
-                    if ($InsertData) {
-                        $result = 1;
-                    } else {
-                        $result = 8;
+                    $hh04 = str_pad($opt['structure_number'], 4, '0', STR_PAD_LEFT); // 0001
+                    $hh07 = str_pad($opt['household_no'], 3, '0', STR_PAD_LEFT);     // 001
+
+                    // Unique ID check inside POST
+                    $hhid = 'A-' . $hh04 . '-' . $hh07;
+
+                    if (in_array($hhid, $hhids)) {
+                        echo 99;   // Duplicate found
+                        exit();
                     }
+
+                    $hhids[] = $hhid;
+
+                    // Build insert array
+                    $temp = [];
+                    $temp['col_dt']      = date('Y-m-d H:i:s');
+                    $temp['cluster']     = $cluster;
+                    $temp['enumcode']    = $data[0]->dist_id;
+                    $temp['enumstr']     = $data[0]->geoarea;
+                    $temp['formdate']    = date('d-m-y', strtotime($_POST['linelisting_date']));
+                    $temp['gpstime']     = date('H:i:s');
+                    $temp['hh02']        = $cluster;
+                    $temp['projectname'] = 'TPVICS2020-LINELISTING';
+                    $temp['tot_str']     = $_POST['total_structure_identified'];
+                    $temp['tot_hh']      = $_POST['total_household_identified'];
+                    $temp['hh07n']       = $_POST['total_residential_structures'];
+                    $temp['data_collected'] = 'Manual';
+                    $temp['username']    = $_SESSION['login']['username'];
+                    $temp['sysdate']     = date('Y-m-d H:i:s');
+
+                    // Loop-specific fields
+                    $temp['hh04']     = $hh04;
+                    $temp['hh08a1']   = '1';
+                    $temp['hh08']     = '1';
+                    $temp['hh07']     = $hh07;
+                    $temp['hh11']     = $opt['household_name'];
+                    $temp['hh15']     = $opt['childAge'];
+                    $temp['hh12']     = '1';
+                    $temp['tabNo']    = 'A';
+
+                    // UID
+                    $temp['UID'] = $cluster . '_A_' . $hh07 . '_' . $hh04;
+
+                    $mainArray[] = $temp;
                 }
 
+                // FINAL INSERT (BATCH)
+                $InsertData = $this->db->insert_batch('listings', $mainArray);
+
+                if ($InsertData) {
+                    echo 1;  // success
+                } else {
+                    echo 8;  // insert error
+                }
 
             } else {
-                $result = 7;
+                echo 7; // no data
             }
+
 
 
             $trackarray = array("action" => "Manual Linelisting -> Function: insertData() Manual Linelisting ",

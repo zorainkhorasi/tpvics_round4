@@ -228,6 +228,18 @@ class Custom extends CI_Model
         $this->db->from('clusters');
         $this->db->where(" (colflag is null OR colflag = '0') ");
         $this->db->where('cluster_no', $cluster);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getClustersNumber($cluster)
+    {
+        $this->db->select('cluster_no');
+        $this->db->from('clusters');
+        $this->db->where(" (colflag is null OR colflag = '0') ");
+        $this->db->where('dist_id', $cluster);
+        $this->db->group_by('cluster_no', $cluster);
         $query = $this->db->get();
         return $query->result();
     }
@@ -300,6 +312,44 @@ class Custom extends CI_Model
         return $query->result();
     }
 
+    /*function getProvinceData()
+    {
+        $selectQ = "prcode as my_id,province as my_name";
+        $groupQ = "prcode,province";
+        $orderQ = " province asc ";
+        $dist_where='';
+        if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
+
+            $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+            $dist_where = "and c.prcode =$prcode";
+        }
+        $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ ";
+        $query = $this->db->query($sql_query);
+        return $query->result();
+    }*/
+
+
+    function getDistirctData()
+    {
+        $selectQ = "c.dist_id as my_id, c.district as my_name";
+        $groupQ = "c.dist_id, c.district";
+        $dist_where = "WHERE 1=1";
+
+        if ($_SESSION['login']['idGroup'] != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+            $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+            $districts_sql = "'" . implode("','", $districts) . "'";
+            $dist_where .= " AND c.dist_id IN ($districts_sql)";
+        }
+
+        $sql_query = "SELECT $selectQ 
+                  FROM clusters c 
+                  $dist_where 
+                  GROUP BY $groupQ 
+                  ORDER BY c.district ASC";
+        return $this->db->query($sql_query)->result();
+    }
+
+
 
     /*=========tpvics shruc=============*/
     function getUcs_District($district, $ucs = '', $arms = '')
@@ -323,9 +373,6 @@ class Custom extends CI_Model
             $this->db->where($dist_where_clause);
         }
 
-        /*if (isset($arms) && $arms != '') {
-            $this->db->where("arm", $arms);
-        }*/
 
         if (!isset($_SESSION['login']['idGroup']) || $this->encrypt->decode($_SESSION['login']['idGroup']) != 1) {
             $this->db->where("ucCode NOT LIKE '9%' ");

@@ -40,26 +40,14 @@
                                                 District
                                             </div>
                                             <div class="form-group">
-                                                <select class="select2 form-control district_select" autocomplete="dist"
-                                                        id="district_select"
-                                                        onchange="changeDist()">
-                                                    <option value="0" readonly disabled selected>District</option>
-                                                    <?php if (isset($dist) && $dist != '') {
-                                                        foreach ($dist as $k => $p) {
-                                                            echo '<option value="' . $p->dist_id . '" ' . (isset($slug_district) && $slug_district == $p->dist_id ? "selected" : "") . '>' . $p->district . '</option>';
+                                                <select class="select2 form-control district_select" autocomplete="uc"
+                                                        id="district_select" onchange="changeDistricts()">
+                                                    <option value="0" readonly disabled selected>District </option>
+                                                    <?php if (isset($pa_list) && $pa_list != '') {
+                                                        foreach ($pa_list as $k => $p) {
+                                                            echo '<option value="' . $p->my_id . '" ' . (isset($slug_p) && $slug_p == $p->my_id ? "selected" : "") . '>' . $p->my_name . '</option>';
                                                         }
                                                     } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 col-12">
-                                            <div class="text-bold-600 font-medium-2">
-                                                UC
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="select2 form-control uc_select" autocomplete="uc"
-                                                        id="uc_select" onchange="changeUC()">
-                                                    <option value="0" readonly disabled selected>UC</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -135,9 +123,49 @@
 
 <script>
     $(document).ready(function () {
-        changeDist();
+        //changeDist();
         mydate();
     });
+
+
+    //changePro();
+    function changeDistricts() {
+        var data = {};
+        data['district_select'] = $('.district_select').val();
+
+        if (data['district_select'] !== '' && data['district_select'] !== undefined && data['district_select'] !== '0') {
+
+            showloader();
+
+            CallAjax('<?php echo base_url('index.php/manual_linelisting/getClustersData'); ?>', data, 'POST', function (res) {
+
+                hideloader();
+                var items = '<option value="" disabled selected>Select Clusters</option>';
+
+                var response = [];
+
+                try {
+                    response = JSON.parse(res);
+                } catch (e) {
+                    $('.clusters_select').html(items);
+                    return;
+                }
+
+                var selectedCluster = "<?php echo $slug_cluster; ?>";
+
+                if (response.length > 0) {
+                    $.each(response, function (i, v) {
+                        items += `<option value="${v.cluster_no}" ${selectedCluster == v.cluster_no ? 'selected' : ''}>${v.cluster_no}</option>`;
+                    });
+                }
+
+                $('.clusters_select').html(items);
+            });
+
+        } else {
+            $('.clusters_select').html('');
+        }
+    }
 
 
     function displayClusterBtn() {
@@ -159,13 +187,13 @@
             return false;
         }
 
-        var uc_select = $('#uc_select').val();
+        /*var uc_select = $('#uc_select').val();
         if (uc_select == '' || uc_select == undefined || uc_select == '0') {
             $('#uc_select').css('border', '1px solid red');
             flag = 1;
             toastMsg('UC', 'Invalid UC', 'error');
             return false;
-        }
+        }*/
 
         var cluster_select = $('#clusters_select').val();
         if (cluster_select == '' || cluster_select == undefined || cluster_select == '0') {
@@ -213,13 +241,13 @@
             return false;
         }
 
-        var uc_select = $('#uc_select').val();
+        /*var uc_select = $('#uc_select').val();
         if (uc_select == '' || uc_select == undefined || uc_select == '0') {
             $('#uc_select').css('border', '1px solid red');
             flag = 1;
             toastMsg('UC', 'Invalid UC', 'error');
             return false;
-        }
+        }*/
 
         var cluster_select = $('#clusters_select').val();
         if (cluster_select == '' || cluster_select == undefined || cluster_select == '0') {
@@ -352,14 +380,6 @@
         // data['household_targeted_children'] = $('#household_targeted_children').val();
         data['linelisting_date'] = $('#linelisting_date').val();
 
-        data['province_select'] = $('#province_select').val();
-        if (data['province_select'] == '' || data['province_select'] == undefined || data['province_select'] == '0') {
-            $('#province_select').css('border', '1px solid red');
-            flag = 1;
-            toastMsg('Province', 'Invalid Province', 'error');
-            return false;
-        }
-
         data['district_select'] = $('#district_select').val();
         if (data['district_select'] == '' || data['district_select'] == undefined || data['district_select'] == '0') {
             $('#district_select').css('border', '1px solid red');
@@ -440,6 +460,25 @@
               $('#household_targeted_children').removeClass('error');
           }*/
 
+        if (data['total_structure_identified'] < 150 || data['total_structure_identified'] > 500) {
+            //msg += "Total Structure Identified must be between 150 and 500\n";
+            toastMsg("Total Structure","Total Structure Identified must be between 150 and 500",'error');
+            flag = 1;
+        }
+
+        // ---------------------- 2) Total Residential Structures Validations -----------------------
+        if (data['total_residential_structures'] < 150 || data['total_residential_structures'] > 500) {
+            //msg += "\n";
+            toastMsg("Total Residential Structures","Total Residential Structures must be between 150 and 500",'error');
+            flag = 1;
+        }
+
+        if (data['total_residential_structures'] > data['total_structure_identified']) {
+           // msg += "Total Residential Structures cannot be greater than Total Structure Identified\n";
+            toastMsg("Total Residential Structures","cannot be greater than Total Structure Identified",'error');
+            flag = 1;
+        }
+
         data["option"] = [];
         for (var i = 1; i <= data['total_household_identified']; i++) {
             var m = {};
@@ -468,7 +507,7 @@
                 return false;
             }
 
-            var household_name_obj = $('#household_name_' + i);
+            /*var household_name_obj = $('#household_name_' + i);
             var household_name = household_name_obj.val();
             if (household_name != '' && household_name != undefined && household_name != 0) {
                 m['household_name'] = household_name;
@@ -478,7 +517,28 @@
                 household_name_obj.addClass('error');
                 toastMsg('Household Name', 'Invalid Household Name', 'error');
                 return false;
+            }*/
+
+
+            var household_name_obj = $('#household_name_' + i);
+            var household_name = household_name_obj.val();
+            var nameRegex = /^[A-Za-z ]+$/;
+
+            if (
+                household_name !== '' &&
+                household_name !== undefined &&
+                household_name !== 0 &&
+                nameRegex.test(household_name)
+            ) {
+                m['household_name'] = household_name;
+                household_name_obj.removeClass('error');
+            } else {
+                flag = 1;
+                household_name_obj.addClass('error');
+                toastMsg('Household Name', 'Only alphabets allowed. No numbers or symbols.', 'error');
+                return false;
             }
+
 
             var childAge_obj = $('#childAge_' + i);
             var childAge = childAge_obj.val();
@@ -526,6 +586,8 @@
                     toastMsg('Error', 'Invalid Linelisting Date', 'error');
                 } else if (result == 13) {
                     toastMsg('Error', 'Invalid Residential Structure', 'error');
+                } else if (result == 99) {
+                    toastMsg('Error', 'Duplicate', 'error');
                 } else {
                     toastMsg('Error', 'Invalid went wrong', 'error');
                 }
