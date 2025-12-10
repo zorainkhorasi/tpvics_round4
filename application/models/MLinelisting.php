@@ -141,7 +141,10 @@ class MLinelisting extends CI_Model
 			$dist_where
 			group by c.district,c.cluster_no,c.geoArea, l.hh01,c.dist_id,$str 
 			order by c.geoArea,l.hh01 asc ";
+            // echo $sql_query;
+            // die;
         $query = $this->db->query($sql_query);
+        
         return $query->result();
     }
 
@@ -161,7 +164,7 @@ class MLinelisting extends CI_Model
             $where = " and  l.sysdate like '$sysdate%'  ";
         }
 
-        $sql_query = "SELECT MAX (CAST(l.hh04 AS INT)) as structure,	l.hh01,	l.tabNo FROM	listings l  WHERE   $where
+        $sql_query = "SELECT MAX(CAST(l.hh04 AS INT)) as structure,	l.hh01,	l.tabNo FROM	listings l  WHERE   $where
         AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
         GROUP BY 	l.tabNo,l.hh01,l.colflag  ORDER BY	l.tabNo ASC";
         $query = $this->db->query($sql_query);

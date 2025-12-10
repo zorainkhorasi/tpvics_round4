@@ -771,7 +771,8 @@
 
                                         </div>
                                         <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php
+                                        <span class="ps-state-name">     
+                                            <?php
                                             echo $dist_array[2];
                                             ?></span>
                                             <span class="ps-total-count"><?php echo $per["PUNJAB"]['total']; ?></span>
@@ -1119,8 +1120,9 @@
             // PHP array converted to JS object
             let per = <?php echo json_encode($per); ?>;
                 let clusters_by_district = <?php echo json_encode($totalcluster['list']); ?>;
-               
-    
+                    // let completed = <?php echo json_encode($completed); ?>;
+            // console.log(completed.PUNJAB);
+            
                
             // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
             let chartIndex = 1;
@@ -1175,8 +1177,11 @@
                     },
                     stroke: { dashArray: 4 },
                     colors: ['#0d9595'],
-                    labels: [district] // show district name
-                };
+                    labels: [
+                        [ "Completed: "+completed[district].toString()]
+                    ]                
+                
+                    };
 
                 // Select chart container dynamically
               if (district === "KHYBER PAKHTUNKHWA") {
@@ -1296,7 +1301,7 @@
                     dataType: "json",
                     success: function (response) {
 
-                        // console.log(response.per.id);
+                        // console.log(response.completed);
                         
                         // Prepare dynamic UCS data
                         const data = [];
@@ -1354,6 +1359,9 @@
                                             <span class="badge bg-danger progress-r" style="cursor:pointer;">
                                                 Pending: ${ucs.remaining}
                                             </span>
+                                             <span class="badge bg-primary progress-cp" style="cursor:pointer;">
+                                                Completed: ${ucs.completed}
+                                            </span>
 
                                         </div>
                                     </div>
@@ -1362,8 +1370,13 @@
 
                             ucsCards.appendChild(ucsCard);
 
+                            // console.log(response);
+                            
                             // Percent Value
                             var value = response.per[ucs.name].percentage;
+                            var completed=response.completed;
+                            // console.log(completed);
+                            
 
                             // Apex radial chart
                             var chartOptions = {
@@ -1373,6 +1386,7 @@
                                     type: 'radialBar',
                                     sparkline: { enabled: true }
                                 },
+                                // labels: ["Completed: " + completed], 
                                 plotOptions: {
                                     radialBar: {
                                         startAngle: -135,
@@ -1415,6 +1429,14 @@
                                  const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
 
                                     dashboard_dt(cardId, "ip");
+                                });
+                            }
+                             const ipE2 = ucsCard.querySelector(".progress-cp");
+                            if (ipE2) {
+                                ipE2.addEventListener("click", () => {
+                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+
+                                    dashboard_dt(cardId, "c");
                                 });
                             }
 
@@ -1520,13 +1542,13 @@
                 fill: {
                     opacity: 1
                 },
-                tooltip: {
-                    y: {
-                        formatter: function (val) {
-                            return "$ " + val + " thousands";
-                        }
-                    }
-                }
+                // tooltip: {
+                //     y: {
+                //         formatter: function (val) {
+                //             return "$ " + val + " thousands";
+                //         }
+                //     }
+                // }
             };
             ;
 
