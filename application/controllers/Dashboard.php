@@ -168,6 +168,9 @@ class Dashboard extends CI_controller
                          
          
             $data['per']=$formated_data;
+            //     echo "<pre>";
+            //  print_r($data);
+            //  echo "</pre>";
       
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
           
@@ -176,9 +179,9 @@ class Dashboard extends CI_controller
 
           //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
           
-            /* echo "<pre>";
-             print_r($data);
-             echo "</pre>";*/
+            //  echo "<pre>";
+            //  print_r($data);
+            //  echo "</pre>";
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -209,6 +212,10 @@ class Dashboard extends CI_controller
 
     function calculateTotal($completed,$ip,$total){
 
+        //    echo "<pre>";
+        //      print_r($completed);
+        //      echo "</pre>";
+
          
         $sum=[
             'total'=>0,
@@ -216,15 +223,18 @@ class Dashboard extends CI_controller
             'ip'=>0,
             'completed'=>0
         ];
+        // $sum['completed']=$completed;
 
         foreach ($completed as $k => $d) {
+            if($k=='total')continue;
             $sum['completed'] += $d;
         }
         foreach ($ip as $k => $d) {
+             if($k=='total')continue;
             $sum['ip'] += $d;
         }
         foreach ($total as $k => $d) {
-
+            
           if($k=='total' || $k=='Training' || $k=='ISLAMABAD')continue;
          
             $sum['total'] += $d;

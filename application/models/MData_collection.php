@@ -43,10 +43,28 @@ class MData_collection extends CI_Model
             $selectQ = "  c.dist_id as my_id, district as my_name,";
             $groupQ = " dist_id,district ";
             $orderQ = " dist_id asc ";
+
+            if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+
+                $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+                $districts_sql = "'" . implode("','", $districts) . "'";
+                $dist_where .= "and c.dist_id IN ($districts_sql)";
+            }
+
         } else {
             $selectQ = " prcode as my_id,province as my_name, ";
             $groupQ = " prcode,province ";
             $orderQ = " prcode asc ";
+
+            if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
+                $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+                $dist_where .= "and c.prcode =$prcode";
+            }
+
+
+
+
+
         }
 
         $sql_query = "SELECT $selectQ
@@ -69,8 +87,21 @@ ORDER BY $orderQ";
 
         if ($pageLevel == 2) {
             $str = 'c.dist_id';
+            if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+
+                $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+                $districts_sql = "'" . implode("','", $districts) . "'";
+                $dist_where .= "and c.dist_id IN ($districts_sql)";
+            }
+
         } else {
             $str = 'c.prcode';
+              if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
+                $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+                $dist_where .= "and c.prcode =$prcode";
+            }
+
+
         }
         $sql_query = "select $str as provinceId, c.cluster_no, c.sampled,
 			(select count(*) from Randomised where dist_id = c.dist_id and hh02 = c.cluster_no  AND (Randomised.colflag is null OR Randomised.colflag = '0')) as hh_randomized,

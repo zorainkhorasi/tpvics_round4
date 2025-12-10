@@ -149,21 +149,45 @@ class Data_collection_progress extends CI_controller
                 $inprogressPercentageByProvince = [];
             
 
-                foreach ($totalsByProvince as $province => $total) {
+     
+                // foreach ($totalsByProvince as $province => $total) {
+                //     $completed = $completedList[$province] ?? 0;
+                //     $percentage = ($total > 0) ? ($completed / $total) * 100 : 0;
+                //     $percentageByProvince[$province] = round($percentage, 2);
+                //     //  echo "<pre>";
+                //     // var_dump($percentageByProvince);
+                //     $remaining = $remainingList[$province] ?? 0;
+                //     $remainingPercentage = ($total > 0) ? ($remaining / $total) * 100 : 0;
+                //     $remainingPercentageByProvince[$province] = round($remainingPercentage, 2);
+
+                //     $inprogress = $inprogressList[$province] ?? 0;
+                //     $inprogressPercentage = ($total > 0) ? ($inprogress / $total) * 100 : 0;
+                //     $inprogressPercentageByProvince[$province] = round($inprogressPercentage, 2);
+
+                // }
+                //   echo "<pre>";
+                //     var_dump($totalsByProvince);
+                //     echo "</pre>";
+                    // die();
+                
+                 foreach ($totalsByProvince as $province => $total) {
                     $completed = $completedList[$province] ?? 0;
                     $percentage = ($total > 0) ? ($completed / $total) * 100 : 0;
-                    $percentageByProvince[$province] = round($percentage, 2);
-
+                    $percentageByProvince[$province]['completed'] = round($percentage, 2);
+                
                     $remaining = $remainingList[$province] ?? 0;
                     $remainingPercentage = ($total > 0) ? ($remaining / $total) * 100 : 0;
-                    $remainingPercentageByProvince[$province] = round($remainingPercentage, 2);
+                    $percentageByProvince[$province]['remaining'] = round($remainingPercentage, 2);
 
                     $inprogress = $inprogressList[$province] ?? 0;
                     $inprogressPercentage = ($total > 0) ? ($inprogress / $total) * 100 : 0;
-                    $inprogressPercentageByProvince[$province] = round($inprogressPercentage, 2);
+                    $percentageByProvince[$province]['inprogress'] = round($inprogressPercentage, 2);
 
-                }
-             
+                 }
+                    // echo "<pre>";
+                    // var_dump($percentageByProvince);
+                    // echo "</pre>";
+                    // die();
                 /*
                 |--------------------------------------------------------------------------
                 | STEP 3: NORMALIZE KEYS FOR SAFE USE IN VIEW
@@ -185,6 +209,7 @@ class Data_collection_progress extends CI_controller
                 }
           
             $data['per']=$normalizedPercentage;
+        
             $data['remaining_per']=$remainingPercentageByProvince;
             $data['inprogress_per']=$inprogressPercentageByProvince;
         
@@ -192,9 +217,6 @@ class Data_collection_progress extends CI_controller
           
             $data['sum']=$sum;
 
-            // echo "<pre>";
-            // var_dump($data);
-            // echo "</pre>";
                         
             $this->load->view('include/header');
             $this->load->view('include/top_header');
