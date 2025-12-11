@@ -38,7 +38,7 @@ class MUser_app extends CI_Model
     function getAppUserByDist($dist_id)
     {
         if (isset($dist_id) && $dist_id != '') {
-            $this->db->where("district_code like  '" . $dist_id . "%' ");
+            $this->db->where("dist_id like  '" . $dist_id . "%' ");
         }
         $this->db->select('*');
         $this->db->from('AppUser');

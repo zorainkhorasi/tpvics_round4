@@ -237,7 +237,7 @@ class MLinelisting extends CI_Model
             (select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.hh01 = l.hh01 order by ll.sysdate asc) as startActivity,
             (select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.hh01 = l.hh01 order by ll.sysdate desc) as endActivity,
             (select  cc.randomized  from clusters cc where  cluster_no = l.hh01  group by cc.cluster_no,cc.randomized  ) as status,
-            ( SELECT p.status FROM planning p WHERE p.cluster_no = c.cluster_no and  p.status!=0 group by p.status  ) AS planning 
+            ( SELECT p.status FROM planning p WHERE (p.colflag is null OR p.colflag = '0' OR p.colflag = 0) AND p.cluster_no = c.cluster_no and  p.status!=0 group by p.status  ) AS planning 
                                         from clusters c
                             left join listings l on c.cluster_no=l.hh01  AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
                               where   1=1  $users
@@ -248,7 +248,7 @@ class MLinelisting extends CI_Model
                             order by c.geoArea,c.cluster_no";
 
 
-    //    echo $sql_query;die;
+      //  echo $sql_query;die;
 
         $query = $this->db->query($sql_query);
         return $query->result();
@@ -345,17 +345,17 @@ where hh01='$cluster' AND (colflag is null OR colflag = '0' OR colflag = 0 ) and
 	Randomised.sno,
 	Randomised.hh02,
 	Randomised.hh03,
-	Randomised.hh05,
+	--Randomised.hh05,
 	Randomised.hh07,
 	Randomised.hh08,
 	Randomised.hh09,
-	Randomised.hhss,
+--	Randomised.hhss,
 	Randomised.compid,
 	Randomised.total,
 	Randomised.randno,
 	Randomised.quot,
 	Randomised.ssno,
-	Randomised.hhdt,
+--	Randomised.hhdt,
 	Randomised.dist_id,
 	Randomised.tabNo,
 	planning.collection_date,
@@ -367,7 +367,10 @@ FROM
 LEFT JOIN clusters ON Randomised.hh02 = clusters.cluster_no
 LEFT JOIN planning ON clusters.cluster_no = planning.cluster_no
  where Randomised.hh02 = '$cluster' AND ( Randomised.colflag IS NULL OR Randomised.colflag = '0' OR Randomised.colflag = 0) 
-   AND (clusters.colflag is null OR clusters.colflag = '0' OR clusters.colflag = 0) $dist_where";
+   AND (clusters.colflag is null OR clusters.colflag = '0' OR clusters.colflag = 0)  AND (Randomised.colflag is null OR Randomised.colflag = '0' OR Randomised.colflag = 0) $dist_where";
+
+
+     //   echo $sql_query;die;
         $query = $this->db->query($sql_query);
         return $query->result();
     }
@@ -379,6 +382,7 @@ LEFT JOIN planning ON clusters.cluster_no = planning.cluster_no
         $this->db->select('*');
         $this->db->from('planning');
         $this->db->where('status!=0');
+        $this->db->where("(colflag IS NULL OR colflag = '0')");
         $this->db->where('cluster_no', $cluster);
         $query = $this->db->get();
         return $query->result();

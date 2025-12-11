@@ -110,7 +110,7 @@
                                                             } else if ($r['collecting_tabs'] != $r['completed_tabs']) {
                                                                 $rand_show = '4';
                                                                 $stat = 'In Progress';
-                                                            } else if ($r['status'] != '1') {
+                                                            } else if ($r['status'] != '1' && $r['planning'] == 2) {
                                                                 $rand_show = '1';
                                                                 $stat = 'Ready to Randomize';
                                                             } else {
@@ -127,9 +127,11 @@
                                                             echo '<td><a href="javascript:void(0)" onclick="randomizeBtn(this)" data-cluster="' . $r['cluster_no'] . '" class="btn btn-sm btn-primary rand_btn">Randomize</a></td>';
                                                         } elseif ($rand_show == '2' || $rand_show == '4') {
                                                             echo '<td>-</td>';
-                                                        } else {
+                                                        } elseif($r['status'] != '1' && $r['planning'] == 2) {
                                                             echo '<td><a href="' . base_url('index.php/Dashboard/make_pdf/' . $r['cluster_no']) . '" target="_blank" class="btn  btn-sm btn-success">Print</a> ';
                                                             echo ' | <a href="' . base_url('index.php/Dashboard/get_excel/' . $r['cluster_no']) . '" target="_blank" class="btn btn-sm btn-danger">Get Excel</a></td>';
+                                                        }else{
+                                                            echo '<td>-</td>';
                                                         }
 
                                                         if ($rand_show == 3 && isset($r['planning']) && $r['planning'] != 2) {
@@ -495,6 +497,7 @@
         data['cluster'] = $(obj).parent('td').attr('data-id');
         data['dist'] = $(obj).parent('td').attr('data-dist');
         if (data['cluster'] != '' && data['cluster'] != undefined) {
+            getDistrictUsers(data['dist']);
             $('#dc_planning_cluster').val(data['cluster']);
             $('#dc_planning_dist').val(data['dist']);
             $('#afterModal').modal('show');

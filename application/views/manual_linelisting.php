@@ -822,6 +822,14 @@
 
                 m['structure_number'] = structure_number;
                 structure_number_obj.removeClass('error');
+
+                // alert(structure_number)
+               //alert(parseInt(data['total_structure_identified']))
+            }else if ( structure_number > parseInt(data['total_structure_identified'])) {
+                structure_number_obj.addClass('error');
+                toastMsg('Structure Number', 'Structure can not be greater then identified structure', 'error');
+                flag = 1;
+                return false;
             } else {
                 flag = 1;
                 structure_number_obj.addClass('error');

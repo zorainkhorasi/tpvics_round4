@@ -653,25 +653,6 @@ class Dashboard extends CI_controller
                                 'dist_id' => $get_systematic_rand[$index - 1]->enumcode,
                                 'compid' => $get_systematic_rand[$index - 1]->hh01 . '-' . $get_systematic_rand[$index - 1]->tabNo . "-" . str_pad($get_systematic_rand[$index - 1]->hh04, 4, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$index - 1]->hh05, 3, "0", STR_PAD_LEFT),
                                 'tabNo' => $get_systematic_rand[$index - 1]->tabNo,
-                                'l_col_id' => $get_systematic_rand[$index - 1]->col_id,
-                                'l_geoArea' => $get_systematic_rand[$index - 1]->geoArea,
-                                'l_hh01' => $get_systematic_rand[$index - 1]->hh01,
-                                'l_hh02' => $get_systematic_rand[$index - 1]->hh02,
-                                'l_hh03' => $get_systematic_rand[$index - 1]->hh03,
-                                'l_hh04' => $get_systematic_rand[$index - 1]->hh04,
-                                'l_hh05' => $get_systematic_rand[$index - 1]->hh05,
-                                'l_hh07' => $get_systematic_rand[$index - 1]->hh07,
-                                'l_hh0717x' => $get_systematic_rand[$index - 1]->hh0717x,
-                                'l_hh08' => $get_systematic_rand[$index - 1]->hh08,
-                                'l_hh09' => $get_systematic_rand[$index - 1]->hh09,
-                                'l_hh10' => $get_systematic_rand[$index - 1]->hh10,
-                                'l_hh11' => $get_systematic_rand[$index - 1]->hh11,
-                                'l_hh12' => $get_systematic_rand[$index - 1]->hh12,
-                                'l_hh13' => $get_systematic_rand[$index - 1]->hh13,
-                                'l_hh13a' => $get_systematic_rand[$index - 1]->hh13a,
-                                'l_hh14' => $get_systematic_rand[$index - 1]->hh14,
-                                'l_hh14a' => $get_systematic_rand[$index - 1]->hh14a,
-                                'l_hh15' => $get_systematic_rand[$index - 1]->hh15,
                                 'user_id' => $this->encrypt->decode($_SESSION['login']['username'])
                             );
 
@@ -756,7 +737,7 @@ class Dashboard extends CI_controller
 
             $geoarea = explode('|', $data['cluster_data'][0]->geoarea);
 
-            $header = '<strong>TPVICS SHRUC Round 4 - Cluster No: ' . $data['cluster'] . '</strong><br>
+            $header = '<strong>TPVICS  Round 3 - Cluster No: ' . $data['cluster'] . '</strong><br>
 Province: ' . $geoarea[0] . '<br>
 District: ' . $geoarea[1] . '<br>
 Tehsil: ' . $geoarea[2] . '<br>
