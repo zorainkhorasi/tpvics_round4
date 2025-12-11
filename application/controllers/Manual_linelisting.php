@@ -224,6 +224,32 @@ class Manual_linelisting extends CI_controller
         echo $result;
     }
 
+    public function checkClusterExists()
+    {
+        $cluster_no = $this->input->post('cluster');
+
+        // Check in listings table
+        $exists = $this->db->where('cluster', $cluster_no)
+            ->where("(colflag IS NULL OR colflag = '0')")
+            ->get('listings')
+            ->num_rows();
+
+
+        $this->db->select('*');
+        $this->db->from('clusters');
+        $this->db->where("(colflag IS NULL OR colflag = '0')");
+        $this->db->where('cluster_no', $cluster_no);
+        $this->db->order_by('cluster_no', 'ASC');
+        $query = $this->db->get();
+        $cluster_data = $query->result();
+        echo json_encode([
+            'exists'        => $exists,
+            'cluster_data'  => $cluster_data
+        ]);
+        die;
+    }
+
+
 
 }
 

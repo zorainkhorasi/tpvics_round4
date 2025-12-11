@@ -78,7 +78,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4 col-4">
                                                     <div class="text-bold-600 font-medium-2">
-                                                      Area/ Village
+                                                        Area/ Village
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control village"
@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="col-sm-4 col-4">
                                                     <div class="text-bold-600 font-medium-2">
-                                                      Name Health Facility
+                                                        Name Health Facility
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control hf"
@@ -110,7 +110,7 @@
                                                             <option value="3">Twice a year</option>
                                                             <option value="4">Once a year</option>
                                                             <option value="5">Only during campaigns</option>
-                                                            <option value="6">No one has information about this </option>
+                                                            <option value="6">No one has information about this</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -147,7 +147,7 @@
                                                             <option value="3">Twice a year</option>
                                                             <option value="4">Once a year</option>
                                                             <option value="5">Only during campaigns</option>
-                                                            <option value="6">No one has information about this </option>
+                                                            <option value="6">No one has information about this</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -184,13 +184,13 @@
                                                             <option value="3">Twice a year</option>
                                                             <option value="4">Once a year</option>
                                                             <option value="5">Only during campaigns</option>
-                                                            <option value="6">No one has information about this </option>
+                                                            <option value="6">No one has information about this</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4 col-4">
                                                     <div class="text-bold-600 font-medium-2">
-                                                       Polio Health Worker Name
+                                                        Polio Health Worker Name
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control name_of_polio"
@@ -343,25 +343,32 @@
         if (flag == 0) {
             var data = {};
             data['cluster'] = cluster_select;
-            CallAjax('<?php echo base_url() . 'index.php/Dashboard/getClustersData'  ?>', data, 'POST', function (res) {
-                var items = 'Invalid Cluster';
-                if (res != '' && JSON.parse(res).length > 0) {
-                    var response = JSON.parse(res);
-                    try {
-                        if (response[0].geoarea != undefined && response[0].geoarea != '') {
-                            items = 'Cluster: ' + cluster_select + ' (Area: ' + response[0].geoarea + ')';
-                        } else {
-                            items = 'Invalid Cluster';
-                        }
+            CallAjax('<?php echo base_url() . 'index.php/Manual_linelisting/checkClusterExists' ?>',
+                data, 'POST', function (res) {
 
-                    } catch (e) {
+                    var response = JSON.parse(res);
+                    var items = 'Invalid Cluster';
+                    if (response.exists == 0) {
+                        toastMsg('Cluster', 'Invalid Cluster Number', 'error');
+                        if (!response.cluster_data || response.cluster_data.length === 0) {
+                            toastMsg('Cluster', 'Cluster data not found', 'error');
+                            $('.geoarea_name').html(items);
+                            return false;
+                        }
+                        var c = response.cluster_data[0];
+                        if (c.geoarea !== undefined && c.geoarea !== '') {
+                            items = 'Cluster: ' + cluster_select + ' (Area: ' + c.geoarea + ')';
+                        }
+                        $('.geoarea_name').html(items);
+
+                        $('.chkCluster_btn').addClass('hide');
+                        $('.nextDiv').removeClass('hide');
+
+                        mydate();
+                    }else{
+                        toastMsg('Cluster', 'Cluster data already Exist', 'error');
                     }
-                }
-                $('.geoarea_name').html('').html(items);
-                $('.chkCluster_btn').addClass('hide');
-                $('.nextDiv').removeClass('hide');
-                mydate();
-            });
+                });
         }
     }
 
@@ -411,8 +418,12 @@
         }
 
 
-
         if (flag == 0) {
+
+            var data = {};
+            data['cluster_no'] = cluster_select;
+
+
             var html = '';
             html += '<div class="row">';
 
@@ -440,14 +451,6 @@
                 '        </div>' +
                 '    </div> ';
 
-            /*html += '<div class="col-sm-12 col-12"> ' +
-                '       <div class="form-group">' +
-                '            <label for="household_targeted_children" class="label-control text-primary">Household With Targeted Children</label>' +
-                '            <input type="number" maxlength="3" max="3" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;"  minlength="1" min="1"  class="form-control household_targeted_children" value="2"   ' +
-                'id="household_targeted_children" name="household_targeted_children" required>' +
-                '        </div>' +
-                '    </div> ';*/
-
             html += '<div class="col-sm-12 col-12"> ' +
                 '       <div class="form-group">' +
                 '            <label for="linelisting_date" class="label-control text-primary">Date of Linelisting </label>' +
@@ -455,8 +458,6 @@
                 'id="linelisting_date" name="linelisting_date" required>' +
                 '        </div>' +
                 '    </div> ';
-
-
             html += '</div>';
 
             for (var i = 1; i <= number_hh; i++) {
@@ -491,7 +492,6 @@
                     '    </div> ';
                 html += '</div>';
 
-
             }
 
             html += '<div class=" ">' +
@@ -505,6 +505,8 @@
             $('.card_html').html(html);
             $('.my_card').removeClass('hide');
             mydate();
+
+
         }
     }
 
@@ -544,8 +546,6 @@
         }
 
 
-
-
         data['vaccinator_frequency'] = $('#vaccinator_frequency').val();
         data['name_of_vaccinator'] = $('#name_of_vaccinator').val();
         data['vaccinator_visit_date'] = $('#vaccinator_visit_date').val();
@@ -569,7 +569,6 @@
             } else {
                 $('#name_of_vaccinator').css('border', '');
             }
-
 
 
             // ----------- DATE VALIDATION -----------
@@ -638,7 +637,6 @@
             } else {
                 $('#polio_visit_date').css('border', '');
             }
-
 
 
         }
@@ -777,7 +775,7 @@
               $('#household_targeted_children').removeClass('error');
           }*/
 
-       // if (data['total_structure_identified'] < 5 || data['total_structure_identified'] > 20) {
+        // if (data['total_structure_identified'] < 5 || data['total_structure_identified'] > 20) {
 
 
         if (parseInt(data['total_structure_identified']) < 150 || parseInt(data['total_structure_identified']) > 500) {
