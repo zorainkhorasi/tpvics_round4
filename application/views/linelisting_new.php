@@ -1359,6 +1359,8 @@
                                             <span class="badge bg-danger progress-r" style="cursor:pointer;">
                                                 Pending: ${ucs.remaining}
                                             </span>
+
+                                            <!-- Completed -->
                                              <span class="badge bg-primary progress-cp" style="cursor:pointer;">
                                                 Completed: ${ucs.completed}
                                             </span>
@@ -1461,8 +1463,10 @@
             function dashboard_dt(districtId, status) {
 
                  
-                    window.location.href = "dashboard_dt?district_id=" + districtId + "&status=" + status;
-
+                window.open(
+                    "dashboard_dt?district_id=" + districtId + "&status=" + status,
+                    "_blank"
+                );
 
             }
 

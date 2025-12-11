@@ -813,9 +813,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["PUNJAB"]['inprogress'] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["punjab"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $per["PUNJAB"]['inprogress']; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["punjab"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -825,9 +825,9 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["PUNJAB"]['remaining'] ?>%;"></div>
+                                            <div class="progress-bar red" style="width: <?= $per["punjab"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $per["PUNJAB"]['remaining']; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["punjab"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1125,7 +1125,9 @@
             // PHP array converted to JS object
             let per = <?php echo json_encode($per); ?>;
             // let district = <?php echo json_encode($dist_array); ?>;
-               console.log(per);
+            let completed = <?php echo json_encode($completed); ?>;
+
+            //    console.log(completed);
 
                
             // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
@@ -1137,10 +1139,12 @@
                 
                 if (district === "total"||district === "training" ) continue; // skip total if needed
                     var value = per[district];
-                                // console.log(value);
+                                // console.log(district);
 
-                    let name = district.replace(/_/g, ' ');
-                    name = name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+                 let name = district.replace(/_/g, ' ');
+                name = name.toUpperCase();
+                    // console.log(name);
+                    
                 result=value.completed;
                 // console.log(result.completed);
                 
@@ -1188,7 +1192,10 @@
                     stroke: { dashArray: 4 },
                     colors: ['#0d9595'],
                     // labels: ['Balochistan','Sindh','Punjab','Khyber Pakhtunkhwa','Gilgit-Baltistan','Azad Jammu & Kashmir'] // show district name
-                    labels:[name]
+                    // labels:[name]
+                    labels:[
+                     [ "Completed: "+ completed[name]]
+                       ]
                 };
 
                 let chartContainer = document.querySelector("#" + district);
@@ -1358,6 +1365,11 @@
                                                 Pending: ${ucs.remaining}
                                             </span>
 
+                                             <!-- Completed -->
+                                             <span class="badge bg-primary progress-cp" style="cursor:pointer;">
+                                                Completed: ${ucs.completed}
+                                            </span>
+
                                         </div>
                                     </div>
                                 </div>
@@ -1420,6 +1432,15 @@
                                     dashboard_dt(cardId, "ip");
                                 });
                             }
+                              const ipE2 = ucsCard.querySelector(".progress-cp");
+                            if (ipE2) {
+                                ipE2.addEventListener("click", () => {
+                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+
+                                    dashboard_dt(cardId, "c");
+                                });
+                            }
+
 
                             // Pending Click
                             const rEl = ucsCard.querySelector(".progress-r");
@@ -1441,11 +1462,11 @@
 
             function dashboard_dt(districtId, status) {
 
-            //   console.log(districtId,status);
-            //   return false;
-              
-                    window.location.href = "Data_collection_progress/dc_dt?district_id=" + districtId + "&status=" + status;
-
+        
+            window.open(
+                    "Data_collection_progress/dc_dt?district_id=" + districtId + "&status=" + status,
+                    "_blank"
+                );
 
             }
 

@@ -217,7 +217,11 @@ class Data_collection_progress extends CI_controller
           
             $data['sum']=$sum;
 
-                        
+            // echo "<pre>";
+            // var_dump($data);
+            // echo "</pre>";
+            // die();
+
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
