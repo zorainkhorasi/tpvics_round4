@@ -471,7 +471,7 @@ class Dashboard extends CI_controller
             }
 
             $data['per']=$per;
-                    
+
          
             // Send JSON response for AJAX
             $this->output

@@ -228,6 +228,8 @@ class Custom extends CI_Model
         $this->db->from('clusters');
         $this->db->where(" (colflag is null OR colflag = '0') ");
         $this->db->where('cluster_no', $cluster);
+        $this->db->order_by('cluster_no');
+
 
         $query = $this->db->get();
         return $query->result();
