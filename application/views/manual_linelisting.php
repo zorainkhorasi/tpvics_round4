@@ -42,7 +42,7 @@
                                             <div class="form-group">
                                                 <select class="select2 form-control district_select" autocomplete="uc"
                                                         id="district_select" onchange="changeDistricts()">
-                                                    <option value="0" readonly disabled selected>District </option>
+                                                    <option value="0" readonly disabled selected>District</option>
                                                     <?php if (isset($pa_list) && $pa_list != '') {
                                                         foreach ($pa_list as $k => $p) {
                                                             echo '<option value="' . $p->my_id . '" ' . (isset($slug_p) && $slug_p == $p->my_id ? "selected" : "") . '>' . $p->my_name . '</option>';
@@ -72,6 +72,143 @@
                                         </button>
                                     </div>
                                     <div class="row nextDiv hide">
+
+                                        <div class="col-sm-12 col-12">
+
+                                            <div class="row">
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                      Area/ Village
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control village"
+                                                               id="village" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                      Name Health Facility
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control hf"
+                                                               id="hf" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        Vaccinator Visit Frequency
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="vaccinator_frequency">
+                                                            <option>Select</option>
+                                                            <option value="1">Monthly</option>
+                                                            <option value="2">Quaterly</option>
+                                                            <option value="3">Twice a year</option>
+                                                            <option value="4">Once a year</option>
+                                                            <option value="5">Only during campaigns</option>
+                                                            <option value="6">No one has information about this </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        Name of Vaccinator
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control name_of_vaccinator"
+                                                               id="name_of_vaccinator" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        Vaccinator Last Visit Date
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="date" class="form-control vaccinator_visit_date"
+                                                               id="vaccinator_visit_date" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        LHW Visit Frequency
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="lhw_frequency">
+                                                            <option>Select</option>
+                                                            <option value="1">Monthly</option>
+                                                            <option value="2">Quaterly</option>
+                                                            <option value="3">Twice a year</option>
+                                                            <option value="4">Once a year</option>
+                                                            <option value="5">Only during campaigns</option>
+                                                            <option value="6">No one has information about this </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        LHW Name Deputed For this Area
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control name_of_lhw"
+                                                               id="name_of_lhw" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        LHW Last Visit Date
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="date" class="form-control lhw_visit_date"
+                                                               id="lhw_visit_date" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        Polio Worker Visit Frequency
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="polio_frequency">
+                                                            <option>Select</option>
+                                                            <option value="1">Monthly</option>
+                                                            <option value="2">Quaterly</option>
+                                                            <option value="3">Twice a year</option>
+                                                            <option value="4">Once a year</option>
+                                                            <option value="5">Only during campaigns</option>
+                                                            <option value="6">No one has information about this </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                       Polio Health Worker Name
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control name_of_polio"
+                                                               id="name_of_polio" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="text-bold-600 font-medium-2">
+                                                        Polio Worker Last Visit Date
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="date" class="form-control polio_visit_date"
+                                                               id="polio_visit_date" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-12 col-12">
                                             <div class="text-bold-600 font-medium-2">
                                                 Number of Households (having 12-23 Months Children):
@@ -116,8 +253,9 @@
     </div>
 </div>
 <!-- END: Content-->
-<input type="hidden" id="hidden_slug_dist"  value="<?php echo(isset($slug_district) && $slug_district != '' ? $slug_district : ''); ?>">
-<input type="hidden" id="hidden_slug_uc"  value="<?php echo(isset($slug_uc) && $slug_uc != '' ? $slug_uc : ''); ?>">
+<input type="hidden" id="hidden_slug_dist"
+       value="<?php echo(isset($slug_district) && $slug_district != '' ? $slug_district : ''); ?>">
+<input type="hidden" id="hidden_slug_uc" value="<?php echo(isset($slug_uc) && $slug_uc != '' ? $slug_uc : ''); ?>">
 <input type="hidden" id="hidden_slug_cluster"
        value="<?php echo(isset($slug_cluster) && $slug_cluster != '' ? $slug_cluster : ''); ?>">
 
@@ -265,6 +403,15 @@
             return false;
         }
 
+        if (number_hh < 20) {
+            $('#number_hh').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('Household Number', 'Eligible Household must be greater than 19', 'error');
+            return false;
+        }
+
+
+
         if (flag == 0) {
             var html = '';
             html += '<div class="row">';
@@ -332,7 +479,7 @@
                 html += '<div class="col-sm-3 col-12"> ' +
                     '       <div class="form-group">' +
                     '            <label for="household_name_' + i + '" class="label-control text-primary">Name of Household</label>' +
-                    '            <input type="text" class="form-control household_name_' + i + '" id="household_name_' + i + '"  autocomplete="name_hh" required>' +
+                    '            <input VALUE="a" type="text" class="form-control household_name_' + i + '" id="household_name_' + i + '"  autocomplete="name_hh" required>' +
                     '        </div>' +
                     '    </div> ';
 
@@ -377,8 +524,178 @@
         data['total_structure_identified'] = $('#total_structure_identified').val();
         data['total_household_identified'] = $('#total_household_identified').val();
         data['total_residential_structures'] = $('#total_residential_structures').val();
-        // data['household_targeted_children'] = $('#household_targeted_children').val();
         data['linelisting_date'] = $('#linelisting_date').val();
+
+        data['village'] = $('#village').val();
+        data['hf'] = $('#hf').val();
+
+        if (data['village'] == '' || data['village'] == undefined || data['village'] == '0') {
+            $('#village').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('Area/Village', 'Invalid Area/Village', 'error');
+            return false;
+        }
+
+        if (data['hf'] == '' || data['hf'] == undefined || data['hf'] == '0') {
+            $('#district_select').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('Health Facility', 'Invalid Health Facility', 'error');
+            return false;
+        }
+
+
+
+
+        data['vaccinator_frequency'] = $('#vaccinator_frequency').val();
+        data['name_of_vaccinator'] = $('#name_of_vaccinator').val();
+        data['vaccinator_visit_date'] = $('#vaccinator_visit_date').val();
+
+        if (data['vaccinator_frequency'] == "6") {
+
+            $('#name_of_vaccinator').removeAttr('required').val('').css('border', '');
+            $('#vaccinator_visit_date').removeAttr('required').val('').css('border', '');
+            $('#name_of_vaccinator').removeClass('error');
+            $('#vaccinator_visit_date').removeClass('error');
+
+        } else {
+            $('#name_of_vaccinator').attr('required', true);
+            $('#vaccinator_visit_date').attr('required', true);
+
+            if ($('#name_of_vaccinator').val().trim() == '') {
+                $('#name_of_vaccinator').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('Vaccinator Name', 'Invalid Vaccinator Name', 'error');
+                return false;
+            } else {
+                $('#name_of_vaccinator').css('border', '');
+            }
+
+
+
+            // ----------- DATE VALIDATION -----------
+            let visitDate = $('#vaccinator_visit_date').val();
+            let today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+
+            if (visitDate == '') {
+                $('#vaccinator_visit_date').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('Vaccinator Visit Date', 'Invalid Visit Date', 'error');
+                return false;
+            }
+
+            if (visitDate >= today) {
+                $('#vaccinator_visit_date').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('Vaccinator Visit Date', 'Visit date must be less than today', 'error');
+                return false;
+            } else {
+                $('#vaccinator_visit_date').css('border', '');
+            }
+        }
+
+        data['polio_frequency'] = $('#polio_frequency').val();
+        data['name_of_polio'] = $('#name_of_polio').val();
+        data['polio_visit_date'] = $('#polio_visit_date').val();
+
+
+        if (data['polio_frequency'] == "6") {
+
+            $('#name_of_polio').removeAttr('required').val('').css('border', '');
+            $('#polio_visit_date').removeAttr('required').val('').css('border', '');
+            $('#name_of_polio').removeClass('error');
+            $('#polio_visit_date').removeClass('error');
+
+        } else {
+            $('#name_of_polio').attr('required', true);
+            $('#polio_visit_date').attr('required', true);
+
+            if ($('#name_of_polio').val().trim() == '') {
+                $('#name_of_polio').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('Polio Name', 'Invalid Polio Name', 'error');
+                return false;
+            } else {
+                $('#name_of_polio').css('border', '');
+            }
+
+
+            // ----------- DATE VALIDATION -----------
+            let visitDate = $('#polio_visit_date').val();
+            let today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+
+            if (visitDate == '') {
+                $('#polio_visit_date').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('Polio Visit Date', 'Invalid Visit Date', 'error');
+                return false;
+            }
+
+            if (visitDate >= today) {
+                $('#polio_visit_date').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('Polio Visit Date', 'Visit date must be less than today', 'error');
+                return false;
+            } else {
+                $('#polio_visit_date').css('border', '');
+            }
+
+
+
+        }
+
+        data['district_select'] = $('#district_select').val();
+        if (data['district_select'] == '' || data['district_select'] == undefined || data['district_select'] == '0') {
+            $('#district_select').css('border', '1px solid red');
+            flag = 1;
+            toastMsg('District', 'Invalid District', 'error');
+            return false;
+        }
+
+        data['lhw_frequency'] = $('#lhw_frequency').val();
+        data['name_of_lhw'] = $('#name_of_lhw').val();
+        data['lhw_visit_date'] = $('#lhw_visit_date').val();
+
+
+        if (data['lhw_frequency'] == "6") {
+
+            $('#name_of_lhw').removeAttr('required').val('').css('border', '');
+            $('#lhw_visit_date').removeAttr('required').val('').css('border', '');
+            $('#name_of_lhw').removeClass('error');
+            $('#lhw_visit_date').removeClass('error');
+
+        } else {
+            $('#name_of_lhw').attr('required', true);
+            $('#lhw_visit_date').attr('required', true);
+
+            if ($('#name_of_lhw').val().trim() == '') {
+                $('#name_of_lhw').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('LHW Name', 'Invalid LHW Name', 'error');
+                return false;
+            } else {
+                $('#name_of_lhw').css('border', '');
+            }
+
+            // ----------- DATE VALIDATION -----------
+            let visitDate = $('#lhw_visit_date').val();
+            let today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+
+            if (visitDate == '') {
+                $('#lhw_visit_date').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('LHW Visit Date', 'Invalid Visit Date', 'error');
+                return false;
+            }
+
+            if (visitDate >= today) {
+                $('#lhw_visit_date').css('border', '1px solid red');
+                flag = 1;
+                toastMsg('LHW Visit Date', 'Visit date must be less than today', 'error');
+                return false;
+            } else {
+                $('#lhw_visit_date').css('border', '');
+            }
+        }
 
         data['district_select'] = $('#district_select').val();
         if (data['district_select'] == '' || data['district_select'] == undefined || data['district_select'] == '0') {
@@ -460,32 +777,51 @@
               $('#household_targeted_children').removeClass('error');
           }*/
 
-        if (data['total_structure_identified'] < 150 || data['total_structure_identified'] > 500) {
+       // if (data['total_structure_identified'] < 5 || data['total_structure_identified'] > 20) {
+
+
+        if (parseInt(data['total_structure_identified']) < 150 || parseInt(data['total_structure_identified']) > 500) {
             //msg += "Total Structure Identified must be between 150 and 500\n";
-            toastMsg("Total Structure","Total Structure Identified must be between 150 and 500",'error');
+            toastMsg("Total Structure", "Total Structure Identified must be between 150 and 500", 'error');
             flag = 1;
         }
 
         // ---------------------- 2) Total Residential Structures Validations -----------------------
-        if (data['total_residential_structures'] < 150 || data['total_residential_structures'] > 500) {
+
+        if (parseInt(data['total_residential_structures']) < 120 || parseInt(data['total_residential_structures']) > 500) {
             //msg += "\n";
-            toastMsg("Total Residential Structures","Total Residential Structures must be between 150 and 500",'error');
+            toastMsg("Total Residential Structures", "Total Residential Structures must be between 120 and 500", 'error');
             flag = 1;
         }
 
-        if (data['total_residential_structures'] > data['total_structure_identified']) {
-           // msg += "Total Residential Structures cannot be greater than Total Structure Identified\n";
-            toastMsg("Total Residential Structures","cannot be greater than Total Structure Identified",'error');
+
+        //alert(data['total_household_identified'])
+        //alert(data['total_residential_structures'])
+
+        if (parseInt(data['total_household_identified']) > parseInt(data['total_residential_structures'])) {
+            toastMsg("Total Eligible Household Identified ", "cannot be greater than Residential Structures", 'error');
             flag = 1;
         }
 
+        let prevValue = 0;
+        let combinedList = [];
         data["option"] = [];
         for (var i = 1; i <= data['total_household_identified']; i++) {
             var m = {};
 
             var structure_number_obj = $('#structure_number_' + i);
-            var structure_number = structure_number_obj.val();
-            if (structure_number != '' && structure_number != undefined && structure_number != 0) {
+            var structure_number = parseInt(structure_number_obj.val());
+
+            if (!isNaN(structure_number) && structure_number > 0) {
+
+                if (structure_number < prevValue) {
+                    flag = 1;
+                    structure_number_obj.addClass('error');
+                    toastMsg('Structure Number', 'Structure number cannot be less than previous value', 'error');
+                    return false;
+                }
+                prevValue = structure_number;
+
                 m['structure_number'] = structure_number;
                 structure_number_obj.removeClass('error');
             } else {
@@ -497,6 +833,7 @@
 
             var household_no_obj = $('#household_no_' + i);
             var household_no = household_no_obj.val();
+
             if (household_no != '' && household_no != undefined && household_no != 0) {
                 m['household_no'] = household_no;
                 household_no_obj.removeClass('error');
@@ -506,6 +843,20 @@
                 toastMsg('Household Number', 'Invalid Household Number', 'error');
                 return false;
             }
+
+
+            var combo = structure_number + "-" + household_no;
+
+            if (combinedList.includes(combo)) {
+                flag = 1;
+                structure_number_obj.addClass('error');
+                household_no_obj.addClass('error');
+                toastMsg('Duplicate Entry', 'Combination ' + combo + ' already exists', 'error');
+                return false;
+            }
+
+            combinedList.push(combo);
+            m['combo'] = combo;
 
             /*var household_name_obj = $('#household_name_' + i);
             var household_name = household_name_obj.val();

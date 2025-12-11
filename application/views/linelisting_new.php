@@ -1323,7 +1323,7 @@
                         // Hide district cards, show UCS section
                         districtCardsSection.classList.add("d-none");
                         ucsSection.classList.remove("d-none");
-                        ucsTitle.textContent = `${district} - UCS Details`;
+                        ucsTitle.textContent = `${district} - Disrticts Details`;
                         ucsCards.innerHTML = "";
 
                         // Create UCS cards

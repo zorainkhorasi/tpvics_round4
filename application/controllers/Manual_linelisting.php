@@ -143,31 +143,36 @@ class Manual_linelisting extends CI_controller
                     $temp = [];
                     $temp['col_dt']      = date('Y-m-d H:i:s');
                     $temp['cluster']     = $cluster;
+                    $temp['hh01']     = $cluster;
                     $temp['enumcode']    = $data[0]->dist_id;
-                    $temp['enumstr']     = $data[0]->geoarea;
+                   // $temp['enumstr']     = $data[0]->geoarea;
+                    $temp['geoarea']     = $data[0]->geoarea;
                     $temp['formdate']    = date('d-m-y', strtotime($_POST['linelisting_date']));
-                    $temp['gpstime']     = date('H:i:s');
-                    $temp['hh02']        = $cluster;
-                    $temp['projectname'] = 'TPVICS2020-LINELISTING';
+                    $temp['xdt']     = date('H:i:s');
+                   // $temp['hh02']        = $cluster;
+                    $temp['projectname'] = 'TPVICS_R3';
                     $temp['tot_str']     = $_POST['total_structure_identified'];
                     $temp['tot_hh']      = $_POST['total_household_identified'];
                     $temp['hh07n']       = $_POST['total_residential_structures'];
                     $temp['data_collected'] = 'Manual';
-                    $temp['username']    = $_SESSION['login']['username'];
+                    $temp['username']    =  $this->encrypt->decode($_SESSION['login']['username']);
                     $temp['sysdate']     = date('Y-m-d H:i:s');
 
                     // Loop-specific fields
                     $temp['hh04']     = $hh04;
-                    $temp['hh08a1']   = '1';
+                    $temp['hh05']     = $hh07;
+                    $temp['hh07']     = 1;
                     $temp['hh08']     = '1';
-                    $temp['hh07']     = $hh07;
                     $temp['hh11']     = $opt['household_name'];
-                    $temp['hh15']     = $opt['childAge'];
-                    $temp['hh12']     = '1';
+                    $temp['hh13']     = 1;
+                    $temp['hh14']     = 1;
+                    $temp['hh14a']     = $opt['childAge'];
+                  //  $temp['hh15']     = ;
+                   // $temp['hh12']     = '1';
                     $temp['tabNo']    = 'A';
 
                     // UID
-                    $temp['UID'] = $cluster . '_A_' . $hh07 . '_' . $hh04;
+                    $temp['_uid'] = $cluster . '_A_' . $hh07 . '_' . $hh04;
 
                     $mainArray[] = $temp;
                 }
@@ -176,6 +181,29 @@ class Manual_linelisting extends CI_controller
                 $InsertData = $this->db->insert_batch('listings', $mainArray);
 
                 if ($InsertData) {
+
+                    $update_data = [
+                        'village'      => $this->input->post('village'),
+                        'hfname'      => $this->input->post('hf'),
+
+                        'vac_name'     => $this->input->post('name_of_vaccinator'),
+                        'vac_freq'     => $this->input->post('vaccinator_frequency'),
+                        'vac_lvisit'   => $this->input->post('vaccinator_visit_date'),
+
+                        'lhw_name'     => $this->input->post('name_of_lhw'),
+                        'lhw_freq'     => $this->input->post('lhw_frequency'),
+                        'lhw_lvisit'   => $this->input->post('lhw_visit_date'),
+
+                        'polio_name'   => $this->input->post('name_of_polio'),
+                        'polio_freq'   => $this->input->post('polio_frequency'),
+                        'polio_lvisit' => $this->input->post('polio_visit_date'),
+                    ];
+
+                    $this->db->where('cluster_no', $cluster);
+                    $this->db->update('clusters', $update_data);
+
+
+
                     echo 1;  // success
                 } else {
                     echo 8;  // insert error
@@ -188,7 +216,7 @@ class Manual_linelisting extends CI_controller
 
 
             $trackarray = array("action" => "Manual Linelisting -> Function: insertData() Manual Linelisting ",
-                "activityName" => "Manual Linelisting insertData",  "result" => $InsertData, "PostData" => $formArray);
+                "activityName" => "Manual Linelisting insertData",  "result" => $InsertData, "PostData" => $mainArray);
             $Custom->trackLogs($trackarray, "user_logs");
         } else {
             $result = 9;

@@ -112,9 +112,9 @@ class MLinelisting extends CI_Model
     function completedClusters_district($district, $sub_district = '', $pageLevel = 1)
     {
         $dist_where = $this->globalWhere;
-        if (isset($district) && $district != '') {
+        /*if (isset($district) && $district != '' ) {
             $dist_where .= " and c.dist_id = '$district' ";
-        }
+        }*/
        if (isset($district) && $district != '' && $pageLevel=2) {
             $dist_where .= " and prcode = '$district' ";
         }
@@ -141,8 +141,8 @@ class MLinelisting extends CI_Model
 			$dist_where
 			group by c.district,c.cluster_no,c.geoArea, l.hh01,c.dist_id,$str 
 			order by c.geoArea,l.hh01 asc ";
-            // echo $sql_query;
-            // die;
+           /*  echo $sql_query;
+             die;*/
         $query = $this->db->query($sql_query);
         
         return $query->result();
