@@ -1089,14 +1089,17 @@
 
                 </div>
                 <div id="ucsSection" class="d-none">
-                    <div class="d-flex align-items-center mb-4">
-                        <button style="color: #ffffff;border-radius: 30px;border-color: #ffffff;box-shadow: 0px 1px 4px 1px #b5b5b58a;background: #9bc3c0;" id="backButton" class="btn btn-sm btn-outline-dark">← Back</button>
-                        <h4 id="ucsTitle" style="    padding: 8px 0px 0px 19px;
-                            font-size: 30px;
-                            color: #b2d3d0;
-                            font-weight: bold;"></h4>
+                    <div class="row mb-3" id="headerRow">
+                        <div class="col-12 d-flex justify-content-between align-items-center">
+                            <button style="color: #ffffff; border-radius: 30px; border-color: #ffffff; box-shadow: 0px 1px 4px 1px #b5b5b58a; background: #9bc3c0;" id="backButton" class="btn btn-sm btn-outline-dark">← Back</button>
 
+                            <h4 id="ucsTitle" style="padding: 0; margin: 0; font-size: 30px; color: #b2d3d0; font-weight: bold;">[Your Title Here]</h4>
 
+                            <div class="d-flex align-items-center">
+                                <input id="ucsSearchInput" type="text" class="form-control me-2" placeholder="Search District..." style="width: 200px;">
+                                <button id="ucsSearchButton" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
                     </div>
                     <div id="ucsCards" class="row row-cols-1 row-cols-md-4 g-4"></div>
                 </div>
@@ -1452,7 +1455,23 @@
                                 });
                             }
 
+
+
                         }); // end foreach
+                        const searchBtn = document.getElementById("ucsSearchButton");
+                        const searchInput = document.getElementById("ucsSearchInput");
+
+                        if (!searchBtn.dataset.bound) {
+
+                            searchBtn.addEventListener("click", ucsSearch);
+                            searchInput.addEventListener("keyup", e => {
+                                if (e.key === "Enter") ucsSearch();
+                            });
+
+                            searchBtn.dataset.bound = "1";
+                        }
+
+
                     },
                     error: function (xhr, status, error) {
                         console.log("AJAX Error:", error);
@@ -1502,10 +1521,21 @@
         });
 
         // ✅ Optional: Enable live search when pressing Enter
-        document.getElementById("searchInput").addEventListener("keypress", e => {
+        /*document.getElementById("searchInput").addEventListener("keypress", e => {
             if (e.key === "Enter") document.getElementById("searchButton").click();
-        });
+        });*/
 
+
+        function ucsSearch() {
+
+            const q = document.getElementById("ucsSearchInput").value.trim().toLowerCase();
+            const cards = document.querySelectorAll("#ucsCards .dashboard-card");
+
+            cards.forEach(card => {
+                const name = card.dataset.ucs.toLowerCase();
+                card.closest(".col").classList.toggle("d-none", q && !name.includes(q));
+            });
+        }
         //Total Province Count
         function TotalProvince(){
 
