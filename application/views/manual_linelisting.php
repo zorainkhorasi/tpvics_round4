@@ -480,7 +480,7 @@
                 html += '<div class="col-sm-3 col-12"> ' +
                     '       <div class="form-group">' +
                     '            <label for="household_name_' + i + '" class="label-control text-primary">Name of Household</label>' +
-                    '            <input VALUE="a" type="text" class="form-control household_name_' + i + '" id="household_name_' + i + '"  autocomplete="name_hh" required>' +
+                    '            <input type="text" class="form-control household_name_' + i + '" id="household_name_' + i + '"  autocomplete="name_hh" required>' +
                     '        </div>' +
                     '    </div> ';
 
