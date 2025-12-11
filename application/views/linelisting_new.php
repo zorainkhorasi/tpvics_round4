@@ -1120,7 +1120,7 @@
             // PHP array converted to JS object
             let per = <?php echo json_encode($per); ?>;
                 let clusters_by_district = <?php echo json_encode($totalcluster['list']); ?>;
-                    // let completed = <?php echo json_encode($completed); ?>;
+                     let completed = <?php echo json_encode($completed); ?>;
             // console.log(completed.PUNJAB);
             
                
