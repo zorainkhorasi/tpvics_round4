@@ -782,6 +782,51 @@
         cursor: pointer;
         border-radius: 5px;
     }
+    .section-header-container {
+        display: flex;
+        justify-content: space-between; /* Pushes the title and the dropdown apart */
+        align-items: center; /* Vertically aligns items in the middle */
+        padding-bottom: 10px; /* Optional: adds space below the header */
+        border-bottom: 1px solid #ccc; /* Optional: separates header from content */
+    }
+
+    /* * 3. Styles for the main title (your original code)
+     */
+    .section-title-main {
+        font-size: 1.5em; /* Example size */
+        font-weight: bold;
+        margin: 0; /* Remove default margins for clean alignment */
+    }
+
+    /*
+     * 4. Styles for the Dropdown button
+     */
+    .edit-history-dropdown button {
+        padding: 8px 15px;
+        background-color: #f0f0f0; /* Light background for the button */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+    }
+
+    /* * Optional: Simple Dropdown Content styling
+     * (You'd likely use a dedicated library or more complex CSS for a real dropdown)
+     */
+    .dropdown-content {
+        display: none; /* Hide by default */
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 250px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        padding: 10px;
+    }
+
+    .edit-history-dropdown:hover .dropdown-content {
+        display: block; /* Show on hover for this example */
+    }
 </style>
 <!-- BEGIN: Content-->
 
@@ -936,8 +981,8 @@
                                 </div>
 
                                 <div class="info-box">
-                                    <span class="info-label">Age In Months:</span>
-                                    <span class="info-blank"><?= $data->trueageinmonths ?? '' ?></span>
+                                    <span class="info-label">Age :</span>
+                                    <span class="info-blank"><?= $data->trueageinmonths ?? '' ?> Months</span>
                                 </div>
 
                                 <div class="info-box">
@@ -972,7 +1017,7 @@
                         // --- 1. Define the Schedule Structure and Color Mapping for the New UI ---
                         $vaccine_schedule = [
                             "AT BIRTH" => ["bcg", "hep_b", "opv0"],
-                            "10 WEEKS" => ["opv1", "rv1", "pcv", "penta1"],
+                            "10 WEEKS" => ["opv1", "rv1", "pcv1", "penta1"],
                             "14 WEEKS" => ["opv2", "rv2", "pcv2", "penta2", "ipv"],
                             "9 MONTHS" => ["mr1", "tcv"],
                             "15 MONTHS" => ["mr2"],
@@ -981,7 +1026,7 @@
 
                         $stripe_map = [
                             'bcg' => 'fill-brown', 'hep_b' => 'fill-red', 'opv0' => 'fill-magenta',
-                            'opv1' => 'fill-magenta', 'rv1' => 'fill-cyan', 'pcv' => 'fill-orange', 'penta1' => 'fill-green',
+                            'opv1' => 'fill-magenta', 'rv1' => 'fill-cyan', 'pcv1' => 'fill-orange', 'penta1' => 'fill-green',
                             'opv2' => 'fill-magenta', 'rv2' => 'fill-cyan', 'pcv2' => 'fill-orange', 'penta2' => 'fill-green', 'ipv' => 'fill-royal',
                             'mr1' => 'fill-purple', 'tcv' => 'fill-navy tiny-text',
                             'mr2' => 'fill-purple', 'opv3' => 'fill-magenta', 'penta3' => 'fill-green', 'pcv3' => 'fill-orange', 'ipv2' => 'fill-royal',
@@ -992,7 +1037,27 @@
                         <div class="field-group ">
 
                             <div class="vaccination-header">
-                                <div class="section-title-main">Vaccination Records</div>
+                                <div class="section-header-container">
+
+                                    <div class="section-title-main">
+                                        Vaccination Records
+                                    </div>
+
+                                    <div class="edit-history-dropdown">
+                                        <button>
+                                            <i class="fas fa-history"></i> Edit History
+                                        </button>
+
+                                        <div class="dropdown-content">
+                                            <p><strong>Version History:</strong></p>
+                                            <ul>
+                                                <li>12/10/2025: Dr. Chen updated batch no.</li>
+                                                <li>12/08/2025: Record created by Nurse Davis.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
 
                                 <!-- Right side options -->
                                 <div class="vaccination-options">
@@ -1068,7 +1133,7 @@
                                                                        readonly
                                                                        placeholder="Click to set"
                                                                 >
-                                                                <span class="immu-sub-label">Updated Value:</span>
+                                                                <span class="immu-sub-label">Corrected Value:</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1523,7 +1588,7 @@
     // ===========================================
     function saveVaccinesData() {
         let formData = {};
-        let vaccines = ["bcg","opv0","opv1","opv2","opv3","penta1","penta2","penta3","pcv","pcv2","pcv3","rv1","rv2","ipv","ipv2","mr1","mr2","hep_b","tcv"];
+        let vaccines = ["bcg","opv0","opv1","opv2","opv3","penta1","penta2","penta3","pcv1","pcv2","pcv3","rv1","rv2","ipv","ipv2","mr1","mr2","hep_b","tcv"];
 
         vaccines.forEach(v => {
             // Use the value from the hidden input field
