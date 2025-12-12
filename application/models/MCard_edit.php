@@ -176,5 +176,21 @@ WHERE
 
     }
 
+    public function getCreatedByNames($cluster, $hhno, $ec)
+    {
+        $query = $this->db->query("
+            SELECT 
+                createdby,
+                CONVERT(VARCHAR(10), createddateTime, 101) AS created_date
+            FROM vac_details_edit
+            WHERE cluster_code = '$cluster'
+              AND hhno = '$hhno'
+              AND ec13 = '$ec'
+            ORDER BY id DESC
+        ");
+
+        return $query->result();
+    }
+
 
 }
