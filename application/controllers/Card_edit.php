@@ -199,7 +199,9 @@ class Card_edit extends CI_controller
             $data['hhno'] = $hhno;
             $data['ec'] = $ec;
             $data['dis'] = $dis;
-
+            // echo "<pre>";
+            // var_dump($data);
+            // die();
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -269,7 +271,8 @@ class Card_edit extends CI_controller
 
     public function save_vaccines_ajax() {
         $response = ['status' => 'error', 'message' => 'Something went wrong'];
-
+            // print_r($this->encrypt->decode($_SESSION['login']['username'])); 
+            // die();
         if($this->input->is_ajax_request()){
             $post = $this->input->post();
 
@@ -299,7 +302,9 @@ class Card_edit extends CI_controller
             $dataToSave['dobstatus'] = $post['dobstatus'];
             $dataToSave['vac_status'] = $post['vac_status'];
             $dataToSave['image_comments'] = $post['image_comments'];
-
+            $dataToSave['dob_type'] = $post['dob_type'];
+            $dataToSave['createdBy']=$this->encrypt->decode($_SESSION['login']['username']);
+         
             $Custom = new Custom();
             $saved = $Custom->Insert($dataToSave, 'id', 'vac_details_edit', 'N');
 
@@ -319,6 +324,9 @@ class Card_edit extends CI_controller
 
     function addForm()
     {
+
+
+
         ob_end_clean();
         $flag = 0;
         if (!isset($_POST['cluster_code']) || $_POST['cluster_code'] == '') {

@@ -868,6 +868,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2 col-12">
+                                     
                                     <div class="col-sm-2 col-12 py-2">
                                         <button type="button" class="btn btn-primary" onclick="searchData()">SEARCH
                                         </button>
@@ -949,10 +951,10 @@
                                     $is_invalid = ($vac_details_edit->dobstatus == 2);
                                     ?>
                                     <span id="dob_editable_container" class="info-blank" style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
-<input type="text" name="new_dob" id="new_dob_input" class="form-control"
-       disabled
-       style="font-size: 11px; width: 100px;margin: -4px -29px; display: inline-block;    border-bottom: none;!important "
-       placeholder="DD-MM-YYYY">
+                                    <input type="text" name="new_dob" id="new_dob_input" class="form-control"
+                                        disabled
+                                        style="font-size: 11px; width: 100px;margin: -4px -29px; display: inline-block;    border-bottom: none;!important "
+                                        placeholder="DD-MM-YYYY">
                                 </div>
 
                                 <div class="info-box">
@@ -963,20 +965,55 @@
                                         <option value="2" <?= $vac_details_edit->dobstatus == 2 ? 'selected' : '' ?>>Invalid DoB</option>
                                     </select>
                                 </div>
+                                    <div class="info-box">
+                                        <label class="info-label" style="margin-right: 10px;">Date Of Birth Type:</label>
 
+                                        <div style="display: flex; align-items: center; gap: 15px;">
+
+                                            <label style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                                <input 
+                                                    type="radio" 
+                                                    name="duration_type" 
+                                                    id="yearsCheck" 
+                                                    value="years"
+                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) === 'years') ? 'checked' : '' ?>
+                                                    style="margin-right: 5px;"
+                                                >
+                                                Years
+                                            </label>
+
+                                            <label style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                                <input 
+                                                    type="radio" 
+                                                    name="duration_type" 
+                                                    id="monthsCheck" 
+                                                    value="months"
+                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) === 'months') ? 'checked' : '' ?>
+                                                    style="margin-right: 5px;"
+                                                >
+                                                Months
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                    <div class="info-box">
+                                        <span class="info-label">Already Reviewed By:</span> <?=  $vac_details_edit->createdBy?? 'Not Reviewed'?>  
+                                    </div>
+
+                                </div>
                             </div>
-
                         </div>
 
                         <?php
                         // --- 1. Define the Schedule Structure and Color Mapping for the New UI ---
                         $vaccine_schedule = [
                             "AT BIRTH" => ["bcg", "hep_b", "opv0"],
-                            "10 WEEKS" => ["opv1", "rv1", "pcv", "penta1"],
-                            "14 WEEKS" => ["opv2", "rv2", "pcv2", "penta2", "ipv"],
+                            "6 WEEKS" => ["opv1", "rv1", "pcv", "penta1"],
+                            "10 WEEKS" => ["opv2", "rv2", "pcv2", "penta2", "ipv"],
+                            "14 WEEKS" => ["opv3", "penta3", "pcv3", "ipv2"], // Grouping remaining vaccines
                             "9 MONTHS" => ["mr1", "tcv"],
                             "15 MONTHS" => ["mr2"],
-                            "LATER DOSES" => ["opv3", "penta3", "pcv3", "ipv2"], // Grouping remaining vaccines
+                          
                         ];
 
                         $stripe_map = [
@@ -1529,6 +1566,15 @@
             // Use the value from the hidden input field
             formData[v] = $('#'+v+'_value').val();
         });
+    
+       let dobType = $('input[name="duration_type"]:checked').val();
+
+        if (!dobType) {
+            alert("Date of Birth type is required");
+            return false; // stop form submission
+        }
+
+        formData['dob_type'] = dobType;
 
         // Additional info
         formData['cluster_code'] = "<?= $data->cluster_code ?? '' ?>";
@@ -1540,7 +1586,8 @@
         formData['vac_status'] = $('input[name="checkAllBtn"]:checked').val();
         formData['image_comments'] = $('#comments').val(); // <--- ADD THIS LINE
         formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
-
+      
+        
         $.ajax({
             url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',
             type: 'POST',
