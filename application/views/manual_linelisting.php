@@ -619,7 +619,7 @@
                         } else {
                             // Cluster EXISTS, cannot proceed
                             toastMsg('Cluster', 'Cluster data already Exist', 'error');
-                            $('.geoarea_name').html('Cluster Exists. Cannot Proceed.');
+                           // $('.geoarea_name').html('Cluster Exists. Cannot Proceed.');
                         }
                     });
             }
@@ -679,7 +679,7 @@
                 html += '<div class="col-md-3 mb-3"> ' +
                     '   <label for="total_structure_identified" class="label-inline me-2">Total Structure Identified</label>' +
                     '   <div class="flex-grow-1">' +
-                    '       <input type="number" maxlength="3" max="3" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext total_structure_identified" ' +
+                    '       <input type="number" placeholder="Total Structure Identified" maxlength="3" max="3" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext total_structure_identified" ' +
                     '           id="total_structure_identified" name="total_structure_identified" required>' +
                     '   </div>' +
                     '</div> ';
@@ -688,7 +688,7 @@
                 html += '<div class="col-md-3 mb-3"> ' +
                     '   <label for="total_household_identified" class="label-inline me-2">Total Household having 12-23 Months Children</label>' +
                     '   <div class="flex-grow-1">' +
-                    '       <input type="number" maxlength="3" max="3" class="form-control form-control-plaintext total_household_identified" value="' + number_hh + '"  ' +
+                    '       <input  type="number" maxlength="3" max="3" class="form-control form-control-plaintext total_household_identified" value="' + number_hh + '"  ' +
                     '           id="total_household_identified" name="total_household_identified" required  readonly disabled>' +
                     '   </div>' +
                     '</div> ';
@@ -733,7 +733,7 @@
                     html += `
                     <tr>
                         <td class="s-no">${i}</td>
-                        <td><input type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext structure_number_${i}" id="structure_number_${i}" required></td>
+                        <td><input placeholder="Structure No" type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext structure_number_${i}" id="structure_number_${i}" required></td>
                         <td><input type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext household_no_${i}" id="household_no_${i}" required></td>
                         <td><input type="text" class="form-control form-control-plaintext household_name_${i}" id="household_name_${i}" required></td>
                         <td><input type="number" maxlength="1" max="1" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==1) return false;" minlength="1" min="1" class="form-control form-control-plaintext childAge_${i}" id="childAge_${i}" required></td>
