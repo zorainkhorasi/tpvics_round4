@@ -182,7 +182,7 @@
       data-layout="semi-dark-layout">
 <!-- BEGIN: Content-->
 <video autoplay muted loop playsinline id="bgVideo">
-    <source src="<?php echo base_url() ?>assets/images/pages/tpvicsloginbg.mp4" type="video/mp4">
+    <source src="<?php echo base_url() ?>assets/images/pages/finalbg.mp4" type="video/mp4">
 </video>
 
 <div class="app-content content">
@@ -193,7 +193,7 @@
         </div>
         <div class="content-body">
             <section class="row flexbox-container">
-                <div class="col-xl-6 col-lg-7 col-md-9 col-11 d-flex justify-content-center" >
+                <div  class="col-xl-6 col-lg-7 col-md-9 col-11 d-flex justify-content-center" >
 
                     <div class="card bg-authentication rounded-0 mb-0">
                         <div class="row m-0">
