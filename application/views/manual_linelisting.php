@@ -6,7 +6,10 @@
        EXACT COLOR MATCHING & LAYOUT REPLICATION CSS
        (Copied from your New UI HTML)
        =================================================== */
-
+    html body .content .content-wrapper {
+        padding: calc(2.2rem - 0.4rem) 2.2rem 0;
+        margin-top: 1rem;
+    }
     /* 0. Outer Page Background */
     body {
         background-color: #f6f7f8;
@@ -42,6 +45,7 @@
         white-space: nowrap;
         align-self: center;
         line-height: 1.5;
+        padding: 10px;
     }
 
     /* Primary labels for dynamically generated fields (Used by searchData for row titles) */
@@ -255,7 +259,7 @@
                 <input type="hidden" id="hidden_slug_cluster"
                        value="<?php echo(isset($slug_cluster) && $slug_cluster != '' ? $slug_cluster : ''); ?>">
 
-                <div class="row mb-3 align-items-end">
+                <div class="row mb-3 ">
                     <div class="col-md-3 d-flex align-items-center">
                         <label class="label-inline me-2" for="district_select">District</label>
                         <div class="flex-grow-1">
@@ -730,9 +734,9 @@
                     <tr>
                         <td class="s-no">${i}</td>
                         <td><input placeholder="Structure No" type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext structure_number_${i}" id="structure_number_${i}" required></td>
-                        <td><input type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext household_no_${i}" id="household_no_${i}" required></td>
-                        <td><input type="text" class="form-control form-control-plaintext household_name_${i}" id="household_name_${i}" required></td>
-                        <td><input type="number" maxlength="1" max="1" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==1) return false;" minlength="1" min="1" class="form-control form-control-plaintext childAge_${i}" id="childAge_${i}" required></td>
+                        <td><input placeholder="Enter Household No" type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext household_no_${i}" id="household_no_${i}" required></td>
+                        <td><input placeholder="Enter Household Name" type="text" class="form-control form-control-plaintext household_name_${i}" id="household_name_${i}" required></td>
+                        <td><input placeholder="No. of Children (12–23 Months)" type="number" maxlength="1" max="1" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==1) return false;" minlength="1" min="1" class="form-control form-control-plaintext childAge_${i}" id="childAge_${i}" required></td>
                     </tr>
                 `;
             }
