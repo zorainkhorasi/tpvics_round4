@@ -182,7 +182,7 @@
       data-layout="semi-dark-layout">
 <!-- BEGIN: Content-->
 <video autoplay muted loop playsinline id="bgVideo">
-    <source src="<?php echo base_url() ?>assets/images/pages/finalbg.mp4" type="video/mp4">
+    <source src="<?php echo base_url() ?>assets/images/pages/tpvicsfinalloginbg.mp4" type="video/mp4">
 </video>
 
 <div class="app-content content">
