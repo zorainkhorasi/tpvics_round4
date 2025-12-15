@@ -1112,7 +1112,7 @@
 
                                     <div class="edit-history-dropdown">
                                         <button>
-                                            <i class="fas fa-history"></i> View History
+                                            <i class="fa fa-history"></i> View History
                                         </button>
 
                                         <div class="dropdown-content">
@@ -1129,28 +1129,7 @@
 
                                 <!-- Right side options -->
                                 <div class="vaccination-options">
-                                    <!--                                    --><?php
-                                    //                                    $bulkOptions = [
-                                    //
-                                    //                                        2 => "Not Matched",
-                                    //                                        3 => "Not Readable"
-                                    //                                    ];
-                                    //                                    foreach ($bulkOptions as $val => $label):
-                                    ?>
-                                    <!--                                        <div class="form-check">-->
-                                    <!--                                            <input class="form-check-input checkAllBtn" type="radio"-->
-                                    <!--                                                   name="checkAllBtn"-->
-                                    <!--                                                   value="--><?php //= $val
-                                    ?><!--"-->
-                                    <!--                                                -->
-                                    <?php //= $vac_details_edit->vac_status == $val ? 'checked' : ''
-                                    ?><!-->
-                                    <!--                                            <label class="form-check-label">-->
-                                    <?php //= $label
-                                    ?><!--</label>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    --><?php //endforeach;
-                                    ?>
+
                                 </div>
                             </div>
 
