@@ -69,7 +69,7 @@ GROUP BY
             $where .= " And clusters.dist_id like  '" . $province . "%' ";
         }
         if (isset($district) && $district != '' && $district != 0) {
-            $where .= " And clusters.dist_id like  '" . $district . "%' ";
+            $where .= " And clusters.uc_id like  '" . $district . "%' ";
         }
         $sql = "SELECT
 	i.cluster_no,
@@ -106,6 +106,8 @@ GROUP BY
 	i.cluster_no,
 	i.household,
 	i.ec13";
+
+       // echo $sql;
         $query = $this->db->query($sql);
         return $query->result();
 
@@ -118,7 +120,7 @@ GROUP BY
             $where .= " And clusters.dist_id  like  '" . $province . "%' ";
         }
         if (isset($district) && $district != '' && $district != 0) {
-            $where .= " And clusters.dist_id like  '" . $district . "%' ";
+            $where .= " And clusters.uc_id like  '" . $district . "%' ";
         }
         $sql = "SELECT
 	v.cluster_code as cluster_no,
