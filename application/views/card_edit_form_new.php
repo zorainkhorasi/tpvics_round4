@@ -1047,11 +1047,11 @@
                                                     type="radio"
                                                     name="duration_type"
                                                     id="yearsCheck"
-                                                    value="years"
-                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) === 'years') ? 'checked' : '' ?>
+                                                    value="Only Age Given"
+                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) =='Only Age Given') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
-                                                Years
+                                                Only Age Given
                                             </label>
 
                                             <label
@@ -1061,10 +1061,10 @@
                                                     name="duration_type"
                                                     id="monthsCheck"
                                                     value="months"
-                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) === 'months') ? 'checked' : '' ?>
+                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'Date of birth mention') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
-                                                Months
+                                               Date of birth mention
                                             </label>
 
                                         </div>
