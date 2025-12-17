@@ -193,8 +193,9 @@ class Card_edit extends CI_controller
 
             $data['vac_details'] = $vac_details;
             $data['vac_details_edit'] = $vac_details_edit;
+            $data['vac_details_edit_names'] =$M->getCreatedByNames($cluster, $hhno, $ec);
 
-            //echo '<pre>';print_r($data['getData']);die;
+           // echo '<pre>';print_r($data['vac_details_edit_names']);die;
             $data['cluster'] = $cluster;
             $data['hhno'] = $hhno;
             $data['ec'] = $ec;
@@ -304,7 +305,8 @@ class Card_edit extends CI_controller
             $dataToSave['image_comments'] = $post['image_comments'];
             $dataToSave['dob_type'] = $post['dob_type'];
             $dataToSave['createdBy']=$this->encrypt->decode($_SESSION['login']['username']);
-         
+            $dataToSave['createddateTime']=date('Y-m-d H:i:s');
+
             $Custom = new Custom();
             $saved = $Custom->Insert($dataToSave, 'id', 'vac_details_edit', 'N');
 
