@@ -1018,7 +1018,7 @@
                                         <label for="">New Date of Birth:</label>
                                         <span id="dob_editable_container" class="info-blank"
                                               style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
-                                            <input type="date" name="new_dob" value=<?=$vac_details_edit->dob?$vac_details_edit->dob:' ' ?> id="new_dob_input" class="form-control"
+                                            <input type="date" name="new_dob" value="<?=$vac_details_edit->dob?$vac_details_edit->dob:' ' ?>" id="new_dob_input" class="form-control"
                                        disabled
                                        style="font-size: 11px; width: 100px;margin: -4px -29px; display: inline-block;    border-bottom: none;!important "
                                        placeholder="DD-MM-YYYY">
@@ -1463,21 +1463,26 @@
         clickAll();
         $('#dobstatus').val(0);
 
-    });
-     var dobstatus=0;
-    $('#dobstatus').change(function () {
-        if ($(this).val() == '2') { // Invalid DoB
+          var dobstatus=0;
+        $('#dobstatus').change(function () {
+        if ($(this).val() == 2) { // Invalid DoB
+            
+            
              dobstatus=$(this).val();             
             $('#dob_editable_container').show();
             $('#dob_display').hide();
             $('#new_dob_input').prop('disabled', false);
-        } else {
-              dobstatus=$(this).val();
+            console.log('here');
+        }else if($(this).val() == 1) {
+            dobstatus=$(this).val();
             $('#dob_editable_container').hide();
             $('#dob_display').show();
             $('#new_dob_input').prop('disabled', true);
         }
     });
+
+    });
+   
     // console.log(dobstatus);
     
 
