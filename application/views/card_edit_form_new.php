@@ -933,6 +933,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2 col-12">
+                                     
                                     <div class="col-sm-2 col-12 py-2">
                                         <button type="button" class="btn btn-primary" onclick="searchData()">SEARCH
                                         </button>
@@ -1076,7 +1078,6 @@
 
                                 </div>
                             </div>
-
                         </div>
 
                         <?php
@@ -1088,7 +1089,6 @@
                             "14 WEEKS" => ["opv3", "penta3", "pcv3", "ipv2"], // Grouping remaining vaccines
                             "9 MONTHS" => ["mr1", "tcv"],
                             "15 MONTHS" => ["mr2"],
-
                         ];
 
                         $stripe_map = [
@@ -1675,6 +1675,15 @@
             // Use the value from the hidden input field
             formData[v] = $('#' + v + '_value').val();
         });
+    
+       let dobType = $('input[name="duration_type"]:checked').val();
+
+        if (!dobType) {
+            alert("Date of Birth type is required");
+            return false; // stop form submission
+        }
+
+        formData['dob_type'] = dobType;
 
         let dobType = $('input[name="duration_type"]:checked').val();
 
