@@ -933,8 +933,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 col-12">
-                                     
                                     <div class="col-sm-2 col-12 py-2">
                                         <button type="button" class="btn btn-primary" onclick="searchData()">SEARCH
                                         </button>
@@ -1016,12 +1014,15 @@
                                         <?php
                                         $is_invalid = ($vac_details_edit->dobstatus == 2);
                                         ?>
+                                        <div id="new_dob">
+                                        <label for="">New Date of Birth:</label>
                                         <span id="dob_editable_container" class="info-blank"
                                               style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
-                                <input type="date" name="new_dob" id="new_dob_input" class="form-control"
+                                            <input type="date" name="new_dob" value=<?=$vac_details_edit->dob?$vac_details_edit->dob:' ' ?> id="new_dob_input" class="form-control"
                                        disabled
                                        style="font-size: 11px; width: 100px;margin: -4px -29px; display: inline-block;    border-bottom: none;!important "
                                        placeholder="DD-MM-YYYY">
+                                    </div>
                                     </div>
 
                                     <div class="info-box">
@@ -1050,7 +1051,7 @@
                                                     name="duration_type"
                                                     id="yearsCheck"
                                                     value="Only Age Given"
-                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) =='Only Age Given') ? 'checked' : '' ?>
+                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'only age given') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
                                                 Only Age Given
@@ -1062,11 +1063,11 @@
                                                     type="radio"
                                                     name="duration_type"
                                                     id="monthsCheck"
-                                                    value="months"
-                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'Date of birth mention') ? 'checked' : '' ?>
+                                                    value="Date of birth mention"
+                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'date of birth mention') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
-                                               Date of birth mention
+                                                Date of birth mention
                                             </label>
 
                                         </div>
@@ -1078,6 +1079,7 @@
 
                                 </div>
                             </div>
+
                         </div>
 
                         <?php
@@ -1089,6 +1091,7 @@
                             "14 WEEKS" => ["opv3", "penta3", "pcv3", "ipv2"], // Grouping remaining vaccines
                             "9 MONTHS" => ["mr1", "tcv"],
                             "15 MONTHS" => ["mr2"],
+
                         ];
 
                         $stripe_map = [
@@ -1237,7 +1240,7 @@
                                                     value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option> <?php endforeach; ?>
                                         </select>
                                         <div class="field-group">
-                                            <div class="section-title">Image Feedback</div>
+                                            <!-- <div class="section-title">Image Feedback</div> -->
                                             <label for="comments" class="form-label">Comments / Notes</label>
                                             <textarea id="comments" name="comments" class="form-control" rows="3"
                                                       placeholder="Add any relevant notes or comments here..."><?= isset($vac_details_edit->image_comments) ? htmlspecialchars($vac_details_edit->image_comments) : '' ?></textarea>
@@ -1458,19 +1461,25 @@
         gallery();
         initModalTriggers(); // Initialize new modal click handlers
         clickAll();
-    });
+        $('#dobstatus').val(0);
 
+    });
+     var dobstatus=0;
     $('#dobstatus').change(function () {
         if ($(this).val() == '2') { // Invalid DoB
+             dobstatus=$(this).val();             
             $('#dob_editable_container').show();
             $('#dob_display').hide();
             $('#new_dob_input').prop('disabled', false);
         } else {
+              dobstatus=$(this).val();
             $('#dob_editable_container').hide();
             $('#dob_display').show();
             $('#new_dob_input').prop('disabled', true);
         }
     });
+    // console.log(dobstatus);
+    
 
     // Attach clickAll handler to the new radio buttons
     $(document).on('change', 'input[name="checkAllBtn"]', clickAll);
@@ -1675,23 +1684,28 @@
             // Use the value from the hidden input field
             formData[v] = $('#' + v + '_value').val();
         });
-    
-       let dobType = $('input[name="duration_type"]:checked').val();
-
-        if (!dobType) {
-            alert("Date of Birth type is required");
-            return false; // stop form submission
-        }
-
-        formData['dob_type'] = dobType;
 
         let dobType = $('input[name="duration_type"]:checked').val();
-
-        if (!dobType) {
+        let dob = $('input[name="new_dob"]').val();
+             if (!dobType) {
             alert("Date of Birth type is required");
             return false; // stop form submission
-        }
+        }    
+        if (dobstatus == 2) {
+            if (!dob) {
+                alert("Date of Birth is required");
+                return false;
+            }
 
+            formData['dob'] = dob;
+
+        } else if (dobstatus == 1 || dobstatus == 0 || dobstatus === '') {
+
+            formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
+
+        }
+      
+        
         formData['dob_type'] = dobType;
 
         // Additional info
@@ -1699,12 +1713,11 @@
         formData['hhno'] = "<?= $data->hhno ?? '' ?>";
         formData['ec13'] = "<?= $data->ec13 ?? '' ?>";
         formData['image_status'] = $('#image_status').val();
-        formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
         formData['dobstatus'] = $('#dobstatus').val();
         formData['vac_status'] = $('input[name="checkAllBtn"]:checked').val();
         formData['image_comments'] = $('#comments').val(); // <--- ADD THIS LINE
-        formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
 
+  
 
         if (!formData['image_status']) {
 
@@ -1718,6 +1731,8 @@
             return false;
         }
 
+   
+
         $.ajax({
             url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',
             type: 'POST',
@@ -1726,6 +1741,8 @@
             success: function (response) {
                 if (response.status == 'success') {
                     alert('Data saved successfully!');
+                    window.location.reload();
+
                 } else {
                     alert('Error saving data: ' + response.message);
                 }

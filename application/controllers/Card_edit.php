@@ -117,7 +117,7 @@ class Card_edit extends CI_controller
             $data['ec'] = $ec;
 
 
-         //   echo '<pre>';print_r($data['getData']);die;
+        //    echo '<pre>';print_r($data);die;
 
             /*$Mimage_forms = new Mimage_forms();
             $data['getImageData'] = $Mimage_forms->getDataImages($cluster, $hhno, 1);*/
@@ -195,14 +195,14 @@ class Card_edit extends CI_controller
             $data['vac_details_edit'] = $vac_details_edit;
             $data['vac_details_edit_names'] =$M->getCreatedByNames($cluster, $hhno, $ec);
 
-           // echo '<pre>';print_r($data['vac_details_edit_names']);die;
+        //    echo '<pre>';print_r($data);die;
             $data['cluster'] = $cluster;
             $data['hhno'] = $hhno;
             $data['ec'] = $ec;
             $data['dis'] = $dis;
-            // echo "<pre>";
-            // var_dump($data);
-            // die();
+
+            // echo '<pre>';print_r($data);die;
+
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -272,8 +272,7 @@ class Card_edit extends CI_controller
 
     public function save_vaccines_ajax() {
         $response = ['status' => 'error', 'message' => 'Something went wrong'];
-            // print_r($this->encrypt->decode($_SESSION['login']['username'])); 
-            // die();
+
         if($this->input->is_ajax_request()){
             $post = $this->input->post();
 
@@ -326,9 +325,6 @@ class Card_edit extends CI_controller
 
     function addForm()
     {
-
-
-
         ob_end_clean();
         $flag = 0;
         if (!isset($_POST['cluster_code']) || $_POST['cluster_code'] == '') {
