@@ -226,7 +226,7 @@
     .block-title {
         font-size: 17px;
         font-weight: 600;
-        color: #96cdc2;
+        color: #566c68;
         text-transform: uppercase;
         justify-self: left;
     }
@@ -629,7 +629,11 @@
                     <!-- Total Cluster -->
                     <diiv class="col">
                         <div class="chart-block cluster-chart-block">
-                            <h4 class="block-title">Total Cluster</h4>
+                            <h4 class="block-title">
+                                Total Cluster: <span style="font-size: 21px;
+    color: #00796b; " id="totalClusterCount">0</span>
+                            </h4>
+
                             <div id="totalclusterchart"></div>
 
                         </div>
@@ -836,7 +840,7 @@
                     <?php } ?>
 
                      <div class="col">
-                        <h4 class="block-title">Total Province</h4>
+                        <h4 class="block-title">Province</h4>
                         <div id="totalpro"></div>
                     </div>
                     <!-- KPK -->
@@ -851,9 +855,10 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[1];
-                                        ?></span>
+                                        <span class="ps-state-name">
+<!--                                            --><?php //echo $dist_array[1]; ?>
+                                        KPK
+                                        </span>
                                         <span class="ps-total-count"><?php echo $totalcluster["list"][5]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
@@ -917,9 +922,10 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[7];
-                                        ?></span>
+                                        <span class="ps-state-name">
+<!--                                            --><?php //echo $dist_array[7]; ?>
+                                        GB
+                                        </span>
                                         <span class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
@@ -983,9 +989,11 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[8];
-                                        ?></span>
+                                        <span class="ps-state-name">
+<!--                                            --><?php //echo $dist_array[8]; ?>
+
+                                            AJK
+                                        </span>
                                         <span class="ps-total-count"><?php echo  $totalcluster["list"][0]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
@@ -1049,9 +1057,10 @@
 
                                     </div>
                                     <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[6];
-                                        ?></span>
+                                        <span class="ps-state-name">
+<!--                                            --><?php //echo $dist_array[6]; ?>
+ICT
+                                        </span>
                                         <span class="ps-total-count"><?php echo  $totalcluster["list"][6]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
@@ -1222,8 +1231,8 @@
             //Total Sum
         function totalprogress(){
             var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
-            
-            
+            var totalCount = sum.completed + sum.ip + sum.total;
+            document.getElementById('totalClusterCount').innerText = totalCount;
            
             var options = {
                 series: [sum.completed, sum.ip, sum.total],
@@ -1566,12 +1575,14 @@
             var options = {
                 series: [{
                     name: 'Province',
-                    // data: [per['punjab'], per['sindh'], per['balochistan'], per['khyber_pakhtunkhwa'], per['azad_jammu_and_kashmir'], per['gilgit_baltistan']]
                     data: completedValues
                 }],
                 chart: {
                     type: 'bar',
-                    height: 350
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
                     bar: {
@@ -1579,7 +1590,7 @@
                         columnWidth: '55%',
                         borderRadius: 5,
                         borderRadiusApplication: 'end'
-                    },
+                    }
                 },
                 colors: ['#81a8a8'],
                 dataLabels: {
@@ -1591,24 +1602,86 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    // categories: ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'AJK', 'Gilgit-Baltistan'],
-                    categories: provinces
+                    categories: provinces,
+                    labels: {
+                        rotate: -45,
+                        trim: true
+                    }
                 },
-                // yaxis: {
-                //     title: {
-                //         text: '$ (thousands)'
-                //     }
-                // },
                 fill: {
                     opacity: 1
                 },
                 tooltip: {
                     y: {
                         formatter: function (val) {
-                            return "$ " + val + " thousands"
+                            return "$ " + val + " thousands";
                         }
                     }
-                }
+                },
+
+                /* ✅ RESPONSIVE CONFIG */
+                responsive: [
+                    {
+                        breakpoint: 1024, // tablets
+                        options: {
+                            chart: {
+                                height: 300
+                            },
+                            plotOptions: {
+                                bar: {
+                                    columnWidth: '65%'
+                                }
+                            },
+                            xaxis: {
+                                labels: {
+                                    rotate: -45
+                                }
+                            }
+                        }
+                    },
+                    {
+                        breakpoint: 768, // tablets / large phones
+                        options: {
+                            chart: {
+                                height: 280
+                            },
+                            plotOptions: {
+                                bar: {
+                                    columnWidth: '70%'
+                                }
+                            },
+                            xaxis: {
+                                labels: {
+                                    rotate: -60,
+                                    style: {
+                                        fontSize: '10px'
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        breakpoint: 480, // mobile
+                        options: {
+                            chart: {
+                                height: 250
+                            },
+                            plotOptions: {
+                                bar: {
+                                    columnWidth: '80%'
+                                }
+                            },
+                            xaxis: {
+                                labels: {
+                                    rotate: -90,
+                                    style: {
+                                        fontSize: '9px'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
             };
 
             var chart = new ApexCharts(document.querySelector("#totalpro"), options);
