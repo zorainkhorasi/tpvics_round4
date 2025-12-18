@@ -1153,7 +1153,6 @@
                                             </ul>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <!-- Right side options -->
@@ -1173,7 +1172,20 @@
                                                     // --- Data Retrieval Logic ---
                                                     $oldValue = $vac_details->$v ?? '-';
                                                     $newValue = $vac_details_edit->$v ?? '-';
-                                                    $newValue = ($newValue === '') ? '-' : $newValue; // Treat empty string as default '-'
+                                                    $newValue = ($newValue === '') ? '-' : $newValue;
+                                                    if($v=='pcv1'){
+                                                        $oldValue = $vac_details->pcv ?? '-';
+                                                        $newValue = $vac_details_edit->pcv ?? '-';
+                                                        $newValue = ($newValue === '') ? '-' : $newValue;
+                                                    }elseif($v=='mr1'){
+                                                        $oldValue = $vac_details->measles1 ?? '-';
+                                                        $newValue = $vac_details_edit->measles1 ?? '-';
+                                                        $newValue = ($newValue === '') ? '-' : $newValue;
+                                                    }elseif($v=='mr2'){
+                                                        $oldValue = $vac_details->measles2 ?? '-';
+                                                        $newValue = $vac_details_edit->measles2 ?? '-';
+                                                        $newValue = ($newValue === '') ? '-' : $newValue;
+                                                    }
 
                                                     // --- Display Logic for Card and Modal ---
                                                     $updated_display = 'Click to set';
@@ -1772,7 +1784,7 @@
             success: function (response) {
                 if (response.status == 'success') {
                     alert('Data saved successfully!');
-                    window.location.reload();
+                    //window.location.reload();
 
                 } else {
                     alert('Error saving data: ' + response.message);

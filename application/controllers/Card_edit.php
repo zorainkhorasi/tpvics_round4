@@ -275,7 +275,7 @@ class Card_edit extends CI_controller
 
         if($this->input->is_ajax_request()){
             $post = $this->input->post();
-
+            //echo '<pre>';print_r($post['pcv1']);die;
             $dataToSave = [];
             $vaccines = [
                 "bcg","opv0","opv1","opv2","opv3",
@@ -286,12 +286,19 @@ class Card_edit extends CI_controller
                 "measles1","measles2",
                 "hep_b","tcv"
             ];
-
+            $dataToSave['card_correction']='0';
             foreach($vaccines as $v){
-                $dataToSave[$v] = $post[$v] ?? null; // value from dropdown or 98
+
+                if($v=='measles1'){
+                    $dataToSave['measles1'] = $post['mr1'] ?? null; // value from dropdown or 98
+                }elseif ($v=='measles2'){
+                    $dataToSave['measles2'] = $post['mr2'] ?? null; // value from dropdown or 98
+                }elseif ($v=='pcv'){
+                    $dataToSave['pcv'] = $post['pcv1'] ?? null; // value from dropdown or 98
+                }else{
+                    $dataToSave[$v] = $post[$v] ?? null; // value from dropdown or 98
+                }
             }
-
-
 
             // Additional info
             $dataToSave['cluster_code'] = $post['cluster_code'];
@@ -305,6 +312,11 @@ class Card_edit extends CI_controller
             $dataToSave['dob_type'] = $post['dob_type'];
             $dataToSave['createdBy']=$this->encrypt->decode($_SESSION['login']['username']);
             $dataToSave['createddateTime']=date('Y-m-d H:i:s');
+            foreach($vaccines as $v){
+                if(trim($dataToSave[$v])!='-'){
+                    $dataToSave['card_correction']='1';
+                }
+            }
 
             $Custom = new Custom();
             $saved = $Custom->Insert($dataToSave, 'id', 'vac_details_edit', 'N');
