@@ -1085,21 +1085,47 @@
                         <?php
                         // --- 1. Define the Schedule Structure and Color Mapping for the New UI ---
                         $vaccine_schedule = [
-                            "AT BIRTH" => ["bcg", "hep_b", "opv0"],
+                            "AT BIRTH" => [ "opv0", "hep_b","bcg"],
                             "6 WEEKS" => ["opv1", "rv1", "pcv1", "penta1"],
-                            "10 WEEKS" => ["opv2", "rv2", "pcv2", "penta2", "ipv"],
-                            "14 WEEKS" => ["opv3", "penta3", "pcv3", "ipv2"], // Grouping remaining vaccines
-                            "9 MONTHS" => ["mr1", "tcv"],
+                            "10 WEEKS" => ["opv2", "rv2", "pcv2", "penta2"],
+                            "14 WEEKS" => ["opv3",  "ipv","pcv3","penta3"], // Grouping remaining vaccines
+                            "9 MONTHS" => [ "ipv2", "tcv","mr1"],
                             "15 MONTHS" => ["mr2"],
 
                         ];
 
                         $stripe_map = [
-                            'bcg' => 'fill-brown', 'hep_b' => 'fill-red', 'opv0' => 'fill-magenta',
-                            'opv1' => 'fill-magenta', 'rv1' => 'fill-cyan', 'pcv1' => 'fill-orange', 'penta1' => 'fill-green',
-                            'opv2' => 'fill-magenta', 'rv2' => 'fill-cyan', 'pcv2' => 'fill-orange', 'penta2' => 'fill-green', 'ipv' => 'fill-royal',
-                            'mr1' => 'fill-purple', 'tcv' => 'fill-navy tiny-text',
-                            'mr2' => 'fill-purple', 'opv3' => 'fill-magenta', 'penta3' => 'fill-green', 'pcv3' => 'fill-orange', 'ipv2' => 'fill-royal',
+
+                            // AT BIRTH
+                            'opv0'   => 'fill-magenta',
+                            'hep_b'  => 'fill-red',
+                            'bcg'    => 'fill-brown',
+
+                            // 6 WEEKS
+                            'opv1'   => 'fill-magenta',
+                            'rv1'    => 'fill-cyan',
+                            'pcv1'   => 'fill-orange',
+                            'penta1'=> 'fill-green',
+
+                            // 10 WEEKS
+                            'opv2'   => 'fill-magenta',
+                            'rv2'    => 'fill-cyan',
+                            'pcv2'   => 'fill-orange',
+                            'penta2'=> 'fill-green',
+
+                            // 14 WEEKS
+                            'opv3'   => 'fill-magenta',
+                            'ipv'    => 'fill-royal',
+                            'pcv3'   => 'fill-orange',
+                            'penta3'=> 'fill-green',
+
+                            // 9 MONTHS
+                            'ipv2'   => 'fill-royal',
+                            'tcv'    => 'fill-navy tiny-text',
+                            'mr1'    => 'fill-purple',
+
+                            // 15 MONTHS
+                            'mr2'    => 'fill-purple',
                         ];
                         // Assuming $vac_details and $vac_details_edit are defined
                         ?>
@@ -1464,7 +1490,10 @@
         $('#dobstatus').val(0);
 
           var dobstatus=0;
-        $('#dobstatus').change(function () {
+  
+
+    });
+         $('#dobstatus').change(function () {
         if ($(this).val() == 2) { // Invalid DoB
             
             
@@ -1472,7 +1501,7 @@
             $('#dob_editable_container').show();
             $('#dob_display').hide();
             $('#new_dob_input').prop('disabled', false);
-            console.log('here');
+            // console.log('here');
         }else if($(this).val() == 1) {
             dobstatus=$(this).val();
             $('#dob_editable_container').hide();
@@ -1480,9 +1509,6 @@
             $('#new_dob_input').prop('disabled', true);
         }
     });
-
-    });
-   
     // console.log(dobstatus);
     
 
