@@ -1814,7 +1814,7 @@
             success: function (response) {
                 if (response.status == 'success') {
                     alert('Data saved successfully!');
-                    //window.location.reload();
+                    window.location.reload();
 
                 } else {
                     alert('Error saving data: ' + response.message);
