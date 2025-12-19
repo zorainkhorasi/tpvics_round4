@@ -1070,7 +1070,7 @@
                                         </select>
                                     </div>
                                     <div class="info-box">
-                                        <label class="info-label" style="margin-right: 10px;">What is Recorded on the Card::</label>
+                                        <label class="info-label" style="margin-right: 10px;">What is Recorded on the Card:</label>
 
                                         <div style="display: flex; align-items: center; gap: 15px;">
 
@@ -1080,8 +1080,8 @@
                                                     type="radio"
                                                     name="duration_type"
                                                     id="yearsCheck"
-                                                    value="Only Age Given"
-                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'only age given') ? 'checked' : '' ?>
+                                                    value="Age"
+                                                    <?= (isset($vac_details_edit->dob_type) && $vac_details_edit->dob_type  == 'Age') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
                                                Age
@@ -1093,8 +1093,8 @@
                                                     type="radio"
                                                     name="duration_type"
                                                     id="monthsCheck"
-                                                    value="Date of birth mention"
-                                                    <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'date of birth mention') ? 'checked' : '' ?>
+                                                    value="DoB"
+                                                    <?= (isset($vac_details_edit->dob_type) && $vac_details_edit->dob_type == 'DoB') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
                                           DoB
@@ -1541,12 +1541,12 @@
 
              dobstatus=$(this).val();
             $('#dob_editable_container').show();
-            $('#dob_display').hide();
+            //$('#dob_display').hide();
             $('#new_dob_input').prop('disabled', false);
             // console.log('here');
         }else if($(this).val() == 1) {
             dobstatus=$(this).val();
-            $('#dob_editable_container').hide();
+           // $('#dob_editable_container').hide();
             $('#dob_display').show();
             $('#new_dob_input').prop('disabled', true);
         }
