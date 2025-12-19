@@ -366,14 +366,15 @@
     }
 
     .immu-period-col {
+        transform: rotate(270deg);
         color: #18403c;
-        background: #f1ffff;
-        width: 90px;;
+        width: 1px;
         text-align: center;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 10px;
         text-transform: uppercase;
         line-height: 1.2;
+        padding: 0px;
     }
 
     .immu-doses-col {
@@ -703,28 +704,56 @@
 
     .info-line {
         display: flex;
-        flex-wrap: wrap;
-        gap: 3px;
+        flex-wrap: wrap;              /* allow wrapping on small screens */
+        gap: 8px;
         font-size: 14px;
-        margin-bottom: 10px;
+        margin-bottom: 7px;
     }
 
+    /* Each info block */
     .info-box {
-        flex: 1;
-        min-width: 250px;
+        flex: 1 1 220px;              /* responsive column sizing */
+        min-width: 200px;
     }
 
+    /* Label */
     .info-label {
         font-weight: 600;
         margin-right: 5px;
+        white-space: nowrap;          /* prevent label breaking */
     }
 
+    /* Blank input line */
     .info-blank {
         display: inline-block;
         border-bottom: 1px solid #000;
-        width: 160px;
+        width: 100%;
+        max-width: 140px;             /* desktop width */
         height: 21px;
-        padding: 0px 34px;
+        padding: 0 4px;
+    }
+
+    /* 📱 Mobile adjustments */
+    @media (max-width: 576px) {
+        .info-line {
+            font-size: 13px;
+        }
+
+        .info-box {
+            flex: 1 1 100%;            /* full width */
+            min-width: 100%;
+        }
+
+        .info-blank {
+            max-width: 100%;           /* full width on mobile */
+        }
+    }
+
+    /* 💻 Large screens */
+    @media (min-width: 992px) {
+        .info-blank {
+            max-width: 120px;
+        }
     }
 
     /*    image viewr*/
@@ -956,7 +985,7 @@
             ?>
             <div class="container-fluid ">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-12">
+                    <div class="col-xl-7 col-lg-12">
                         <div style=" padding: 0px 20px;" class="card">
                             <div class="card-header"></div>
                             <div class="child-card">
@@ -983,7 +1012,7 @@
                                     </div>
 
                                     <div class="info-box">
-                                        <span class="info-label">Household Number:</span>
+                                        <span class="info-label">HH No:</span>
                                         <span class="info-blank"><?= $data->hhno ?? '' ?></span>
                                     </div>
 
@@ -991,19 +1020,15 @@
                                         <span class="info-label">Child Name:</span>
                                         <span class="info-blank"><?= $data->ec14 ?? '' ?></span>
                                     </div>
-                                </div>
 
-                                <div class="info-line">
 
                                     <div class="info-box">
                                         <span class="info-label">Gender:</span>
                                         <span class="info-blank"><?= $data->ec15 == 1 ? 'Male' : 'Female' ?></span>
                                     </div>
+                                </div>
 
-                                    <div class="info-box">
-                                        <span class="info-label">Age :</span>
-                                        <span class="info-blank"><?= $data->trueageinmonths ?? '' ?> Months</span>
-                                    </div>
+                                <div class="info-line">
 
                                     <div class="info-box">
                                         <span class="info-label">Date of Birth:</span>
@@ -1015,20 +1040,26 @@
                                         $is_invalid = ($vac_details_edit->dobstatus == 2);
                                         ?>
                                         <div id="new_dob">
-                                        <label for="">New Date of Birth:</label>
+                                        <label STYLE="COLOR: #a94f22; " for="">New DoB:</label>
                                         <span id="dob_editable_container" class="info-blank"
                                               style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
                                             <input type="date" name="new_dob" value="<?=$vac_details_edit->dob?$vac_details_edit->dob:' ' ?>" id="new_dob_input" class="form-control"
                                        disabled
-                                       style="font-size: 11px; width: 100px;margin: -4px -29px; display: inline-block;    border-bottom: none;!important "
+                                       style="font-size: 11px; width: 100px;    margin: -2px -9px;; display: inline-block;    border-bottom: none;!important "
                                        placeholder="DD-MM-YYYY">
                                     </div>
                                     </div>
 
+
                                     <div class="info-box">
-                                        <label class="info-label">Date of Birth Status</label>
+                                        <span class="info-label">Age :</span>
+                                        <span class="info-blank"><?= $data->trueageinmonths ?? '' ?> M</span>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <label class="info-label">DoB Status</label>
                                         <select style="font-size: 11px" id="dobstatus" class="form-select">
-                                            <option value="0">Select DoB Status</option>
+                                            <option value="0">DoB Status</option>
                                             <option
                                                 value="1" <?= $vac_details_edit->dobstatus == 1 ? 'selected' : '' ?>>OK
                                             </option>
@@ -1039,8 +1070,7 @@
                                         </select>
                                     </div>
                                     <div class="info-box">
-                                        <label class="info-label" style="margin-right: 10px;">Date Of Birth
-                                            Type:</label>
+                                        <label class="info-label" style="margin-right: 10px;">What is Recorded on the Card::</label>
 
                                         <div style="display: flex; align-items: center; gap: 15px;">
 
@@ -1054,7 +1084,7 @@
                                                     <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'only age given') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
-                                                Only Age Given
+                                               Age
                                             </label>
 
                                             <label
@@ -1067,7 +1097,7 @@
                                                     <?= (isset($vac_details_edit->dob_type) && trim(strtolower($vac_details_edit->dob_type)) == 'date of birth mention') ? 'checked' : '' ?>
                                                     style="margin-right: 5px;"
                                                 >
-                                                Date of birth mention
+                                          DoB
                                             </label>
 
                                         </div>
@@ -1161,7 +1191,7 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="    background: #f1ffff;">
                                 <table class="immu-schedule-table">
                                     <?php foreach ($vaccine_schedule as $period => $vaccines): ?>
                                         <tr class="immu-row">
@@ -1252,7 +1282,7 @@
                     </div>
                     <!--</div>-->
 
-                    <div class="col-xl-4 col-lg-12 mb-4">
+                    <div class="col-xl-5 col-lg-12 mb-4">
                         <div class="card">
                             <div class="card-header">
                                 <div class="child-card">
@@ -1502,14 +1532,14 @@
         $('#dobstatus').val(0);
 
           var dobstatus=0;
-  
+
 
     });
          $('#dobstatus').change(function () {
         if ($(this).val() == 2) { // Invalid DoB
-            
-            
-             dobstatus=$(this).val();             
+
+
+             dobstatus=$(this).val();
             $('#dob_editable_container').show();
             $('#dob_display').hide();
             $('#new_dob_input').prop('disabled', false);
@@ -1522,7 +1552,7 @@
         }
     });
     // console.log(dobstatus);
-    
+
 
     // Attach clickAll handler to the new radio buttons
     $(document).on('change', 'input[name="checkAllBtn"]', clickAll);
@@ -1733,7 +1763,7 @@
              if (!dobType) {
             alert("Date of Birth type is required");
             return false; // stop form submission
-        }    
+        }
         if (dobstatus == 2) {
             if (!dob) {
                 alert("Date of Birth is required");
@@ -1747,8 +1777,8 @@
             formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
 
         }
-      
-        
+
+
         formData['dob_type'] = dobType;
 
         // Additional info
@@ -1760,7 +1790,7 @@
         formData['vac_status'] = $('input[name="checkAllBtn"]:checked').val();
         formData['image_comments'] = $('#comments').val(); // <--- ADD THIS LINE
 
-  
+
 
         if (!formData['image_status']) {
 
@@ -1774,7 +1804,7 @@
             return false;
         }
 
-   
+
 
         $.ajax({
             url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',

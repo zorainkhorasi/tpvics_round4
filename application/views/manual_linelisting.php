@@ -290,9 +290,9 @@
 
                     <div class="col-md-6 d-flex flex-column justify-content-md-end justify-content-start mt-3 mt-md-0">
                         <div class="info-header-box mb-2">
-                            <strong>Cluster: <span id="cluster_id_display">TBD</span></strong><br>
-                            Area: <span id="area_display">TBD</span> | Village: <span id="village_display">TBD</span>
-                            <div class="mt-1">Number of Households: <span id="hh_count_display">TBD</span></div>
+                            <strong>Cluster: <span id="cluster_id_display">-</span></strong><br>
+                            Area: <span id="area_display">-</span> | Village: <span id="village_display">-</span>
+                            <div class="mt-1">Number of Households: <span id="hh_count_display">-</span></div>
                         </div>
 
                         <div class="chkCluster_div d-flex justify-content-end align-items-center">
@@ -554,10 +554,10 @@
         $('.my_card').addClass('hide');
         // Reset info box
         $('.geoarea_name').html('');
-        $('#cluster_id_display').text('TBD');
-        $('#area_display').text('TBD');
-        $('#village_display').text('TBD');
-        $('#hh_count_display').text('TBD');
+        $('#cluster_id_display').text('-');
+        $('#area_display').text('-');
+        $('#village_display').text('-');
+        $('#hh_count_display').text('-');
     }
 
     function chkCluster() {
@@ -611,7 +611,7 @@
                         let geoParts = c.geoarea.split('|').map(p => p.trim());
                         $('#area_display').text(geoParts[0] || 'N/A');
                         $('#village_display').text(geoParts[1] || 'N/A');
-                        $('#hh_count_display').text(c.total_hh || 'TBD');
+                        $('#hh_count_display').text(c.total_hh || '-');
 
 
                         $('.chkCluster_btn').addClass('hide');
