@@ -1497,7 +1497,9 @@
         if ($(this).val() == 2) { // Invalid DoB
             
             
-             dobstatus=$(this).val();             
+               dobstatus=$(this).val();
+            
+            
             $('#dob_editable_container').show();
             $('#dob_display').hide();
             $('#new_dob_input').prop('disabled', false);

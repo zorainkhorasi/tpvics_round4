@@ -68,6 +68,41 @@
         color: #000000;
         max-width: 100%;
     }
+    .facility-checkbox-group .form-check {
+    padding-left: 0; /* Remove default padding */
+    }
+
+    .facility-checkbox-group .form-check-input {
+        display: none; /* Hide the actual box */
+    }
+
+    .facility-checkbox-group .form-check-label {
+        display: inline-block;
+        padding: 6px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 50px; /* Rounded pill shape */
+        background-color: #ffffff;
+        color: #666;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+    }
+
+    /* Hover State */
+    .facility-checkbox-group .form-check-label:hover {
+        border-color: #43a1a9;
+        background-color: #f0f8f9;
+    }
+
+    /* Checked State */
+    .facility-checkbox-group .form-check-input:checked + .form-check-label {
+        background-color: #43a1a9;
+        border-color: #43a1a9;
+        color: #ffffff;
+        box-shadow: 0 3px 8px rgba(67, 161, 169, 0.3);
+    }
 
     .info-header-box strong {
         font-weight: bold;
@@ -338,7 +373,60 @@
                                 </div>
                             </div>
                         </div>
+                 
+                        <!-- <div class="row"> -->
+                             
+                        <div class="col-md-4 d-flex align-items-center">
+                            <label class="label-inline me-2" for="lat">(Clusters Centroid)</label>
+                            <label class="label-inline me-2" for="lat">Latitude</label>
+                            <div class="flex-grow-1">
+                                <input type="number" step="any" class="form-control form-control-plaintext" id="lat" name="lat" placeholder="0.0000" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <label class="label-inline me-2" for="lng">Longitude</label>
+                            <div class="flex-grow-1">
+                                <input type="number" step="any" class="form-control form-control-plaintext" id="lng" name="lng" placeholder="0.0000" required>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex align-items-center mt-3">
+                        <label class="label-inline me-3" style="font-weight: bold; color: #43a1a9;">TYPE OF FACILITY</label>
+                        <div class="d-flex flex-wrap gap-2 facility-checkbox-group">
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_dhq" required>
+                                <label class="form-check-label" for="type_dhq">DHQ</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_thq">
+                                <label class="form-check-label" for="type_thq">THQ</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_rhc">
+                                <label class="form-check-label" for="type_rhc">RHC</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_bhu">
+                                <label class="form-check-label" for="type_bhu">BHU</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_gdc">
+                                <label class="form-check-label" for="type_gdc">GDC</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_private">
+                                <label class="form-check-label" for="type_private">Private</label>
+                            </div>
+
+                        </div>
                     </div>
+                    <!-- </div> -->
+                   </div>
 
                     <div class="row mb-4" data-masonry='{"percentPosition": true }'>
 
@@ -356,7 +444,9 @@
                                             <option value="3">Twice a year</option>
                                             <option value="4">Once a year</option>
                                             <option value="5">Only during campaigns</option>
-                                            <option value="6">No one has information about this</option>
+                                             <option value="6">Un covered area</option>
+                                            <option value="7">No one has information about this</option>
+                                            <option value="97">Not visted</option>
                                         </select>
                                     </div>
                                 </div>
@@ -395,7 +485,9 @@
                                             <option value="3">Twice a year</option>
                                             <option value="4">Once a year</option>
                                             <option value="5">Only during campaigns</option>
-                                            <option value="6">No one has information about this</option>
+                                            <option value="6">Un covered area</option>
+                                            <option value="7">No one has information about this</option>
+                                            <option value="97">Not visted</option>
                                         </select>
                                     </div>
                                 </div>
@@ -432,8 +524,9 @@
                                             <option value="3">Twice a year</option>
                                             <option value="4">Once a year</option>
                                             <option value="5">Only during campaigns</option>
-                                            <option value="6">No one has information about this</option>
-                                        </select>
+                                            <option value="6">Un covered area</option>
+                                            <option value="7">No one has information about this</option>
+                                            <option value="97">Not visted</option>                                        </select>
                                     </div>
                                 </div>
 
@@ -454,6 +547,8 @@
                                 </div>
                             </div>
                         </div>
+
+                 
                     </div>
 
                     <div class="row mb-4">
@@ -724,7 +819,7 @@
                 '<th style="width: 5%;">S.NO</th>' +
                 '<th style="width: 20%;">Structure Number</th>' +
                 '<th style="width: 15%;">S.No of Household</th>' +
-                '<th style="width: 30%;">Name of Household</th>' +
+                '<th style="width: 30%;">Household Head Name</th>' +
                 '<th style="width: 30%;">Total 12-23 months children</th>' +
                 '</tr>' +
                 '</thead>' +
@@ -736,7 +831,7 @@
                         <td class="s-no">${i}</td>
                         <td><input placeholder="Structure No" type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext structure_number_${i}" id="structure_number_${i}" required></td>
                         <td><input placeholder="Enter Household No" type="number" maxlength="3" max="3" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==3) return false;" minlength="1" min="1" class="form-control form-control-plaintext household_no_${i}" id="household_no_${i}" required></td>
-                        <td><input placeholder="Enter Household Name" type="text" class="form-control form-control-plaintext household_name_${i}" id="household_name_${i}" required></td>
+                        <td><input placeholder="Enter Household Head Name" type="text" class="form-control form-control-plaintext household_name_${i}" id="household_name_${i}" required></td>
                         <td><input placeholder="No. of Children (12–23 Months)" type="number" maxlength="1" max="1" pattern="/^-?\\d+\\.?\\d*$/" onKeyPress="if(this.value.length==1) return false;" minlength="1" min="1" class="form-control form-control-plaintext childAge_${i}" id="childAge_${i}" required></td>
                     </tr>
                 `;
@@ -783,6 +878,9 @@
 
         data['village'] = $('#village').val();
         data['hf'] = $('#hf').val();
+        data['lat'] = $('#lat').val();
+        data['lng'] = $('#lng').val();
+        data['facility_type'] = $('#type_dhq').val();
 
         // Area/Village
         if (data['village'] == '' || data['village'] == undefined || data['village'] == '0') {
@@ -803,6 +901,32 @@
         } else {
             $('#hf').removeClass('error');
         }
+        
+         if (data['lat'] == '' || data['lat'] == undefined || data['lat'] == '0') {
+            $('#lat').addClass('error');
+            flag = 1;
+            toastMsg('Latitude', 'Invalid Latitude', 'error');
+            return false;
+        } else {
+            $('#lat').removeClass('error');
+        }
+         if (data['lng'] == '' || data['lng'] == undefined || data['lng'] == '0') {
+            $('#lng').addClass('error');
+            flag = 1;
+            toastMsg('longitude', 'Invalid longitude', 'error');
+            return false;
+        } else {
+            $('#lng').removeClass('error');
+        }
+         if (data['facility_type'] == '' || data['facility_type'] == undefined || data['facility_type'] == '0') {
+            $('#facility_type').addClass('error');
+            flag = 1;
+            toastMsg('facility type', 'Invalid facility type', 'error');
+            return false;
+        } else {
+            $('#facility_type').removeClass('error');
+        }
+      
 
         // --- 2. Vaccinator Detail Validation ---
         data['vaccinator_frequency'] = $('#vaccinator_frequency').val();
@@ -810,10 +934,14 @@
         data['vaccinator_visit_date'] = $('#vaccinator_visit_date').val();
 
         // If frequency is 'No one has information about this' (6), skip name/date validation
-        if (data['vaccinator_frequency'] == "6") {
+        if (data['vaccinator_frequency'] == "7") {
             $('#name_of_vaccinator').removeAttr('required').val('').removeClass('error');
             $('#vaccinator_visit_date').removeAttr('required').val('').removeClass('error');
-        } else {
+        }else if (data['vaccinator_frequency'] == "97") {
+            // $('#name_of_vaccinator').removeAttr('required').val('').removeClass('error');
+            $('#vaccinator_visit_date').removeAttr('required').val('').removeClass('error');
+        } 
+        else {
             $('#name_of_vaccinator').attr('required', true);
             $('#vaccinator_visit_date').attr('required', true);
 
@@ -851,10 +979,15 @@
         data['name_of_polio'] = $('#name_of_polio').val();
         data['polio_visit_date'] = $('#polio_visit_date').val();
 
-        if (data['polio_frequency'] == "6") {
+        if (data['polio_frequency'] == "7") {
             $('#name_of_polio').removeAttr('required').val('').removeClass('error');
             $('#polio_visit_date').removeAttr('required').val('').removeClass('error');
-        } else {
+        } 
+        else if (data['polio_frequency'] == "97") {
+            // $('#name_of_polio').removeAttr('required').val('').removeClass('error');
+            $('#polio_visit_date').removeAttr('required').val('').removeClass('error');
+        } 
+        else {
             $('#name_of_polio').attr('required', true);
             $('#polio_visit_date').attr('required', true);
 
@@ -893,10 +1026,15 @@
         data['lhw_visit_date'] = $('#lhw_visit_date').val();
 
 
-        if (data['lhw_frequency'] == "6") {
+        if (data['lhw_frequency'] == "7") {
             $('#name_of_lhw').removeAttr('required').val('').removeClass('error');
             $('#lhw_visit_date').removeAttr('required').val('').removeClass('error');
-        } else {
+        } 
+          else if (data['lhw_frequency'] == "97") {
+            // $('#name_of_lhw').removeAttr('required').val('').removeClass('error');
+            $('#lhw_visit_date').removeAttr('required').val('').removeClass('error');
+        } 
+        else {
             $('#name_of_lhw').attr('required', true);
             $('#lhw_visit_date').attr('required', true);
 

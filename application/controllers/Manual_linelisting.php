@@ -15,6 +15,7 @@ class Manual_linelisting extends CI_controller
 
     function index()
     {
+        
         $data = array();
         $MSettings = new MSettings();
         $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', uri_string());
@@ -39,7 +40,8 @@ class Manual_linelisting extends CI_controller
         if (isset($_GET['c']) && $_GET['c'] != '') {
             $cluster = $_GET['c'];
         }
-
+        // echo 1;
+        // die();
         $data['slug_p'] = $pan_list;
         $data['slug_distirct'] = $pan_list;
         $data['slug_uc'] = $uc;
@@ -182,9 +184,20 @@ class Manual_linelisting extends CI_controller
 
                 if ($InsertData) {
 
+                    if (isset($_POST['facility_type']) && is_array($_POST['facility_type'])) {
+        
+                        // 2. Array ko comma-separated string mein convert karein
+                        $facility_string = implode(", ", $_POST['facility_type']);
+
+                    }
+
                     $update_data = [
                         'village'      => $this->input->post('village'),
                         'hfname'      => $this->input->post('hf'),
+
+                         'lat'      => $this->input->post('lat'),
+                        'lng'      => $this->input->post('lng'),
+                        'hftype'      =>  $facility_string,
 
                         'vac_name'     => $this->input->post('name_of_vaccinator'),
                         'vac_freq'     => $this->input->post('vaccinator_frequency'),
