@@ -55,7 +55,7 @@
         --modal-btn-active-bg: #dcfef6;
         --modal-btn-save-bg: #e0f7f3;
         --modal-btn-save-text: #2f7d6d;
-        --modal-btn-cancel-bg: #1f6050;
+        --modal-btn-cancel-bg: #6e9e92;
     }
 
     body {
@@ -540,10 +540,10 @@
     .modal-icon {
         font-size: 32px;
         margin-right: 15px;
-        background-color: var(--modal-btn-cancel-bg);
-        color: #fff;
-        width: 40px;
-        height: 40px;
+        /*background-color: var(--modal-btn-cancel-bg);*/
+        color: #000000;
+        width: 20px;
+        height: 20px;
         border-radius: 5px;
         display: flex;
         justify-content: center;
@@ -551,11 +551,11 @@
     }
 
     .modal-title {
-        font-size: 42px;
+        font-size: 23px;
         font-weight: bold;
-        color: var(--modal-text-header);
+        color: #1b887d;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1px
     }
 
     .modal-tabs {
@@ -568,13 +568,11 @@
     .modal-tab-btn {
         flex: 1;
         border: none;
-        padding: 12px;
-        font-size: 14px;
+        font-size: 11px;
         font-weight: 600;
         text-transform: uppercase;
         cursor: pointer;
-        background-color: var(--modal-btn-gray);
-        color: #333;
+        color: #899a97;
         transition: 0.3s;
         border-radius: 5px;
     }
@@ -909,7 +907,7 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-3 col-12">
+                                    <div class="col-sm-2 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             District
                                         </div>
@@ -941,7 +939,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-12">
+                                    <div class="col-sm-2 col-12">
                                         <div class="text-bold-600 font-medium-2">
                                             Household
                                         </div>
@@ -962,7 +960,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 col-12 py-2">
+                                    <div class="col-sm-4 col-12 py-2">
                                         <button type="button" class="btn btn-primary" onclick="searchData()">SEARCH
                                         </button>
 
@@ -1040,7 +1038,7 @@
                                         $is_invalid = ($vac_details_edit->dobstatus == 2);
                                         ?>
                                         <div id="new_dob">
-                                        <label STYLE="COLOR: #a94f22; " for="">New DoB:</label>
+                                        <label STYLE="COLOR: #a94f22; " for="">Corrected DoB:</label>
                                         <span id="dob_editable_container" class="info-blank"
                                               style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
                                             <input type="date" name="new_dob" value="<?=$vac_details_edit->dob?$vac_details_edit->dob:' ' ?>" id="new_dob_input" class="form-control"
@@ -1368,22 +1366,25 @@
 </div>
 <div id="actionModal" class="modal-overlay">
     <div class="modal-card">
-        <div class="modal-header">
-            <div class="modal-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"
-                     stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                </svg>
+        <div class="modal-header" style="display: flex; align-items: center; gap: 15px;">
+            <div style="display: flex; align-items: center;">
+                <div class="modal-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                </div>
+                <div class="modal-title" style="font-weight: bold;">ACTION</div>
             </div>
-            <div class="modal-title">ACTION</div>
+
+            <div class="modal-tabs" style="display: flex; gap: 5px; margin-left: auto;    margin-bottom: 3px;">
+                <button class="modal-tab-btn" id="tabCode" onclick="selectTab('code')">CHANGE CODE</button>
+                <button class="modal-tab-btn active" id="tabDate" onclick="selectTab('date')">CHANGE DATE</button>
+                <button class="modal-tab-btn" id="tabError" onclick="selectTab('error')">VACCINATOR ERROR</button>
+            </div>
         </div>
 
-        <div class="modal-tabs">
-            <button class="modal-tab-btn" id="tabCode" onclick="selectTab('code')">CHANGE CODE</button>
-            <button class="modal-tab-btn active" id="tabDate" onclick="selectTab('date')">CHANGE DATE</button>
-            <button class="modal-tab-btn" id="tabError" onclick="selectTab('error')">VACCINATOR ERROR</button>
-        </div>
 
         <div class="modal-inputs-row">
             <select class="modal-input" id="inputCode">
