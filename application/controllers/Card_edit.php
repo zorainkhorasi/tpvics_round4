@@ -117,12 +117,6 @@ class Card_edit extends CI_controller
             $data['ec'] = $ec;
 
 
-        //    echo '<pre>';print_r($data);die;
-
-            /*$Mimage_forms = new Mimage_forms();
-            $data['getImageData'] = $Mimage_forms->getDataImages($cluster, $hhno, 1);*/
-
-
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -269,7 +263,6 @@ class Card_edit extends CI_controller
         }
     }
 
-
     public function save_vaccines_ajax() {
         $response = ['status' => 'error', 'message' => 'Something went wrong'];
 
@@ -327,13 +320,8 @@ class Card_edit extends CI_controller
                 $response['message'] = 'DB insert failed';
             }
         }
-
         echo json_encode($response);
     }
-
-
-
-
 
     function addForm()
     {
