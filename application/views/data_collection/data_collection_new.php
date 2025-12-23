@@ -630,7 +630,7 @@
                     <diiv class="col">
                         <div class="chart-block cluster-chart-block">
                             <h4 class="block-title">
-                                Total Cluster: <span style="font-size: 21px;
+                                Overview: <span style="font-size: 21px;
     color: #00796b; " id="totalClusterCount">0</span>
                             </h4>
 
