@@ -323,21 +323,27 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 d-flex flex-column justify-content-md-end justify-content-start mt-3 mt-md-0">
+                    <div class="col-md-5 d-flex flex-column justify-content-md-end justify-content-start mt-3 mt-md-0">
                         <div class="info-header-box mb-2">
                             <strong>Cluster: <span id="cluster_id_display">-</span></strong><br>
                             Area: <span id="area_display">-</span> | Village: <span id="village_display">-</span>
-                            <div class="mt-1">Number of Households: <span id="hh_count_display">-</span></div>
+<!--                            <div class="mt-1">Number of Households: <span id="hh_count_display">-</span></div>-->
                         </div>
+
+
+                    </div>
+                    <div class="col-md-1 d-flex flex-column ">
+
 
                         <div class="chkCluster_div d-flex justify-content-end align-items-center">
                             <!--                                <p class="geoarea_name me-3"></p>-->
                             <button type="button" class="btn btn-info chkCluster_btn"
                                     onclick="chkCluster()">
-                                Check Cluster
+                                Search
                             </button>
                         </div>
                     </div>
+
                 </div>
                 <div class="nextDiv hide">
 
@@ -769,7 +775,7 @@
             var html = '';
 
             // 1. DYNAMIC TOTALS FIELDS (Using NEW UI structure from the static HTML)
-            html += '<div class="row mb-5 totals-section">';
+            html += '<div class="row totals-section">';
 
             // Total Structure Identified
             html += '<div class="col-md-3 mb-3"> ' +
