@@ -128,8 +128,8 @@ class Manual_linelisting extends CI_controller
 
                 foreach ($_POST['option'] as $opt) {
 
-                    $hh04 = str_pad($opt['structure_number'], 4, '0', STR_PAD_LEFT); // 0001
-                    $hh07 = str_pad($opt['household_no'], 3, '0', STR_PAD_LEFT);     // 001
+                    $hh04 = str_pad($opt['structure_number'], 3, '0', STR_PAD_LEFT); // 0001
+                    $hh07 = str_pad($opt['household_no'], 2, '0', STR_PAD_LEFT);     // 001
 
                     // Unique ID check inside POST
                     $hhid = 'A-' . $hh04 . '-' . $hh07;
