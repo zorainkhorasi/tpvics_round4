@@ -78,9 +78,8 @@
 
     .facility-checkbox-group .form-check-label {
         display: inline-block;
-        padding: 6px 16px;
-        border: 2px solid #e0e0e0;
-        border-radius: 50px; /* Rounded pill shape */
+        padding: 4px 13px;
+        border-radius: 50px;
         background-color: #ffffff;
         color: #666;
         font-size: 0.85rem;
@@ -98,10 +97,9 @@
 
     /* Checked State */
     .facility-checkbox-group .form-check-input:checked + .form-check-label {
-        background-color: #43a1a9;
+        background-color: #9cd6d0;
         border-color: #43a1a9;
-        color: #ffffff;
-        box-shadow: 0 3px 8px rgba(67, 161, 169, 0.3);
+        color: #18403c;
     }
 
     .info-header-box strong {
@@ -347,9 +345,9 @@
                 </div>
                 <div class="nextDiv hide">
 
-                    <div class="row mb-4">
+                    <div class="row mb-2">
                         <div class="col-12">
-                            <label class="form-label mb-3"
+                            <label class="form-label mb-1"
                                    style="font-size: 0.9rem; font-weight: bold; color: #43a1a9; text-transform: uppercase;">VILLAGE
                                 DETAIL</label>
                             <div class="row">
@@ -368,20 +366,57 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center">
-                                    <label class="label-inline me-2" for="number_hh">Number of Households (12-23 Months
-                                        Children)</label>
-                                    <div class="flex-grow-1">
-                                        <input type="number" maxlength="3" max="3" pattern="/^-?\d+\.?\d*$/"
-                                               onKeyPress="if(this.value.length==3) return false;"
-                                               class="form-control form-control-plaintext number_hh" id="number_hh"
-                                               minlength="1" min="1" required>
+                                    <label class="label-inline me-3" style="font-weight: bold; color: #43a1a9;">TYPE OF FACILITY</label>
+                                    <div class="d-flex flex-wrap gap-2 facility-checkbox-group">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_dhq" required>
+                                            <label class="form-check-label" for="type_dhq">DHQ</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_thq">
+                                            <label class="form-check-label" for="type_thq">THQ</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_rhc">
+                                            <label class="form-check-label" for="type_rhc">RHC</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_bhu">
+                                            <label class="form-check-label" for="type_bhu">BHU</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_gdc">
+                                            <label class="form-check-label" for="type_gdc">GDC</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_private">
+                                            <label class="form-check-label" for="type_private">Private</label>
+                                        </div>
+
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                  
                         <!-- <div class="row"> -->
-                             
+                        <div class="col-md-4 d-flex align-items-center">
+                            <label class="label-inline me-2" for="number_hh">Number of Households (12-23 Months
+                                Children)</label>
+                            <div class="flex-grow-1">
+                                <input type="number" maxlength="3" max="3" pattern="/^-?\d+\.?\d*$/"
+                                       onKeyPress="if(this.value.length==3) return false;"
+                                       class="form-control form-control-plaintext number_hh" id="number_hh"
+                                       minlength="1" min="1" required>
+                            </div>
+                        </div>
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="label-inline me-2" for="lat">(Clusters Centroid)</label>
                             <label class="label-inline me-2" for="lat">Latitude</label>
@@ -389,58 +424,23 @@
                                 <input type="number" step="any" class="form-control form-control-plaintext" id="lat" name="lat" placeholder="0.0000" required>
                             </div>
                         </div>
-                        <div class="col-md-6 d-flex align-items-center">
+                        <div class="col-md-4 d-flex align-items-center">
                             <label class="label-inline me-2" for="lng">Longitude</label>
                             <div class="flex-grow-1">
                                 <input type="number" step="any" class="form-control form-control-plaintext" id="lng" name="lng" placeholder="0.0000" required>
                             </div>
                         </div>
-                        <div class="col-12 d-flex align-items-center mt-3">
-                        <label class="label-inline me-3" style="font-weight: bold; color: #43a1a9;">TYPE OF FACILITY</label>
-                        <div class="d-flex flex-wrap gap-2 facility-checkbox-group">
-                            
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_dhq" required>
-                                <label class="form-check-label" for="type_dhq">DHQ</label>
-                            </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_thq">
-                                <label class="form-check-label" for="type_thq">THQ</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_rhc">
-                                <label class="form-check-label" for="type_rhc">RHC</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_bhu">
-                                <label class="form-check-label" for="type_bhu">BHU</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_gdc">
-                                <label class="form-check-label" for="type_gdc">GDC</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_private">
-                                <label class="form-check-label" for="type_private">Private</label>
-                            </div>
-
-                        </div>
-                    </div>
                     <!-- </div> -->
                    </div>
 
-                    <div class="row mb-4" data-masonry='{"percentPosition": true }'>
+                    <div class="row mb-2" data-masonry='{"percentPosition": true }'>
 
                         <div class="col-md-4">
                             <div class="detail-box">
-                                <p class="mb-3 sub-header">VACCINATOR DETAIL</p>
+                                <p class="mb-2 sub-header">VACCINATOR DETAIL</p>
 
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label class="label-inline" for="vaccinator_frequency">Visit Frequency</label>
                                     <div class="flex-grow-1">
                                         <select class="form-control form-control-underline" id="vaccinator_frequency">
@@ -457,7 +457,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label class="label-inline" for="name_of_vaccinator">Name</label>
                                     <div class="flex-grow-1">
                                         <input type="text"
@@ -481,7 +481,7 @@
                             <div class="detail-box">
                                 <p class="mb-3 sub-header">LHW DETAIL</p>
 
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label class="label-inline" for="lhw_frequency">Visit Frequency</label>
                                     <div class="flex-grow-1">
                                         <select class="form-control form-control-underline" id="lhw_frequency">
@@ -498,7 +498,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label class="label-inline" for="name_of_lhw">Name Deputed For this Area</label>
                                     <div class="flex-grow-1">
                                         <input type="text" class="form-control form-control-plaintext name_of_lhw"
@@ -520,7 +520,7 @@
                             <div class="detail-box">
                                 <p class="mb-3 sub-header">POLIO WORKER DETAIL</p>
 
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label class="label-inline" for="polio_frequency">Visit Frequency</label>
                                     <div class="flex-grow-1">
                                         <select class="form-control form-control-underline" id="polio_frequency">
@@ -536,7 +536,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label class="label-inline" for="name_of_polio">Health Worker Name</label>
                                     <div class="flex-grow-1">
                                         <input type="text" class="form-control form-control-plaintext name_of_polio"
@@ -557,7 +557,7 @@
                  
                     </div>
 
-                    <div class="row mb-4">
+                    <div class="row mb-2">
                         <div class="col-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-primary btn-search" onclick="searchData()">Set Data
                             </button>
