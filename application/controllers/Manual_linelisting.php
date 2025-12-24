@@ -187,7 +187,7 @@ class Manual_linelisting extends CI_controller
                     if (isset($_POST['facility_type']) && is_array($_POST['facility_type'])) {
         
                         // 2. Array ko comma-separated string mein convert karein
-                        $facility_string = implode(", ", $_POST['facility_type']);
+                        // $facility_string = implode(", ", $_POST['facility_type']);
 
                     }
 
@@ -197,7 +197,7 @@ class Manual_linelisting extends CI_controller
 
                          'lat'      => $this->input->post('lat'),
                         'lng'      => $this->input->post('lng'),
-                        'hftype'      =>  $facility_string,
+                        'hftype'      => $this->input->post('facility_type'),
 
                         'vac_name'     => $this->input->post('name_of_vaccinator'),
                         'vac_freq'     => $this->input->post('vaccinator_frequency'),

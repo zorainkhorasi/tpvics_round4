@@ -370,32 +370,32 @@
                                     <div class="d-flex flex-wrap gap-2 facility-checkbox-group">
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_dhq" required>
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_dhq" required>
                                             <label class="form-check-label" for="type_dhq">DHQ</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_thq">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_thq">
                                             <label class="form-check-label" for="type_thq">THQ</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_rhc">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_rhc">
                                             <label class="form-check-label" for="type_rhc">RHC</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_bhu">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_bhu">
                                             <label class="form-check-label" for="type_bhu">BHU</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_gdc">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_gdc">
                                             <label class="form-check-label" for="type_gdc">GDC</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type[]" id="type_private">
+                                            <input class="form-check-input" type="checkbox" name="facility_type" id="type_private">
                                             <label class="form-check-label" for="type_private">Private</label>
                                         </div>
 
