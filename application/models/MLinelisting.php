@@ -46,13 +46,16 @@ class MLinelisting extends CI_Model
         if ($pageLevel == 2) {
             $selectQ = "uc_id as my_id,uc_name as my_name";
             $groupQ = "uc_id,uc_name ";
+            $orderby = "uc_id,uc_name ";
+
         } else {
             $selectQ = "dist_id as my_id,district as my_name";
             $groupQ = "dist_id,district ";
+            $orderby = "dist_id,district ";
         }
 
-        $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ ";
-
+        $sql_query = "SELECT  $selectQ FROM clusters c $dist_where GROUP BY  $groupQ  ORDER BY $orderby";
+            //echo $sql_query;die;
         $query = $this->db->query($sql_query);
         return $query->result();
     }
