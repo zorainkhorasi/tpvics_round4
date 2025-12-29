@@ -283,7 +283,7 @@
 
         <div class="content-body">
 
-            <div class="container-fluid form-container my-5">
+            <div class="container-fluid form-container my-2">
                 <h2 class="section-title">Manual Listing</h2>
 
                 <input type="hidden" id="hidden_slug_dist"
@@ -369,33 +369,34 @@
                                     <label class="label-inline me-3" style="font-weight: bold; color: #43a1a9;">TYPE OF FACILITY</label>
                                     <div class="d-flex flex-wrap gap-2 facility-checkbox-group">
 
+
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_dhq" required>
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_dhq" value="DHQ" required>
                                             <label class="form-check-label" for="type_dhq">DHQ</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_thq">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_thq" value="THQ">
                                             <label class="form-check-label" for="type_thq">THQ</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_rhc">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_rhc" value="RHC">
                                             <label class="form-check-label" for="type_rhc">RHC</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_bhu">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_bhu" value="BHU">
                                             <label class="form-check-label" for="type_bhu">BHU</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_gdc">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_gdc" value="GDC">
                                             <label class="form-check-label" for="type_gdc">GDC</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="facility_type" id="type_private">
+                                            <input class="form-check-input" type="radio" name="facility_type" id="type_private" value="Private">
                                             <label class="form-check-label" for="type_private">Private</label>
                                         </div>
 
@@ -557,7 +558,7 @@
                  
                     </div>
 
-                    <div class="row mb-2">
+                    <div class="row mb-0">
                         <div class="col-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-primary btn-search" onclick="searchData()">Set Data
                             </button>

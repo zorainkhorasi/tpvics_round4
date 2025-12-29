@@ -65,6 +65,7 @@ class Manual_linelisting extends CI_controller
 
     function insertData()
     {
+        $result="";
         ob_end_clean();
         $flag = 0;
         if (!isset($_POST['cluster_select']) || $_POST['cluster_select'] == '') {
@@ -149,7 +150,7 @@ class Manual_linelisting extends CI_controller
                     $temp['enumcode']    = $data[0]->dist_id;
                    // $temp['enumstr']     = $data[0]->geoarea;
                     $temp['geoarea']     = $data[0]->geoarea;
-                    $temp['formdate']    = date('d-m-y', strtotime($_POST['linelisting_date']));
+                    $temp['formdate']    = date('Y-m-d', strtotime($_POST['linelisting_date']));
                     $temp['xdt']     = date('H:i:s');
                    // $temp['hh02']        = $cluster;
                     $temp['projectname'] = 'TPVICS_R3';
@@ -228,9 +229,9 @@ class Manual_linelisting extends CI_controller
 
 
 
-            $trackarray = array("action" => "Manual Linelisting -> Function: insertData() Manual Linelisting ",
-                "activityName" => "Manual Linelisting insertData",  "result" => $InsertData, "PostData" => $mainArray);
-            $Custom->trackLogs($trackarray, "user_logs");
+//            $trackarray = array("action" => "Manual Linelisting -> Function: insertData() Manual Linelisting ",
+//                "activityName" => "Manual Linelisting insertData",  "result" => $InsertData, "PostData" => $mainArray);
+//            $Custom->trackLogs($trackarray, "user_logs");
         } else {
             $result = 9;
         }
