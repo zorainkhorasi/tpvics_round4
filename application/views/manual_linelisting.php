@@ -604,7 +604,7 @@
         }
         $('#vaccinator_frequency').on('change', function () {
             var getV = $(this).val();
-            if (getV == '7' || getV == '97') {
+            if (getV == '6' || getV == '7' || getV == '97') {
                 $('#name_of_vaccinator').prop('disabled', true);
             } else {
                 $('#name_of_vaccinator').prop('disabled', false);
@@ -613,19 +613,20 @@
 
         $('#polio_frequency').on('change', function () {
             var getV = $(this).val();
-            if (getV == '7' || getV == '97') {
+            if (getV == '6' || getV == '7' || getV == '97') {
                 $('#name_of_polio').prop('disabled', true);
             } else {
                 $('#name_of_polio').prop('disabled', false);
             }
         });
 
-        $('#lwh_frequency').on('change', function () {
+        $('#lhw_frequency').on('change', function () {
+
             var getV = $(this).val();
-            if (getV == '7' || getV == '97') {
-                $('#name_of_lwh').prop('disabled', true);
+            if (getV == '6' || getV == '7' || getV == '97') {
+                $('#name_of_lhw').prop('disabled', true);
             } else {
-                $('#name_of_lwh').prop('disabled', false);
+                $('#name_of_lhw').prop('disabled', false);
             }
         });
 
