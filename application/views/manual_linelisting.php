@@ -602,7 +602,34 @@
         if ($('#district_select').val() != 0) {
             changeDistricts();
         }
-        //mydate();
+        $('#vaccinator_frequency').on('change', function () {
+            var getV = $(this).val();
+            if (getV == '7' || getV == '97') {
+                $('#name_of_vaccinator').prop('disabled', true);
+            } else {
+                $('#name_of_vaccinator').prop('disabled', false);
+            }
+        });
+
+        $('#polio_frequency').on('change', function () {
+            var getV = $(this).val();
+            if (getV == '7' || getV == '97') {
+                $('#name_of_polio').prop('disabled', true);
+            } else {
+                $('#name_of_polio').prop('disabled', false);
+            }
+        });
+
+        $('#lwh_frequency').on('change', function () {
+            var getV = $(this).val();
+            if (getV == '7' || getV == '97') {
+                $('#name_of_lwh').prop('disabled', true);
+            } else {
+                $('#name_of_lwh').prop('disabled', false);
+            }
+        });
+
+
     });
 
     function changeDistricts() {
@@ -867,11 +894,6 @@
         }
     }
 
-    // The rest of the JS functions (mydate, submitLineListing) are identical to the previous functional block
-    // and rely on the IDs and classes set by the modified searchData() function above.
-    // (Pasting them here for completeness)
-
-    // mydate() is defined above the ready function.
 
     function submitLineListing() {
         var flag = 0;
