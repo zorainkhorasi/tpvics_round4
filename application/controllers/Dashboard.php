@@ -137,13 +137,16 @@ class Dashboard extends CI_controller
                     if ($ke == $key && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
                         $data['total']['total']++;
                         $data['total'][$dist_name]++;
-                        if ($row->collecting_tabs == $row->completed_tabs) {
+                        /*if ($row->collecting_tabs == $row->completed_tabs) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
                         } else {
                             $data['ip'][$dist_name]++;
                             $data['ip']['total']++;
-                        }
+                        }*/
+                        $data['completed'][$dist_name]++;
+                        $data['completed']['total']++;
+
                     }
                 }
             }
@@ -179,9 +182,9 @@ class Dashboard extends CI_controller
 
           //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
           
-            //  echo "<pre>";
-            //  print_r($data);
-            //  echo "</pre>";
+          /*   echo "<pre>";
+              print_r($data);
+             echo "</pre>";die;*/
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -278,11 +281,12 @@ class Dashboard extends CI_controller
 
             foreach ($completedClusters_district as $row) {
                 if ($row->provinceId == $v['my_id'] && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
-                    if ($row->collecting_tabs == $row->completed_tabs) {
+                    /*if ($row->collecting_tabs == $row->completed_tabs) {
                         $n[$key]['completed']++;
                     } else {
                         $n[$key]['pending']++;
-                    }
+                    }*/
+                    $n[$key]['completed']++;
                 }
             }
             $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] - $n[$key]['pending'];
@@ -309,8 +313,12 @@ class Dashboard extends CI_controller
                 }
 
                 // Add values (merge duplicates)
+              /*  $per[$name]['total'] += $item['total'];
+                $per[$name]['completed'] += $item['completed'];*/
                 $per[$name]['total'] += $item['total'];
                 $per[$name]['completed'] += $item['completed'];
+                $per[$name]['remaining'] += $item['remaining'];
+                $per[$name]['pending'] += $item['pending'];
             }
 
             // Calculate final percentages
@@ -376,9 +384,6 @@ class Dashboard extends CI_controller
             }
             $data['dist_array'] = $dist_array;
 
-
-
-
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
             $totalcluster = 0;
@@ -418,13 +423,15 @@ class Dashboard extends CI_controller
                     if ($ke == $key && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
                         $data['total']['total']++;
                         $data['total'][$dist_name]++;
-                        if ($row->collecting_tabs == $row->completed_tabs) {
+                       /* if ($row->collecting_tabs == $row->completed_tabs) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
                         } else {
                             $data['ip'][$dist_name]++;
                             $data['ip']['total']++;
-                        }
+                        }*/
+                        $data['completed'][$dist_name]++;
+                        $data['completed']['total']++;
                     }
                 }
             }
@@ -537,6 +544,7 @@ class Dashboard extends CI_controller
             $res = array();
             foreach ($get_linelisting_table as $key => $value) {
                 $res[$value->cluster_no]['geoarea'] = $value->geoarea;
+                $res[$value->cluster_no]['randomized'] = $value->randomized;
                 $res[$value->cluster_no]['enumcode'] = $value->enumcode;
                 $res[$value->cluster_no]['cluster_no'] = $value->cluster_no;
                 $res[$value->cluster_no]['data_collected'] = $value->data_collected;
@@ -549,7 +557,7 @@ class Dashboard extends CI_controller
                 $res[$value->cluster_no]['endActivity'] = $value->endActivity;
                 $res[$value->cluster_no]['status'] = $value->status;
                 $res[$value->cluster_no]['planning'] = $value->planning;
-                $res[$value->cluster_no]['exphh'] = $value->exphh;
+                $res[$value->cluster_no]['tot_hh'] = $value->tot_hh;
                 $res[$value->cluster_no]['structures'] = 0;
                 $res[$value->cluster_no]['residential_structures'] = 0;
             }

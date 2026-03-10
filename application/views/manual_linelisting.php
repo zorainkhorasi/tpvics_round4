@@ -10,6 +10,7 @@
         padding: calc(2.2rem - 0.4rem) 2.2rem 0;
         margin-top: 1rem;
     }
+
     /* 0. Outer Page Background */
     body {
         background-color: #f6f7f8;
@@ -68,8 +69,9 @@
         color: #000000;
         max-width: 100%;
     }
+
     .facility-checkbox-group .form-check {
-    padding-left: 0; /* Remove default padding */
+        padding-left: 0; /* Remove default padding */
     }
 
     .facility-checkbox-group .form-check-input {
@@ -324,8 +326,8 @@
                     <div class="col-md-5 d-flex flex-column justify-content-md-end justify-content-start mt-3 mt-md-0">
                         <div class="info-header-box mb-2">
                             <strong>Cluster: <span id="cluster_id_display">-</span></strong><br>
-                            Area: <span id="area_display">-</span> | Village: <span id="village_display">-</span>
-<!--                            <div class="mt-1">Number of Households: <span id="hh_count_display">-</span></div>-->
+                            Area: <span id="area_display"></span> <span id="village_display"></span>
+                            <!--                            <div class="mt-1">Number of Households: <span id="hh_count_display">-</span></div>-->
                         </div>
 
 
@@ -366,37 +368,44 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center">
-                                    <label class="label-inline me-3" style="font-weight: bold; color: #43a1a9;">TYPE OF FACILITY</label>
+                                    <label class="label-inline me-3" style="font-weight: bold; color: #43a1a9;">TYPE OF
+                                        FACILITY</label>
                                     <div class="d-flex flex-wrap gap-2 facility-checkbox-group">
 
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_dhq" value="DHQ" required>
+                                            <input class="form-check-input" type="radio" name="facility_type"
+                                                   id="type_dhq" value="DHQ" required>
                                             <label class="form-check-label" for="type_dhq">DHQ</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_thq" value="THQ">
+                                            <input class="form-check-input" type="radio" name="facility_type"
+                                                   id="type_thq" value="THQ">
                                             <label class="form-check-label" for="type_thq">THQ</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_rhc" value="RHC">
+                                            <input class="form-check-input" type="radio" name="facility_type"
+                                                   id="type_rhc" value="RHC">
                                             <label class="form-check-label" for="type_rhc">RHC</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_bhu" value="BHU">
+                                            <input class="form-check-input" type="radio" name="facility_type"
+                                                   id="type_bhu" value="BHU">
                                             <label class="form-check-label" for="type_bhu">BHU</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_gdc" value="GDC">
+                                            <input class="form-check-input" type="radio" name="facility_type"
+                                                   id="type_gdc" value="GDC">
                                             <label class="form-check-label" for="type_gdc">GDC</label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="facility_type" id="type_private" value="Private">
+                                            <input class="form-check-input" type="radio" name="facility_type"
+                                                   id="type_private" value="Private">
                                             <label class="form-check-label" for="type_private">Private</label>
                                         </div>
 
@@ -406,7 +415,7 @@
 
                             </div>
                         </div>
-                 
+
                         <!-- <div class="row"> -->
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="label-inline me-2" for="number_hh">Number of Households (12-23 Months
@@ -422,21 +431,22 @@
                             <label class="label-inline me-2" for="lat">(Clusters Centroid)</label>
                             <label class="label-inline me-2" for="lat">Latitude</label>
                             <div class="flex-grow-1">
-                                <input type="number" step="any" class="form-control form-control-plaintext" id="lat" name="lat" placeholder="0.0000" required>
+                                <input type="number" step="any" class="form-control form-control-plaintext" id="lat"
+                                       name="lat" placeholder="0.0000" required>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center">
                             <label class="label-inline me-2" for="lng">Longitude</label>
                             <div class="flex-grow-1">
-                                <input type="number" step="any" class="form-control form-control-plaintext" id="lng" name="lng" placeholder="0.0000" required>
+                                <input type="number" step="any" class="form-control form-control-plaintext" id="lng"
+                                       name="lng" placeholder="0.0000" required>
                             </div>
                         </div>
 
-                    <!-- </div> -->
-                   </div>
+                        <!-- </div> -->
+                    </div>
 
                     <div class="row mb-2" data-masonry='{"percentPosition": true }'>
-
                         <div class="col-md-4">
                             <div class="detail-box">
                                 <p class="mb-2 sub-header">VACCINATOR DETAIL</p>
@@ -451,7 +461,7 @@
                                             <option value="3">Twice a year</option>
                                             <option value="4">Once a year</option>
                                             <option value="5">Only during campaigns</option>
-                                             <option value="6">Un covered area</option>
+                                            <option value="6">Un covered area</option>
                                             <option value="7">No one has information about this</option>
                                             <option value="97">Not visted</option>
                                         </select>
@@ -477,7 +487,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-4">
                             <div class="detail-box">
                                 <p class="mb-3 sub-header">LHW DETAIL</p>
@@ -516,7 +525,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-4">
                             <div class="detail-box">
                                 <p class="mb-3 sub-header">POLIO WORKER DETAIL</p>
@@ -533,7 +541,8 @@
                                             <option value="5">Only during campaigns</option>
                                             <option value="6">Un covered area</option>
                                             <option value="7">No one has information about this</option>
-                                            <option value="97">Not visted</option>                                        </select>
+                                            <option value="97">Not visted</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -554,8 +563,68 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                 
+                    <div class="row mb-2" data-masonry='{"percentPosition": true }'>
+
+                        <div class="row">
+
+                            <!-- cp09 -->
+                            <div class="col-md-4 d-flex align-items-center">
+                                <label class="label-inline me-2">Is this cluster segmented</label>
+
+                                Yes <input type="radio" name="cp09" value="1">
+                                No <input type="radio" name="cp09" value="2">
+                            </div>
+
+                        </div>
+
+
+                        <!-- cp10 -->
+                        <div class="row segment-section" id="segmentHouseholds" style="display:none;">
+
+                            <div class="col-md-4 d-flex align-items-center">
+                                <label class="label-inline me-2">
+                                    Number of Households in Each segment
+                                </label>
+
+                                <div class="flex-grow-1">
+                                    <span>A <input type="checkbox" name="cp10" value="A"></span>
+                                    <span>B <input type="checkbox" name="cp10" value="B"></span>
+                                    <span>C <input type="checkbox" name="cp10" value="C"></span>
+                                    <span>D <input type="checkbox" name="cp10" value="D"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- cp11 -->
+                        <div class="row segment-section" id="segmentListing" style="display:none;">
+                            <div class="col-md-4 d-flex align-items-center">
+                                <label class="label-inline me-2">
+                                    Which segment Selected for Line Listings?
+                                </label>
+
+                                <div class="flex-grow-1">
+                                        <span class="segOption segA" style="display:none;">
+                                            A <input type="checkbox" name="cp11a" value="A">
+                                        </span>
+
+                                        <span class="segOption segB" style="display:none;">
+                                            B <input type="checkbox" name="cp11b" value="B">
+                                        </span>
+
+                                        <span class="segOption segC" style="display:none;">
+                                            C <input type="checkbox" name="cp11c" value="C">
+                                        </span>
+                                        <span class="segOption segD" style="display:none;">
+                                            D <input type="checkbox" name="cp11d" value="D">
+                                        </span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="row mb-0">
@@ -596,6 +665,50 @@
 
 <script>
 
+    $(document).ready(function(){
+
+        $('input[name="cp09"]').change(function(){
+
+            if($(this).val() == "1"){   // YES
+
+                $('#segmentHouseholds').show();
+                $('#segmentListing').show();
+
+            }else{   // NO
+
+                // hide sections
+                $('#segmentHouseholds').hide();
+                $('#segmentListing').hide();
+
+                // reset cp10 checkboxes
+                $('input[name="cp10"]').prop('checked', false);
+
+                // reset cp11 checkboxes
+                $('.segOption input').prop('checked', false);
+
+                // hide cp11 options
+                $('.segOption').hide();
+
+            }
+
+        });
+
+
+        $('input[name="cp10"]').change(function(){
+
+            let segment = $(this).val();
+            let target = $('.seg' + segment);
+
+            if($(this).is(':checked')){
+                target.show();
+            }else{
+                target.hide();
+                target.find('input').prop('checked',false);
+            }
+
+        });
+
+    });
 
     $(document).ready(function () {
         // Since $slug_cluster might be set, run changeDistricts on load if needed
@@ -739,9 +852,9 @@
 
                         // Attempt to parse geoarea into Area and Village (assuming format "AREA | VILLAGE" or just "AREA")
                         let geoParts = c.geoarea.split('|').map(p => p.trim());
-                        $('#area_display').text(geoParts[0] || 'N/A');
-                        $('#village_display').text(geoParts[1] || 'N/A');
-                        $('#hh_count_display').text(c.total_hh || '-');
+                        $('#area_display').text(c.area || 'N/A');
+                        //      $('#village_display').text(geoParts[1] || 'N/A');
+                        //  $('#hh_count_display').text(c.total_hh || '-');
 
 
                         $('.chkCluster_btn').addClass('hide');
@@ -931,8 +1044,8 @@
         } else {
             $('#hf').removeClass('error');
         }
-        
-         if (data['lat'] == '' || data['lat'] == undefined || data['lat'] == '0') {
+
+        if (data['lat'] == '' || data['lat'] == undefined || data['lat'] == '0') {
             $('#lat').addClass('error');
             flag = 1;
             toastMsg('Latitude', 'Invalid Latitude', 'error');
@@ -940,7 +1053,7 @@
         } else {
             $('#lat').removeClass('error');
         }
-         if (data['lng'] == '' || data['lng'] == undefined || data['lng'] == '0') {
+        if (data['lng'] == '' || data['lng'] == undefined || data['lng'] == '0') {
             $('#lng').addClass('error');
             flag = 1;
             toastMsg('longitude', 'Invalid longitude', 'error');
@@ -948,7 +1061,7 @@
         } else {
             $('#lng').removeClass('error');
         }
-         if (data['facility_type'] == '' || data['facility_type'] == undefined || data['facility_type'] == '0') {
+        if (data['facility_type'] == '' || data['facility_type'] == undefined || data['facility_type'] == '0') {
             $('#facility_type').addClass('error');
             flag = 1;
             toastMsg('facility type', 'Invalid facility type', 'error');
@@ -956,7 +1069,7 @@
         } else {
             $('#facility_type').removeClass('error');
         }
-      
+
 
         // --- 2. Vaccinator Detail Validation ---
         data['vaccinator_frequency'] = $('#vaccinator_frequency').val();
@@ -967,11 +1080,10 @@
         if (data['vaccinator_frequency'] == "7") {
             $('#name_of_vaccinator').removeAttr('required').val('').removeClass('error');
             $('#vaccinator_visit_date').removeAttr('required').val('').removeClass('error');
-        }else if (data['vaccinator_frequency'] == "97") {
+        } else if (data['vaccinator_frequency'] == "97") {
             // $('#name_of_vaccinator').removeAttr('required').val('').removeClass('error');
             $('#vaccinator_visit_date').removeAttr('required').val('').removeClass('error');
-        } 
-        else {
+        } else {
             $('#name_of_vaccinator').attr('required', true);
             $('#vaccinator_visit_date').attr('required', true);
 
@@ -1012,12 +1124,10 @@
         if (data['polio_frequency'] == "7") {
             $('#name_of_polio').removeAttr('required').val('').removeClass('error');
             $('#polio_visit_date').removeAttr('required').val('').removeClass('error');
-        } 
-        else if (data['polio_frequency'] == "97") {
+        } else if (data['polio_frequency'] == "97") {
             // $('#name_of_polio').removeAttr('required').val('').removeClass('error');
             $('#polio_visit_date').removeAttr('required').val('').removeClass('error');
-        } 
-        else {
+        } else {
             $('#name_of_polio').attr('required', true);
             $('#polio_visit_date').attr('required', true);
 
@@ -1059,12 +1169,10 @@
         if (data['lhw_frequency'] == "7") {
             $('#name_of_lhw').removeAttr('required').val('').removeClass('error');
             $('#lhw_visit_date').removeAttr('required').val('').removeClass('error');
-        } 
-          else if (data['lhw_frequency'] == "97") {
+        } else if (data['lhw_frequency'] == "97") {
             // $('#name_of_lhw').removeAttr('required').val('').removeClass('error');
             $('#lhw_visit_date').removeAttr('required').val('').removeClass('error');
-        } 
-        else {
+        } else {
             $('#name_of_lhw').attr('required', true);
             $('#lhw_visit_date').attr('required', true);
 

@@ -1043,7 +1043,7 @@
                                               style="display: <?= $is_invalid ? 'inline' : 'none' ?>;">
                                             <input type="date" name="new_dob" value="<?=$vac_details_edit->dob?$vac_details_edit->dob:' ' ?>" id="new_dob_input" class="form-control"
                                        disabled
-                                       style="font-size: 11px; width: 100px;    margin: -2px -9px;; display: inline-block;    border-bottom: none;!important "
+                                       style="font-size: 11px; width: 140px;    margin: -2px -9px;; display: inline-block;    border-bottom: none;!important "
                                        placeholder="DD-MM-YYYY">
                                     </div>
                                     </div>

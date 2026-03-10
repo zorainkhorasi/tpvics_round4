@@ -29,6 +29,10 @@ class Manual_linelisting extends CI_controller
         $MCustom = new Custom();
         //$dist_list = $MCustom->getDistricts($district);
         $pan_list = $MCustom->getDistirctData();
+
+
+
+
         $data['pa_list'] = $pan_list;
 
         $uc = '';
