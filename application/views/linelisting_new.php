@@ -1212,7 +1212,7 @@
             // ✅ UPDATE HEADING HERE
             document.getElementById('totalClusterCount').innerText = totalCount;
             var options = {
-                series: [ sum.completed, sum.ip, sum.total],
+                series: [ sum.completed,  sum.total],
                 chart: {
                     height: 250,
                     type: 'radialBar',
@@ -1248,7 +1248,7 @@
                     }
                 },
                 colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
-                labels: [ 'Complete', 'In Progress', 'Pending'],
+                labels: [ 'Complete',  'Pending'],
                 responsive: [{
                     breakpoint: 480,
                     options: {
