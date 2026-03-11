@@ -1046,10 +1046,20 @@
 
                 let seg = $(this).val();
                 let inputField = $('.segInput'+seg);
+                let val = parseInt(inputField.val());
 
                 if(inputField.val() == ''){
                     flag=1;
                     toastMsg('Households', 'Enter households for segment '+seg, 'error');
+                    inputField.addClass('error');
+                    validHousehold = false;
+                    return false;
+                }
+
+                // Range validation 60 - 300
+                if(val < 60 || val > 300){
+                    flag=1;
+                    toastMsg('Households', 'Households for segment '+seg+' must be between 60 and 300', 'error');
                     inputField.addClass('error');
                     validHousehold = false;
                     return false;
@@ -1203,10 +1213,20 @@
 
                 let seg = $(this).val();
                 let inputField = $('.segInput'+seg);
+                let val = parseInt(inputField.val());
 
                 if(inputField.val() == ''){
                     flag=1;
                     toastMsg('Households', 'Enter households for segment '+seg, 'error');
+                    inputField.addClass('error');
+                    validHousehold = false;
+                    return false;
+                }
+
+                // Range validation 60 - 300
+                if(val < 60 || val > 300){
+                    flag=1;
+                    toastMsg('Households', 'Households for segment '+seg+' must be between 60 and 300', 'error');
                     inputField.addClass('error');
                     validHousehold = false;
                     return false;
@@ -1393,7 +1413,7 @@
         if (data['lhw_frequency'] == "7") {
             $('#name_of_lhw').removeAttr('required').val('').removeClass('error');
             $('#lhw_visit_date').removeAttr('required').val('').removeClass('error');
-        } else if (data['lhw_frequency'] == "97") {
+        } else if (data['lhw_frequency'] == "97" || data['lhw_frequency'] =='6') {
             // $('#name_of_lhw').removeAttr('required').val('').removeClass('error');
             $('#lhw_visit_date').removeAttr('required').val('').removeClass('error');
         } else {
