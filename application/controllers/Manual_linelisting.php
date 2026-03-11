@@ -201,8 +201,8 @@ class Manual_linelisting extends CI_controller
                         'village'      => $this->input->post('village'),
                         'hfname'      => $this->input->post('hf'),
 
-                         'lat'      => $this->input->post('lat'),
-                        'lng'      => $this->input->post('lng'),
+                       //  'lat'      => $this->input->post('lat'),
+                      //  'lng'      => $this->input->post('lng'),
                         'hftype'      => $this->input->post('facility_type'),
 
                         'vac_name'     => $this->input->post('name_of_vaccinator'),

@@ -427,7 +427,7 @@
                                        minlength="1" min="1" required>
                             </div>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
+                       <!-- <div class="col-md-4 d-flex align-items-center">
                             <label class="label-inline me-2" for="lat">(Clusters Centroid)</label>
                             <label class="label-inline me-2" for="lat">Latitude</label>
                             <div class="flex-grow-1">
@@ -442,7 +442,7 @@
                                        name="lng" placeholder="0.0000" required>
                             </div>
                         </div>
-
+-->
                         <!-- </div> -->
                     </div>
 
@@ -646,7 +646,7 @@
                         </div>
 
                         <!-- cp10 – Number of Households in Each segment -->
-                        <div class="row" id="segmentHouseholds" style="display:none; margin-top:10px;">
+                        <div class="row" id="segmentHouseholds" style="display:none; background: #f7f7f7;">
                             <div class="col-md-12">
                                 <label class="fw-bold mb-2">Number of Households in Each segment</label>
                                 <div>
@@ -687,7 +687,7 @@
                         </div>
 
                         <!-- cp11 – Which segment Selected for Line Listings? -->
-                        <div class="row" id="segmentListing" style="display:none;">
+                        <div class="row" id="segmentListing" style="display:none;  margin-top: 0px; margin-left: 20px;  background: #f7f7f7;"">
                             <div class="col-md-12">
                                 <label class="fw-bold mb-2">Which segment Selected for Line Listings?</label>
                                 <div>
@@ -1269,7 +1269,7 @@
             $('#hf').removeClass('error');
         }
 
-        if (data['lat'] == '' || data['lat'] == undefined || data['lat'] == '0') {
+        /*if (data['lat'] == '' || data['lat'] == undefined || data['lat'] == '0') {
             $('#lat').addClass('error');
             flag = 1;
             toastMsg('Latitude', 'Invalid Latitude', 'error');
@@ -1284,7 +1284,7 @@
             return false;
         } else {
             $('#lng').removeClass('error');
-        }
+        }*/
         if (data['facility_type'] == '' || data['facility_type'] == undefined || data['facility_type'] == '0') {
             $('#facility_type').addClass('error');
             flag = 1;
