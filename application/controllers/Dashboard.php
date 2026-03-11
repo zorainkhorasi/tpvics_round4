@@ -182,9 +182,7 @@ class Dashboard extends CI_controller
 
           //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
           
-          /*   echo "<pre>";
-              print_r($data);
-             echo "</pre>";die;*/
+
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -289,7 +287,7 @@ class Dashboard extends CI_controller
                     $n[$key]['completed']++;
                 }
             }
-            $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] - $n[$key]['pending'];
+            $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] ;
         }
 
      
@@ -321,17 +319,13 @@ class Dashboard extends CI_controller
                 $per[$name]['pending'] += $item['pending'];
             }
 
+            //echo '<pre>';print_r($per);die;
+
             // Calculate final percentages
             foreach ($per as $name => $data) {
-                $per[$name]['percentage'] = $data['total'] > 0
-                    ? round(($data['completed'] / $data['total']) * 100)
-                    : 0;
-                      $per[$name]['remaining'] = $data['total'] > 0
-                    ? round(($data['remaining'] / $data['total']) * 100)
-                    : 0;
-                      $per[$name]['pending'] = $data['total'] > 0
-                    ? round(($data['pending'] / $data['total']) * 100)
-                    : 0;
+                    $per[$name]['percentage'] = $data['total'] > 0 ? round(($data['completed'] / $data['total']) * 100,1): 0;
+                      $per[$name]['remaining'] = $data['total'] > 0? round(($data['remaining'] / $data['total']) * 100,1)  : 0;
+                      $per[$name]['pending'] = $data['total'] > 0 ? round(($data['pending'] / $data['total']) * 100,1)  : 0;
             }
             //  echo "<pre>";
             // var_dump($per);
