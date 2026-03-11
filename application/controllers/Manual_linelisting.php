@@ -177,6 +177,7 @@ class Manual_linelisting extends CI_controller
                   //  $temp['hh15']     = ;
                    // $temp['hh12']     = '1';
                     $temp['tabNo']    = 'A';
+                    $temp['deviceid']    = 'Manual Listings';
 
                     // UID
                     $temp['_uid'] = $cluster . '_A_' . $hh07 . '_' . $hh04;
@@ -185,7 +186,7 @@ class Manual_linelisting extends CI_controller
                 }
 
                 // FINAL INSERT (BATCH)
-                $InsertData = $this->db->insert_batch('listings', $mainArray);
+                $InsertData =$this->db->insert_batch('listings', $mainArray);
 
                 if ($InsertData) {
 
@@ -215,13 +216,20 @@ class Manual_linelisting extends CI_controller
                         'polio_name'   => $this->input->post('name_of_polio'),
                         'polio_freq'   => $this->input->post('polio_frequency'),
                         'polio_lvisit' => $this->input->post('polio_visit_date'),
+                        'cp09' => $this->input->post('cp09')==1?1:0,
+                        'cp10an' => $this->input->post('cp10a'),
+                        'cp10bn' => $this->input->post('cp10b'),
+                        'cp10cn' => $this->input->post('cp10c'),
+                        'cp10dn' => $this->input->post('cp10d'),
+                        'cp11a' => $this->input->post('cp11a'),
+                        'cp11b' => $this->input->post('cp11b'),
+                        'cp11c' => $this->input->post('cp11c'),
+                        'cp11d' => $this->input->post('cp11d'),
                     ];
 
                     $this->db->where('cluster_no', $cluster);
                     $this->db->update('clusters', $update_data);
-
-
-
+                    // echo '<pre>';print_r($update_data);
                     echo 1;  // success
                 } else {
                     echo 8;  // insert error

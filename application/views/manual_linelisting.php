@@ -565,65 +565,162 @@
                         </div>
                     </div>
 
-                    <div class="row mb-2" data-masonry='{"percentPosition": true }'>
+                    <style>
+                        /* Custom checkbox styling */
+                        .custom-checkbox {
+                            display: inline-flex;
+                            align-items: center;
+                            cursor: pointer;
+                            margin-right: 1.5rem;
+                            user-select: none;
+                        }
 
+                        .custom-checkbox input[type="checkbox"] {
+                            appearance: none;
+                            -webkit-appearance: none;
+                            width: 1.25rem;
+                            height: 1.25rem;
+                            border: 2px solid #adb5bd;
+                            border-radius: 0.25rem;
+                            margin-right: 0.5rem;
+                            transition: all 0.2s;
+                            position: relative;
+                            cursor: pointer;
+                        }
+
+                        .custom-checkbox input[type="checkbox"]:checked {
+                            background-color: #0d6efd;
+                            border-color: #0d6efd;
+                        }
+
+                        .custom-checkbox input[type="checkbox"]:checked::after {
+                            content: "✓";
+                            font-size: 1rem;
+                            color: white;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-weight: bold;
+                        }
+
+                        .custom-checkbox input[type="checkbox"]:focus {
+                            outline: none;
+                            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+                        }
+
+                        /* Segment row – each checkbox + input group */
+                        .segment-row {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 0.75rem;
+                            flex-wrap: wrap;
+                        }
+
+                        .segment-row .segInput {
+                            margin-left: 0.5rem;
+                            width: 140px; /* slightly wider for better UX */
+                            display: inline-block;
+                        }
+
+                        /* Additional spacing for the second set of checkboxes */
+                        #segmentListing .segment-row {
+                            margin-bottom: 0.5rem;
+                        }
+                    </style>
+
+                    <div class="row mb-2">
+                        <!-- cp09 -->
                         <div class="row">
-
-                            <!-- cp09 -->
                             <div class="col-md-4 d-flex align-items-center">
-                                <label class="label-inline me-2">Is this cluster segmented</label>
-
-                                Yes <input type="radio" name="cp09" value="1">
-                                No <input type="radio" name="cp09" value="2">
-                            </div>
-
-                        </div>
-
-
-                        <!-- cp10 -->
-                        <div class="row segment-section" id="segmentHouseholds" style="display:none;">
-
-                            <div class="col-md-4 d-flex align-items-center">
-                                <label class="label-inline me-2">
-                                    Number of Households in Each segment
-                                </label>
-
-                                <div class="flex-grow-1">
-                                    <span>A <input type="checkbox" name="cp10" value="A"></span>
-                                    <span>B <input type="checkbox" name="cp10" value="B"></span>
-                                    <span>C <input type="checkbox" name="cp10" value="C"></span>
-                                    <span>D <input type="checkbox" name="cp10" value="D"></span>
+                                <label class="me-3">Is this cluster segmented?</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="cp09" value="1" id="cp09Yes">
+                                    <label class="form-check-label" for="cp09Yes">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="cp09" value="2" id="cp09No">
+                                    <label class="form-check-label" for="cp09No">No</label>
                                 </div>
                             </div>
-
                         </div>
 
-
-                        <!-- cp11 -->
-                        <div class="row segment-section" id="segmentListing" style="display:none;">
-                            <div class="col-md-4 d-flex align-items-center">
-                                <label class="label-inline me-2">
-                                    Which segment Selected for Line Listings?
-                                </label>
-
-                                <div class="flex-grow-1">
-                                        <span class="segOption segA" style="display:none;">
-                                            A <input type="checkbox" name="cp11a" value="A">
-                                        </span>
-
-                                        <span class="segOption segB" style="display:none;">
-                                            B <input type="checkbox" name="cp11b" value="B">
-                                        </span>
-
-                                        <span class="segOption segC" style="display:none;">
-                                            C <input type="checkbox" name="cp11c" value="C">
-                                        </span>
-                                        <span class="segOption segD" style="display:none;">
-                                            D <input type="checkbox" name="cp11d" value="D">
-                                        </span>
+                        <!-- cp10 – Number of Households in Each segment -->
+                        <div class="row" id="segmentHouseholds" style="display:none; margin-top:10px;">
+                            <div class="col-md-12">
+                                <label class="fw-bold mb-2">Number of Households in Each segment</label>
+                                <div>
+                                    <!-- Segment A -->
+                                    <div class="segment-row">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" class="cp10check" value="A">
+                                            <span>A</span>
+                                        </label>
+                                        <input type="number" name="cp10a" class="segInput segInputA form-control" placeholder="Households in A" style="display:none;">
+                                    </div>
+                                    <!-- Segment B -->
+                                    <div class="segment-row">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" class="cp10check" value="B">
+                                            <span>B</span>
+                                        </label>
+                                        <input type="number" name="cp10b" class="segInput segInputB form-control" placeholder="Households in B" style="display:none;">
+                                    </div>
+                                    <!-- Segment C -->
+                                    <div class="segment-row">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" class="cp10check" value="C">
+                                            <span>C</span>
+                                        </label>
+                                        <input type="number" name="cp10c" class="segInput segInputC form-control" placeholder="Households in C" style="display:none;">
+                                    </div>
+                                    <!-- Segment D -->
+                                    <div class="segment-row">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" class="cp10check" value="D">
+                                            <span>D</span>
+                                        </label>
+                                        <input type="number" name="cp10d" class="segInput segInputD form-control" placeholder="Households in D" style="display:none;">
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <!-- cp11 – Which segment Selected for Line Listings? -->
+                        <div class="row" id="segmentListing" style="display:none;">
+                            <div class="col-md-12">
+                                <label class="fw-bold mb-2">Which segment Selected for Line Listings?</label>
+                                <div>
+                                    <!-- Segment A -->
+                                    <div class="segment-row segOption segA" style="display:none;">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="cp11a" value="A">
+                                            <span>A</span>
+                                        </label>
+                                    </div>
+                                    <!-- Segment B -->
+                                    <div class="segment-row segOption segB" style="display:none;">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="cp11b" value="B">
+                                            <span>B</span>
+                                        </label>
+                                    </div>
+                                    <!-- Segment C -->
+                                    <div class="segment-row segOption segC" style="display:none;">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="cp11c" value="C">
+                                            <span>C</span>
+                                        </label>
+                                    </div>
+                                    <!-- Segment D -->
+                                    <div class="segment-row segOption segD" style="display:none;">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="cp11d" value="D">
+                                            <span>D</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -667,43 +764,50 @@
 
     $(document).ready(function(){
 
+        /* cp09 YES / NO */
+
         $('input[name="cp09"]').change(function(){
 
-            if($(this).val() == "1"){   // YES
-
+            if($(this).val() == "1"){
                 $('#segmentHouseholds').show();
                 $('#segmentListing').show();
+            }
+            else{
 
-            }else{   // NO
-
-                // hide sections
                 $('#segmentHouseholds').hide();
                 $('#segmentListing').hide();
 
-                // reset cp10 checkboxes
-                $('input[name="cp10"]').prop('checked', false);
+                $('.cp10check').prop('checked',false);
+                $('.segInput').hide().val('');
 
-                // reset cp11 checkboxes
-                $('.segOption input').prop('checked', false);
-
-                // hide cp11 options
                 $('.segOption').hide();
-
+                $('.segOption input').prop('checked',false);
             }
 
         });
 
 
-        $('input[name="cp10"]').change(function(){
+        /* cp10 checkbox logic */
+
+        $('.cp10check').change(function(){
 
             let segment = $(this).val();
-            let target = $('.seg' + segment);
+
+            let inputField = $('.segInput'+segment);
+            let listingBox = $('.seg'+segment);
 
             if($(this).is(':checked')){
-                target.show();
+
+                inputField.show();
+                listingBox.show();
+
             }else{
-                target.hide();
-                target.find('input').prop('checked',false);
+
+                inputField.hide().val('');
+
+                listingBox.hide();
+                listingBox.find('input').prop('checked',false);
+
             }
 
         });
@@ -871,6 +975,9 @@
 
 
     function searchData() {
+
+
+
         $('.my_card').addClass('hide');
         $('.card_html').html('');
         var flag = 0;
@@ -907,6 +1014,59 @@
             return false;
         } else {
             $('#number_hh').removeClass('error');
+        }
+
+
+        let cp09 = $('input[name="cp09"]:checked').val();
+
+        // if cp09 not selected
+        if(!cp09){
+            flag=1;
+            toastMsg('Cluster', 'Please select if cluster is segmented', 'error');
+            $('input[name="cp09"]').addClass('error');
+            return false;
+        }
+
+        // ONLY validate when YES
+        if(cp09 == "1"){
+
+            let cp10checked = $('.cp10check:checked').length;
+
+            if(cp10checked == 0){
+                flag=1;
+                toastMsg('Segment', 'Please select at least one segment', 'error');
+                $('.cp10check').addClass('error');
+                return false;
+            }
+
+            // check household input
+            let validHousehold = true;
+
+            $('.cp10check:checked').each(function(){
+
+                let seg = $(this).val();
+                let inputField = $('.segInput'+seg);
+
+                if(inputField.val() == ''){
+                    flag=1;
+                    toastMsg('Households', 'Enter households for segment '+seg, 'error');
+                    inputField.addClass('error');
+                    validHousehold = false;
+                    return false;
+                }
+
+            });
+
+            if(!validHousehold) return false;
+
+            let cp11checked = $('#segmentListing input:checked').length;
+
+            if(cp11checked == 0){
+                flag=1;
+                toastMsg('Line Listing', 'Select segment for line listing', 'error');
+                $('#segmentListing input').addClass('error');
+                return false;
+            }
         }
 
         if (flag == 0) {
@@ -1012,6 +1172,70 @@
     function submitLineListing() {
         var flag = 0;
         var data = {};
+
+
+        let cp09 = $('input[name="cp09"]:checked').val();
+
+        // if cp09 not selected
+        if(!cp09){
+            flag=1;
+            toastMsg('Cluster', 'Please select if cluster is segmented', 'error');
+            $('input[name="cp09"]').addClass('error');
+            return false;
+        }
+
+        // ONLY validate when YES
+        if(cp09 == "1"){
+
+            let cp10checked = $('.cp10check:checked').length;
+
+            if(cp10checked == 0){
+                flag=1;
+                toastMsg('Segment', 'Please select at least one segment', 'error');
+                $('.cp10check').addClass('error');
+                return false;
+            }
+
+            // check household input
+            let validHousehold = true;
+
+            $('.cp10check:checked').each(function(){
+
+                let seg = $(this).val();
+                let inputField = $('.segInput'+seg);
+
+                if(inputField.val() == ''){
+                    flag=1;
+                    toastMsg('Households', 'Enter households for segment '+seg, 'error');
+                    inputField.addClass('error');
+                    validHousehold = false;
+                    return false;
+                }
+
+            });
+
+            if(!validHousehold) return false;
+
+            let cp11checked = $('#segmentListing input:checked').length;
+
+            if(cp11checked == 0){
+                flag=1;
+                toastMsg('Line Listing', 'Select segment for line listing', 'error');
+                $('#segmentListing input').addClass('error');
+                return false;
+            }
+        }
+
+        data['cp09'] = cp09;
+        data['cp10a'] = $('input[name="cp10a"]').val();
+        data['cp10b'] = $('input[name="cp10b"]').val();
+        data['cp10c'] = $('input[name="cp10c"]').val();
+        data['cp10d'] = $('input[name="cp10d"]').val();
+
+        data['cp11a'] = $('input[name="cp11a"]').is(':checked') ? 'A' : '';
+        data['cp11b'] = $('input[name="cp11b"]').is(':checked') ? 'B' : '';
+        data['cp11c'] = $('input[name="cp11c"]').is(':checked') ? 'C' : '';
+        data['cp11d'] = $('input[name="cp11d"]').is(':checked') ? 'D' : '';
 
         // --- 1. Top Section Data and Validation ---
         data['total_structure_identified'] = $('#total_structure_identified').val();
