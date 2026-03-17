@@ -595,10 +595,10 @@
                   <header class="tpvics-header">
                       <div class="header-content">
                           <div class="text-section">
-                              <!--<div class="icon-text">
+                              <div class="icon-text">
                                   <span class="icon"><i class="fa-solid fa-list"></i></span> <span class="welcome-text">Welcome to TPVICS</span>
-                              </div>-->
-                              <h4 class="main-title">Data Collection</h4>
+                              </div>
+                              <h1 class="main-title">Data Collection</h1>
                           </div>
                           <div class="map-section">
                               <img src="<?php echo base_url('assets/images/mapPAK.png'); ?>" alt="Pakistan Map" class="pakistan-map">

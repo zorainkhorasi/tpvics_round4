@@ -109,6 +109,9 @@ class Dashboard extends CI_controller
 
             /*==============Completed Clusters List==============*/
             $completedClusters_district = $MLinelisting->completedClusters_district($district, $sub_district, $level);
+
+
+            //echo '<pre>';print_r($completedClusters_district);die;
             if (isset($district) && $district != '') {
                 foreach ($dist_array as $k => $dist_name) {
                     $data['total'][$dist_name] = 0;
@@ -137,16 +140,13 @@ class Dashboard extends CI_controller
                     if ($ke == $key && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
                         $data['total']['total']++;
                         $data['total'][$dist_name]++;
-                        /*if ($row->collecting_tabs == $row->completed_tabs) {
+                        if ($row->collecting_tabs == $row->completed_tabs) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
                         } else {
                             $data['ip'][$dist_name]++;
                             $data['ip']['total']++;
-                        }*/
-                        $data['completed'][$dist_name]++;
-                        $data['completed']['total']++;
-
+                        }
                     }
                 }
             }
@@ -171,9 +171,9 @@ class Dashboard extends CI_controller
                          
          
             $data['per']=$formated_data;
-              /* echo "<pre>";
-              print_r($data);
-              echo "</pre>";*/
+            //     echo "<pre>";
+            //  print_r($data);
+            //  echo "</pre>";
       
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
           
@@ -182,7 +182,9 @@ class Dashboard extends CI_controller
 
           //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
           
-
+            /*  echo "<pre>";
+              print_r($data);
+              echo "</pre>";*/
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -279,15 +281,14 @@ class Dashboard extends CI_controller
 
             foreach ($completedClusters_district as $row) {
                 if ($row->provinceId == $v['my_id'] && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
-                    /*if ($row->collecting_tabs == $row->completed_tabs) {
+                    if ($row->collecting_tabs == $row->completed_tabs) {
                         $n[$key]['completed']++;
                     } else {
                         $n[$key]['pending']++;
-                    }*/
-                    $n[$key]['completed']++;
+                    }
                 }
             }
-            $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] ;
+            $n[$key]['remaining'] = $v['total'] - $n[$key]['completed'] - $n[$key]['pending'];
         }
 
      
@@ -311,21 +312,17 @@ class Dashboard extends CI_controller
                 }
 
                 // Add values (merge duplicates)
-              /*  $per[$name]['total'] += $item['total'];
-                $per[$name]['completed'] += $item['completed'];*/
                 $per[$name]['total'] += $item['total'];
                 $per[$name]['completed'] += $item['completed'];
-                $per[$name]['remaining'] += $item['remaining'];
                 $per[$name]['pending'] += $item['pending'];
+                $per[$name]['remaining'] += $item['remaining'];
             }
-
-            //echo '<pre>';print_r($per);die;
 
             // Calculate final percentages
             foreach ($per as $name => $data) {
-                    $per[$name]['percentage'] = $data['total'] > 0 ? round(($data['completed'] / $data['total']) * 100,1): 0;
-                      $per[$name]['remaining'] = $data['total'] > 0? round(($data['remaining'] / $data['total']) * 100,1)  : 0;
-                      $per[$name]['pending'] = $data['total'] > 0 ? round(($data['pending'] / $data['total']) * 100,1)  : 0;
+                $per[$name]['percentage'] = $data['total'] > 0    ? round(($data['completed'] / $data['total']) * 100,2) : 0;
+                $per[$name]['remaining'] = $data['total'] > 0  ? round(($data['remaining'] / $data['total']) * 100,2) : 0;
+                $per[$name]['pending'] = $data['total'] > 0 ? round(($data['pending'] / $data['total']) * 100,2) : 0;
             }
             //  echo "<pre>";
             // var_dump($per);
@@ -378,6 +375,9 @@ class Dashboard extends CI_controller
             }
             $data['dist_array'] = $dist_array;
 
+
+
+
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
             $totalcluster = 0;
@@ -417,15 +417,13 @@ class Dashboard extends CI_controller
                     if ($ke == $key && $row->collecting_tabs != '' && $row->collecting_tabs != 0) {
                         $data['total']['total']++;
                         $data['total'][$dist_name]++;
-                       /* if ($row->collecting_tabs == $row->completed_tabs) {
+                        if ($row->collecting_tabs == $row->completed_tabs) {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
                         } else {
                             $data['ip'][$dist_name]++;
                             $data['ip']['total']++;
-                        }*/
-                        $data['completed'][$dist_name]++;
-                        $data['completed']['total']++;
+                        }
                     }
                 }
             }
@@ -535,10 +533,13 @@ class Dashboard extends CI_controller
 
             $get_ll_structures = $MLinelisting->get_ll_structures($district, $sub_district, '');
             $get_ll_res_structures = $MLinelisting->get_ll_res_structures($district, $sub_district, '');
+
+           // echo '<pre>';print_r($get_ll_res_structures);die;
+
+
             $res = array();
             foreach ($get_linelisting_table as $key => $value) {
                 $res[$value->cluster_no]['geoarea'] = $value->geoarea;
-                $res[$value->cluster_no]['randomized'] = $value->randomized;
                 $res[$value->cluster_no]['enumcode'] = $value->enumcode;
                 $res[$value->cluster_no]['cluster_no'] = $value->cluster_no;
                 $res[$value->cluster_no]['data_collected'] = $value->data_collected;
@@ -551,7 +552,7 @@ class Dashboard extends CI_controller
                 $res[$value->cluster_no]['endActivity'] = $value->endActivity;
                 $res[$value->cluster_no]['status'] = $value->status;
                 $res[$value->cluster_no]['planning'] = $value->planning;
-                $res[$value->cluster_no]['tot_hh'] = $value->tot_hh;
+                $res[$value->cluster_no]['exphh'] = $value->exphh;
                 $res[$value->cluster_no]['structures'] = 0;
                 $res[$value->cluster_no]['residential_structures'] = 0;
             }
@@ -601,10 +602,18 @@ class Dashboard extends CI_controller
             $MLinelisting = new MLinelisting();
             $get_rand_cluster = $MLinelisting->get_rand_cluster($cluster);
             $randomization_status = $get_rand_cluster[0]->randomized;
+
+            $get_resdential_hh = $MLinelisting->get_resdential_hh($cluster);
+
+
+
             if ($randomization_status == 1) {
                 echo 2;
                 $track_msg = 'Cluster is Already Randomized';
-            } else {
+            }else if(count($get_resdential_hh) < 60) {
+                echo 112;
+                $track_msg = 'Not enough Residentials Households';
+            }else {
                 $chked = 0;
                 $chkDuplicateTabs = $MLinelisting->chkDuplicateTabs($cluster);
                 if (isset($chkDuplicateTabs) && count($chkDuplicateTabs) >= 1) {
@@ -765,18 +774,20 @@ Planned Collection Date: ' . $data['cluster_data'][0]->collection_date .
             $pdf->AddPage();
             $pdf->Write(0, 'Randomization Date: ' . $data['randomization_date'], '', 0, 'R', true, 0, false, false, 0);
             $pdf->SetFont('helvetica', '', 9);
-            $tbl = '<table border="1" cellpadding="0" cellspacing="0" >
+            $tbl = '<br><table border="1" cellpadding="0" cellspacing="0" >
                  <tr>
                   <th width="10%" style="text-align:center"><b>Serial No</b></th> 
                   <th width="20%" style="text-align:center"><b>Household No</b></th>
                   <th width="20%" style="text-align:center"><b>Head of Household</b></th>
-                  <th width="50%" style="text-align:center; "><b>Remarks</b></th>
+                  <th width="10%" style="text-align:center"><b>Assigned D/C</b></th>
+                  <th width="40%" style="text-align:center;width: 40% "><b>Remarks</b></th>
                  </tr>';
             foreach ($data['cluster_data'] as $row) {
                 $tbl .= '<tr  border="0"><td  border="0" style="text-align:center">' . $row->sno . '</td> 
 <td style="text-align:center">' . $row->tabNo . '-' . substr($row->compid, 12, 8) . '</td>
 <td style="text-align:center">' . ucfirst($row->hh08) . '</td>
 <td style="text-align:center; height: 27px"  border="0"> </td>
+<td style="text-align:center; height: 27px;width: 40%"  border="0"> </td>
 </tr>';
             }
             $tbl .= '</table>';

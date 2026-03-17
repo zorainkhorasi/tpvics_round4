@@ -66,10 +66,10 @@
                                                     <th>Completed Tabs</th>
                                                     <th>Tab Activity</th>
                                                     <th>Status</th>
-                                                    <th>Eligible HH</th>
+                                                    <th>Expected HH</th>
                                                     <th>Randomized</th>
-                                                   <!-- <th>Planning</th>
-                                                    <th>Data Collected</th>-->
+
+                                                    <th>Data Collected</th>
                                                 </tr>
                                                 </thead>
 
@@ -107,7 +107,10 @@
                                                             if ($r['structures'] == 0 || $r['structures'] == '') {
                                                                 $rand_show = '2';
                                                                 $stat = 'Remaining';
-                                                            } else if ($r['collecting_tabs'] != 0 && $r['randomized'] != 1) {
+                                                            } else if ($r['collecting_tabs'] != $r['completed_tabs']) {
+                                                                $rand_show = '4';
+                                                                $stat = 'In Progress';
+                                                            } else if ($r['collecting_tabs'] == $r['completed_tabs']) {
                                                                 $rand_show = '1';
                                                                 $stat = 'Ready to Randomize';
                                                             } else {
@@ -118,13 +121,13 @@
                                                             ?>
                                                         </td>
 
-                                                        <td><?php echo(isset($r['tot_hh']) && $r['tot_hh'] != '' ? $r['tot_hh'] : '') ?></td>
+                                                        <td><?php echo(isset($r['exphh']) && $r['exphh'] != '' ? $r['exphh'] : '') ?></td>
                                                         <?php
-                                                        if (isset($permission[0]->CanAdd) && $permission[0]->CanAdd == 1 && $rand_show == '1' && $r['randomized'] != 1) {
+                                                        if (isset($permission[0]->CanAdd) && $permission[0]->CanAdd == 1 && $rand_show == '1') {
                                                             echo '<td><a href="javascript:void(0)" onclick="randomizeBtn(this)" data-cluster="' . $r['cluster_no'] . '" class="btn btn-sm btn-primary rand_btn">Randomize</a></td>';
                                                         } elseif ($rand_show == '2' || $rand_show == '4') {
                                                             echo '<td>-</td>';
-                                                        } elseif($r['randomized'] == 1) {
+                                                        } elseif($r['status'] != '1' && $r['planning'] == 2) {
                                                             echo '<td><a href="' . base_url('index.php/Dashboard/make_pdf/' . $r['cluster_no']) . '" target="_blank" class="btn  btn-sm btn-success">Print</a> ';
                                                             echo ' | <a href="' . base_url('index.php/Dashboard/get_excel/' . $r['cluster_no']) . '" target="_blank" class="btn btn-sm btn-danger">Get Excel</a></td>';
                                                         }else{
@@ -139,30 +142,7 @@
                                                         ?>
 
 
-                                                        <?php if (isset($permission[0]->CanEdit) && $permission[0]->CanEdit == 1) { ?>
-                                                            <!--<td data-id="<?php /*echo $r['cluster_no'] */?>"
-                                                                data-dist="<?php /*echo $r['dist_id'] */?>">
-                                                                <?php
-/*                                                                if ($plan_after == 3) {
-                                                                    echo '<a href="javascript:void(0)" class=" btn btn-sm bg-gradient-primary"
-                                                                       onclick="add_after_planning(this)">DC Planning </a>';
-                                                                }
-                                                                if (isset($r['planning']) && $r['planning'] != '' && ($r['planning'] == 1 || $r['planning'] == 2)) {
-                                                                    echo '<a href="javascript:void(0)" class=" btn btn-sm bg-gradient-warning"
-                                                                       onclick="view_planning(this)">View Planning</a>';
-                                                                } else {
-                                                                    echo '  <a href="javascript:void(0)" class="btn btn-sm bg-gradient-success"
-                                                                       onclick="add_before_planning(this)">Listing
-                                                                        Planning</a>';
-                                                                }
 
-
-
-                                                                */?>
-                                                            </td>-->
-                                                        <?php } else {
-                                                            echo '<td>-</td>';
-                                                        } ?>
                                                         <?php
                                                         if (isset($r['data_collected']) && $r['data_collected'] == 'Manual') {
                                                             $data_collected = 'Manual';
@@ -170,7 +150,7 @@
                                                             $data_collected = 'App';
                                                         }
 
-                                                    //    echo '<td>' . $data_collected . '</td>';
+                                                        echo '<td>' . $data_collected . '</td>';
                                                         ?>
                                                     </tr>
                                                 <?php }
@@ -191,10 +171,10 @@
                                                     <th>Completed Tabs</th>
                                                     <th>Tab Activity</th>
                                                     <th>Status</th>
-                                                    <th>Eligible HH</th>
+                                                    <th>Expected HH</th>
                                                     <th>Randomized</th>
-                                                   <!-- <th>Planning</th>
-                                                    <th>Data Collected</th>-->
+
+                                                    <th>Data Collected</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -564,6 +544,8 @@
                     }, 1000);
                 } else if (result == 2) {
                     toastMsg('Already Randomized', 'Cluster No ' + data['cluster_no'] + ' is Already Randomized', 'info');
+                }else if (result == 112) {
+                    toastMsg('Error', 'Not enough Residentials Households', 'error');
                 } else if (result == 3) {
                     toastMsg('Zero Households', 'Cluster No ' + data['cluster_no'] + ' has Zero Households', 'danger');
                 } else if (result == 4) {
@@ -585,7 +567,7 @@
     $(document).ready(function () {
         $('.dataex-html5-selectors').DataTable({
             dom: 'Bfrtip',
-            "displayLength": 200,
+            "displayLength": 25,
             buttons: [
                 {
                     extend: 'copyHtml5',

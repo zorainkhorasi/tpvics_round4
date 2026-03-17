@@ -141,7 +141,7 @@ class MLinelisting extends CI_Model
 			$dist_where
 			group by c.district,c.cluster_no,c.geoArea, l.hh01,c.dist_id,$str 
 			order by c.geoArea,l.hh01 asc ";
-            /* echo $sql_query;
+          /*   echo $sql_query;
              die;*/
         $query = $this->db->query($sql_query);
         
@@ -190,6 +190,8 @@ class MLinelisting extends CI_Model
 
         $sql_query = "SELECT DISTINCT l.hh04, l.hh05, l.tabNo,l.hh01 FROM listings l WHERE l.hh08 = '1' and hh11 !='Deleted'  
                                                                  AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0)  $where";
+
+        //echo $sql_query;die;
         $query = $this->db->query($sql_query);
         return $query->result();
 
@@ -211,7 +213,7 @@ class MLinelisting extends CI_Model
         if (isset($cluster_type) && $cluster_type == 'c') {
             $users = ' and (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\'))';
             $cluster_type_where = " and (select count(distinct deviceid) from listings where hh01 = l.hh01 and  (colflag is null OR colflag = '0' OR colflag = 0))
-             !=0 ";
+             = (select count(*) completed_tabs from(select deviceid, max(cast(hh03 as int)) ms from listings where   hh01 = l.hh01 and hh07= '9' AND (colflag is null OR colflag = '0' OR colflag = 0)  group by deviceid) AS completed_tabs) ";
         } elseif (isset($cluster_type) && $cluster_type == 'ip') {
             $cluster_type_where = " and (select count(distinct deviceid) from listings where hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) != 
 					(select count(*) completed_tabs from(select deviceid, max(cast(hh03 as int)) ms from listings 
@@ -229,7 +231,7 @@ class MLinelisting extends CI_Model
         }
 
 
-        $sql_query = "SELECT c.randomized,c.geoarea, c.cluster_no,l.tot_hh,	c.dist_id ,l.data_collected ,   
+        $sql_query = "SELECT c.geoarea, c.cluster_no,c.exphh,	c.dist_id ,l.data_collected ,   
             sum(case when hh14 = '1'  then 1 else 0 end) as target_children,
             (select SUM(CAST(hh14a as int)) from listings where hh14='1' and (hh14a!='null' or hh14a is not null)  and hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) as no_of_children,
             (select count(distinct deviceid) from listings where hh01 = l.hh01  AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
@@ -244,11 +246,11 @@ class MLinelisting extends CI_Model
                             
                              AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
                               $dist_where  $cluster_type_where $sysdate_where
-                            group by c.randomized, c.geoarea,	l.tot_hh,l.geoArea,	c.cluster_no, l.hh01, c.dist_id , l.data_collected
+                            group by c.geoarea,	c.exphh,l.geoArea,	c.cluster_no, l.hh01, c.dist_id , l.data_collected
                             order by c.geoArea,c.cluster_no";
 
 
-       // echo $sql_query;die;
+      //  echo $sql_query;die;
 
         $query = $this->db->query($sql_query);
         return $query->result();
@@ -261,6 +263,13 @@ class MLinelisting extends CI_Model
     function get_rand_cluster($cluster)
     {
         $sql_query = "select randomized from clusters where cluster_no = '$cluster' AND (colflag is null OR colflag = '0' OR colflag = 0)";
+        $query = $this->db->query($sql_query);
+        return $query->result();
+    }
+
+    function get_resdential_hh($cluster)
+    {
+        $sql_query = "select DISTINCT l.hh04, l.hh05, l.tabNo from listings l  WHERE l.hh08 = '1' and hh11 !='Deleted'   and cluster = '$cluster' AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) ";
         $query = $this->db->query($sql_query);
         return $query->result();
     }

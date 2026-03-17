@@ -339,10 +339,6 @@ class Custom extends CI_Model
 
         if ($_SESSION['login']['idGroup'] != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
             $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
-
-
-           //echo '<pre>';print_r($districts);die;
-
             $districts_sql = "'" . implode("','", $districts) . "'";
             $dist_where .= " AND c.dist_id IN ($districts_sql)";
         }
@@ -352,9 +348,6 @@ class Custom extends CI_Model
                   $dist_where 
                   GROUP BY $groupQ 
                   ORDER BY c.district ASC";
-
-     //   echo $sql_query;die;
-
         return $this->db->query($sql_query)->result();
     }
 
