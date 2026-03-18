@@ -399,17 +399,17 @@ class Dashboard extends CI_controller
                                 'uid' => $get_systematic_rand[$i]->uid,
                                 'sno' => $i + 1,
                                 'hh02' => $get_systematic_rand[$i]->hh02,
-                                'hh03' => $get_systematic_rand[$i]->hh03,
-                                'hh07' => $get_systematic_rand[$i]->hh07,
-                                'hh08' => $get_systematic_rand[$i]->hh08,
-                                'hh09' => $get_systematic_rand[$i]->hh09,
+                                'hl09' => $get_systematic_rand[$i]->hl09,
+                                'hl10' => $get_systematic_rand[$i]->hl10,
+                                'hl11' => $get_systematic_rand[$i]->hl11,
+                                'hl12' => $get_systematic_rand[$i]->hl12,
                                 'total' => $residential_structures,
                                 'randno' => $random_start,
                                 'quot' => $quotient,
                                 'hhdt' => $get_systematic_rand[$i]->hhdt,
-                                'dist_id' => $get_systematic_rand[$i]->enumcode,
-                                'compid' => $get_systematic_rand[$i]->hh02 . '-' . $get_systematic_rand[$i]->tabNo . "-" . str_pad($get_systematic_rand[$i]->hh03, 4, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$i]->hh07, 3, "0", STR_PAD_LEFT),
-                                'tabNo' => $get_systematic_rand[$i]->tabNo,
+                                'dist_id' => $get_systematic_rand[$i]->dist_code,
+                                'compid' => $get_systematic_rand[$i]->hh02 . '-' . $get_systematic_rand[$i]->hltab . "-" . str_pad($get_systematic_rand[$i]->hl09, 4, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$i]->hl10, 3, "0", STR_PAD_LEFT),
+                                'hltab' => $get_systematic_rand[$i]->hltab,
                                 'user_id' => $_SESSION['login']['UserName']
                             );
                             $insert_blrandomize = $MLinelisting->insert_blrandomize($data, 'bl_randomised');
@@ -472,8 +472,8 @@ class Dashboard extends CI_controller
                  </tr>';
             foreach ($data['cluster_data'] as $row) {
                 $tbl .= '<tr  border="0"><td  border="0" style="text-align:center">' . $row->sno . '</td> 
-<td style="text-align:center">' . $row->tabNo . '-' . substr($row->compid, 10, 8) . '</td>
-<td style="text-align:center">' . ucfirst($row->hh08) . '</td>
+<td style="text-align:center">' . $row->hltab . '-' . substr($row->compid, 10, 8) . '</td>
+<td style="text-align:center">' . ucfirst($row->hl11) . '</td>
 <td style="text-align:center; height: 27px"  border="0"> </td>
 </tr>';
             }

@@ -133,11 +133,11 @@ class Manual_linelisting extends CI_controller
 
                 foreach ($_POST['option'] as $opt) {
 
-                    $hh04 = str_pad($opt['structure_number'], 3, '0', STR_PAD_LEFT); // 0001
-                    $hh07 = str_pad($opt['household_no'], 2, '0', STR_PAD_LEFT);     // 001
+                    $structure_no = str_pad($opt['structure_number'], 3, '0', STR_PAD_LEFT); // 0001
+                    $hl10 = str_pad($opt['household_no'], 2, '0', STR_PAD_LEFT);     // 001
 
                     // Unique ID check inside POST
-                    $hhid = 'A-' . $hh04 . '-' . $hh07;
+                    $hhid = 'A-' . $structure_no . '-' . $hl10;
 
                     if (in_array($hhid, $hhids)) {
                         echo 99;   // Duplicate found
@@ -150,8 +150,8 @@ class Manual_linelisting extends CI_controller
                     $temp = [];
                     $temp['col_dt']      = date('Y-m-d H:i:s');
                     $temp['cluster']     = $cluster;
-                    $temp['hh01']     = $cluster;
-                    $temp['enumcode']    = $data[0]->dist_id;
+                    $temp['cluster_no']     = $cluster;
+                    $temp['dist_code']    = $data[0]->dist_id;
                    // $temp['enumstr']     = $data[0]->geoarea;
                     $temp['geoarea']     = $data[0]->geoarea;
                     $temp['formdate']    = date('Y-m-d', strtotime($_POST['linelisting_date']));
@@ -160,27 +160,27 @@ class Manual_linelisting extends CI_controller
                     $temp['projectname'] = 'TPVICS_R3';
                     $temp['tot_str']     = $_POST['total_structure_identified'];
                     $temp['tot_hh']      = $_POST['total_household_identified'];
-                    $temp['hh07n']       = $_POST['total_residential_structures'];
+                    $temp['hl10n']       = $_POST['total_residential_structures'];
                     $temp['data_collected'] = 'Manual';
                     $temp['username']    =  $this->encrypt->decode($_SESSION['login']['username']);
                     $temp['sysdate']     = date('Y-m-d H:i:s');
 
                     // Loop-specific fields
-                    $temp['hh04']     = $hh04;
-                    $temp['hh05']     = $hh07;
-                    $temp['hh07']     = 1;
-                    $temp['hh08']     = '1';
-                    $temp['hh11']     = $opt['household_name'];
+                    $temp['structure_no']     = $structure_no;
+                    $temp['hl02']     = $hl10;
+                    $temp['hl10']     = 1;
+                    $temp['hl11']     = '1';
+                    $temp['hl14']     = $opt['household_name'];
                     $temp['hh13']     = 1;
-                    $temp['hh14']     = 1;
-                    $temp['hh14a']     = $opt['childAge'];
+                    $temp['hl20']     = 1;
+                    $temp['hl22']     = $opt['childAge'];
                   //  $temp['hh15']     = ;
-                   // $temp['hh12']     = '1';
-                    $temp['tabNo']    = 'A';
+                   // $temp['hl15']     = '1';
+                    $temp['hltab']    = 'A';
                     $temp['deviceid']    = 'Manual Listings';
 
                     // UID
-                    $temp['_uid'] = $cluster . '_A_' . $hh07 . '_' . $hh04;
+                    $temp['_uid'] = $cluster . '_A_' . $hl10 . '_' . $structure_no;
 
                     $mainArray[] = $temp;
                 }

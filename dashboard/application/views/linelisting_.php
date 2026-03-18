@@ -348,8 +348,8 @@
                                                     $explode = explode("|", $r->geoarea);
                                                     $province = ltrim(rtrim($explode[0]));
                                                     $division = ltrim(rtrim($explode[1]));
-                                                    $p_id = substr($r->enumcode, 0, 1);
-                                                    $d_id = substr($r->enumcode, 0, 3);
+                                                    $p_id = substr($r->dist_code, 0, 1);
+                                                    $d_id = substr($r->dist_code, 0, 3);
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $sno; ?></td>

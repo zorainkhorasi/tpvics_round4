@@ -1113,7 +1113,8 @@
                         <?php
                         // --- 1. Define the Schedule Structure and Color Mapping for the New UI ---
                         $vaccine_schedule = [
-                            "AT BIRTH" => [ "opv0", "hep_b","bcg"],
+                           // "AT BIRTH" => [ "opv0", "hep_b","bcg"],
+                            "AT BIRTH" => [ "opv0","bcg"],
                             "6 WEEKS" => ["opv1", "rv1", "pcv1", "penta1"],
                             "10 WEEKS" => ["opv2", "rv2", "pcv2", "penta2"],
                             "14 WEEKS" => ["opv3",  "ipv","pcv3","penta3"], // Grouping remaining vaccines
@@ -1126,7 +1127,7 @@
 
                             // AT BIRTH
                             'opv0'   => 'fill-magenta',
-                            'hep_b'  => 'fill-red',
+                           // 'hep_b'  => 'fill-red',
                             'bcg'    => 'fill-brown',
 
                             // 6 WEEKS
@@ -1305,6 +1306,50 @@
                                                 <option
                                                     value="<?= $val ?>" <?= $savedValue == $val ? 'selected' : '' ?>><?= $label ?></option> <?php endforeach; ?>
                                         </select>
+
+                                        <br>
+                                        <label for="image_status" class="form-label">Is the vaccination card new (recently issued) or old?</label>
+                                        <label
+                                            style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="card_condition"
+                                                id="card_condition_one"
+                                                value="1"
+                                                <?= (isset($vac_details_edit->card_condition) && $vac_details_edit->card_condition  == '1') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            New / Fresh Card
+                                        </label>
+
+                                        <label
+                                            style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="card_condition"
+                                                id="card_condition_two"
+                                                value="2"
+                                                <?= (isset($vac_details_edit->card_condition) && $vac_details_edit->card_condition == '2') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            Old Card
+                                        </label>
+                                        <label
+                                            style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="card_condition"
+                                                id="card_condition_three"
+                                                value="3"
+                                                <?= (isset($vac_details_edit->card_condition) && $vac_details_edit->card_condition == '3') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            Cannot Determine
+                                        </label>
+
+
+
+
                                         <div class="field-group">
                                             <!-- <div class="section-title">Image Feedback</div> -->
                                             <label for="comments" class="form-label">Comments / Notes</label>
@@ -1321,12 +1366,20 @@
                                     <div class="card-body">
                                         <div class="image-gallery">
                                             <?php $img = '';
-                                            if (1 == 1) {
-                                                $img = '<div class="swiper-slide"> 
-                                <img class="img-fluid" src="http://localhost/tpvics_round4/assets/images/banner/vac.png" alt="vac.png"> </div>
-                                 <div class="swiper-slide">
-                                  <img class="img-fluid" src="http://localhost/tpvics_round4/assets/images/banner/vac.png" alt="vac.png"> </div>';
-                                            } else {
+                                            if ((isset($data->f01) && $data->f01 != '') || (isset($data->f02) && $data->f02 != '')) {
+                                                $img = '';
+                                                if(!empty($data->f01)){
+                                                    $img .= '<div class="swiper-slide">
+                                                                <img class="img-fluid" src="'.base_url('index.php/Card_edit/show_image/'.$data->f01).'" alt="'.$data->f01.'">
+                                                            </div>';
+                                                    }
+
+                                                if(!empty($data->f02)){
+                                                    $img .= '<div class="swiper-slide">
+                                                                <img class="img-fluid" src="'.base_url('index.php/Card_edit/show_image/'.$data->f02).'" alt="'.$data->f02.'">
+                                                            </div>';
+                                                }
+                                            }  else {
                                                 $img = '<div class="swiper-slide text-center p-5">
                                        <i class="fas fa-image fa-3x text-muted mb-3"></i>
                                        <p class="text-muted">No Image Available</p></div>';
@@ -1752,12 +1805,14 @@
     // ===========================================
     function saveVaccinesData() {
         let formData = {};
-        let vaccines = ["bcg", "opv0", "opv1", "opv2", "opv3", "penta1", "penta2", "penta3", "pcv1", "pcv2", "pcv3", "rv1", "rv2", "ipv", "ipv2", "mr1", "mr2", "hep_b", "tcv"];
+      //  let vaccines = ["bcg", "opv0", "opv1", "opv2", "opv3", "penta1", "penta2", "penta3", "pcv1", "pcv2", "pcv3", "rv1", "rv2", "ipv", "ipv2", "mr1", "mr2", "hep_b", "tcv"];
+        let vaccines = ["bcg", "opv0", "opv1", "opv2", "opv3", "penta1", "penta2", "penta3", "pcv1", "pcv2", "pcv3", "rv1", "rv2", "ipv", "ipv2", "mr1", "mr2", "tcv"];
 
         vaccines.forEach(v => {
             // Use the value from the hidden input field
             formData[v] = $('#' + v + '_value').val();
         });
+
 
         let dobType = $('input[name="duration_type"]:checked').val();
         let dob = $('input[name="new_dob"]').val();
@@ -1778,10 +1833,7 @@
             formData['dob'] = '<?= $data->im04dd . '-' . $data->im04mm . '-' . $data->im04yy ?>';
 
         }
-
-
         formData['dob_type'] = dobType;
-
         // Additional info
         formData['cluster_code'] = "<?= $data->cluster_code ?? '' ?>";
         formData['hhno'] = "<?= $data->hhno ?? '' ?>";
@@ -1793,7 +1845,7 @@
 
 
 
-        if (!formData['image_status']) {
+        if (!formData['image_status'] || formData['image_status'] =='0') {
 
             alert("Image Status is required");
             $('#image_status').css('border', '1px solid red');
@@ -1806,6 +1858,14 @@
         }
 
 
+        let card_condition = $('input[name="card_condition"]:checked').val();
+
+        if (!card_condition) {
+            alert("vaccination card new condition  is required");
+            return false; // stop form submission
+        }
+
+        formData['card_condition'] = card_condition;
 
         $.ajax({
             url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',

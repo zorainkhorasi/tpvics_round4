@@ -154,7 +154,7 @@ ORDER BY $orderQ";
         //     $sysdate_join = '';
         //     $sysdate_where = '';
         // }
-        $sql_query = "select c.district, c.province,c.dist_id as enumcode, c.cluster_no as hh02,
+        $sql_query = "select c.district, c.province,c.dist_id as dist_code, c.cluster_no as hh02,
         (select count(*) from Randomised where dist_id = c.dist_id and hh02 = c.cluster_no  AND (Randomised.colflag is null OR Randomised.colflag = '0')) as randomized_households,
         
         ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
@@ -179,7 +179,7 @@ ORDER BY $orderQ";
 
     function get_randomizedHH($cluster)
     {
-        $sql_query = "select hh02, sno,  (tabNO + '-'+ RIGHT(compid, 8)) AS hhno from Randomised 
+        $sql_query = "select hh02, sno,  (hltab + '-'+ RIGHT(compid, 8)) AS hhno from Randomised 
 where hh02 = '$cluster'  AND (Randomised.colflag is null OR Randomised.colflag = '0') order by cast(sno as int)";
         $query = $this->db->query($sql_query);
         return $query->result();

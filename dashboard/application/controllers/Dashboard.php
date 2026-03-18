@@ -502,6 +502,7 @@ class Dashboard extends CI_controller
             }
                  $sub_district = $this->input->get('district_id'); // <- here
                  $cluster_type = $this->input->get('status'); 
+                 $data['cluster_type'] = $this->input->get('status');
 
              
             $MLinelisting = new MLinelisting();
@@ -540,7 +541,7 @@ class Dashboard extends CI_controller
             $res = array();
             foreach ($get_linelisting_table as $key => $value) {
                 $res[$value->cluster_no]['geoarea'] = $value->geoarea;
-                $res[$value->cluster_no]['enumcode'] = $value->enumcode;
+                $res[$value->cluster_no]['dist_code'] = $value->dist_code;
                 $res[$value->cluster_no]['cluster_no'] = $value->cluster_no;
                 $res[$value->cluster_no]['data_collected'] = $value->data_collected;
                 $res[$value->cluster_no]['dist_id'] = $value->dist_id;
@@ -554,16 +555,17 @@ class Dashboard extends CI_controller
                 $res[$value->cluster_no]['planning'] = $value->planning;
                 $res[$value->cluster_no]['exphh'] = $value->exphh;
                 $res[$value->cluster_no]['structures'] = 0;
+                $res[$value->cluster_no]['randomized'] =$value->randomized;
                 $res[$value->cluster_no]['residential_structures'] = 0;
             }
             foreach ($get_ll_structures as $structure) {
-                if (isset($res[$structure->hh01]) && $res[$structure->hh01] != '') {
-                    $res[$structure->hh01]['structures'] += $structure->structure;
+                if (isset($res[$structure->cluster_no]) && $res[$structure->cluster_no] != '') {
+                    $res[$structure->cluster_no]['structures'] += $structure->structure;
                 }
             }
             foreach ($get_ll_res_structures as $res_structure) {
-                if (isset($res[$res_structure->hh01]) && $res[$res_structure->hh01] != '') {
-                    $res[$res_structure->hh01]['residential_structures'] += 1;
+                if (isset($res[$res_structure->cluster_no]) && $res[$res_structure->cluster_no] != '') {
+                    $res[$res_structure->cluster_no]['residential_structures'] += 1;
                 }
             }
             $data['get_linelisting_table'] = $res;
@@ -610,7 +612,7 @@ class Dashboard extends CI_controller
             if ($randomization_status == 1) {
                 echo 2;
                 $track_msg = 'Cluster is Already Randomized';
-            }else if(count($get_resdential_hh) < 60) {
+            }else if(count($get_resdential_hh) < 17) {
                 echo 112;
                 $track_msg = 'Not enough Residentials Households';
             }else {
@@ -621,10 +623,10 @@ class Dashboard extends CI_controller
                 }
                 /*$custom_dup_chk = array();
                 foreach ($chkDuplicateTabs as $chk) {
-                    if (in_array($custom_dup_chk[$chk->tabNo], $custom_dup_chk)) {
+                    if (in_array($custom_dup_chk[$chk->hltab], $custom_dup_chk)) {
                         $chked = 1;
                     } else {
-                        $custom_dup_chk[$chk->tabNo][] = $chk->deviceid;
+                        $custom_dup_chk[$chk->hltab][] = $chk->deviceid;
                     }
                 }*/
 
@@ -652,18 +654,18 @@ class Dashboard extends CI_controller
                                 'uid' => $get_systematic_rand[$index - 1]->_uid,
                                 'sno' => $i + 1,
                                 'ssno' => $i + 1,
-                                'hh02' => $get_systematic_rand[$index - 1]->hh01,
-                                'hh03' => $get_systematic_rand[$index - 1]->hh04,
-                                'hh07' => $get_systematic_rand[$index - 1]->hh05,
-                                'hh08' => $get_systematic_rand[$index - 1]->hh11,
-                                'hh09' => $get_systematic_rand[$index - 1]->hh09,
+                                'hh02' => $get_systematic_rand[$index - 1]->cluster_no,
+                                        'hl09' => $get_systematic_rand[$index - 1]->structure_no,
+                                'hl10' => $get_systematic_rand[$index - 1]->hl02,
+                                'hl11' => $get_systematic_rand[$index - 1]->hl14,
+                                'hl12' => $get_systematic_rand[$index - 1]->hl12,
                                 'total' => $cntData,
                                 'randno' => $random_start,
                                 'randomPick' => $index - 1,
                                 'quot' => $quotient,
-                                'dist_id' => $get_systematic_rand[$index - 1]->enumcode,
-                                'compid' => $get_systematic_rand[$index - 1]->hh01 . '-' . $get_systematic_rand[$index - 1]->tabNo . "-" . str_pad($get_systematic_rand[$index - 1]->hh04, 4, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$index - 1]->hh05, 3, "0", STR_PAD_LEFT),
-                                'tabNo' => $get_systematic_rand[$index - 1]->tabNo,
+                                'dist_id' => $get_systematic_rand[$index - 1]->dist_code,
+                                'compid' => $get_systematic_rand[$index - 1]->cluster_no . '-' . $get_systematic_rand[$index - 1]->hltab . "-" . str_pad($get_systematic_rand[$index - 1]->structure_no, 4, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$index - 1]->hl02, 3, "0", STR_PAD_LEFT),
+                                'hltab' => $get_systematic_rand[$index - 1]->hltab,
                                 'user_id' => $this->encrypt->decode($_SESSION['login']['username'])
                             );
 
@@ -733,87 +735,385 @@ class Dashboard extends CI_controller
     {
         $data = array();
         $data['cluster'] = $this->uri->segment(3);
+
         if (isset($data['cluster']) && $data['cluster'] != '') {
+
             $this->load->library('tcpdf');
             $MLinelisting = new MLinelisting();
+
             $data['cluster_data'] = $MLinelisting->get_bl_randomized($data['cluster']);
             $data['randomization_date'] = substr($data['cluster_data'][0]->randDT, 0, 10);
+
+            // Create PDF
             $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
             $pdf->SetCreator(PDF_CREATOR);
             $pdf->SetAuthor('TPVICS SHRUC Round 4');
             $pdf->SetTitle('Cluster No: ' . $data['cluster']);
             $pdf->SetSubject('TPVICS SHRUC Round 4');
-            $pdf->SetKeywords('TPVICS SHRUC Round 4');
 
-
+            // Header Data
             $geoarea = explode('|', $data['cluster_data'][0]->geoarea);
 
-            $header = '<strong>TPVICS  Round 3 - Cluster No: ' . $data['cluster'] . '</strong><br>
-Province: ' . $geoarea[0] . '<br>
-District: ' . $geoarea[1] . '<br>
-Tehsil: ' . $geoarea[2] . '<br>
-Area: ' . $data['cluster_data'][0]->geoarea . '<br>
-Planned Collection Date: ' . $data['cluster_data'][0]->collection_date .
-                ' --- Collector Name: ' . $data['cluster_data'][0]->collector_name .
-                ' --- Tablet ID: ' . $data['cluster_data'][0]->tablet_id;
-            $pdf->setHtmlHeader('<p style="font-size: 12px;  border-bottom: 1px solid black;">' . $header . '</p>');
-            $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-            $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-            $pdf->SetTopMargin(35);
-            $pdf->setPrintHeader(true);
-            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);;
-            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-            if (@file_exists(dirname(__FILE__) . ' / lang / eng . php')) {
-                require_once(dirname(__FILE__) . ' / lang / eng . php');
-            }
-            $pdf->SetFont('helvetica', 'B', 10);
+            $header = '<strong>TPVICS Round 3 - Cluster No: ' . $data['cluster'] . '</strong><br>
+        Province: ' . $geoarea[0] . '<br>
+        District: ' . $geoarea[1] . '<br>
+        Tehsil: ' . $geoarea[2] . '<br>
+        Area: ' . $data['cluster_data'][0]->geoarea . '<br>
+        Planned Collection Date: ' . $data['cluster_data'][0]->collection_date . '
+        --- Collector Name: ' . $data['cluster_data'][0]->collector_name . '
+        --- Tablet ID: ' . $data['cluster_data'][0]->tablet_id;
+
+            $pdf->setHtmlHeader('<p style="font-size:12px;border-bottom:1px solid black;">' . $header . '</p>');
+
+            // Margins & Settings
+            $pdf->SetMargins(10, 35, 10);
+            $pdf->SetHeaderMargin(5);
+            $pdf->SetFooterMargin(10);
+            $pdf->SetAutoPageBreak(TRUE, 10);
+
             $pdf->AddPage();
-            $pdf->Write(0, 'Randomization Date: ' . $data['randomization_date'], '', 0, 'R', true, 0, false, false, 0);
+
+            // Randomization Date
+            $pdf->SetFont('helvetica', 'B', 10);
+            $pdf->Write(0, 'Randomization Date: ' . $data['randomization_date'], '', 0, 'R', true);
+
             $pdf->SetFont('helvetica', '', 9);
-            $tbl = '<br><table border="1" cellpadding="0" cellspacing="0" >
-                 <tr>
-                  <th width="10%" style="text-align:center"><b>Serial No</b></th> 
-                  <th width="20%" style="text-align:center"><b>Household No</b></th>
-                  <th width="20%" style="text-align:center"><b>Head of Household</b></th>
-                  <th width="10%" style="text-align:center"><b>Assigned D/C</b></th>
-                  <th width="40%" style="text-align:center;width: 40% "><b>Remarks</b></th>
-                 </tr>';
+
+            // Table Start
+            $tbl = '<br><br><br><table border="1" cellpadding="4" cellspacing="0">
+            <tr>
+                <th width="10%" align="center"><b>Serial No</b></th> 
+                <th width="20%" align="center"><b>Household No</b></th>
+                <th width="20%" align="center"><b>Head of Household</b></th>
+                <th width="10%" align="center"><b>Assigned D/C</b></th>
+                <th width="40%" align="center"><b>Remarks</b></th>
+            </tr>';
+
             foreach ($data['cluster_data'] as $row) {
-                $tbl .= '<tr  border="0"><td  border="0" style="text-align:center">' . $row->sno . '</td> 
-<td style="text-align:center">' . $row->tabNo . '-' . substr($row->compid, 12, 8) . '</td>
-<td style="text-align:center">' . ucfirst($row->hh08) . '</td>
-<td style="text-align:center; height: 27px"  border="0"> </td>
-<td style="text-align:center; height: 27px;width: 40%"  border="0"> </td>
-</tr>';
+
+                $tbl .= '<tr>
+                <td align="center">' . $row->sno . '</td> 
+                <td align="center">' . $row->hltab . '-' . substr($row->compid, 12, 8) . '</td>
+                <td align="center">' . ucfirst($row->hl11) . '</td>
+                <td align="center" height="25"></td>
+                <td align="center" height="25"></td>
+            </tr>';
             }
+
             $tbl .= '</table>';
-            $pdf->writeHTML($tbl, true, false, true, false, '');
-            $pdf->Output('randmozied.pdf', 'I');
-            ob_end_flush();
-            ob_end_clean();
-            $track_msg = 'Success';
+
+            // Write Table
+            $pdf->writeHTML($tbl, true, false, false, false, '');
+
+            // ✅ ADD IMAGE AT END (BEST METHOD)
+            $image_path = FCPATH . 'assets/images/note.png';
+
+            if (file_exists($image_path)) {
+                $pdf->Ln(5); // space
+                $pdf->Image($image_path, 15, $pdf->GetY(), 180, 0);            }
+
+            // Output PDF
+            $pdf->Output('cluster_' . $data['cluster'] . '.pdf', 'I');
+        }
+    }
+
+
+    function make_log()
+    {
+        $data = array();
+        $data['cluster'] = $this->uri->segment(3);
+
+        if (isset($data['cluster']) && $data['cluster'] != '') {
+            $this->load->library('tcpdf');
+
+            $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('TPVICS Round 4');
+            $pdf->SetTitle('Cluster No: ' . $data['cluster']);
+
+            $pdf->setPrintHeader(false);
+            $pdf->setPrintFooter(false);
+            $pdf->SetMargins(15, 15, 15);
+            $pdf->SetAutoPageBreak(TRUE, 10);
+            $pdf->SetFont('helvetica', '', 10);
+            $pdf->AddPage();
+
+            $province = "Balochistan";
+            $district = "Quetta";
+            $uc = "10B";
+
+            $html = '
+        <style>
+            .center { text-align: center; }
+            .bold { font-weight: bold; }
+            table.main-table { border-collapse: collapse; width: 100%; }
+            table.main-table td { border: 1px solid #000; padding: 4px; vertical-align: middle; }
+        </style>
+
+        <div class="center">
+            <span class="bold" style="font-size: 15pt;">Third Party Verification of Vaccine Immunization</span><br>
+            <span class="bold" style="font-size: 15pt;">Coverage Survey (TPVICS-Round-4)</span><br>
+            <span style="font-size: 11pt;">Cluster History Sheet</span><br>
+            <span class="bold" style="font-size: 12pt;">Cluster Number - '.$data['cluster'].'</span>
+        </div>
+
+        <br><br>
+        <table width="100%" cellpadding="2">
+            <tr>
+                <td width="50%">Province: ' . $province . '</td>
+                <td width="50%">District Name: ' . $district . '</td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2">UC Name : ' . $uc . '</td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2">Area : ______________________________________________________________________</td>
+            </tr>
+        </table>
+
+        <br>
+                <br>
+        <b style="font-size: 11pt;">Line Listing</b>
+        <br>
+        <br>
+        <table class="main-table" cellpadding="5">
+            <tr>
+                <td width="20%">Tablet Number1<br>Tablet Number2</td>
+                <td width="30%"></td>
+                <td width="25%">Line Listing<br>Starting Date</td>
+                <td width="25%"></td>
+            </tr>
+            <tr>
+                <td>Data Collector Name1</td>
+                <td></td>
+                <td>Data Collector Name2</td>
+                <td><i style="font-size: 7pt;">(If data collected in two tabs)</i></td>
+            </tr>
+            <tr>
+                <td rowspan="2">Area/Village Name</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="center"><i style="font-size: 7pt;">(Area name with land mark)</i></td>
+            </tr>
+            <tr>
+                <td colspan="4"><b>Any Comments</b><br><br></td>
+            </tr>
+            <tr class="center">
+                <td width="18%" class="bold">Total Structures</td>
+                <td width="18%" class="bold">Total Households</td>
+                <td width="18%" class="bold">Total Targeted Households</td>
+                <td width="23%" class="bold">Listing Completion Date</td>
+                <td width="23%" class="bold">Randomization Date</td>
+            </tr>
+            <tr height="30">
+                <td height="30"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <br><br>
+        <span>_________________________________</span><br>
+        <span>Supervisor Name & Signature</span>
+
+        <br><br>
+        <div class="center">................................................................................................................................................................</div>
+
+        <br>
+        <b style="font-size: 11pt;">Data Collection</b>
+        <table class="main-table" cellpadding="5">
+            <tr>
+                <td width="20%">Tablet Number</td>
+                <td width="30%"></td>
+                <td width="25%">Data Collection Starting Date</td>
+                <td width="25%"></td>
+            </tr>
+            <tr>
+                <td>Data Collector Name</td>
+                <td></td>
+                <td>Data Collector Name</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <br><br>
+        <span>_________________________________</span><br>
+        <span>Supervisor Name & Signature</span>
+
+        <br><br>
+        <b>Any Observation/Comments:</b> ___________________________________________________________<br>
+        ______________________________________________________________________________________
+        ';
+
+            if (ob_get_contents()) ob_end_clean();
+            $pdf->writeHTML($html, true, false, true, false, '');
+            $pdf->Output('TPVICS_Form_'.$data['cluster'].'.pdf', 'I');
+
         } else {
-            $track_msg = 'Invalid Cluster';
             echo 'Invalid Cluster';
         }
-        /*==========Log=============*/
-        $Custom = new Custom();
-        $trackarray = array(
-            "activityName" => "Linelisting datatable pdf",
-            "action" => "Linelisting PDF -> Function: Dashboard/make_pdf()",
-            "result" => $track_msg,
-            "PostData" => "",
-            "affectedKey" => "",
-            "idUser" => $this->encrypt->decode($_SESSION['login']['idUser']),
-            "username" => $this->encrypt->decode($_SESSION['login']['username']),
-        );
-        $Custom->trackLogs($trackarray, "all_logs");
-        /*==========Log=============*/
     }
+
+    function cluster_p()
+    {
+        $this->load->library('tcpdf');
+
+        // Set page to Portrait, A4
+        $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('TPVICS');
+        $pdf->SetTitle('Empty Survey Form');
+
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        // Set margins to match a standard form
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->SetAutoPageBreak(TRUE, 10);
+
+        // Use freeserif for Urdu character support
+        $pdf->SetFont('freeserif', '', 9);
+        $pdf->AddPage();
+
+        $html = '
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        td { border: 1px solid #000; padding: 4px; vertical-align: middle; }
+        .header-text { text-align: right; font-size: 10pt; }
+        .bg-grey { background-color: #f2f2f2; font-weight: bold; }
+        .center { text-align: center; }
+        .small-text { font-size: 8pt; }
+        .box { width: 20px; height: 20px; border: 1px solid #000; display: inline-block; }
+    </style>
+
+    <div class="header-text">
+      <h1 style="    text-align: center;"> Enumeration Block number / اینومریشن بلاک نمبر: &nbsp;</h1> 
+       <br>
+       
+        <table class="center" cellspacing="0" cellpadding="0" style="width: 250px; float: right; border: none;">
+            <tr>
+                <td width="25" height="25"></td><td width="25"></td><td width="25"></td>
+                <td width="25"></td><td width="25"></td><td width="25"></td>
+                <td width="25"></td><td width="25"></td>
+            </tr>
+        </table>
+    </div>
+    <br><br><br>
+
+    <table>
+        <tr>
+            <td width="15%" class="bg-grey">Province</td><td width="35%"></td>
+            <td width="20%" class="bg-grey">District</td><td width="30%"></td>
+        </tr>
+        <tr>
+            <td class="bg-grey">Tehsil</td><td></td>
+            <td class="bg-grey">UC Name</td><td></td>
+        </tr>
+        <tr>
+            <td class="bg-grey">Area/Village</td><td></td>
+            <td class="bg-grey">Is this cluster segmented?</td>
+            <td>Yes [ ] &nbsp;&nbsp; No [ ]</td>
+        </tr>
+        <tr>
+            <td class="bg-grey">Starting Point</td><td></td>
+            <td rowspan="2" class="bg-grey">If yes, Number of households in each segment?</td>
+            <td>
+                <table width="100%" border="1" cellpadding="2">
+                    <tr class="center"><td>A</td><td>B</td><td>C</td><td>D</td></tr>
+                    <tr height="20"><td></td><td></td><td></td><td></td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="bg-grey">End Point</td><td></td>
+            <td>
+                <table width="100%" border="1" cellpadding="2">
+                   <tr height="20"><td></td><td></td><td></td><td></td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="bg-grey">Which segment is selected for line listings?</td>
+            <td colspan="2">
+                 <table width="40%" border="1" cellpadding="2" align="right">
+                   <tr height="20"><td width="25%"></td><td width="25%"></td><td width="25%"></td><td width="25%"></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table>
+        <tr class="bg-grey"><td colspan="4" style="background-color: #d9e1f2;">Community Representative</td></tr>
+        <tr>
+            <td width="15%">Name</td><td width="35%"></td>
+            <td width="20%">Contact Number</td><td width="30%"></td>
+        </tr>
+        <tr>
+            <td>Nearest Health Facility Name</td>
+            <td></td>
+            <td>Type of Facility</td>
+            <td class="small-text">
+                [ ] DHQ &nbsp; [ ] THQ &nbsp; [ ] RHC<br>
+                [ ] BHU &nbsp; [ ] GD &nbsp; [ ] Private
+            </td>
+        </tr>
+        <tr>
+            <td>Polio Worker Name</td><td></td>
+            <td colspan="2">
+                <table width="100%" border="0" cellpadding="0">
+                    <tr>
+                        <td border="0" width="30%">Vaccinator Name</td>
+                        <td border="1" width="70%" height="20"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="small-text">LHW/CHW/Community Health Inspectors/Social Mobilizer Name</td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table class="small-text">
+        <tr class="bg-grey center">
+            <td width="33.3%">Frequency of polio workers\' visits in the area</td>
+            <td width="33.3%">Frequency of the vaccinator\'s visits in the area</td>
+            <td width="33.4%">Frequency of LHW/CHW/Community Health Inspectors/Social Mobilizers\' visits in the area</td>
+        </tr>
+        <tr>
+            <td>' . $this->get_frequency_list() . '</td>
+            <td>' . $this->get_frequency_list() . '</td>
+            <td>' . $this->get_frequency_list() . '</td>
+        </tr>
+    </table>
+    ';
+
+        if (ob_get_contents()) ob_end_clean();
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('Survey_Form_Empty.pdf', 'I');
+    }
+
+// Helper function to generate the repeated list
+    private function get_frequency_list() {
+        return '
+        1 &nbsp; Monthly <br>
+        2 &nbsp; Quarterly <br>
+        3 &nbsp; Twice a Year <br>
+        4 &nbsp; Once a Year <br>
+        5 &nbsp; During Campaign <br>
+        6 &nbsp; Un-Covered Area <br>
+        97 Not visited
+    ';
+    }
+
 
     function get_excel()
     {

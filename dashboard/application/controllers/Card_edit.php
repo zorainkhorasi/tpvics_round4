@@ -276,8 +276,9 @@ class Card_edit extends CI_controller
                 "pcv","pcv2","pcv3",
                 "rv1","rv2",
                 "ipv","ipv2",
-                "measles1","measles2",
-                "hep_b","tcv"
+                "measles1","measles2","tcv"
+               // "hep_b","tcv"
+
             ];
             $dataToSave['card_correction']='0';
             foreach($vaccines as $v){
@@ -300,6 +301,7 @@ class Card_edit extends CI_controller
             $dataToSave['image_status'] = $post['image_status'];
             $dataToSave['dob'] = $post['dob'];
             $dataToSave['dobstatus'] = $post['dobstatus'];
+            $dataToSave['card_condition'] = $post['card_condition'];
             $dataToSave['vac_status'] = $post['vac_status'];
             $dataToSave['image_comments'] = $post['image_comments'];
             $dataToSave['dob_type'] = $post['dob_type'];
@@ -442,6 +444,20 @@ class Card_edit extends CI_controller
             $result = 4;
         }
         echo $result;
+    }
+
+    public function show_image($filename)
+    {
+        $imagePath = 'E:/PortalFiles/TPVICS_R3/uploads/'.$filename;
+        if (!file_exists($imagePath)) {
+            show_404();
+        }
+        // Get mime type
+        $mime = mime_content_type($imagePath);
+        header('Content-Type: ' . $mime);
+        header('Content-Length: ' . filesize($imagePath));
+        readfile($imagePath);
+        exit;
     }
 }
 

@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/vendors/css/charts/apexcharts.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/pages/card-analytics.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -68,8 +69,9 @@
                                                     <th>Status</th>
                                                     <th>Expected HH</th>
                                                     <th>Randomized</th>
-
-                                                    <th>Data Collected</th>
+                                                    <?php if( $cluster_type == 'r'){?>
+                                                        <th>Download </th>
+                                                    <?php } ?>
                                                 </tr>
                                                 </thead>
 
@@ -110,9 +112,9 @@
                                                             } else if ($r['collecting_tabs'] != $r['completed_tabs']) {
                                                                 $rand_show = '4';
                                                                 $stat = 'In Progress';
-                                                            } else if ($r['collecting_tabs'] == $r['completed_tabs']) {
+                                                            } else if ($r['collecting_tabs'] == $r['completed_tabs'] && $r['randomized']!=1) {
                                                                 $rand_show = '1';
-                                                                $stat = 'Ready to Randomize';
+                                                                $stat = 'Ready to Randomize ';
                                                             } else {
                                                                 $rand_show = '3';
                                                                 $stat = 'Randomized';
@@ -127,9 +129,14 @@
                                                             echo '<td><a href="javascript:void(0)" onclick="randomizeBtn(this)" data-cluster="' . $r['cluster_no'] . '" class="btn btn-sm btn-primary rand_btn">Randomize</a></td>';
                                                         } elseif ($rand_show == '2' || $rand_show == '4') {
                                                             echo '<td>-</td>';
-                                                        } elseif($r['status'] != '1' && $r['planning'] == 2) {
-                                                            echo '<td><a href="' . base_url('index.php/Dashboard/make_pdf/' . $r['cluster_no']) . '" target="_blank" class="btn  btn-sm btn-success">Print</a> ';
-                                                            echo ' | <a href="' . base_url('index.php/Dashboard/get_excel/' . $r['cluster_no']) . '" target="_blank" class="btn btn-sm btn-danger">Get Excel</a></td>';
+                                                        } elseif($r['randomized'] == '1') {
+                                                            echo '<td>
+                                                            <a href="' . base_url('index.php/Dashboard/make_pdf/' . $r['cluster_no']) . '" target="_blank" class="btn  btn-sm btn-success">Print</a> ';
+                                                            echo
+                                                                ' | <a href="' . base_url('index.php/Dashboard/get_excel/' . $r['cluster_no']) . '" target="_blank" class="btn btn-sm btn-danger">Get Excel</a>
+ 
+                                                           </td>';
+
                                                         }else{
                                                             echo '<td>-</td>';
                                                         }
@@ -149,8 +156,22 @@
                                                         } else {
                                                             $data_collected = 'App';
                                                         }
-
-                                                        echo '<td>' . $data_collected . '</td>';
+                                                        if ($cluster_type == 'r') {
+                                                            echo '
+                                                            <td class="text-center">
+                                                                <a href="' . base_url('index.php/Dashboard/make_log/' . $r['cluster_no']) . '" 
+                                                                   target="_blank" 
+                                                                   class=" mb-2">
+                                                                    <i class="fa fa-file-alt"></i> Log Sheet
+                                                                </a>
+                                                                <br>
+                                                                <a href="' . base_url('index.php/Dashboard/cluster_p/' . $r['cluster_no']) . '" 
+                                                                   target="_blank" 
+                                                                   class="">
+                                                                    <i class="fa fa-chart-bar"></i> Cluster Profile
+                                                                </a>
+                                                            </td>';
+                                                        }
                                                         ?>
                                                     </tr>
                                                 <?php }
@@ -173,8 +194,9 @@
                                                     <th>Status</th>
                                                     <th>Expected HH</th>
                                                     <th>Randomized</th>
-
-                                                    <th>Data Collected</th>
+                                                    <?php if( $cluster_type == 'r'){?>
+                                                        <th>Download </th>
+                                                    <?php } ?>
                                                 </tr>
                                                 </tfoot>
                                             </table>

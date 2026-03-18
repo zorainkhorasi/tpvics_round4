@@ -59,9 +59,9 @@
                                                     $SNo++; ?>
                                                     <tr>
                                                         <td><?php echo $row->sno; ?></td>
-                                                        <td><?php echo $row->tabNo; ?></td>
-                                                        <td><?php echo $row->tabNo . '-' . substr($row->compid, 12, 8); ?></td>
-                                                        <td><?php echo $row->hh08; ?></td>
+                                                        <td><?php echo $row->hltab; ?></td>
+                                                        <td><?php echo $row->hltab . '-' . substr($row->compid, 12, 8); ?></td>
+                                                        <td><?php echo $row->hl11; ?></td>
                                                     </tr>
                                                 <?php }
                                             } ?>

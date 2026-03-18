@@ -29,7 +29,7 @@ class MSurveyReport extends CI_Model
         $sql_query = "SELECT
 	forms.ebcode AS Cluster,
 	clusters.district,
-	forms.hh01 AS FormDate,
+	forms.cluster_no AS FormDate,
 	COUNT ( * ) AS Synced 
 FROM
 	forms
@@ -40,9 +40,9 @@ WHERE
 GROUP BY
 	forms.ebcode,
 	clusters.district,
-	forms.hh01 
+	forms.cluster_no 
 ORDER BY
-	forms.hh01 DESC";
+	forms.cluster_no DESC";
         $query = $this->db->query($sql_query);
         return $query->result();
     }
