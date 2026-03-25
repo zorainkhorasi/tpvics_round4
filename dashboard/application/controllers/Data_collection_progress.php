@@ -102,6 +102,9 @@ class Data_collection_progress extends CI_controller
             foreach ($completedClusters_district as $row) {
                 $ke = $row->provinceId;
                 foreach ($dist_array as $key => $dist_name) {
+
+
+                   // echo ' == '.$ke.' ==== '.$key." ==== ";
                     if ($ke == $key) {
                         if ($row->hh_collected >= 13 && $row->sampled==1) {
                             $data['completed'][$dist_name]++;
@@ -119,6 +122,8 @@ class Data_collection_progress extends CI_controller
                     }
                 }
             }
+
+         //   echo "<pre>"; print_r($completedClusters_district);  echo "</pre>";   die();
 
                  $totalList = $data['totalcluster']['list'];
                 $completedList = $data['completed'];
@@ -171,8 +176,7 @@ class Data_collection_progress extends CI_controller
                     // die();
                 
                  foreach ($totalsByProvince as $province => $total) {
-                    $completed = $completedList[$province] ?? 0;
-                    $percentage = ($total > 0) ? ($completed / $total) * 100 : 0;
+                    $completed = $completedList[$province] ?? 0; $percentage = ($total > 0) ? ($completed / $total) * 100 : 0;
                     $percentageByProvince[$province]['completed'] = round($percentage, 2);
                 
                     $remaining = $remainingList[$province] ?? 0;
@@ -212,16 +216,15 @@ class Data_collection_progress extends CI_controller
         
             $data['remaining_per']=$remainingPercentageByProvince;
             $data['inprogress_per']=$inprogressPercentageByProvince;
-        
-              $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
-          
+
+
+
+
+
+            $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
             $data['sum']=$sum;
 
-            // echo "<pre>";
-            // var_dump($data);
-            // echo "</pre>";
-            // die();
-
+       //     echo "<pre>"; print_r($data);  echo "</pre>";   die();
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -252,20 +255,25 @@ class Data_collection_progress extends CI_controller
     
         $sum=[
             'total'=>0,
-            // 'remaining'=>0,
+            'remaining'=>0,
             'ip'=>0,
             'completed'=>0
         ];
+       /* foreach ($completed as $k => $cd) {
+            $sum['completed'] += $cd;
+        }
+        foreach ($ip as $k => $id) {
+            $sum['ip'] += $id;
+        }
+          foreach ($r as $k => $dd) {
+            $sum['total'] += $dd;
+        }*/
 
-        foreach ($completed as $k => $d) {
-            $sum['completed'] += $d;
-        }
-        foreach ($ip as $k => $d) {
-            $sum['ip'] += $d;
-        }
-          foreach ($r as $k => $d) {
-            $sum['total'] += $d;
-        }
+         $sum['completed']=$completed['total'];
+         $sum['remaining']=$completed['total'];
+         $sum['ip']=$completed['total'];
+         $sum['total']=$completed['total']+$ip['total']+$r['total'];
+
         // foreach ($total as $district => $data) {
         //  $sum['total'] = isset($total) ? $total : 0;
         // }

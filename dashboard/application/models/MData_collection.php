@@ -101,15 +101,14 @@ ORDER BY $orderQ";
                 $dist_where .= "and c.prcode =$prcode";
             }
 
-
         }
         $sql_query = "select $str as provinceId, c.cluster_no, c.sampled,
 			(select count(*) from Randomised where dist_id = c.dist_id and hh02 = c.cluster_no  AND (Randomised.colflag is null OR Randomised.colflag = '0')) as hh_randomized,
-			( SELECT 	COUNT (distinct f.hhid)  FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
+			( SELECT 	COUNT (distinct f.hhid)  FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = bl.hhid
             WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no ) AS hh_collected
 			from clusters c where (c.colflag is null OR c.colflag = '0')   $dist_where  order by c.dist_id";
-            // echo $sql_query;
-            // die;
+           //  echo $sql_query;
+          //  die;
             $query = $this->db->query($sql_query);
             // var_dump($query->result());
             // die();
@@ -134,14 +133,14 @@ ORDER BY $orderQ";
         if (isset($cluster_type) && $cluster_type == 't') {
             $cluster_type_where = " ";
         } elseif (isset($cluster_type) && $cluster_type == 'c') {
-            $cluster_type_where = " AND ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
+            $cluster_type_where = " AND ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid =bl.hhid
          WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no   ) >=13 ";
                 } elseif (isset($cluster_type) && $cluster_type == 'r') {
-                    $cluster_type_where = " AND (SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
+                    $cluster_type_where = " AND (SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = bl.hhid
          WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no  )=0 ";
                 } elseif (isset($cluster_type) && $cluster_type == 'ip') {
-                    $cluster_type_where = " AND ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
-         WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no   ) < 13 and  ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
+                    $cluster_type_where = " AND ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = bl.hhid
+         WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no   ) < 13 and  ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = bl.hhid
          WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no   ) > 0";
         } else {
             $cluster_type_where = '';
@@ -157,7 +156,7 @@ ORDER BY $orderQ";
         $sql_query = "select c.district, c.province,c.dist_id as dist_code, c.cluster_no as hh02,
         (select count(*) from Randomised where dist_id = c.dist_id and hh02 = c.cluster_no  AND (Randomised.colflag is null OR Randomised.colflag = '0')) as randomized_households,
         
-        ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = RIGHT (bl.compid, 10)
+        ( SELECT COUNT (distinct f.hhid) FROM forms f LEFT JOIN Randomised bl ON f.ebCode = bl.hh02 AND f.hhid = bl.hhid
         WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.ebCode = c.cluster_no ) as collected_forms,   
         (select count(distinct hhid) from forms where  ebCode = c.cluster_no AND (forms.colflag is null OR forms.colflag = '0')  and istatus=1 ) as completed_forms, 
         (select count(distinct hhid) from forms where  ebCode = c.cluster_no AND (forms.colflag is null OR forms.colflag = '0')  and istatus=4 ) as refused_forms, 

@@ -16,7 +16,7 @@ class MLinelisting extends CI_Model
             $this->global_listing_Where = ' ';
         } else {
             $this->globalWhere = ' AND c.geoarea not like \'test%\' and c.dist_id not like  \'9%\' ';
-            $this->global_listing_Where = ' AND (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\') or (l.username is NULL)) and l.geoArea not like \'test%\' ';
+            $this->global_listing_Where = ' AND (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\') or (l.username is NULL))  ';
         }
     }
 
@@ -130,7 +130,7 @@ class MLinelisting extends CI_Model
             $dist_where .= "and c.dist_id IN ($districts_sql)";
         }
 //       where l.username not in('dmu@aku','user0001','user0002','test1234') AND
-        $sql_query = "select c.geoArea,c.cluster_no,c.district, l.cluster_no, $str AS provinceId,
+        $sql_query = "select c.geoarea,c.cluster_no,c.district, l.cluster_no, $str AS provinceId,
 			(select count(distinct deviceid) from listings where cluster_no = l.cluster_no    AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
 			(select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8') as completed_tabs
 			from clusters c
@@ -138,12 +138,11 @@ class MLinelisting extends CI_Model
 			where (l.colflag is null OR l.colflag = '0' OR l.colflag = 0)  
 			 AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
 			$dist_where
-			group by c.district,c.cluster_no,c.geoArea, l.cluster_no,c.dist_id,$str 
-			order by c.geoArea,l.cluster_no asc ";
+			group by c.district,c.cluster_no,c.geoarea, l.cluster_no,c.dist_id,$str 
+			order by c.geoarea,l.cluster_no asc ";
           /*   echo $sql_query;
              die;*/
         $query = $this->db->query($sql_query);
-        
         return $query->result();
     }
 
@@ -244,7 +243,7 @@ class MLinelisting extends CI_Model
                              AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
                               $dist_where  $cluster_type_where $sysdate_where
                             group by c.randomized,c.geoarea,	c.exphh,l.cluster_no,c.cluster_no,  c.dist_id 
-                            order by c.geoArea,c.cluster_no";
+                            order by c.geoarea,c.cluster_no";
 
 
       //  echo $sql_query;die;

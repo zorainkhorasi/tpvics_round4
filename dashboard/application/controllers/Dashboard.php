@@ -612,8 +612,8 @@ class Dashboard extends CI_controller
             if ($randomization_status == 1) {
                 echo 2;
                 $track_msg = 'Cluster is Already Randomized';
-            }else if(count($get_resdential_hh) < 17) {
-                echo 112;
+            }else if(count($get_resdential_hh) < 60) {
+
                 $track_msg = 'Not enough Residentials Households';
             }else {
                 $chked = 0;
@@ -653,6 +653,7 @@ class Dashboard extends CI_controller
                                 'randDT' => date('Y-m-d h:i:s'),
                                 'uid' => $get_systematic_rand[$index - 1]->_uid,
                                 'sno' => $i + 1,
+                                'hhid' => $get_systematic_rand[$index - 1]->hhid,
                                 'ssno' => $i + 1,
                                 'hh02' => $get_systematic_rand[$index - 1]->cluster_no,
                                         'hl09' => $get_systematic_rand[$index - 1]->structure_no,
@@ -664,7 +665,7 @@ class Dashboard extends CI_controller
                                 'randomPick' => $index - 1,
                                 'quot' => $quotient,
                                 'dist_id' => $get_systematic_rand[$index - 1]->dist_code,
-                                'compid' => $get_systematic_rand[$index - 1]->cluster_no . '-' . $get_systematic_rand[$index - 1]->hltab . "-" . str_pad($get_systematic_rand[$index - 1]->structure_no, 4, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$index - 1]->hl02, 3, "0", STR_PAD_LEFT),
+                                'compid' => $get_systematic_rand[$index - 1]->cluster_no . '-' . $get_systematic_rand[$index - 1]->hltab . "-" . str_pad($get_systematic_rand[$index - 1]->structure_no, 3, "0", STR_PAD_LEFT) . "-" . str_pad($get_systematic_rand[$index - 1]->hl02, 2, "0", STR_PAD_LEFT),
                                 'hltab' => $get_systematic_rand[$index - 1]->hltab,
                                 'user_id' => $this->encrypt->decode($_SESSION['login']['username'])
                             );
@@ -853,7 +854,7 @@ class Dashboard extends CI_controller
 
         <div class="center">
             <span class="bold" style="font-size: 15pt;">Third Party Verification of Vaccine Immunization</span><br>
-            <span class="bold" style="font-size: 15pt;">Coverage Survey (TPVICS-Round-4)</span><br>
+             <span class="bold" style="font-size: 15pt;">Coverage Survey (TPVICS-R3)</span><br>
             <span style="font-size: 11pt;">Cluster History Sheet</span><br>
             <span class="bold" style="font-size: 12pt;">Cluster Number - '.$data['cluster'].'</span>
         </div>
@@ -962,6 +963,10 @@ class Dashboard extends CI_controller
     {
         $this->load->library('tcpdf');
 
+
+        $data = array();
+        $data['cluster'] = $this->uri->segment(3);
+
         // Set page to Portrait, A4
         $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
@@ -979,7 +984,28 @@ class Dashboard extends CI_controller
         $pdf->SetFont('freeserif', '', 9);
         $pdf->AddPage();
 
+        $province = "";
+        $district = "";
+        $uc = "";
+
         $html = '
+        <style>
+            .center { text-align: center; }
+            .bold { font-weight: bold; }
+            table.main-table { border-collapse: collapse; width: 100%; }
+            table.main-table td { border: 1px solid #000; padding: 4px; vertical-align: middle; }
+        </style>
+
+        <div class="center">
+            <span class="bold" style="font-size: 15pt;">Third Party Verification of Vaccine Immunization</span><br>
+            <span class="bold" style="font-size: 15pt;">Coverage Survey (TPVICS-R3)</span><br>
+            <span style="font-size: 11pt;">Cluster Profile Sheet</span><br>
+            <span class="bold" style="font-size: 12pt;">Cluster Number - '.$data['cluster'].'</span>
+        </div>
+
+        ';
+
+        $html .= '
     <style>
         table { border-collapse: collapse; width: 100%; }
         td { border: 1px solid #000; padding: 4px; vertical-align: middle; }
@@ -988,21 +1014,16 @@ class Dashboard extends CI_controller
         .center { text-align: center; }
         .small-text { font-size: 8pt; }
         .box { width: 20px; height: 20px; border: 1px solid #000; display: inline-block; }
+         table td {
+        padding: 8px 6px;
+        height: 25px;
+        vertical-align: middle;
+    }
     </style>
 
     <div class="header-text">
-      <h1 style="    text-align: center;"> Enumeration Block number / اینومریشن بلاک نمبر: &nbsp;</h1> 
-       <br>
-       
-        <table class="center" cellspacing="0" cellpadding="0" style="width: 250px; float: right; border: none;">
-            <tr>
-                <td width="25" height="25"></td><td width="25"></td><td width="25"></td>
-                <td width="25"></td><td width="25"></td><td width="25"></td>
-                <td width="25"></td><td width="25"></td>
-            </tr>
-        </table>
-    </div>
-    <br><br><br>
+     
+    <br>
 
     <table>
         <tr>
