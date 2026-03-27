@@ -209,8 +209,9 @@ class MLinelisting extends CI_Model
         }
 
         if (isset($cluster_type) && $cluster_type == 'c') {
-            $users = ' and (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\'))';
-            $cluster_type_where = " and c.randomized='1'";
+            $users = ' and (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\'))  ';
+            $cluster_type_where = " and (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) = 
+					(select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8')";
         } elseif (isset($cluster_type) && $cluster_type == 'ip') {
             $cluster_type_where = " and (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) != 
 					(select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8')";
@@ -246,7 +247,7 @@ class MLinelisting extends CI_Model
                             order by c.geoarea,c.cluster_no";
 
 
-      //  echo $sql_query;die;
+      // echo $sql_query;die;
 
         $query = $this->db->query($sql_query);
         return $query->result();
@@ -265,7 +266,7 @@ class MLinelisting extends CI_Model
 
     function get_resdential_hh($cluster)
     {
-        $sql_query = "select DISTINCT l.structure_no, l.hl02, l.hltab from listings l  WHERE l.hl11 = '1' and l.hl22a='1' and hl14 !='Deleted'   and cluster_no = '$cluster' AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) ";
+        $sql_query = "select DISTINCT l.structure_no, l.hl02, l.hltab from listings l  WHERE l.hl11 = '1'  and hl14 !='Deleted'   and cluster_no = '$cluster' AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) ";
         $query = $this->db->query($sql_query);
         return $query->result();
     }

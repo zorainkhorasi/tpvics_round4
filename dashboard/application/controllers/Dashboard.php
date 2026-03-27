@@ -171,9 +171,9 @@ class Dashboard extends CI_controller
                          
          
             $data['per']=$formated_data;
-            //     echo "<pre>";
-            //  print_r($data);
-            //  echo "</pre>";
+               /* echo "<pre>";
+              print_r($data['completed']);
+             echo "</pre>";DIE;*/
       
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
           
@@ -218,7 +218,6 @@ class Dashboard extends CI_controller
         //    echo "<pre>";
         //      print_r($completed);
         //      echo "</pre>";
-
          
         $sum=[
             'total'=>0,
@@ -526,6 +525,7 @@ class Dashboard extends CI_controller
 
             $data['cluster_type'] = $cluster_type;
             if ($cluster_type == 'c' || $cluster_type == 'ip' || $cluster_type == 'r') {
+
                 $get_linelisting_table = $MLinelisting->get_linelisting_table($district, $cluster_type, $sub_district);
              
             } else {
@@ -607,13 +607,13 @@ class Dashboard extends CI_controller
 
             $get_resdential_hh = $MLinelisting->get_resdential_hh($cluster);
 
-
+         //   echo count($get_resdential_hh);die;
 
             if ($randomization_status == 1) {
                 echo 2;
                 $track_msg = 'Cluster is Already Randomized';
             }else if(count($get_resdential_hh) < 60) {
-
+                echo 112;
                 $track_msg = 'Not enough Residentials Households';
             }else {
                 $chked = 0;
