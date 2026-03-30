@@ -1056,11 +1056,11 @@ class Dashboard extends CI_controller
     <table>
         <tr>
             <td width="15%" class="bg-grey">Province</td><td width="35%;" class="center">'.$province.'</td>
-           <td width="15%" class="bg-grey">Province</td><td width="35%;" class="center">'.$district.'</td>
+           <td width="15%" class="bg-grey">District</td><td width="35%;" class="center">'.$district.'</td>
         </tr>
         <tr>
             <td class="bg-grey">Tehsil</td><td></td>
-           <td width="15%" class="bg-grey">Province</td><td width="35%;" class="center">'.$uc.'</td>
+           <td width="15%" class="bg-grey">Uc</td><td width="35%;" class="center">'.$uc.'</td>
         </tr>
         <tr>
             <td class="bg-grey">Area/Village</td><td></td>
