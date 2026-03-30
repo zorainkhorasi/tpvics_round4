@@ -228,7 +228,7 @@ class MLinelisting extends CI_Model
         }
 
 
-        $sql_query = "SELECT c.randomized, c.geoarea, c.cluster_no,c.exphh,	c.dist_id ,'App' as data_collected ,   
+        $sql_query = "SELECT c.district, c.province, c.randomized, c.geoarea, c.cluster_no,c.exphh,	c.dist_id ,'App' as data_collected ,   
             sum(case when hl22a = '1'  then 1 else 0 end) as target_children,
             (select SUM(CAST(hl22 as int)) from listings where hl22a='1' and (hl22!='null' or hl22 is not null)  and cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) as no_of_children,
             (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
@@ -243,7 +243,7 @@ class MLinelisting extends CI_Model
                             
                              AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
                               $dist_where  $cluster_type_where $sysdate_where
-                            group by c.randomized,c.geoarea,	c.exphh,l.cluster_no,c.cluster_no,  c.dist_id 
+                            group by  c.district, c.province, c.randomized,c.geoarea,	c.exphh,l.cluster_no,c.cluster_no,  c.dist_id 
                             order by c.geoarea,c.cluster_no";
 
 

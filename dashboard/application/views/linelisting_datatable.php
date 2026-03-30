@@ -58,6 +58,9 @@
                                                 <thead>
                                                 <tr>
                                                     <th>SNo</th>
+                                                    <th>Province</th>
+                                                    <th>District</th>
+                                                    <th>SNo</th>
                                                     <th>Cluster Number</th>
                                                     <th>Total Structures</th>
                                                     <th>Total Household</th>
@@ -89,6 +92,8 @@
                                                     <tr>
                                                         <td><?php echo $sno; ?></td>
                                                         <td><?php echo $r['cluster_no']; ?></td>
+                                                        <td><?php echo $r['province']; ?></td>
+                                                        <td><?php echo $r['district']; ?></td>
                                                         <td><?php echo $r['structures']; ?></td>
                                                         <td><?php echo $r['residential_structures']; ?></td>
                                                         <td><?php echo $r['target_children']; ?></td>
@@ -181,8 +186,8 @@
                                                 <tfoot>
                                                 <tr>
                                                     <th>SNo</th>
-                                                    <!-- <th>Province</th>
-                                                     <th>District</th>-->
+                                                    <th>Province</th>
+                                                    <th>District</th>
                                                     <th>Cluster Number</th>
                                                     <th>Total Structures</th>
                                                     <th>Total Household</th>

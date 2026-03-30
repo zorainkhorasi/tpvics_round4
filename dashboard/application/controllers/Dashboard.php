@@ -541,6 +541,9 @@ class Dashboard extends CI_controller
             $res = array();
             foreach ($get_linelisting_table as $key => $value) {
                 $res[$value->cluster_no]['geoarea'] = $value->geoarea;
+                $res[$value->cluster_no]['district'] = $value->district;
+                $res[$value->cluster_no]['province'] = $value->province;
+                $res[$value->cluster_no]['geoarea'] = $value->geoarea;
                 $res[$value->cluster_no]['dist_code'] = $value->dist_code;
                 $res[$value->cluster_no]['cluster_no'] = $value->cluster_no;
                 $res[$value->cluster_no]['data_collected'] = $value->data_collected;
@@ -840,9 +843,22 @@ class Dashboard extends CI_controller
             $pdf->SetFont('helvetica', '', 10);
             $pdf->AddPage();
 
-            $province = "Balochistan";
-            $district = "Quetta";
-            $uc = "10B";
+            $query = $this->db->query("SELECT district, province, uc_name, area  FROM Clusters  WHERE cluster_no = ?", [$data['cluster']]);
+            $result = $query->row();
+
+            $province = '';
+            $district = '';
+            $uc       = '';
+            $area     = '';
+
+            if ($result) {
+                $province = $result->province;
+                $district = $result->district;
+                $uc       = $result->uc_name;
+                $area     = $result->area;
+            }
+
+
 
             $html = '
         <style>
@@ -984,9 +1000,21 @@ class Dashboard extends CI_controller
         $pdf->SetFont('freeserif', '', 9);
         $pdf->AddPage();
 
-        $province = "";
-        $district = "";
-        $uc = "";
+        $query = $this->db->query("SELECT district, province, uc_name, area  FROM Clusters  WHERE cluster_no = ?", [$data['cluster']]);
+        $result = $query->row();
+
+        $province = '';
+        $district = '';
+        $uc       = '';
+        $area     = '';
+
+        if ($result) {
+            $province = $result->province;
+            $district = $result->district;
+            $uc       = $result->uc_name;
+            $area     = $result->area;
+        }
+
 
         $html = '
         <style>
@@ -1027,12 +1055,12 @@ class Dashboard extends CI_controller
 
     <table>
         <tr>
-            <td width="15%" class="bg-grey">Province</td><td width="35%"></td>
-            <td width="20%" class="bg-grey">District</td><td width="30%"></td>
+            <td width="15%" class="bg-grey">Province</td><td width="35%;" class="center">'.$province.'</td>
+           <td width="15%" class="bg-grey">Province</td><td width="35%;" class="center">'.$district.'</td>
         </tr>
         <tr>
             <td class="bg-grey">Tehsil</td><td></td>
-            <td class="bg-grey">UC Name</td><td></td>
+           <td width="15%" class="bg-grey">Province</td><td width="35%;" class="center">'.$uc.'</td>
         </tr>
         <tr>
             <td class="bg-grey">Area/Village</td><td></td>
