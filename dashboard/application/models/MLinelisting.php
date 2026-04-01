@@ -52,8 +52,14 @@ class MLinelisting extends CI_Model
 
              if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
 
-                 $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
-                 $dist_where .= "and c.prcode =$prcode";
+
+
+                 $prcode = explode(',', $this->encrypt->decode($_SESSION['login']['prcode']));
+                 $prcode_sql = "'" . implode("','", $prcode) . "'";
+                 $dist_where .= "and c.prcode IN ($prcode_sql)";
+
+               /*  $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+                 $dist_where .= "and c.prcode =$prcode";*/
              }
         }
 
@@ -91,8 +97,12 @@ class MLinelisting extends CI_Model
             $orderQ = " province asc ";
 
             if ($this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['prcode']))) {
-                $prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
-                $dist_where .= "and c.prcode =$prcode";
+                /*$prcode =$this->encrypt->decode($_SESSION['login']['prcode']);
+                $dist_where .= "and c.prcode =$prcode";*/
+
+                $prcode = explode(',', $this->encrypt->decode($_SESSION['login']['prcode']));
+                $prcode_sql = "'" . implode("','", $prcode) . "'";
+                $dist_where .= "and c.prcode IN ($prcode_sql)";
             }
         }
 

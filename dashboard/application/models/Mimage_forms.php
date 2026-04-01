@@ -48,9 +48,11 @@ class Mimage_forms extends CI_Model
 
     function getProvince_District($pro)
     {
-       /* if (isset($pro) && $pro != '') {
-            $this->db->where("clusters.dist_id like '" . $pro . "%' ");
-        }*/
+        $dist_where='';
+        if ( $this->encrypt->decode($_SESSION['login']['idGroup']) != 1 && !empty($this->encrypt->decode($_SESSION['login']['district']))) {
+            $districts = explode(',', $this->encrypt->decode($_SESSION['login']['district']));
+            $this->db->where_in('clusters.dist_id', $districts);
+        }
         $this->db->select("clusters.dist_id,clusters.district");
         $this->db->from('vac_details');
         $this->db->join('clusters', 'vac_details.cluster_code = clusters.cluster_no', 'INNER');

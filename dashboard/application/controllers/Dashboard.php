@@ -67,7 +67,6 @@ class Dashboard extends CI_controller
 
             $getClustersProvince = $MLinelisting->getClustersProvince($district, $sub_district, $level);
 
-
             $dist_array = array();
             if (isset($district) && $district != '') {
                 foreach ($getClustersProvince as $k => $v) {
@@ -84,6 +83,8 @@ class Dashboard extends CI_controller
 
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
+
+            //echo '<pre>';print_r($totalClusters_district);die;
 
             $totalcluster = 0;
             foreach ($totalClusters_district as $k => $r) {
@@ -181,10 +182,10 @@ class Dashboard extends CI_controller
 
 
           //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
-          
-            /*  echo "<pre>";
+
+              /*echo "<pre>";
               print_r($data);
-              echo "</pre>";*/
+              echo "</pre>";die;*/
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');

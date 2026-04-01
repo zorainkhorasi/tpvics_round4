@@ -151,6 +151,7 @@ class Card_edit extends CI_controller
         if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1 || 1==1) {
 
             $Mimage_forms = new Mimage_forms();
+
             $province = $Mimage_forms->getProvince_District('');
             $p = array();
             foreach ($province as $k => $v) {

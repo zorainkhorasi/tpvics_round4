@@ -640,7 +640,7 @@
                     </diiv>
 
                     <!-- Balochistan -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==4) { ?>
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 ||  array_intersect_key([4=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
                             <div class="ps-header-container">
@@ -708,7 +708,7 @@
 
                     <!-- SINDH -->
                      <?php
-                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==3) { ?>
+                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  array_intersect_key([3=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="SINDH" data-id="3">
                             <div class="ps-header-container">
@@ -774,7 +774,7 @@
                         <!-- Chart -->
                    
                     <!-- Punjab -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  $this->encrypt->decode($_SESSION['login']['prcode'])==2) { ?>
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  array_intersect_key([2=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
 
                     <div class="col">
 
@@ -844,7 +844,7 @@
                         <div id="totalpro"></div>
                     </div>
                     <!-- KPK -->
-                    <?php  if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==1) { ?>
+                    <?php  if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || array_intersect_key([1=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
                     <div class="col">
                         <div class="dashboard-card" data-district="KHYBER PAKHTUNKHWA" data-id="1">
                             <div class="ps-header-container">
@@ -910,7 +910,7 @@
                     <?php } ?>
 
                     <!-- Gilgit-Baltistan -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==7) { ?>
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||array_intersect_key([7=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
 
                     <div class="col">
                         <div class="dashboard-card" data-district="Gilgit-Baltistan" data-id="7">
@@ -975,7 +975,7 @@
                     <?php } ?>
 
                     <!-- AJK -->
-                    <?php     if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==8) { ?>
+                    <?php     if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || array_intersect_key([8=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
 
                     <div class="col">
                         <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
@@ -1043,7 +1043,7 @@
                     <?php } ?>
 
                       <!-- ISLAMABAD -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || $this->encrypt->decode($_SESSION['login']['prcode'])==6) { ?>
+                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || array_intersect_key([6=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
 
                     <div class="col">
                         <div class="dashboard-card" data-district="ISLAMABAD" data-id="6">
@@ -1348,7 +1348,7 @@ ICT
                         // Hide district cards, show UCS section
                         districtCardsSection.classList.add("d-none");
                         ucsSection.classList.remove("d-none");
-                        ucsTitle.textContent = `${district} - UCS Details`;
+                        ucsTitle.textContent = `${district} - Districts Details`;
                         ucsCards.innerHTML = "";
 
                         // Create UCS cards
