@@ -978,7 +978,7 @@
         </section>
 
         <?php
-        if (isset($_GET['c']) && empty($vac_details_edit)) {
+        if (isset($_GET['c']) && !empty($vac_details_edit)) {
 
             ?>
             <div class="container-fluid ">
@@ -1483,7 +1483,7 @@
         data['district'] = $('.district_select').val();
         if (data['district'] != '' && data['district'] != undefined && data['district'] != '0' && data['district'] != '$1') {
             showloader();
-            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getClustersByDist'  ?>', data, 'POST', function (res) {
+            CallAjax('<?php echo base_url() . 'index.php/Card_edit_two/getClustersByDist'  ?>', data, 'POST', function (res) {
                 hideloader();
                 var items = '<option value="0"   readonly disabled selected>Cluster</option>';
                 var selectedCluster = "<?php echo $cluster; ?>";
@@ -1514,7 +1514,7 @@
         data['cluster'] = $('.clusters_select').val();
         if (data['cluster'] != '' && data['cluster'] != undefined && data['cluster'] != '0' && data['cluster'] != '$1') {
             showloader();
-            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getHhnoByCluster'  ?>', data, 'POST', function (res) {
+            CallAjax('<?php echo base_url() . 'index.php/Card_edit_two/getHhnoByCluster'  ?>', data, 'POST', function (res) {
                 hideloader();
                 var items = '<option value="0"   readonly disabled selected>Household</option>';
                 var selectedhhnor = "<?php echo $hhno; ?>";
@@ -1550,7 +1550,7 @@
         data['hh'] = $('.household_select').val();
         if (data['hh'] != '' && data['hh'] != undefined && data['hh'] != '0' && data['hh'] != '$1') {
             showloader();
-            CallAjax('<?php echo base_url() . 'index.php/Image_forms/getChildNoByHH'  ?>', data, 'POST', function (res) {
+            CallAjax('<?php echo base_url() . 'index.php/Card_edit_two/getChildNoByHH'  ?>', data, 'POST', function (res) {
                 hideloader();
                 var items = '<option value="0"   readonly disabled >Child No</option>';
 
@@ -1577,13 +1577,13 @@
         var child = $('.childNo_select').val();
         var clusters_select = $('.clusters_select').val();
 
-        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>?dis=" + d + "& c=" + clusters_select + "&h=" + hh + "&ec=" + child;
+        var url = "<?= base_url('index.php/Card_edit_two/edit_form_new') ?>?dis=" + d + "& c=" + clusters_select + "&h=" + hh + "&ec=" + child;
 
         window.location.href = url;
     }
 
     function resetPage() {
-        var url = "<?= base_url('index.php/Card_edit/edit_form_new') ?>";
+        var url = "<?= base_url('index.php/Card_edit_two/edit_form_new') ?>";
 
         window.location.href = url;
     }
@@ -1878,7 +1878,7 @@
         formData['card_condition'] = card_condition;
 
         $.ajax({
-            url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',
+            url: '<?= base_url('index.php/Card_edit_two/save_vaccines_ajax'); ?>',
             type: 'POST',
             data: formData,
             dataType: 'json',

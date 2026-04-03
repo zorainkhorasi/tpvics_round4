@@ -190,7 +190,8 @@ class Card_edit extends CI_controller
             $data['vac_details_edit'] = $vac_details_edit;
             $data['vac_details_edit_names'] =$M->getCreatedByNames($cluster, $hhno, $ec);
 
-        //    echo '<pre>';print_r($data);die;
+
+           // echo '<pre>';print_r($data['vac_details_edit']);die;
             $data['cluster'] = $cluster;
             $data['hhno'] = $hhno;
             $data['ec'] = $ec;
