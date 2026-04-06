@@ -20,7 +20,7 @@ class Card_edit_two extends CI_controller
     {
         $data = array();
         $MSettings = new MSettings();
-        $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'Card_edit');
+        $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', 'Card_edit_two');
         if (isset($data['permission'][0]->CanView) && $data['permission'][0]->CanView == 1 || 1==1) {
 
             $Mimage_forms = new Mimage_forms();

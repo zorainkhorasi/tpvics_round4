@@ -684,7 +684,7 @@
                                     </div>
                                     <div class="bar-and-percentage">
                                         <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["BALOCHISTAN"]['inprogress'] ?>%;"></div>
+                                            <div class="progress-bar orange" style="width: <?= $per["balochistan"]['inprogress'] ?>%;"></div>
                                         </div>
                                         <span class="percentage"><?php echo $per["BALOCHISTAN"]['inprogress']; ?>%</span>
                                     </div>
@@ -698,7 +698,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: <?= $per["BALOCHISTAN"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo  $per["BALOCHISTAN"]['remaining']; ?>%</span>
+                                        <span class="percentage"><?php echo  $per["balochistan"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -751,7 +751,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: <?= $per["SINDH"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $per["SINDH"]['inprogress']; ?>%</span>
+                                        <span class="percentage"><?php echo $per["sindh"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -763,7 +763,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: <?= $per["SINDH"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $per["SINDH"]['remaining']; ?>%</span>
+                                        <span class="percentage"><?php echo $per["sindh"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>
@@ -889,7 +889,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar orange" style="width: <?= $per["KHYBER PAKHTUNKHWA"]['inprogress'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $per["KHYBER PAKHTUNKHWA"]['inprogress']; ?>%</span>
+                                        <span class="percentage"><?php echo $per["khyber_pakhtunkhwa"]['inprogress']; ?>%</span>
                                     </div>
                                 </div>
                                 <div class="detail-row remaining">
@@ -901,7 +901,7 @@
                                         <div class="progress-bar-container">
                                             <div class="progress-bar red" style="width: <?= $per["KHYBER PAKHTUNKHWA"]['remaining'] ?>%;"></div>
                                         </div>
-                                        <span class="percentage"><?php echo $per["KHYBER PAKHTUNKHWA"]['remaining']; ?>%</span>
+                                        <span class="percentage"><?php echo $per["khyber_pakhtunkhwa"]['remaining']; ?>%</span>
                                     </div>
                                 </div>
                             </div>

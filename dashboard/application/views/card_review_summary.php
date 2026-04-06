@@ -7,13 +7,13 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Data Quality Report </h2>
+                        <h2 class="content-header-title float-left mb-0">Card Review Summary </h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="<?php base_url() ?>">Home</a>
                                 </li>
-                                <li class="breadcrumb-item active">Data Quality Report
+                                <li class="breadcrumb-item active">Card Review Summary
                                 </li>
                             </ol>
                         </div>
@@ -52,13 +52,6 @@
                         </select>
                     </div>
 
-                    <!-- Observation -->
-                    <div class="col-md-3">
-                        <label>Observation</label>
-                        <select id="observation" class="form-control">
-                            <option value="All">All</option>
-                        </select>
-                    </div>
                     <div class="col-md-2">
                         <button onclick="loadData()" class="btn btn-primary mt-2">Search</button>
                     </div>
@@ -72,7 +65,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Data Quality Report </h4>
+                                <h4 class="card-title">Card Review Summary </h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body card-dashboard">
@@ -118,15 +111,13 @@
         // 👉 Loader
         setLoading('#province');
         setLoading('#district');
-        setLoading('#observation');
 
-        $.post('<?php echo base_url() . 'index.php/DataQuality/getFilters'  ?>', { Partner: partner }, function (res) {
+        $.post('<?php echo base_url() . 'index.php/Card_review_summary/getFilters'  ?>', { Partner: partner }, function (res) {
 
             let data = JSON.parse(res);
 
             fillDropdown('#province', data.province, 'Province');
             fillDropdown('#district', data.district, 'District');
-            fillDropdown('#observation', data.observation, 'Observation');
         });
     });
 
@@ -141,14 +132,12 @@
 
         // 👉 Loader
         setLoading('#district');
-        setLoading('#observation');
 
-        $.post('<?php echo base_url() . 'index.php/DataQuality/getFilters'  ?>', filters, function (res) {
+        $.post('<?php echo base_url() . 'index.php/Card_review_summary/getFilters'  ?>', filters, function (res) {
 
             let data = JSON.parse(res);
 
             fillDropdown('#district', data.district, 'District');
-            fillDropdown('#observation', data.observation, 'Observation');
         });
     });
 
@@ -165,7 +154,7 @@
         // 👉 Loader
         setLoading('#observation');
 
-        $.post('<?php echo base_url() . 'index.php/DataQuality/getFilters'  ?>', filters, function (res) {
+        $.post('<?php echo base_url() . 'index.php/Card_review_summary/getFilters'  ?>', filters, function (res) {
 
             let data = JSON.parse(res);
 
@@ -200,8 +189,7 @@
         let filters = {
             Partner: partner,
             Province: $('#province').val(),
-            District: $('#district').val(),
-            Observation: $('#observation').val()
+            District: $('#district').val()
         };
 
         $('#dataTable').DataTable({
@@ -210,8 +198,8 @@
             language: {
                 processing: "⏳ Loading data..."
             },
-            dom: 'Blfrtip',
-            pageLength: 100, // default
+                dom: 'Blfrtip',
+           // pageLength: 100, // default
 
             lengthMenu: [
                 [50, 100, 400, 600, 1000,2000,3000, 5000],
@@ -219,7 +207,7 @@
             ],
 
             ajax: {
-                url: '<?php echo base_url() . 'index.php/DataQuality/getData'  ?>',
+                url: '<?php echo base_url() . 'index.php/Card_review_summary/getData'  ?>',
                 type: 'POST',
                 data: filters
             },
