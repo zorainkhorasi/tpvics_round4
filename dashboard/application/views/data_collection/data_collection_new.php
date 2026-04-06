@@ -621,9 +621,6 @@
 
             <div class="col-lg-12 ps-4">
 
-
-
-
                 <div id="districtCardsSection" class="row row-cols-1 row-cols-md-4 g-4 scrollable-card-container">
 
                     <!-- Total Cluster -->
@@ -656,7 +653,7 @@
                                        echo $dist_array[4];
                                         ?>
                                         </span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][0]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
@@ -722,7 +719,7 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[3];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][7]['clusters_by_district']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][3]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
@@ -790,7 +787,7 @@
                                         <span class="ps-state-name">     <?php                 
                                        echo $dist_array[2];
                                         ?></span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][6]['clusters_by_district']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
@@ -859,7 +856,7 @@
 <!--                                            --><?php //echo $dist_array[1]; ?>
                                         KPK
                                         </span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][5]['clusters_by_district']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
@@ -926,7 +923,7 @@
 <!--                                            --><?php //echo $dist_array[7]; ?>
                                         GB
                                         </span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
+                                        <span class="ps-total-count"><?php echo $totalcluster["list"][7]['clusters_by_district']; ?></span>
                                     </div>
                                 </div>
 
