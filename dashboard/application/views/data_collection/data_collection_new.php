@@ -1338,7 +1338,7 @@ ICT
                                 progress: response.per[distName].percentage || 0,
                                 completed: response.per[distName].completed || 0,
                                 ongoing: response.ip[distName]|| 0,
-                                remaining: response.per[distName].total|| 0
+                                remaining: response.r[distName]|| 0
                             });
                         }
 
@@ -1351,11 +1351,15 @@ ICT
                         ucsTitle.textContent = `${district} - Districts Details`;
                         ucsCards.innerHTML = "";
 
+
                         // Create UCS cards
                         data.forEach((ucs, index) => {
 
+
+
+
                                id=response.per[ucs.name].id;
-                            //    console.log(id);
+                             //  console.log(ucs);
                                
                             const ucsCard = document.createElement("div");
                             ucsCard.className = "col";

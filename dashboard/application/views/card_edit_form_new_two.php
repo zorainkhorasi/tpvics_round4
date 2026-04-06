@@ -885,12 +885,12 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Card Review</h2>
+                        <h2 class="content-header-title float-left mb-0">Second Card Review</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?php echo base_url() ?>">Home</a>
                                 </li>
-                                <li class="breadcrumb-item active">Card Edit</li>
+                                <li class="breadcrumb-item active">Second Card Edit</li>
                             </ol>
                         </div>
                     </div>

@@ -120,7 +120,7 @@
         setLoading('#district');
         setLoading('#observation');
 
-        $.post('DataQuality/getFilters', { Partner: partner }, function (res) {
+        $.post('<?php echo base_url() . 'index.php/DataQuality/getFilters'  ?>', { Partner: partner }, function (res) {
 
             let data = JSON.parse(res);
 
@@ -143,7 +143,7 @@
         setLoading('#district');
         setLoading('#observation');
 
-        $.post('DataQuality/getFilters', filters, function (res) {
+        $.post('<?php echo base_url() . 'index.php/DataQuality/getFilters'  ?>', filters, function (res) {
 
             let data = JSON.parse(res);
 
@@ -165,7 +165,7 @@
         // 👉 Loader
         setLoading('#observation');
 
-        $.post('DataQuality/getFilters', filters, function (res) {
+        $.post('<?php echo base_url() . 'index.php/DataQuality/getFilters'  ?>', filters, function (res) {
 
             let data = JSON.parse(res);
 
@@ -219,7 +219,7 @@
             ],
 
             ajax: {
-                url: 'DataQuality/getData',
+                url: '<?php echo base_url() . 'index.php/DataQuality/getData'  ?>',
                 type: 'POST',
                 data: filters
             },

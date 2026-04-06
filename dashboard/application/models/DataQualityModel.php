@@ -43,6 +43,10 @@ class DataQualityModel extends CI_Model
         if (!empty($filters['Observation']) && $filters['Observation'] != 'All') {
             $this->db->where('Observation', $filters['Observation']);
         }
+        $this->db->order_by('Province', 'ASC');
+        $this->db->order_by('District', 'ASC');
+        $this->db->order_by('Cluster', 'ASC');
+        $this->db->order_by('hhid', 'ASC');
 
         return $this->db->get()->result_array();
     }
