@@ -224,7 +224,7 @@ class Data_collection_progress extends CI_controller
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
             $data['sum']=$sum;
 
-       //    echo "<pre>"; print_r($data);  echo "</pre>";   die();
+         // echo "<pre>"; print_r($data);  echo "</pre>";   die();
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -270,8 +270,8 @@ class Data_collection_progress extends CI_controller
         }*/
 
          $sum['completed']=$completed['total'];
-         $sum['remaining']=$completed['total'];
-         $sum['ip']=$completed['total'];
+         $sum['remaining']=$r['total'];
+         $sum['ip']=$ip['total'];
          $sum['total']=$completed['total']+$ip['total']+$r['total'];
 
         // foreach ($total as $district => $data) {

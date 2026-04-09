@@ -1,16 +1,15 @@
-
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE0x1lV0C1lV+8ABH3VyxhVZ1WTRi3GJf6tk3SVJQG8lrN8mA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE0x1lV0C1lV+8ABH3VyxhVZ1WTRi3GJf6tk3SVJQG8lrN8mA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
 />
 <style>
 
@@ -95,7 +94,7 @@
 
     .map-section {
         /* The beige section for the map */
-        background-color:#fff8ed;
+        background-color: #fff8ed;
         width: 300px; /* Fixed width for the map area */
         display: flex;
         align-items: center;
@@ -155,7 +154,7 @@
     :root {
         --bg-dark-primary: #1a1a2e;
         --bg-dark-secondary: #2c2c47;
-        --bg-dark-tertiary:  #fff8ed;;; /* Light background for the right section */
+        --bg-dark-tertiary: #fff8ed;;; /* Light background for the right section */
         --text-light: #ffffff;
         --text-secondary: #a0a0c0;
 
@@ -230,13 +229,15 @@
         text-transform: uppercase;
         justify-self: left;
     }
-    .ucs-block-title{
+
+    .ucs-block-title {
         font-size: 20px;
         font-weight: bold;
         color: #bbbbbb;
         margin-bottom: 10px;
         text-transform: uppercase;
     }
+
     /* Positioning the large number inside the hollow of the radial chart */
     .chart-value {
         position: absolute;
@@ -297,6 +298,7 @@
         overflow-y: auto;
         padding-right: 15px;
     }
+
     /* ----------------------------------------------- */
 
     /* --- Individual Card Styling (The goal card) --- */
@@ -310,11 +312,11 @@
 
     /* Card Header */
     .card-header-new {
-        display: flex
-    ;
+        display: flex;
         justify-content: space-between;
         align-items: center;
-        background: linear-gradient(to left, #a7d1d1, #ffffff);        padding: 9px 16px;
+        background: linear-gradient(to left, #a7d1d1, #ffffff);
+        padding: 9px 16px;
     }
 
     .location-name-new {
@@ -361,9 +363,17 @@
         line-height: 1;
     }
 
-    .detail-row.completed .icon { color: var(--color-complete-green); }
-    .detail-row.on-going .icon { color: var(--color-ongoing-orange); }
-    .detail-row.remaining .icon { color: var(--color-remaining-red); }
+    .detail-row.completed .icon {
+        color: var(--color-complete-green);
+    }
+
+    .detail-row.on-going .icon {
+        color: var(--color-ongoing-orange);
+    }
+
+    .detail-row.remaining .icon {
+        color: var(--color-remaining-red);
+    }
 
     .label {
         color: var(--color-card-text-dark);
@@ -389,9 +399,17 @@
         border-radius: 3px;
     }
 
-    .progress-bar.green { background-color: var(--color-complete-green); }
-    .progress-bar.orange { background-color: var(--color-ongoing-orange); }
-    .progress-bar.red { background-color: var(--color-remaining-red); }
+    .progress-bar.green {
+        background-color: var(--color-complete-green);
+    }
+
+    .progress-bar.orange {
+        background-color: var(--color-ongoing-orange);
+    }
+
+    .progress-bar.red {
+        background-color: var(--color-remaining-red);
+    }
 
     .percentage {
         font-size: 0.85em;
@@ -400,50 +418,62 @@
         text-align: right;
     }
 
-    .detail-row.completed .percentage { color: var(--color-complete-green); }
-    .detail-row.on-going .percentage { color: var(--color-ongoing-orange); }
-    .detail-row.remaining .percentage { color: var(--color-remaining-red); }
+    .detail-row.completed .percentage {
+        color: var(--color-complete-green);
+    }
+
+    .detail-row.on-going .percentage {
+        color: var(--color-ongoing-orange);
+    }
+
+    .detail-row.remaining .percentage {
+        color: var(--color-remaining-red);
+    }
 
     /* ApexChart specific adjustments */
     .apexcharts-text {
         font-family: Arial, sans-serif !important;
     }
+
     .dashboard-card {
         cursor: pointer;
         transition: transform 0.2s ease;
     }
+
     .dashboard-card:hover {
         transform: scale(1.03);
     }
+
     .dashboard-card {
-        border: 1px solid #ffffff;
-    ;
+        border: 1px solid #ffffff;;
         background: #fff;
         border-radius: 16px;
         box-shadow: 0 10px 17px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s
-        ease;
+        transition: transform 0.2s ease;
         cursor: pointer;
     }
+
     .dashboard-card:hover {
         transform: scale(1.03);
     }
+
     .chart-container {
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .bi{
+
+    .bi {
         padding-right: 9px;
     }
+
     /* Header container */
     .animated-header {
         background: #00796b;
         border-radius: 16px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        animation: fadeInDown 1.2s
-        ease-in-out;
+        animation: fadeInDown 1.2s ease-in-out;
         flex-wrap: wrap;
     }
 
@@ -483,13 +513,23 @@
     }
 
     @keyframes fadeInDown {
-        0% { opacity: 0; transform: translateY(-30px); }
-        100% { opacity: 1; transform: translateY(0); }
+        0% {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-6px); }
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-6px);
+        }
     }
 
     @media (max-width: 768px) {
@@ -498,6 +538,7 @@
             margin-top: 10px;
         }
     }
+
     /* Variables for easy theme changes (kept the same) */
     :root {
         --main-color: #279f8e; /* Teal/Green color for the gradient and accents */
@@ -518,8 +559,7 @@
     }
 
     .ps-state-info-bar {
-        display: flex
-    ;
+        display: flex;
         align-items: center;
         /* height: 137%; */
         flex-grow: 1;
@@ -531,8 +571,7 @@
         height: 70px;
         border-radius: 50%;
         background: linear-gradient(to top right, #fff8ed, #ffffff);
-        display: flex
-    ;
+        display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
@@ -560,9 +599,9 @@
         padding-right: 10px;
 
 
-        display: flex;                /* 1. Use Flexbox */
+        display: flex; /* 1. Use Flexbox */
         justify-content: space-between; /* 2. Push children to the edges */
-        align-items: center;          /* 3. Vertically align items */
+        align-items: center; /* 3. Vertically align items */
         width: 100%;
     }
 
@@ -574,8 +613,7 @@
     .ps-total-count {
         height: 100%;
 
-        display: flex
-    ;
+        display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2.5em;
@@ -585,36 +623,37 @@
     }
 </style>
 
-<div  style="" class="app-content content">
+<div style="" class="app-content content">
 
     <div class="container-fluid dashboard-container" style="background: #fff8ed;    margin-top: 93px; ">
-      <div class="row">
-          <div class="col-12">
-              <div class="animated-header d-flex align-items-center justify-content-between mt-4">
-                  <!-- ===== HEADER ===== -->
-                  <header class="tpvics-header">
-                      <div class="header-content">
-                          <div class="text-section">
-                              <div class="icon-text">
-                                  <span class="icon"><i class="fa-solid fa-list"></i></span> <span class="welcome-text">Welcome to TPVICS</span>
-                              </div>
-                              <h1 class="main-title">Data Collection</h1>
-                          </div>
-                          <div class="map-section">
-                              <img src="<?php echo base_url('assets/images/mapPAK.png'); ?>" alt="Pakistan Map" class="pakistan-map">
-                          </div>
-                      </div>
-                  </header>
+        <div class="row">
+            <div class="col-12">
+                <div class="animated-header d-flex align-items-center justify-content-between mt-4">
+                    <!-- ===== HEADER ===== -->
+                    <header class="tpvics-header">
+                        <div class="header-content">
+                            <div class="text-section">
+                                <div class="icon-text">
+                                    <span class="icon"><i class="fa-solid fa-list"></i></span> <span
+                                        class="welcome-text">Welcome to TPVICS</span>
+                                </div>
+                                <h1 class="main-title">Data Collection</h1>
+                            </div>
+                            <div class="map-section">
+                                <img src="<?php echo base_url('assets/images/mapPAK.png'); ?>" alt="Pakistan Map"
+                                     class="pakistan-map">
+                            </div>
+                        </div>
+                    </header>
 
 
+                </div>
+            </div>
 
-              </div>
-          </div>
-
-      </div>
+        </div>
 
 
-<BR>
+        <BR>
 
         <div class="row">
 
@@ -635,490 +674,277 @@
 
                         </div>
                     </diiv>
-
                     <!-- Balochistan -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 ||  array_intersect_key([4=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-                    <div class="col">
-                        <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
-                            <div class="ps-header-container">
-                                <div  style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
+                    <?php if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([4 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="BALOCHISTAN" data-id="4">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="    background: linear-gradient(to right, #5b6388 0%, #7d8ac7 35%, #dfe2f1 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
 
-                                        <img src="<?php echo base_url('assets/images/balochistanmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+                                            <img src="<?php echo base_url('assets/images/balochistanmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
 
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
                                         <span class="ps-state-name">
-                                            <?php                 
-                                       echo $dist_array[4];
-                                        ?>
+                                            <?php
+                                            echo $dist_array[4];
+                                            ?>
                                         </span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][0]['clusters_by_district']; ?></span>
+                                            <span
+                                                class="ps-total-count"><?php echo $totalcluster["list"][0]['clusters_by_district']; ?></span>
+                                        </div>
                                     </div>
+
+
                                 </div>
+                                <div id="balochistan" class="chart-container"></div>
 
+                                <div class="progress-details">
 
-                            </div>
-                            <div id="balochistan" class="chart-container"></div> 
-
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 60%;"></div>
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
                                         </div>
-                                        <span class="percentage"><?php echo $completed["BALOCHISTAN"]; ?></span>
-                                    </div>
-                                </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["balochistan"]['inprogress'] ?>%;"></div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?= $per["balochistan"]['inprogress'] ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["balochistan"]['inprogress']; ?>%</span>
                                         </div>
-                                        <span class="percentage"><?php echo $per["BALOCHISTAN"]['inprogress']; ?>%</span>
                                     </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["BALOCHISTAN"]['remaining'] ?>%;"></div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
                                         </div>
-                                        <span class="percentage"><?php echo  $per["balochistan"]['remaining']; ?>%</span>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?= $per["BALOCHISTAN"]['remaining'] ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["balochistan"]['remaining']; ?>%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                       <?php } ?>
-
-                    <!-- SINDH -->
-                     <?php
-                    if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  array_intersect_key([3=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-                    <div class="col">
-                        <div class="dashboard-card" data-district="SINDH" data-id="3">
-                            <div class="ps-header-container">
-                                <div  style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
-
-                                        <img src="<?php echo base_url('assets/images/sindhmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
-
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[3];
-                                        ?></span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][3]['clusters_by_district']; ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="sindh" class="chart-container"></div>
-
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 95%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $completed["SINDH"]; ?></span>
-                                    </div>
-                                </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["SINDH"]['inprogress'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["sindh"]['inprogress']; ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["SINDH"]['remaining'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["sindh"]['remaining']; ?>%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                      <?php }
-                    ?>
-                        <!-- Chart -->
-                   
-                    <!-- Punjab -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||  array_intersect_key([2=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-
-                    <div class="col">
-
-                        <div class="dashboard-card" data-district="PUNJAB" data-id="2">
-                            <div class="ps-header-container">
-                                <div  style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
-
-                                        <img src="<?php echo base_url('assets/images/punjabmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
-
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">     <?php                 
-                                       echo $dist_array[2];
-                                        ?></span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="punjab" class="chart-container"></div>
-
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 50%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $completed["PUNJAB"]; ?></span>
-                                    </div>
-                                </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["punjab"]['inprogress'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo  $per["punjab"]['inprogress']; ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["punjab"]['remaining'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo  $per["punjab"]['remaining']; ?>%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <?php } ?>
 
-                     <div class="col">
+                    <!-- SINDH -->
+                    <?php
+                    if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([3 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="SINDH" data-id="3">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="  background: linear-gradient(to right, #c39b00 0%, #f9cf2c 35%, #f3ecd2 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
+
+                                            <img src="<?php echo base_url('assets/images/sindhmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">     <?php
+                                            echo $dist_array[3];
+                                            ?></span>
+                                            <span
+                                                class="ps-total-count"><?php echo $totalcluster["list"][3]['clusters_by_district']; ?></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="sindh" class="chart-container"></div>
+
+                                <div class="progress-details">
+
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?= $per["sindh"]['inprogress'] ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["sindh"]['inprogress']; ?>%</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?= $per["SINDH"]['remaining'] ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["sindh"]['remaining']; ?>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                    ?>
+                    <!-- Chart -->
+                    <!-- Punjab -->
+                    <?php if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([2 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+
+                        <div class="col">
+
+                            <div class="dashboard-card" data-district="PUNJAB" data-id="2">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="    background: linear-gradient(to right, #a53c27 0%, #d38a7c 35%, #f8eeeb 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
+
+                                            <img src="<?php echo base_url('assets/images/punjabmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">     <?php
+                                            echo $dist_array[2];
+                                            ?></span>
+                                            <span
+                                                class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="punjab" class="chart-container"></div>
+
+                                <div class="progress-details">
+
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?= $per["punjab"]['inprogress'] ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["punjab"]['inprogress']; ?>%</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?= $per["punjab"]['remaining'] ?>%;"></div>
+                                            </div>
+                                            <span class="percentage"><?php echo $per["punjab"]['remaining']; ?>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <div class="col">
                         <h4 class="block-title">Province</h4>
                         <div id="totalpro"></div>
                     </div>
                     <!-- KPK -->
-                    <?php  if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || array_intersect_key([1=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-                    <div class="col">
-                        <div class="dashboard-card" data-district="KHYBER PAKHTUNKHWA" data-id="1">
-                            <div class="ps-header-container">
-                                <div  style="  background: linear-gradient(to right, #3f5378 0%, #9eb2d5 35%, #deeaff 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
+                    <?php if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([1 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="KHYBER PAKHTUNKHWA" data-id="1">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="  background: linear-gradient(to right, #3f5378 0%, #9eb2d5 35%, #deeaff 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
 
-                                        <img src="<?php echo base_url('assets/images/KPKmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
+                                            <img src="<?php echo base_url('assets/images/KPKmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
 
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
                                         <span class="ps-state-name">
-<!--                                            --><?php //echo $dist_array[1]; ?>
                                         KPK
                                         </span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
+                                            <span
+                                                class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
+                                        </div>
                                     </div>
+
                                 </div>
 
-                            </div>
 
+                                <div id="khyber_pakhtunkhwa" class="chart-container"></div>
+                                <div class="progress-details">
 
-                            <div id="khyber_pakhtunkhwa" class="chart-container"></div>
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 75%;"></div>
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
                                         </div>
-                                        <span class="percentage"><?php echo $completed["KHYBER PAKHTUNKHWA"]; ?></span>
-                                    </div>
-                                </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["KHYBER PAKHTUNKHWA"]['inprogress'] ?>%;"></div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?= $per["khyber_pakhtunkhwa"]['inprogress'] ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["khyber_pakhtunkhwa"]['inprogress']; ?>%</span>
                                         </div>
-                                        <span class="percentage"><?php echo $per["khyber_pakhtunkhwa"]['inprogress']; ?>%</span>
                                     </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["KHYBER PAKHTUNKHWA"]['remaining'] ?>%;"></div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
                                         </div>
-                                        <span class="percentage"><?php echo $per["khyber_pakhtunkhwa"]['remaining']; ?>%</span>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?= $per["khyber_pakhtunkhwa"]['remaining'] ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["khyber_pakhtunkhwa"]['remaining']; ?>%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <?php } ?>
 
-                    <!-- Gilgit-Baltistan -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 ||array_intersect_key([7=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-
-                    <div class="col">
-                        <div class="dashboard-card" data-district="Gilgit-Baltistan" data-id="7">
-                            <div class="ps-header-container">
-                                <div style="background: linear-gradient(to right, #183703 0%, #6f8a67 35%, #e0f3da 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
-
-                                        <img src="<?php echo base_url('assets/images/gilgitmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
-
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">
-<!--                                            --><?php //echo $dist_array[7]; ?>
-                                        GB
-                                        </span>
-                                        <span class="ps-total-count"><?php echo $totalcluster["list"][7]['clusters_by_district']; ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="gilgit_baltistan" class="chart-container"></div>
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 45%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $completed["GILGIT-BALTISTAN"]; ?></span>
-                                    </div>
-                                </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["GILGIT-BALTISTAN"]['inprogress'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["GILGIT-BALTISTAN"]['inprogress']; ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["GILGIT-BALTISTAN"]['remaining'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo  $per["GILGIT-BALTISTAN"]['remaining']; ?>%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
-
-                    <!-- AJK -->
-                    <?php     if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || array_intersect_key([8=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-
-                    <div class="col">
-                        <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
-                            <div class="ps-header-container">
-
-
-                                <div style="    background: linear-gradient(to right, #f77c7c 0%, #e19090 35%, #f4dfdf 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
-
-                                        <img src="<?php echo base_url('assets/images/Kashimirmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
-
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">
-<!--                                            --><?php //echo $dist_array[8]; ?>
-
-                                            AJK
-                                        </span>
-                                        <span class="ps-total-count"><?php echo  $totalcluster["list"][0]['clusters_by_district']; ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="azad_jammu_and_kashmir" class="chart-container"></div>
-                            <div class="progress-details">
-                                <!-- <div class="detail-row completed">
-                                    <div class="icon-label">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                        <span class="label">Completed</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar green" style="width: 70%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $completed["AZAD JAMMU & KASHMIR"]; ?></span>
-                                    </div>
-                                </div> -->
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?=$per["azad_jammu_and_kashmir"]['inprogress'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["azad_jammu_and_kashmir"]['inprogress'] ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["azad_jammu_and_kashmir"]['remaining'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo  $per["azad_jammu_and_kashmir"]['remaining'] ?>%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
-
-                      <!-- ISLAMABAD -->
-                    <?php if($this->encrypt->decode($_SESSION['login']['idGroup']) ==1 || array_intersect_key([6=>true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
-
-                    <div class="col">
-                        <div class="dashboard-card" data-district="ISLAMABAD" data-id="6">
-                            <div class="ps-header-container">
-
-
-                                <div style="    background: linear-gradient(to right, #f77c7c 0%, #e19090 35%, #f4dfdf 70%, #ffffff 100%);" class="ps-state-info-bar">
-                                    <div class="ps-map-icon-wrapper">
-
-                                        <img src="<?php echo base_url('assets/images/Kashimirmap.png'); ?>" alt="Map of India Icon" class="ps-dummy-map-image">
-
-                                    </div>
-                                    <div class="ps-state-name-wrapper">
-                                        <span class="ps-state-name">
-<!--                                            --><?php //echo $dist_array[6]; ?>
-ICT
-                                        </span>
-                                        <span class="ps-total-count"><?php echo  $totalcluster["list"][6]['clusters_by_district']; ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="islamabad" class="chart-container"></div>
-                            <div class="progress-details">
-                            
-                                <div class="detail-row on-going">
-                                    <div class="icon-label">
-                                        <i class="bi bi-arrow-repeat text-warning"></i>
-                                        <span class="label">In Progress</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar orange" style="width: <?= $per["ISLAMABAD"]['inprogress'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["ISLAMABAD"]['inprogress'] ?>%</span>
-                                    </div>
-                                </div>
-                                <div class="detail-row remaining">
-                                    <div class="icon-label">
-                                        <i class="bi bi-pause-circle-fill text-danger"></i>
-                                        <span class="label">Pending</span>
-                                    </div>
-                                    <div class="bar-and-percentage">
-                                        <div class="progress-bar-container">
-                                            <div class="progress-bar red" style="width: <?= $per["ISLAMABAD"]['remaining'] ?>%;"></div>
-                                        </div>
-                                        <span class="percentage"><?php echo $per["ISLAMABAD"]['remaining'] ?>%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php }
                     ?>
-
-                 
-
                 </div>
                 <div id="ucsSection" class="d-none">
                     <div class="col-12 d-flex justify-content-between align-items-center">
-                        <button style="color: #ffffff; border-radius: 30px; border-color: #ffffff; box-shadow: 0px 1px 4px 1px #b5b5b58a; background: #9bc3c0;" id="backButton" class="btn btn-sm btn-outline-dark">← Back</button>
+                        <button
+                            style="color: #ffffff; border-radius: 30px; border-color: #ffffff; box-shadow: 0px 1px 4px 1px #b5b5b58a; background: #9bc3c0;"
+                            id="backButton" class="btn btn-sm btn-outline-dark">← Back
+                        </button>
 
-                        <h4 id="ucsTitle" style="padding: 0; margin: 0; font-size: 30px; color: #b2d3d0; font-weight: bold;">[Your Title Here]</h4>
+                        <h4 id="ucsTitle"
+                            style="padding: 0; margin: 0; font-size: 30px; color: #b2d3d0; font-weight: bold;">[Your
+                            Title Here]</h4>
 
                         <div class="d-flex align-items-center">
-                            <input id="ucsSearchInput" type="text" class="form-control me-2" placeholder="Search District..." style="width: 200px;">
+                            <input id="ucsSearchInput" type="text" class="form-control me-2"
+                                   placeholder="Search District..." style="width: 200px;">
                             <button id="ucsSearchButton" class="btn btn-primary">Search</button>
                         </div>
                     </div>
-<!--                    <div class="d-flex align-items-center mb-4">-->
-<!--                        <button style="color: #ffffff;border-radius: 30px;border-color: #ffffff;box-shadow: 0px 1px 4px 1px #b5b5b58a;background: #9bc3c0;" id="backButton" class="btn btn-sm btn-outline-dark">← Back</button>-->
-<!--                        <h4 id="ucsTitle" style="    padding: 8px 0px 0px 19px;-->
-<!--                            font-size: 30px;-->
-<!--                            color: #b2d3d0;-->
-<!--                            font-weight: bold;"></h4>-->
-<!---->
-<!---->
-<!--                    </div>-->
                     <br>
                     <div id="ucsCards" class="row row-cols-1 row-cols-md-4 g-4"></div>
                 </div>
@@ -1127,7 +953,9 @@ ICT
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -1146,25 +974,25 @@ ICT
 
             //    console.log(completed);
 
-               
+
             // Get all chart containers dynamically (assume they have IDs like Chart1, Chart2...)
             let chartIndex = 1;
             // console.log(district);
-            
+
             for (let district in per) {
                 // console.log(district);
-                
-                if (district === "total"||district === "training" ) continue; // skip total if needed
-                    var value = per[district];
-                                // console.log(district);
 
-                 let name = district.replace(/_/g, ' ');
+                if (district === "total" || district === "training") continue; // skip total if needed
+                var value = per[district];
+                // console.log(district);
+
+                let name = district.replace(/_/g, ' ');
                 name = name.toUpperCase();
-                    // console.log(name);
-                    
-                result=value.completed;
+                // console.log(name);
+
+                result = value.completed;
                 // console.log(result.completed);
-                
+
                 // Make dynamic options for each chart
                 let options = {
                     series: [result],
@@ -1206,13 +1034,13 @@ ICT
                             gradientToColors: ['#3ccca5']
                         }
                     },
-                    stroke: { dashArray: 4 },
+                    stroke: {dashArray: 4},
                     colors: ['#0d9595'],
                     // labels: ['Balochistan','Sindh','Punjab','Khyber Pakhtunkhwa','Gilgit-Baltistan','Azad Jammu & Kashmir'] // show district name
                     // labels:[name]
-                    labels:[
-                     [ "Completed: "+ completed[name]]
-                       ]
+                    labels: [
+                        ["Completed: " + completed[name]]
+                    ]
                 };
 
                 let chartContainer = document.querySelector("#" + district);
@@ -1225,14 +1053,15 @@ ICT
                 chartIndex++;
             }
         }
-            //Total Sum
-        function totalprogress(){
+
+        //Total Sum
+        function totalprogress() {
             var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
-            var totalCount = sum.completed + sum.ip + sum.total;
+            var totalCount =  sum.total;
             document.getElementById('totalClusterCount').innerText = totalCount;
-           
+
             var options = {
-                series: [sum.completed, sum.ip, sum.total],
+                series: [sum.completed, sum.ip, sum.remaining],
                 chart: {
                     height: 250,
                     type: 'radialBar',
@@ -1261,14 +1090,14 @@ ICT
                             useSeriesColors: true,
                             offsetX: -8,
                             fontSize: '16px',
-                            formatter: function(seriesName, opts) {
+                            formatter: function (seriesName, opts) {
                                 return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
                             },
                         },
                     }
                 },
                 colors: ['#126e5c', '#3b9886', '#446059', '#9dbab3'],
-                labels: [ 'Complete', 'In Progress', 'Pending'],
+                labels: ['Complete', 'In Progress', 'Pending'],
                 responsive: [{
                     breakpoint: 480,
                     options: {
@@ -1293,55 +1122,54 @@ ICT
             const ucsSection = document.getElementById("ucsSection");
             const backButton = document.getElementById("backButton");
             const ucsTitle = document.getElementById("ucsTitle");
-            const ucsCards = document.getElementById("ucsCards");       
-                    
+            const ucsCards = document.getElementById("ucsCards");
+
             // ✅ Example UCS data per district
-          
+
 
             // ✅ Click handler for district cards
             districtCards.forEach(card => {
-               
+
                 // console.log(card);
-                
-                   card.addEventListener("click", () => {
+
+                card.addEventListener("click", () => {
                     // console.log('here');
                     // return false;
                     const district = card.dataset.district;   // Already using
                     const districtId = card.dataset.id;       // NEW → data-id read
 
-                    showUcsSection(districtId,district); // If you want to pass ID instead
+                    showUcsSection(districtId, district); // If you want to pass ID instead
                 });
             });
 
-            
+
             // Page 2  Province-> District with on click on status
             function showUcsSection(districtId, district) {
-               
-               
-               
+
+
                 $.ajax({
                     url: "Data_collection_progress/dc_index/" + districtId,
                     type: "GET",
                     dataType: "json",
                     success: function (response) {
 
-                       
+
                         // Prepare dynamic UCS data
                         const data = [];
                         for (let distName in response.per) {
-                           
+
                             data.push({
                                 name: distName,
                                 progress: response.per[distName].percentage || 0,
                                 completed: response.per[distName].completed || 0,
-                                ongoing: response.ip[distName]|| 0,
-                                remaining: response.r[distName]|| 0
+                                ongoing: response.ip[distName] || 0,
+                                remaining: response.r[distName] || 0
                             });
                         }
 
                         // Sort descending by progress
                         data.sort((a, b) => b.progress - a.progress);
-                         
+
                         // Hide district cards, show UCS section
                         districtCardsSection.classList.add("d-none");
                         ucsSection.classList.remove("d-none");
@@ -1353,11 +1181,9 @@ ICT
                         data.forEach((ucs, index) => {
 
 
+                            id = response.per[ucs.name].id;
+                            //  console.log(ucs);
 
-
-                               id=response.per[ucs.name].id;
-                             //  console.log(ucs);
-                               
                             const ucsCard = document.createElement("div");
                             ucsCard.className = "col";
 
@@ -1407,16 +1233,16 @@ ICT
                                 chart: {
                                     height: 180,
                                     type: 'radialBar',
-                                    sparkline: { enabled: true }
+                                    sparkline: {enabled: true}
                                 },
                                 plotOptions: {
                                     radialBar: {
                                         startAngle: -135,
                                         endAngle: 135,
-                                        hollow: { size: '70%' },
-                                        track: { background: '#f0f0f0' },
+                                        hollow: {size: '70%'},
+                                        track: {background: '#f0f0f0'},
                                         dataLabels: {
-                                            name: { show: false },
+                                            name: {show: false},
                                             value: {
                                                 fontSize: '22px',
                                                 show: true,
@@ -1448,15 +1274,15 @@ ICT
                             const ipEl = ucsCard.querySelector(".progress-ip");
                             if (ipEl) {
                                 ipEl.addEventListener("click", () => {
-                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+                                    const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
 
                                     dashboard_dt(cardId, "ip");
                                 });
                             }
-                              const ipE2 = ucsCard.querySelector(".progress-cp");
+                            const ipE2 = ucsCard.querySelector(".progress-cp");
                             if (ipE2) {
                                 ipE2.addEventListener("click", () => {
-                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+                                    const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
 
                                     dashboard_dt(cardId, "c");
                                 });
@@ -1467,7 +1293,7 @@ ICT
                             const rEl = ucsCard.querySelector(".progress-r");
                             if (rEl) {
                                 rEl.addEventListener("click", () => {
-                                 const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+                                    const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
 
                                     dashboard_dt(cardId, "r");
                                 });
@@ -1498,15 +1324,13 @@ ICT
 
             function dashboard_dt(districtId, status) {
 
-        
-            window.open(
+
+                window.open(
                     "Data_collection_progress/dc_dt?district_id=" + districtId + "&status=" + status,
                     "_blank"
                 );
 
             }
-
-
 
 
             // ✅ Back button functionality
@@ -1554,12 +1378,12 @@ ICT
         }
 
         // Place this script block at the end of your HTML body or in a dedicated JS file
-        function TotalProvince(){
+        function TotalProvince() {
 
             var per = <?php echo json_encode($per, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
             // console.log(per);
-            
-            
+
+
             // let provinces = Object.keys(per);
             // let completedValues = provinces.map(p => per[p].completed);
             let provinces = Object.keys(per).map(name => {
@@ -1571,7 +1395,7 @@ ICT
             });
 
             let completedValues = Object.keys(per).map(p => per[p].completed);
-                //    console.log(completedValues);
+            //    console.log(completedValues);
 
             var options = {
                 series: [{
@@ -1615,7 +1439,7 @@ ICT
                 tooltip: {
                     y: {
                         formatter: function (val) {
-                            return "$ " + val + " thousands";
+                            return val;
                         }
                     }
                 },
@@ -1689,8 +1513,6 @@ ICT
             chart.render();
 
         }
-
-
 
 
     </script>
