@@ -307,6 +307,7 @@ class Card_edit extends CI_controller
             $dataToSave['vac_status'] = $post['vac_status'];
             $dataToSave['image_comments'] = $post['image_comments'];
             $dataToSave['dob_type'] = $post['dob_type'];
+            $dataToSave['vac_admin'] = $post['vac_admin'];
             $dataToSave['createdBy']=$this->encrypt->decode($_SESSION['login']['username']);
             $dataToSave['createddateTime']=date('Y-m-d H:i:s');
             foreach($vaccines as $v){

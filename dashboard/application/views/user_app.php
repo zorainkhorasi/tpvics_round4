@@ -162,7 +162,11 @@
                         </div>
                         <div class="form-group">
                             <label for="designation">Designation: </label>
-                            <input type="text" class="form-control" id="designation" required>
+                            <select class="form-control" id="designation" required>
+                                <option value="0">Select Designation</option>
+                                <option value="Data Collector">Data Collector</option>
+                                <option value="Field Monitor">Field Monitor</option>
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -222,7 +226,11 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_designation">Designation: </label>
-                        <input type="text" class="form-control" id="edit_designation" required>
+                        <select class="form-control" id="edit_designation" required>
+                            <option value="0">Select Designation</option>
+                            <option value="Data Collector">Data Collector</option>
+                            <option value="Field Monitor">Field Monitor</option>
+                        </select>
                     </div>
 
                 </div>
@@ -309,7 +317,7 @@
         </div>
     </div>
 <?php } ?>
-
+<input type="hidden" id="edit_district_v">
 <!-- BEGIN: User Vendor JS-->
 <script src="<?php echo base_url() ?>assets/vendors/js/tables/datatable/pdfmake.min.js"></script>
 <script src="<?php echo base_url() ?>assets/vendors/js/tables/datatable/vfs_fonts.js"></script>
@@ -415,10 +423,14 @@
                     success: function (response) {
                         console.log("Districts: ", response);
 
-                        // Example: Populate district dropdown
+                        let selectedDistrict = $('#edit_district_v').val(); // get saved value
+
                         let html = '<option value="0">Select District</option>';
                         $.each(response, function (i, d) {
-                            html += '<option value="' + d.dist_id + '">' + d.district + '</option>';
+
+                            let selected = (d.dist_id == selectedDistrict) ? 'selected' : '';
+
+                            html += '<option value="' + d.dist_id + '" ' + selected + '>' + d.district + '</option>';
                         });
 
                         $('#edit_district').html(html);
@@ -441,6 +453,9 @@
         data['province'] = $('#province').val();
         data['district'] = $('#district').val();
         data['designation'] = $('#designation').val();
+
+
+
         if (data['fullName'] == '' || data['fullName'] == undefined) {
             $('#fullName').css('border', '1px solid red');
             flag = 1;
@@ -492,6 +507,14 @@
             $('#district').css('border', '1px solid red');
             flag = 1;
             toastMsg('District', 'Invalid District', 'error');
+            return false;
+        }
+
+        //data['designation'] = $('#designation').val();
+        data['field_monitor_YN'] = (data['designation'] === 'Field Monitor') ? 1 : 0;
+        if (data['designation'] == '' || data['designation'] == '0' || data['designation'] == undefined) {
+            $('#designation').css('border', '1px solid red');
+            toastMsg('Designation', 'Please select designation', 'error');
             return false;
         }
         if (flag == 0) {
@@ -565,9 +588,12 @@
                         $('#edit_idUser').val(data['id']);
                         $('#edit_userName').val(a[0]['username']);
                         $('#edit_fullName').val(a[0]['full_name']);
-                        $('#edit_district').val(a[0]['dist_id']);
+                        $('#edit_district_v').val(a[0]['dist_id']);
                         $('#edit_province').val(a[0]['prcode']);
                         $('#edit_designation').val(a[0]['designation']);
+
+                        $('#edit_province').trigger('change');
+
                     } catch (e) {
                     }
                     $('#editModal').modal('show');
@@ -588,6 +614,7 @@
         data['userName'] = $('#edit_userName').val();
         data['district'] = $('#edit_district').val();
         data['designation'] = $('#edit_designation').val();
+        data['field_monitor_YN'] = (data['designation'] === 'Field Monitor') ? 1 : 0;
 
         if (data['idUser'] == '' || data['idUser'] == undefined || data['idUser'].length < 1) {
             flag = 1;
