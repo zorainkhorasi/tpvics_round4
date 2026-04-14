@@ -70,7 +70,7 @@ class Card_edit_two extends CI_controller
             $data['ec'] = $ec;
             $data['dis'] = $dis;
 
-            // echo '<pre>';print_r($data);die;
+            /// echo '<pre>';print_r($data);die;
 
             $this->load->view('include/header');
             $this->load->view('include/top_header');
@@ -180,6 +180,7 @@ class Card_edit_two extends CI_controller
             $dataToSave['vac_status'] = $post['vac_status'];
             $dataToSave['image_comments'] = $post['image_comments'];
             $dataToSave['dob_type'] = $post['dob_type'];
+            $dataToSave['vac_admin'] = $post['vac_admin'];
             $dataToSave['createdBy']=$this->encrypt->decode($_SESSION['login']['username']);
             $dataToSave['createddateTime']=date('Y-m-d H:i:s');
             foreach($vaccines as $v){

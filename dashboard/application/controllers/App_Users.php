@@ -98,6 +98,7 @@ class App_Users extends CI_controller
                 $formArray['pwdExpiry'] = date('Y-m-d', strtotime('+90 days'));
                 $formArray['createdBy'] = $this->encrypt->decode($_SESSION['login']['idUser']);
                 $formArray['createdDateTime'] = date('Y-m-d H:i:s');
+                $formArray['monitor_YN'] = ($_POST['designation'] == 'Field Monitor') ? 1 : 0;
              
                 $InsertData = $Custom->Insert($formArray, 'id', 'AppUser', 'N');
                 if ($InsertData) {
@@ -145,7 +146,7 @@ class App_Users extends CI_controller
             $formArray['pwdExpiry'] = date('Y-m-d', strtotime('+90 days'));
             $formArray['updateBy'] = $this->encrypt->decode($_SESSION['login']['idUser']);
             $formArray['updatedDateTime'] = date('Y-m-d H:i:s');
-
+            $formArray['monitor_YN'] = ($_POST['designation'] == 'Field Monitor') ? 1 : 0;
             $editData = $Custom->Edit($formArray, 'id', $idUser, 'AppUser');
             if ($editData) {
                 $result = 1;

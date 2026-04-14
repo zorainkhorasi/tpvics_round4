@@ -1346,6 +1346,45 @@
                                             >
                                             Cannot Determine
                                         </label>
+                                        <label for="vac_admin" class="form-label" style="margin-top: 10px;">
+                                            Where was the vaccination administered?
+                                        </label>
+
+                                        <label style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="vac_admin"
+                                                id="vac_admin_one"
+                                                value="1"
+                                                <?= (isset($vac_details_edit->vac_admin) && $vac_details_edit->vac_admin == '1') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            Government health facility
+                                        </label>
+
+                                        <label style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="vac_admin"
+                                                id="vac_admin_two"
+                                                value="2"
+                                                <?= (isset($vac_details_edit->vac_admin) && $vac_details_edit->vac_admin == '2') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            Private health facility
+                                        </label>
+
+                                        <label style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="vac_admin"
+                                                id="vac_admin_three"
+                                                value="3"
+                                                <?= (isset($vac_details_edit->vac_admin) && $vac_details_edit->vac_admin == '3') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            Outreach services
+                                        </label>
 
 
 
@@ -1876,6 +1915,15 @@
         }
 
         formData['card_condition'] = card_condition;
+
+
+        let vac_admin = $('input[name="vac_admin"]:checked').val();
+
+        if (!card_condition) {
+            alert("Please select where the vaccination was administered");
+            return false; // stop form submission
+        }
+        formData['vac_admin'] = vac_admin;
 
         $.ajax({
             url: '<?= base_url('index.php/Card_edit/save_vaccines_ajax'); ?>',
