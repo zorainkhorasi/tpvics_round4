@@ -1924,7 +1924,7 @@
 
         let vac_admin = $('input[name="vac_admin"]:checked').val();
 
-        if (!card_condition) {
+        if (!vac_admin) {
             alert("Please select where the vaccination was administered");
             return false; // stop form submission
         }
