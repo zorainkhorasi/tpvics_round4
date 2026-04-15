@@ -158,43 +158,29 @@ class MLinelisting extends CI_Model
 
     /*============================ LineListing Province & District END ============================*/
     /*============================ LineListing Datatable Start ============================*/
-    function get_ll_structures($district, $sub_district = '', $sysdate = '')
+    function get_ll_structures($district)
     {
-        $where = ' 1=1 ' . $this->global_listing_Where;
+        $where = '' ;
         if (isset($district) && $district != '') {
             $where .= " and l.dist_code= '$district' ";
         }
-        /*elseif (isset($sub_district) && $sub_district != '') {
-            $where .= " and l.dist_code = '".substr($sub_district,0,3)."' ";
-        }*/
 
-        if (isset($sysdate) && $sysdate != '') {
-            $where = " and  l.sysdate like '$sysdate%'  ";
-        }
-
-        $sql_query = "SELECT MAX(CAST(l.structure_no AS INT)) as structure,	l.cluster_no,	l.hltab FROM	listings l  WHERE   $where
-        AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
+        $sql_query = "SELECT MAX(CAST(l.structure_no AS INT)) as structure,	l.cluster_no,	l.hltab FROM	listings l  WHERE   
+         (l.colflag is null OR l.colflag = '0' OR l.colflag = 0)  $where
         GROUP BY 	l.hltab,l.cluster_no,l.colflag  ORDER BY	l.hltab ASC";
         $query = $this->db->query($sql_query);
         return $query->result();
 
     }
 
-    function get_ll_res_structures($district, $sub_district = '', $sysdate = '')
+    function get_ll_res_structures($district)
     {
-        $where = $this->global_listing_Where;
-       /* if (isset($district) && $district != '' && $sub_district == '') {
-            $where .= " and SUBSTRING (l.dist_code, 1, 1) = '$district' ";
-        } elseif (isset($sub_district) && $sub_district != '') {
-            $where .= " and l.dist_code = '".substr($sub_district,0,3)."' ";
-        }*/
+        $where = ' ';
         if (isset($district) && $district != '') {
             $where .= " and l.dist_code= '$district' ";
         }
 
-        if (isset($sysdate) && $sysdate != '') {
-            $where = " and  l.sysdate like '$sysdate%'  ";
-        }
+
 
         $sql_query = "SELECT DISTINCT l.structure_no, l.hl02, l.hltab,l.cluster_no FROM listings l WHERE l.hl11 = '1' and hl14 !='Deleted'  
                                                                  AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0)  $where";

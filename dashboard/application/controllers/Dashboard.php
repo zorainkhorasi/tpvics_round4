@@ -507,21 +507,6 @@ class Dashboard extends CI_controller
              
             $MLinelisting = new MLinelisting();
 
-            // $district_cluster_type = $this->uri->segment(3);
-            // $sub_district = '';
-            // $cluster_type = '';
-            // if (!empty($district_cluster_type)) {
-            //     $sub_district_cluster_type = $this->uri->segment(4);
-            //     if (!empty($sub_district_cluster_type)) {
-            //         $sub_district = substr($sub_district_cluster_type, 1, 5);
-            //     }
-            //     $district = substr($district_cluster_type, 1, 3);
-            //     $cluster_type = substr($district_cluster_type, 5, 1);
-            // }
-            // $data['sub_district'] = $sub_district;
-            //    echo "<pre>";
-            //      var_dump($data, $sub_district,$cluster_type);
-            //      exit();
             /*============== Linelisting Data table ==============*/
 
             $data['cluster_type'] = $cluster_type;
@@ -533,8 +518,8 @@ class Dashboard extends CI_controller
                 $get_linelisting_table = $MLinelisting->get_linelisting_table($district, '', $sub_district);
             }
 
-            $get_ll_structures = $MLinelisting->get_ll_structures($district, $sub_district, '');
-            $get_ll_res_structures = $MLinelisting->get_ll_res_structures($district, $sub_district, '');
+            $get_ll_structures = $MLinelisting->get_ll_structures($sub_district);
+            $get_ll_res_structures = $MLinelisting->get_ll_res_structures($sub_district);
 
            // echo '<pre>';print_r($get_ll_res_structures);die;
 
