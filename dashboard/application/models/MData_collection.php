@@ -187,8 +187,10 @@ ORDER BY $orderQ";
 
     function get_randomizedHH($cluster)
     {
-        $sql_query = "select hh02, sno,  (hltab + '-'+ RIGHT(compid, 8)) AS hhno from Randomised 
+        $sql_query = "select hh02, sno,  hhid AS hhno from Randomised 
 where hh02 = '$cluster'  AND (Randomised.colflag is null OR Randomised.colflag = '0') order by cast(sno as int)";
+
+
         $query = $this->db->query($sql_query);
         return $query->result();
     }

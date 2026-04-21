@@ -96,3 +96,27 @@ $db['default'] = array(
     'failover' => array(),
     'save_queries' => TRUE
 );
+
+/*$db['default'] = array(
+    'dsn' => '',
+    'hostname' => 'cls-pae-fp79887',
+    //'hostname' => 'vcoe1',
+    'username' => 'app',
+    'password' => 'abcd1234',
+    'database' => 'tpvics_r3',
+    'dbdriver' => 'sqlsrv',
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    //    'db_debug' => FALSE,
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
+);*/

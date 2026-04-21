@@ -1391,6 +1391,17 @@
                                             >
                                             Outreach services
                                         </label>
+                                        <label style="display: flex; align-items: center; margin: 0; cursor: pointer;">
+                                            <input
+                                                type="radio"
+                                                name="vac_admin"
+                                                id="vac_admin_three"
+                                                value="4"
+                                                <?= (isset($vac_details_edit->vac_admin) && $vac_details_edit->vac_admin == '4') ? 'checked' : '' ?>
+                                                style="margin-right: 5px;"
+                                            >
+                                            Place Of Vaccination Not Mentioned
+                                        </label>
 
 
 
