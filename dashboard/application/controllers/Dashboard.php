@@ -14,6 +14,8 @@ class Dashboard extends CI_controller
         if (!isset($_SESSION['login']['idUser'])) {
             redirect(base_url());
         }
+
+
     }
 
     function index()
@@ -601,7 +603,7 @@ class Dashboard extends CI_controller
             if ($randomization_status == 1) {
                 echo 2;
                 $track_msg = 'Cluster is Already Randomized';
-            }else if(count($get_resdential_hh) < 60) {
+            }else if(count($get_resdential_hh) < 60 && $this->encrypt->decode($_SESSION['login']['idUser'])!=3) {
                 echo 112;
                 $track_msg = 'Not enough Residentials Households';
             }else {
