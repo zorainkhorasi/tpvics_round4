@@ -603,6 +603,7 @@ class Dashboard extends CI_controller
             if ($randomization_status == 1) {
                 echo 2;
                 $track_msg = 'Cluster is Already Randomized';
+                //$this->encrypt->decode($_SESSION['login']['idUser'])!=3  Fro khlaid Bhai speific
             }else if(count($get_resdential_hh) < 60 && $this->encrypt->decode($_SESSION['login']['idUser'])!=3) {
                 echo 112;
                 $track_msg = 'Not enough Residentials Households';

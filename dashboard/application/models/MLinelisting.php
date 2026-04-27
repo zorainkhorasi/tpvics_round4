@@ -194,60 +194,95 @@ class MLinelisting extends CI_Model
     function get_linelisting_table($district, $cluster_type = '', $sub_district = '', $sysdate = '')
     {
         $dist_where = $this->globalWhere;
-        if (! $sub_district == '') {
-            $dist_where .= " and c.dist_id = '$sub_district' ";
-        } 
-     
-        if ((isset($_SESSION['login']['idGroup']) && $this->encrypt->decode($_SESSION['login']['idGroup']) == 1) || $district=='901' ) {
-            $users = '  ';
-        } else {
-            $users = ' and ( l.username NOT IN ( \'dmu@aku\', \'user0001\', \'user0002\', \'test1234\' ) OR l.username IS NULL ) ';
+
+        if ($sub_district != '') {
+            $dist_where .= " AND c.dist_id = '$sub_district' ";
         }
 
-        if (isset($cluster_type) && $cluster_type == 'c') {
-            $users = ' and (l.username not in(\'dmu@aku\',\'user0001\',\'user0002\',\'test1234\'))  ';
-            $cluster_type_where = " and (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) = 
-					(select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8')";
-        } elseif (isset($cluster_type) && $cluster_type == 'ip') {
-            $cluster_type_where = " and (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) != 
-					(select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8')";
-        } elseif (isset($cluster_type) && $cluster_type == 'r') {
-            $cluster_type_where = " and  (select count(distinct deviceid) from listings where cluster_no = l.cluster_no AND (colflag is null OR colflag = '0' OR colflag = 0) )=0 ";
+        // ✅ User filter
+        if ((isset($_SESSION['login']['idGroup']) && $this->encrypt->decode($_SESSION['login']['idGroup']) == 1) || $district == '901') {
+            $users_where = '';
+        } else {
+            $users_where = " AND l.username NOT IN ('dmu@aku','user0001','user0002','test1234')";
+        }
+
+        // ✅ Cluster type filter using aggregated values (IMPORTANT CHANGE)
+        if ($cluster_type == 'c') {
+            $cluster_type_where = " AND ISNULL(la.collecting_tabs,0) = ISNULL(la.completed_tabs,0) AND la.completed_tabs!=0";
+        } elseif ($cluster_type == 'ip') {
+            $cluster_type_where = " AND ISNULL(la.collecting_tabs,0) != ISNULL(la.completed_tabs,0)";
+        } elseif ($cluster_type == 'r') {
+            $cluster_type_where = " AND ISNULL(la.collecting_tabs,0) = 0";
         } else {
             $cluster_type_where = '';
         }
 
-        if (isset($sysdate) && $sysdate != '') {
-            $sysdate_where = " and  l.sysdate like '$sysdate%'  ";
+        // ✅ Sysdate filter
+        if ($sysdate != '') {
+            $sysdate_where = " AND CAST(l.sysdate AS DATE) = '$sysdate' ";
         } else {
             $sysdate_where = '';
         }
 
+        $sql_query = "
+    WITH listings_agg AS ( 
+        SELECT
+            cluster_no,
+            SUM(CASE WHEN hl22a = '1' THEN 1 ELSE 0 END) AS target_children,
+            SUM(CASE
+                    WHEN hl22a = '1' AND hl22 IS NOT NULL AND hl22 <> 'null'
+                        THEN CAST(hl22 AS INT)
+                    ELSE 0
+                END) AS no_of_children,
+            COUNT(DISTINCT deviceid) AS collecting_tabs,
+            COUNT(DISTINCT CASE WHEN hl10 = '8' THEN deviceid END) AS completed_tabs,
+            MIN(CAST(sysdate AS DATETIME)) AS startActivity,
+            MAX(CAST(sysdate AS DATETIME)) AS endActivity
+        FROM listings l
+        WHERE (l.colflag IS NULL OR l.colflag = '0' OR l.colflag = 0)
+        $users_where
+        $sysdate_where
+        GROUP BY cluster_no
+    ),
+    planning_agg AS (
+        SELECT
+            cluster_no,
+            MAX(status) AS planning
+        FROM planning
+        WHERE (colflag IS NULL OR colflag = '0' OR colflag = 0)
+          AND status != 0
+        GROUP BY cluster_no
+    )
 
-        $sql_query = "SELECT c.district, c.province, c.randomized, c.geoarea, c.cluster_no,c.exphh,	c.dist_id ,'App' as data_collected ,   
-            sum(case when hl22a = '1'  then 1 else 0 end) as target_children,
-            (select SUM(CAST(hl22 as int)) from listings where hl22a='1' and (hl22!='null' or hl22 is not null)  and cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) as no_of_children,
-            (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
-            (select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8') as completed_tabs,
-            (select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.cluster_no = l.cluster_no order by ll.sysdate asc) as startActivity,
-            (select top 1 cast (ll.sysdate  as datetime)  from Listings ll where ll.cluster_no = l.cluster_no order by ll.sysdate desc) as endActivity,
-            (select  cc.randomized  from clusters cc where  cluster_no = l.cluster_no  group by cc.cluster_no,cc.randomized  ) as status,
-            ( SELECT p.status FROM planning p WHERE (p.colflag is null OR p.colflag = '0' OR p.colflag = 0) AND p.cluster_no = c.cluster_no and  p.status!=0 group by p.status  ) AS planning 
-                                        from clusters c
-                            left join listings l on c.cluster_no=l.cluster_no  AND (l.colflag is null OR l.colflag = '0' OR l.colflag = 0) 
-                              where   1=1  $users
-                            
-                             AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
-                              $dist_where  $cluster_type_where $sysdate_where
-                            group by  c.district, c.province, c.randomized,c.geoarea,	c.exphh,l.cluster_no,c.cluster_no,  c.dist_id 
-                            order by c.geoarea,c.cluster_no";
-
-
-      // echo $sql_query;die;
+    SELECT
+        c.district,
+        c.province,
+        c.randomized,
+        c.geoarea,
+        c.cluster_no,
+        c.exphh,
+        c.dist_id,
+        'App' AS data_collected,
+        la.target_children,
+        la.no_of_children,
+        la.collecting_tabs,
+        la.completed_tabs,
+        la.startActivity,
+        la.endActivity,
+        c.randomized AS status,
+        pa.planning
+    FROM clusters c
+    LEFT JOIN listings_agg la ON c.cluster_no = la.cluster_no
+    LEFT JOIN planning_agg pa ON c.cluster_no = pa.cluster_no
+    WHERE
+        (c.colflag IS NULL OR c.colflag = '0' OR c.colflag = 0)
+        $dist_where
+        $cluster_type_where
+    ORDER BY c.geoarea, c.cluster_no
+    ";
 
         $query = $this->db->query($sql_query);
         return $query->result();
-
     }
     /*============================ LineListing Datatable END ============================*/
 
@@ -271,7 +306,7 @@ class MLinelisting extends CI_Model
     {
         $sql_query = "select * from listings 
 		where username not in('dmu@aku','user0001','user0002','test1234')
-		and hl11 = '1' and hl22a = '1'  and cluster_no = '$cluster' AND (colflag is null OR colflag = '0' OR colflag = 0)   order by hltab, deviceid, cast(structure_no as int), cast(hl02 as int)";
+		and hl11 = '1' and hl22a = '1'  and cluster_no = '$cluster' AND (colflag is null OR colflag = '0' OR colflag = 0) and hl14 !='Deleted'   order by hltab, deviceid, cast(structure_no as int), cast(hl02 as int)";
         $query = $this->db->query($sql_query);
         return $query->result();
     }

@@ -24,6 +24,20 @@ class Monitoring_progress extends CI_Controller
     {
         $data['partners'] = $this->Monitoring_progress_Model->getDistinct('Partner');
         $data['columns']  = $this->Monitoring_progress_Model->getColumns();
+
+
+        $trackarray = array(
+            "activityName" => "Users",
+            "action" => "View Users -> Function: Monitoring_progress/index()",
+            "result" => "View Users success",
+            "PostData" => "",
+            "affectedKey" => "",
+            "idUser" => $this->encrypt->decode($_SESSION['login']['idUser']),
+            "username" => $this->encrypt->decode($_SESSION['login']['username']),
+        );
+        $Custom = new Custom();
+        $Custom->trackLogs($trackarray, "all_logs");
+
         $this->load->view('include/header');
         $this->load->view('include/top_header');
         $this->load->view('include/sidebar');

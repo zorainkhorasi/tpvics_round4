@@ -24,6 +24,20 @@ class Recall_Status_report extends CI_Controller
     {
         $data['partners'] = $this->Recall_Status_Model->getDistinct('Partner');
         $data['columns']  = $this->Recall_Status_Model->getColumns();
+
+
+        $trackarray = array(
+            "activityName" => "Users",
+            "action" => "View Users -> Function: Recall_Status_report/index()",
+            "result" => "View Users success",
+            "PostData" => "",
+            "affectedKey" => "",
+            "idUser" => $this->encrypt->decode($_SESSION['login']['idUser']),
+            "username" => $this->encrypt->decode($_SESSION['login']['username']),
+        );
+        $Custom = new Custom();
+        $Custom->trackLogs($trackarray, "all_logs");
+
         $this->load->view('include/header');
         $this->load->view('include/top_header');
         $this->load->view('include/sidebar');

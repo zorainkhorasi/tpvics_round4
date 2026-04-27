@@ -23,7 +23,20 @@ class Monitoring_report extends CI_Controller
     public function index()
     {
         $data['partners'] = $this->Monitoring_report_Model->getDistinct('Partner');
-        $data['columns']  = $this->Monitoring_report_Model->getColumns();
+        $data['columns'] = $this->Monitoring_report_Model->getColumns();
+
+        $trackarray = array(
+            "activityName" => "Users",
+            "action" => "View Users -> Function: Monitoring_report/index()",
+            "result" => "View Users success",
+            "PostData" => "",
+            "affectedKey" => "",
+            "idUser" => $this->encrypt->decode($_SESSION['login']['idUser']),
+            "username" => $this->encrypt->decode($_SESSION['login']['username']),
+        );
+        $Custom = new Custom();
+        $Custom->trackLogs($trackarray, "all_logs");
+
         $this->load->view('include/header');
         $this->load->view('include/top_header');
         $this->load->view('include/sidebar');
@@ -35,9 +48,9 @@ class Monitoring_report extends CI_Controller
 
     public function getFilters()
     {
-        $partner   = $this->input->post('Partner');
-        $province  = $this->input->post('Province');
-        $district  = $this->input->post('District');
+        $partner = $this->input->post('Partner');
+        $province = $this->input->post('Province');
+        $district = $this->input->post('District');
 
         $where = [];
 
@@ -53,12 +66,12 @@ class Monitoring_report extends CI_Controller
             $where['District'] = $district;
         }
 
-        $provinceList = $this->Monitoring_report_Model->getDistinct('Province', ['Partner'=>$partner]);
+        $provinceList = $this->Monitoring_report_Model->getDistinct('Province', ['Partner' => $partner]);
         $districtList = $this->Monitoring_report_Model->getDistinct('District', $where);
 
         echo json_encode([
-            'province'    => $provinceList,
-            'district'    => $districtList,
+            'province' => $provinceList,
+            'district' => $districtList,
         ]);
     }
 

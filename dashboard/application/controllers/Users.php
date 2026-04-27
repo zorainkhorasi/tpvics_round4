@@ -27,7 +27,7 @@ class Users extends CI_controller
         $MSettings = new MSettings();
         $data['permission'] = $MSettings->getUserRights($this->encrypt->decode($_SESSION['login']['idGroup']), '', uri_string());
         /*==========Log=============*/
-        $Custom = new Custom();
+            $Custom = new Custom();
         $data['province'] = $Custom->getProvince();
 
 
