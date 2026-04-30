@@ -1176,6 +1176,11 @@
                         ucsTitle.textContent = `${district} - Districts Details`;
                         ucsCards.innerHTML = "";
 
+                        let ipClass = response.permission[0].CanViewAllDetail == 1 ? 'progress-ip' : '';
+                        let rClass = response.permission[0].CanViewAllDetail == 1 ? 'progress-r' : '';
+                        let cpClass = response.permission[0].CanViewAllDetail == 1 ? 'progress-cp' : '';
+                        //let chartClass = response.permission[0].CanViewAllDetail == 1 ? 'progress-c' : '';
+
 
                         // Create UCS cards
                         data.forEach((ucs, index) => {
@@ -1203,17 +1208,17 @@
                                         <div class="status-row">
 
                                             <!-- Ongoing -->
-                                            <span class="badge bg-warning text-dark me-1 progress-ip" style="cursor:pointer;">
+                                            <span class="badge bg-warning text-dark me-1 ${ipClass}" style="cursor:pointer;">
                                                 Ongoing: ${ucs.ongoing}
                                             </span>
 
                                             <!-- Pending -->
-                                            <span class="badge bg-danger progress-r" style="cursor:pointer;">
+                                            <span class="badge bg-danger ${rClass}" style="cursor:pointer;">
                                                 Pending: ${ucs.remaining}
                                             </span>
 
                                              <!-- Completed -->
-                                             <span class="badge bg-primary progress-cp" style="cursor:pointer;">
+                                             <span class="badge bg-primary ${cpClass}" style="cursor:pointer;">
                                                 Completed: ${ucs.completed}
                                             </span>
 
@@ -1264,10 +1269,14 @@
 
                             // Completed (chart click)
                             if (chartEl) {
-                                chartEl.addEventListener("click", () => {
-                                    const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
-                                    dashboard_dt(cardId, "c");
-                                });
+
+
+                                if(response.permission[0].CanViewAllDetail == 1){
+                                    chartEl.addEventListener("click", () => {
+                                        const cardId = ucsCard.querySelector(".dashboard-card").dataset.id;
+                                        dashboard_dt(cardId, "c");
+                                    });
+                                }
                             }
 
                             // Ongoing Click
