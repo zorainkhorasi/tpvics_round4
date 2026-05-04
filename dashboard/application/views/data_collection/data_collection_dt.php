@@ -47,117 +47,56 @@
                             <div class="card-content">
                                 <div class="card-body card-dashboard">
                                     <div class="table-responsive">
-                                        <table class="table table-striped dataex-html5-selectors">
+                                        <table class="table table-bordered">
+
+                                            <!-- ================= THEAD ================= -->
                                             <thead>
                                             <tr>
-                                                <th>Province</th>
-                                                <th>District</th>
-                                                <th>Cluster Number</th>
-                                                <th>Households Randomized</th>
-                                                <th>Households Visited</th>
-                                                <th>Completed</th>
-                                                <th>Refused</th>
-                                                <th>Households with No Elig Child</th>
-                                                <th>Others</th>
-                                                <th>HH with atleast 1 child</th>
-                                                <th>Cluster Status</th>
+                                                <th>Sr #</th> <!-- ✅ Added -->
+                                                <?php if (!empty($get_linelisting_table)): ?>
+                                                    <?php foreach (array_keys((array)$get_linelisting_table[0]) as $col): ?>
+                                                        <th><?= ucwords(str_replace('_', ' ', $col)) ?></th>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </tr>
                                             </thead>
 
+                                            <!-- ================= TBODY ================= -->
                                             <tbody>
-                                            <?php if (isset($get_linelisting_table) && $get_linelisting_table != '') {
-                                                foreach ($get_linelisting_table as $k => $r) {
-                                                    $explode = explode("|", $r->geoarea);
-                                                    $province = ltrim(rtrim($explode[0]));
-                                                    $division = ltrim(rtrim($explode[1]));
+                                            <?php
+                                            $sr = 1; // ✅ counter start
 
-                                                    $p_id = substr($r->dist_code, 0, 1);
-                                                    $d_id = substr($r->dist_code, 0, 3);
+                                            foreach ($get_linelisting_table as $row): ?>
+                                                <tr>
 
-                                                    /*if ($r->randomized_households > 0) {
-                                                        if ($r->one_child == 0) {
-                                                            $status = '<span class="label btn btn-sm btn-info">Pending</span>';
-                                                        } else if ($r->one_child > 0 and $r->one_child < 13) {
-                                                            $status = '<span class="label btn btn-sm btn-primary">In Progress</span>';
+                                                    <td><?= $sr++ ?></td> <!-- ✅ SR number -->
+
+                                                    <?php foreach ($row as $key => $value): ?>
+
+                                                        <?php
+                                                        if ($key == 'Randomised_HH') {
+                                                            echo '<td><a target="_blank" href="'.base_url('index.php/Data_collection_progress/randomized_household/'.$row->cluster_no).'">'.$value.'</a></td>';
+
+                                                        } elseif ($key == 'Visited') {
+                                                            echo '<td><a target="_blank" href="'.base_url('index.php/Data_collection_progress/collected_household/'.$row->cluster_no).'">'.$value.'</a></td>';
+
+                                                        } elseif ($key == 'Completed') {
+                                                            echo '<td><a target="_blank" href="'.base_url('index.php/Data_collection_progress/completed_household/'.$row->cluster_no).'">'.$value.'</a></td>';
+
+                                                        } elseif ($key == 'Refused') {
+                                                            echo '<td><a target="_blank" href="'.base_url('index.php/Data_collection_progress/refused_household/'.$row->cluster_no).'">'.$value.'</a></td>';
+
                                                         } else {
-                                                            $status = '<span class="label btn btn-sm btn-success">Completed</span>';
+                                                            echo '<td>'.$value.'</td>';
                                                         }
-                                                    } else {
-                                                        $status = '<span class="label label-warning btn-sm btn-danger">Not Randomized</span>';
-                                                    }*/
+                                                        ?>
 
-                                                    if ($r->randomized_households > 0) {
-                                                        if ($r->one_child == 0) {
-                                                            $status = '<span class="label btn btn-sm btn-info">Pending</span>';
-                                                        } else if ($r->collected_forms>=13 ) {
-                                                            $status = '<span class="label btn btn-sm btn-success">Completed</span>';
-                                                        } else {
-                                                            $status = '<span class="label btn btn-sm btn-primary">In Progress</span>';
-                                                        }
-                                                    } else {
-                                                        $status = '<span class="label label-warning btn-sm btn-danger">Not Randomized</span>';
-                                                    }
+                                                    <?php endforeach; ?>
 
-                                                    ?>
-                                                    <tr>
-                                                        <td>
-                                                            <!-- <a href="<?php echo base_url('index.php/Data_collection_progress/dc_index/d' . $p_id . '_t'); ?>"> -->
-                                                                <?php echo ucwords(strtolower($r->province)); ?>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <!-- <a href="<?php echo base_url('index.php/Data_collection_progress/dc_index/d' . $p_id . '_t/s' . $d_id . '_t'); ?>"> -->
-                                                                <?php echo ucwords(strtolower($r->district)); ?>
-                                                            </a>
-                                                        </td>
-                                                        <td><?php echo $r->hh02; ?></td>
-                                                        <td>
-                                                            <a href="<?php echo base_url('index.php/Data_collection_progress/randomized_household/' . $r->hh02); ?>"
-                                                               target="_blank">
-                                                                <?php echo $r->randomized_households; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="<?php echo base_url('index.php/Data_collection_progress/collected_household/' . $r->hh02); ?>"
-                                                               target="_blank">
-                                                                <?php echo $r->collected_forms; ?>
-                                                            </a>
-                                                        <td>
-                                                            <a href="<?php echo base_url('index.php/Data_collection_progress/completed_household/' . $r->hh02); ?>"
-                                                               target="_blank">
-                                                                <?php echo $r->completed_forms; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="<?php echo base_url('index.php/Data_collection_progress/refused_household/' . $r->hh02); ?>"
-                                                               target="_blank">
-                                                                <?php echo $r->refused_forms; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td><?php echo $r->not_elig; ?></td>
-                                                        <td><?php echo $r->remaining_forms; ?></td>
-                                                        <td><?php echo(isset($r->one_child) && $r->one_child != '' ? $r->one_child : 0); ?></td>
-                                                        <td><?php echo $status; ?></td>
-                                                    </tr>
-                                                <?php }
-                                            } ?>
+                                                </tr>
+                                            <?php endforeach; ?>
                                             </tbody>
 
-                                            <tfoot>
-                                            <tr>
-                                                <th>Province</th>
-                                                <th>District</th>
-                                                <th>Cluster Number</th>
-                                                <th>Households Randomized</th>
-                                                <th>Households Visited</th>
-                                                <th>Completed</th>
-                                                <th>Refused</th>
-                                                <th>Households with No Elig Child</th>
-                                                <th>Others</th>
-                                                <th>HH with atleast 1 child</th>
-                                                <th>Cluster Status</th>
-                                            </tr>
-                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

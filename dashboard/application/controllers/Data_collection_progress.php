@@ -425,6 +425,7 @@ class Data_collection_progress extends CI_controller
             }
 
             $data['per']=$per;
+           // echo ''
 
             //     echo "<pre>";
             //    var_dump($data['per']);
@@ -474,7 +475,7 @@ class Data_collection_progress extends CI_controller
 
             $MData_collection = new MData_collection();
              $district = $this->input->get('district_id'); // <- here
-                 $cluster_type = $this->input->get('status'); 
+            $cluster_type = $this->input->get('status');
 
             // $district_cluster_type = $this->uri->segment(3);
             // $district = '';
@@ -491,12 +492,27 @@ class Data_collection_progress extends CI_controller
 
         //    echo $cluster_type;die;
 
-            if ($cluster_type == 't' || $cluster_type == 'c' || $cluster_type == 'ip' || $cluster_type == 'r') {
+            /*if ($cluster_type == 't' || $cluster_type == 'c' || $cluster_type == 'ip' || $cluster_type == 'r') {
                 $data['get_linelisting_table'] = $MData_collection->get_data_collection_rand_table($district, $cluster_type, $sub_district='');
             } else {
                 $data['get_linelisting_table'] = $MData_collection->get_data_collection_rand_table($district, 'r', $sub_district='');
+            }*/
+            $filters = [
+                'district' => $this->input->get('district_id'),
+            ];
+            if ($cluster_type == 'c') {
+                $filters['status'] ='Completed' ;
+            }else if ($cluster_type == 'ip') {
+                $filters['status'] ='Ongoing';
+            }else if ($cluster_type == 'r') {
+                $filters['status'] ='Pending';
+            }else{
+                $filters['status']='';
             }
-               
+            $MData_collection = new MData_collection();
+            $data['get_linelisting_table'] = $MData_collection->getDataCollectionProgress($filters);
+
+
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');

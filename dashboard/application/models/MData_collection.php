@@ -185,6 +185,22 @@ ORDER BY $orderQ";
         return $query->result();
     }
 
+    public function getDataCollectionProgress($filters = [])
+    {
+        $this->db->from('data_collection_progress');
+
+        // Optional filters
+        if (!empty($filters['district'])) {
+            $this->db->where('dist_id', $filters['district']);
+        }
+
+        if (!empty($filters['status'])) {
+            $this->db->where('Status', $filters['status']);
+        }
+
+        return $this->db->get()->result();
+    }
+
     function get_randomizedHH($cluster)
     {
         $sql_query = "select hh02, sno,  hhid AS hhno from Randomised 
