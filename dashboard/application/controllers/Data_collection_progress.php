@@ -65,7 +65,7 @@ class Data_collection_progress extends CI_controller
             $data['totalcluster']['list'] = $clusters_by_district;
 
             /*==============Randomization Clusters List==============*/
-            $randomization = $MData_collection->total_rand_clusters($district, $sub_district, $level);
+            /*$randomization = $MData_collection->total_rand_clusters($district, $sub_district, $level);
             $data['randomization']['total'] = 0;
             foreach ($randomization as $key => $val) {
                 foreach ($dist_array as $k => $dist_name) {
@@ -74,7 +74,7 @@ class Data_collection_progress extends CI_controller
                         $data['randomization']['total'] += $val->randomized_c;
                     }
                 }
-            }
+            }*/
 
             /*==============Completed & Pending Clusters List==============*/
             $completedClusters_district = $MData_collection->completed_rand_Clusters_district($district, $sub_district);
@@ -106,14 +106,14 @@ class Data_collection_progress extends CI_controller
 
                    // echo ' == '.$ke.' ==== '.$key." ==== ";
                     if ($ke == $key) {
-                        if ($row->hh_collected >= 13 && $row->sampled==1) {
+                        if ($row->status =='Completed') {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
-                        }elseif($row->hh_collected < 13  &&  $row->hh_collected > 0 && $row->sampled==1) {
+                        }elseif($row->status =='Ongoing') {
                             $data['ip'][$dist_name]++;
                             $data['ip']['total']++;
                         } else {
-                            if( $row->sampled==1 &&  $row->hh_collected == 0){
+                            if( $row->status =='Pending'){
                                 $data['r'][$dist_name]++;
                                 $data['r']['total']++;
                             }
@@ -224,7 +224,7 @@ class Data_collection_progress extends CI_controller
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
             $data['sum']=$sum;
 
-         // echo "<pre>"; print_r($data);  echo "</pre>";   die();
+         //z[ echo "<pre>"; print_r($data);  echo "</pre>";   die();
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -373,15 +373,18 @@ class Data_collection_progress extends CI_controller
             foreach ($completedClusters_district as $row) {
                 $ke = $row->provinceId;
                 foreach ($dist_array as $key => $dist_name) {
+
+
+                    // echo ' == '.$ke.' ==== '.$key." ==== ";
                     if ($ke == $key) {
-                        if ($row->hh_collected >= 13 && $row->sampled==1) {
+                        if ($row->status =='Completed') {
                             $data['completed'][$dist_name]++;
                             $data['completed']['total']++;
-                        }elseif($row->hh_collected < 13  &&  $row->hh_collected > 0 && $row->sampled==1) {
+                        }elseif($row->status =='Ongoing') {
                             $data['ip'][$dist_name]++;
                             $data['ip']['total']++;
                         } else {
-                            if( $row->sampled==1 &&  $row->hh_collected == 0){
+                            if( $row->status =='Pending'){
                                 $data['r'][$dist_name]++;
                                 $data['r']['total']++;
                             }
@@ -511,6 +514,10 @@ class Data_collection_progress extends CI_controller
             }
             $MData_collection = new MData_collection();
             $data['get_linelisting_table'] = $MData_collection->getDataCollectionProgress($filters);
+
+
+
+
 
 
             $this->load->view('include/header');

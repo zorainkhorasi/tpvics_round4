@@ -110,11 +110,16 @@ ORDER BY $orderQ";
             }
 
         }
-        $sql_query = "select $str as provinceId, c.cluster_no, c.sampled,
+           /* $sql_query = "select $str as provinceId, c.cluster_no, c.sampled,
 			(select count(*) from Randomised where dist_id = c.dist_id and hh02 = c.cluster_no  AND (Randomised.colflag is null OR Randomised.colflag = '0')) as hh_randomized,
 			( SELECT 	COUNT (distinct f.hhid)  FROM forms f LEFT JOIN Randomised bl ON f.clustercode = bl.hh02 AND f.hhid = bl.hhid
             WHERE bl.dist_id = c.dist_id AND ( f.colflag IS NULL OR f.colflag = '0' ) AND f.clustercode = c.cluster_no ) AS hh_collected
-			from clusters c where (c.colflag is null OR c.colflag = '0')   $dist_where  order by c.dist_id";
+			from clusters c where (c.colflag is null OR c.colflag = '0')   $dist_where  order by c.dist_id";*/
+
+
+
+
+        $sql_query = "select $str as provinceId,status from data_collection_progress c where 1=1   $dist_where  order by c.dist_id";
            //  echo $sql_query;
           //  die;
             $query = $this->db->query($sql_query);
