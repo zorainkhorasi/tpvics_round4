@@ -218,13 +218,10 @@ class Data_collection_progress extends CI_controller
             $data['inprogress_per']=$inprogressPercentageByProvince;
 
 
-
-
-
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
             $data['sum']=$sum;
 
-         //z[ echo "<pre>"; print_r($data);  echo "</pre>";   die();
+         // echo "<pre>"; print_r($data);  echo "</pre>";   die();
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');

@@ -968,6 +968,158 @@
                     <?php }
                     ?>
 
+                    <?php
+                    if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([7 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="GILGIT-BALTISTAN" data-id="7">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="background: linear-gradient(to right, #38623e 0%, #84e1b9 35%, #c0ddcb 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
+
+                                            <img src="<?php echo base_url('assets/images/gilgitmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">
+                                           GILGIT-BALTISTAN
+                                            <!--                                            --><?php //echo $dist_array[1]; ?>
+                                        </span>
+                                            <span
+                                                class="ps-total-count"><?php echo $per["GILGIT-BALTISTAN"]['total']; ?></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div id="chart2" class="chart-container"></div>
+                                <div class="progress-details">
+                                    <!-- <div class="detail-row completed">
+                                    <div class="icon-label">
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                        <span class="label">Completed</span>
+                                    </div>
+                                    <div class="bar-and-percentage">
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar green" style="width: 75%;"></div>
+                                        </div>
+                                        <span class="percentage"><?php echo $completed["GILGIT-BALTISTAN"]; ?></span>
+                                    </div>
+                                </div> -->
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span
+                                                class="label">In Progress <?php echo $ip["GILGIT-BALTISTAN"]; ?></span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?php echo $per["GILGIT-BALTISTAN"]['pending']; ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["GILGIT-BALTISTAN"]['pending']; ?>%</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending <?php echo $r["GILGIT-BALTISTAN"]; ?></span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?php echo $per["GILGIT-BALTISTAN"]['remaining']; ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["GILGIT-BALTISTAN"]['remaining']; ?>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                    ?>
+
+                    <?php
+                    if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([8 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="background: linear-gradient(to right, #f77c7c 0%, #cfa4a4 35%, #f3cfcf 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
+
+                                            <img src="<?php echo base_url('assets/images/Kashimirmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">
+                                           AZAD JAMMU & KASHMIR
+                                            <!--                                            --><?php //echo $dist_array[1]; ?>
+                                        </span>
+                                            <span
+                                                class="ps-total-count"><?php echo $per["AZAD JAMMU & KASHMIR"]['total']; ?></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div id="chart2" class="chart-container"></div>
+                                <div class="progress-details">
+                                    <!-- <div class="detail-row completed">
+                                    <div class="icon-label">
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                        <span class="label">Completed</span>
+                                    </div>
+                                    <div class="bar-and-percentage">
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar green" style="width: 75%;"></div>
+                                        </div>
+                                        <span class="percentage"><?php echo $completed["AZAD JAMMU & KASHMIR"]; ?></span>
+                                    </div>
+                                </div> -->
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span
+                                                class="label">In Progress <?php echo $ip["AZAD JAMMU & KASHMIR"]; ?></span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?php echo $per["AZAD JAMMU & KASHMIR"]['pending']; ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["AZAD JAMMU & KASHMIR"]['pending']; ?>%</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending <?php echo $r["AZAD JAMMU & KASHMIR"]; ?></span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?php echo $per["AZAD JAMMU & KASHMIR"]['remaining']; ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["AZAD JAMMU & KASHMIR"]['remaining']; ?>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                    ?>
+
 
                 </div>
                 <div id="ucsSection" class="d-none">

@@ -185,9 +185,7 @@ class Dashboard extends CI_controller
 
           //  echo $this->encrypt->decode($_SESSION['login']['prcode']);die;
 
-              /*echo "<pre>";
-              print_r($data);
-              echo "</pre>";die;*/
+           //  echo "<pre>"; print_r($data);  echo "</pre>";die;
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');

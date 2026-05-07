@@ -925,8 +925,128 @@
                             </div>
                         </div>
                     <?php } ?>
+                    <?php if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([7 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                        <div class="col">
+                            <div class="dashboard-card" data-district="GILGIT-BALTISTAN" data-id="7">
+                                <div class="ps-header-container">
+                                    <div
+                                        style="background: linear-gradient(to right, #38623e 0%, #84e1b9 35%, #c0ddcb 70%, #ffffff 100%);"
+                                        class="ps-state-info-bar">
+                                        <div class="ps-map-icon-wrapper">
 
-                    ?>
+                                            <img src="<?php echo base_url('assets/images/gilgitmap.png'); ?>"
+                                                 alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                        </div>
+                                        <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">
+                                       GILGIT-BALTISTAN
+                                        </span>
+                                            <span
+                                                class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div id="khyber_pakhtunkhwa" class="chart-container"></div>
+                                <div class="progress-details">
+
+                                    <div class="detail-row on-going">
+                                        <div class="icon-label">
+                                            <i class="bi bi-arrow-repeat text-warning"></i>
+                                            <span class="label">In Progress</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar orange"
+                                                     style="width: <?= $per["gilgit_baltistan"]['inprogress'] ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["gilgit_baltistan"]['inprogress']; ?>%</span>
+                                        </div>
+                                    </div7
+                                    <div class="detail-row remaining">
+                                        <div class="icon-label">
+                                            <i class="bi bi-pause-circle-fill text-danger"></i>
+                                            <span class="label">Pending</span>
+                                        </div>
+                                        <div class="bar-and-percentage">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar red"
+                                                     style="width: <?= $per["gilgit_baltistan"]['remaining'] ?>%;"></div>
+                                            </div>
+                                            <span
+                                                class="percentage"><?php echo $per["gilgit_baltistan"]['remaining']; ?>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                            <?php if ($this->encrypt->decode($_SESSION['login']['idGroup']) == 1 || array_intersect_key([8 => true], array_flip(explode(',', $this->encrypt->decode($_SESSION['login']['prcode']))))) { ?>
+                            <div class="col">
+                                <div class="dashboard-card" data-district="AZAD JAMMU & KASHMIR" data-id="8">
+                                    <div class="ps-header-container">
+                                        <div
+                                            style="background: linear-gradient(to right, #f77c7c 0%, #cfa4a4 35%, #f3cfcf 70%, #ffffff 100%);"
+                                            class="ps-state-info-bar">
+                                            <div class="ps-map-icon-wrapper">
+
+                                                <img src="<?php echo base_url('assets/images/Kashimirmap.png'); ?>"
+                                                     alt="Map of India Icon" class="ps-dummy-map-image">
+
+                                            </div>
+                                            <div class="ps-state-name-wrapper">
+                                        <span class="ps-state-name">
+                                       AZAD JAMMU & KASHMIR
+                                        </span>
+                                                <span
+                                                    class="ps-total-count"><?php echo $totalcluster["list"][0]['clusters_by_district']; ?></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div id="khyber_pakhtunkhwa" class="chart-container"></div>
+                                    <div class="progress-details">
+
+                                        <div class="detail-row on-going">
+                                            <div class="icon-label">
+                                                <i class="bi bi-arrow-repeat text-warning"></i>
+                                                <span class="label">In Progress</span>
+                                            </div>
+                                            <div class="bar-and-percentage">
+                                                <div class="progress-bar-container">
+                                                    <div class="progress-bar orange"
+                                                         style="width: <?= $per["azad_jammu_and_kashmir"]['inprogress'] ?>%;"></div>
+                                                </div>
+                                                <span
+                                                    class="percentage"><?php echo $per["azad_jammu_and_kashmir"]['inprogress']; ?>%</span>
+                                            </div>
+                                            </div7
+                                            <div class="detail-row remaining">
+                                                <div class="icon-label">
+                                                    <i class="bi bi-pause-circle-fill text-danger"></i>
+                                                    <span class="label">Pending</span>
+                                                </div>
+                                                <div class="bar-and-percentage">
+                                                    <div class="progress-bar-container">
+                                                        <div class="progress-bar red"
+                                                             style="width: <?= $per["azad_jammu_and_kashmir"]['remaining'] ?>%;"></div>
+                                                    </div>
+                                                    <span
+                                                        class="percentage"><?php echo $per["azad_jammu_and_kashmir"]['remaining']; ?>%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+
+
                 </div>
                 <div id="ucsSection" class="d-none">
                     <div class="col-12 d-flex justify-content-between align-items-center">
