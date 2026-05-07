@@ -47,7 +47,7 @@
                             <div class="card-content">
                                 <div class="card-body card-dashboard">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered dataex-html5-selectors">
 
                                             <!-- ================= THEAD ================= -->
                                             <thead>
