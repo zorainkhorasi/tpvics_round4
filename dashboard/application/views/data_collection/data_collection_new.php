@@ -667,7 +667,9 @@
                         <div class="chart-block cluster-chart-block">
                             <h4 class="block-title">
                                 Overview: <span style="font-size: 21px;
-    color: #00796b; " id="totalClusterCount">0</span>
+                                color: #00796b; " id="totalClusterCount">
+                                <?php echo $totalcluster['total']; ?>    
+                            </span>
                             </h4>
 
                             <div id="totalclusterchart"></div>
@@ -695,7 +697,7 @@
                                             ?>
                                         </span>
                                             <span
-                                                class="ps-total-count"><?php echo $totalcluster["list"][0]['clusters_by_district']; ?></span>
+                                                class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
                                         </div>
                                     </div>
 
@@ -758,7 +760,7 @@
                                             echo $dist_array[3];
                                             ?></span>
                                             <span
-                                                class="ps-total-count"><?php echo $totalcluster["list"][3]['clusters_by_district']; ?></span>
+                                                class="ps-total-count"><?php echo $totalcluster["list"][5]['clusters_by_district']; ?></span>
                                         </div>
                                     </div>
 
@@ -820,7 +822,7 @@
                                             echo $dist_array[2];
                                             ?></span>
                                             <span
-                                                class="ps-total-count"><?php echo $totalcluster["list"][2]['clusters_by_district']; ?></span>
+                                                class="ps-total-count"><?php echo $totalcluster["list"][4]['clusters_by_district']; ?></span>
                                         </div>
                                     </div>
 
@@ -883,7 +885,7 @@
                                         KPK
                                         </span>
                                             <span
-                                                class="ps-total-count"><?php echo $totalcluster["list"][1]['clusters_by_district']; ?></span>
+                                                class="ps-total-count"><?php echo $totalcluster["list"][3]['clusters_by_district']; ?></span>
                                         </div>
                                     </div>
 
@@ -1178,7 +1180,8 @@
         function totalprogress() {
             var sum = <?php echo json_encode($sum, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
             var totalCount =  sum.total;
-            document.getElementById('totalClusterCount').innerText = totalCount;
+            
+            // document.getElementById('totalClusterCount').innerText = totalCount;
 
             var options = {
                 series: [sum.completed, sum.ip, sum.remaining],

@@ -669,7 +669,9 @@
                         <div class="chart-block cluster-chart-block">
                             <h4 class="block-title">
                                 Overview <span style="font-size: 21px;
-    color: #00796b; " id="totalClusterCount">0</span>
+                                color: #00796b; " id="totalClusterCount">
+                                <?php echo $totalcluster['total']; ?>    
+                            </span>
                             </h4>
 
 
@@ -1256,7 +1258,7 @@
             var totalCount = sum.completed + sum.ip + sum.total;
 
             // ✅ UPDATE HEADING HERE
-            document.getElementById('totalClusterCount').innerText = totalCount;
+            // document.getElementById('totalClusterCount').innerText = totalCount;
             var options = {
                 series: [sum.completed, sum.ip, sum.total],
                 chart: {

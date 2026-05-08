@@ -86,13 +86,17 @@ class Dashboard extends CI_controller
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
 
-            //echo '<pre>';print_r($totalClusters_district);die;
+            // echo '<pre>';print_r($totalClusters_district);die;
 
             $totalcluster = 0;
             foreach ($totalClusters_district as $k => $r) {
                 $myTotalArray = array();
                 $myTotalArray['clusters_by_district'] = $r->clusters_by_district;
-                $totalcluster = $totalcluster + $r->clusters_by_district;
+
+                if($r->my_name != 'TEST'){
+                     $totalcluster = $totalcluster + $r->clusters_by_district;
+                }   
+               
 
                 $myTotalArray['id'] = $r->my_id;
                 foreach ($dist_array as $key => $dist_name) {
@@ -103,12 +107,13 @@ class Dashboard extends CI_controller
                 }
                 $clusters_by_district[] = $myTotalArray;
             }
+                        //  echo "<pre>"; print_r($totalcluster);  echo "</pre>";   die();
 
             $data['totalcluster']['total'] = $totalcluster;
             $data['totalcluster']['list'] = $clusters_by_district;
 
 
-            // echo '<pre>';print_r($totalClusters_district);exit;
+            // echo '<pre>';print_r($data);exit;
 
             /*==============Completed Clusters List==============*/
             $completedClusters_district = $MLinelisting->completedClusters_district($district, $sub_district, $level);
