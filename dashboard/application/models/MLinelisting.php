@@ -140,7 +140,7 @@ class MLinelisting extends CI_Model
             $dist_where .= "and c.dist_id IN ($districts_sql)";
         }
 //       where l.username not in('dmu@aku','user0001','user0002','test1234') AND
-        $sql_query = "select c.geoarea,c.cluster_no,c.district, l.cluster_no, $str AS provinceId,
+        $sql_query = "select c.cluster_no,c.district, l.cluster_no, $str AS provinceId,
 			(select count(distinct deviceid) from listings where cluster_no = l.cluster_no    AND (colflag is null OR colflag = '0' OR colflag = 0)) as collecting_tabs,
 			(select count(distinct deviceid) from listings where cluster_no = l.cluster_no  AND (colflag is null OR colflag = '0' OR colflag = 0) AND hl10='8') as completed_tabs
 			from clusters c
@@ -148,10 +148,10 @@ class MLinelisting extends CI_Model
 			where (l.colflag is null OR l.colflag = '0' OR l.colflag = 0)  
 			 AND (c.colflag is null OR c.colflag = '0' OR c.colflag = 0)
 			$dist_where
-			group by c.district,c.cluster_no,c.geoarea, l.cluster_no,c.dist_id,$str 
-			order by c.geoarea,l.cluster_no asc ";
-          /*   echo $sql_query;
-             die;*/
+			group by c.district,c.cluster_no, l.cluster_no,c.dist_id,$str 
+			order by l.cluster_no asc ";
+           //  echo $sql_query;
+             //die;
         $query = $this->db->query($sql_query);
         return $query->result();
     }
@@ -258,7 +258,7 @@ class MLinelisting extends CI_Model
         c.district,
         c.province,
         c.randomized,
-        c.geoarea,
+      
         c.cluster_no,
         c.exphh,
         c.dist_id,
@@ -278,7 +278,7 @@ class MLinelisting extends CI_Model
         (c.colflag IS NULL OR c.colflag = '0' OR c.colflag = 0)
         $dist_where
         $cluster_type_where
-    ORDER BY c.geoarea, c.cluster_no
+    ORDER BY  c.cluster_no
     ";
 
         $query = $this->db->query($sql_query);

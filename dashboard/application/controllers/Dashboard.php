@@ -368,6 +368,8 @@ class Dashboard extends CI_controller
 
             $MLinelisting = new MLinelisting();
             $getClustersProvince = $MLinelisting->getClustersProvince($district, $sub_district, $level);
+            
+           // echo 1;die;
 
             $dist_array = array();
             foreach ($getClustersProvince as $v) {
