@@ -47,11 +47,16 @@ class Data_collection_progress extends CI_controller
 
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
+                                //    echo "<pre>"; print_r($totalClusters_district);  echo "</pre>";   die();
+
             $totalcluster = 0;
             foreach ($totalClusters_district as $k => $r) {
                 $myTotalArray = array();
                 $myTotalArray['clusters_by_district'] = $r->clusters_by_district;
-                $totalcluster = $totalcluster + $r->clusters_by_district;
+              
+                if ($r->my_name != 'TEST') {
+                    $totalcluster += $r->clusters_by_district;
+                }
                 $myTotalArray['id'] = $r->my_id;
                 foreach ($dist_array as $key => $dist_name) {
                     if ($key == $r->my_id) {
@@ -61,7 +66,10 @@ class Data_collection_progress extends CI_controller
                 }
                 $clusters_by_district[] = $myTotalArray;
             }
+                    //    echo "<pre>"; print_r($totalcluster);  echo "</pre>";   die();
+
             $data['totalcluster']['total'] = $totalcluster;
+                //    echo "<pre>"; print_r( $data['totalcluster']['total']);  echo "</pre>";   die();
             $data['totalcluster']['list'] = $clusters_by_district;
 
             /*==============Randomization Clusters List==============*/
@@ -221,7 +229,7 @@ class Data_collection_progress extends CI_controller
             $sum=$this->calculateTotal($data['completed'],$data['ip'],$data['r']);
             $data['sum']=$sum;
 
-         // echo "<pre>"; print_r($data);  echo "</pre>";   die();
+        //  echo "<pre>"; print_r($data);  echo "</pre>";   die();
             $this->load->view('include/header');
             $this->load->view('include/top_header');
             $this->load->view('include/sidebar');
@@ -316,7 +324,9 @@ class Data_collection_progress extends CI_controller
 
             /*==============Total Clusters List==============*/
             $totalClusters_district = $MLinelisting->totalClusters_district($district, $sub_district, $level);
+               
             $totalcluster = 0;
+            
             foreach ($totalClusters_district as $k => $r) {
                 $dist = $r->my_id;
                 $distPro = $r->my_name;
@@ -328,6 +338,10 @@ class Data_collection_progress extends CI_controller
                 }
                 $clusters_by_district[$distPro]['id'] = $dist;
             }
+
+            //         echo "<pre>";
+            //    var_dump($totalcluster);
+            //     die();
 
             $data['totalcluster']['total'] = $totalcluster;
             $data['totalcluster']['list'] = $clusters_by_district;
