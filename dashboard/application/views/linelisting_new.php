@@ -997,7 +997,7 @@
                                 </div>
 
 
-                                <div id="chart2" class="chart-container"></div>
+                                <div id="GILGIT-BALTISTAN" class="chart-container"></div>
                                 <div class="progress-details">
                                     <!-- <div class="detail-row completed">
                                     <div class="icon-label">
@@ -1073,7 +1073,7 @@
                                 </div>
 
 
-                                <div id="chart2" class="chart-container"></div>
+                                <div id="chart111" class="chart-container"></div>
                                 <div class="progress-details">
                                     <!-- <div class="detail-row completed">
                                     <div class="icon-label">
@@ -1234,7 +1234,7 @@
                 if (district === "KHYBER PAKHTUNKHWA") {
                     chartId = "chart2";
                 } else if (district === "AZAD JAMMU & KASHMIR") {
-                    chartId = "chart1";
+                    chartId = "chart111";
                 } else {
                     chartId = district; // fallback to district name if no mapping
                 }
